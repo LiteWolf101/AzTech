@@ -1,0 +1,51 @@
+Symbol range map extraction starting
+Processing 1 files
+startProcessing "com\example\examplemod\ExampleMod.java" md5: ad74a1961a0cb79c5bce83ee95afc687
+@|com\example\examplemod\ExampleMod.java|8|30|com.example.examplemod|package|com.example.examplemod|(file)
+Class Start: com.example.examplemod.ExampleMod
+   @|com\example\examplemod\ExampleMod.java|343|346|Mod|class|net.minecraftforge.fml.common.Mod
+   @|com\example\examplemod\ExampleMod.java|347|352|modid|method|net.minecraftforge.fml.common.Mod|modid|()Ljava/lang/String;
+   @|com\example\examplemod\ExampleMod.java|355|365|ExampleMod|class|com.example.examplemod.ExampleMod
+   @|com\example\examplemod\ExampleMod.java|366|371|MODID|field|com.example.examplemod.ExampleMod|MODID
+   @|com\example\examplemod\ExampleMod.java|373|377|name|method|net.minecraftforge.fml.common.Mod|name|()Ljava/lang/String;
+   @|com\example\examplemod\ExampleMod.java|380|390|ExampleMod|class|com.example.examplemod.ExampleMod
+   @|com\example\examplemod\ExampleMod.java|391|395|NAME|field|com.example.examplemod.ExampleMod|NAME
+   @|com\example\examplemod\ExampleMod.java|397|404|version|method|net.minecraftforge.fml.common.Mod|version|()Ljava/lang/String;
+   @|com\example\examplemod\ExampleMod.java|407|417|ExampleMod|class|com.example.examplemod.ExampleMod
+   @|com\example\examplemod\ExampleMod.java|418|425|VERSION|field|com.example.examplemod.ExampleMod|VERSION
+   @|com\example\examplemod\ExampleMod.java|440|450|ExampleMod|class|com.example.examplemod.ExampleMod
+   @|com\example\examplemod\ExampleMod.java|477|483|String|class|java.lang.String
+   @|com\example\examplemod\ExampleMod.java|477|483|String|class|java.lang.String
+   @|com\example\examplemod\ExampleMod.java|484|489|MODID|field|com.example.examplemod.ExampleMod|MODID|
+   @|com\example\examplemod\ExampleMod.java|530|536|String|class|java.lang.String
+   @|com\example\examplemod\ExampleMod.java|530|536|String|class|java.lang.String
+   @|com\example\examplemod\ExampleMod.java|537|541|NAME|field|com.example.examplemod.ExampleMod|NAME|
+   @|com\example\examplemod\ExampleMod.java|583|589|String|class|java.lang.String
+   @|com\example\examplemod\ExampleMod.java|583|589|String|class|java.lang.String
+   @|com\example\examplemod\ExampleMod.java|590|597|VERSION|field|com.example.examplemod.ExampleMod|VERSION|
+   @|com\example\examplemod\ExampleMod.java|627|633|Logger|class|org.apache.logging.log4j.Logger
+   @|com\example\examplemod\ExampleMod.java|627|633|Logger|class|org.apache.logging.log4j.Logger
+   @|com\example\examplemod\ExampleMod.java|634|640|logger|field|com.example.examplemod.ExampleMod|logger|
+   Method Start: preInit(Lnet/minecraftforge/fml/common/event/FMLPreInitializationEvent;)V
+      @|com\example\examplemod\ExampleMod.java|711|716|event|param|com.example.examplemod.ExampleMod|preInit|(Lnet/minecraftforge/fml/common/event/FMLPreInitializationEvent;)V|event|0
+      @|com\example\examplemod\ExampleMod.java|648|660|EventHandler|class|net.minecraftforge.fml.common.Mod.EventHandler
+      @|com\example\examplemod\ExampleMod.java|677|684|preInit|method|com.example.examplemod.ExampleMod|preInit|(Lnet/minecraftforge/fml/common/event/FMLPreInitializationEvent;)V
+      @|com\example\examplemod\ExampleMod.java|685|710|FMLPreInitializationEvent|class|net.minecraftforge.fml.common.event.FMLPreInitializationEvent
+      @|com\example\examplemod\ExampleMod.java|732|738|logger|field|com.example.examplemod.ExampleMod|logger
+      @|com\example\examplemod\ExampleMod.java|741|746|event|param|com.example.examplemod.ExampleMod|preInit|(Lnet/minecraftforge/fml/common/event/FMLPreInitializationEvent;)V|event|0
+      @|com\example\examplemod\ExampleMod.java|747|756|getModLog|method|net.minecraftforge.fml.common.event.FMLPreInitializationEvent|getModLog|()Lorg/apache/logging/log4j/Logger;
+   Method End: preInit(Lnet/minecraftforge/fml/common/event/FMLPreInitializationEvent;)V
+   Method Start: init(Lnet/minecraftforge/fml/common/event/FMLInitializationEvent;)V
+      @|com\example\examplemod\ExampleMod.java|829|834|event|param|com.example.examplemod.ExampleMod|init|(Lnet/minecraftforge/fml/common/event/FMLInitializationEvent;)V|event|0
+      @|com\example\examplemod\ExampleMod.java|772|784|EventHandler|class|net.minecraftforge.fml.common.Mod.EventHandler
+      @|com\example\examplemod\ExampleMod.java|801|805|init|method|com.example.examplemod.ExampleMod|init|(Lnet/minecraftforge/fml/common/event/FMLInitializationEvent;)V
+      @|com\example\examplemod\ExampleMod.java|806|828|FMLInitializationEvent|class|net.minecraftforge.fml.common.event.FMLInitializationEvent
+      @|com\example\examplemod\ExampleMod.java|879|885|logger|field|com.example.examplemod.ExampleMod|logger
+      @|com\example\examplemod\ExampleMod.java|886|890|info|method|org.apache.logging.log4j.Logger|info|(Ljava/lang/String;Ljava/lang/Object;)V
+      @|com\example\examplemod\ExampleMod.java|911|917|Blocks|class|net.minecraft.init.Blocks
+      @|com\example\examplemod\ExampleMod.java|918|922|DIRT|field|net.minecraft.init.Blocks|DIRT
+      @|com\example\examplemod\ExampleMod.java|923|938|getRegistryName|method|net.minecraftforge.registries.IForgeRegistryEntry|getRegistryName|()Lnet/minecraft/util/ResourceLocation;
+   Method End: init(Lnet/minecraftforge/fml/common/event/FMLInitializationEvent;)V
+Class End  : com.example.examplemod.ExampleMod
+endProcessing "com\example\examplemod\ExampleMod.java"
+
