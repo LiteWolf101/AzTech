@@ -1,0 +1,8 @@
+#English Lang File for AzTech Mod
+#Use this symbol for colored text:(§)
+
+#Items
+item.aztech_badge.name=AzTech Badge
+
+#Creative Tab
+itemGroup.aztech=§eAzTech
