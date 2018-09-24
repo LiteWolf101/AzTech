@@ -1,5 +1,6 @@
 package litewolf101.aztech.utils.handlers;
 
+import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.init.ItemsInit;
 import litewolf101.aztech.utils.IHasModel;
 import net.minecraft.block.Block;
@@ -21,6 +22,11 @@ public class RegistryHandler {
     }
 
     @SubscribeEvent
+    public static void onBlockRegister(RegistryEvent.Register<Block> event) {
+        event.getRegistry().registerAll(BlocksInit.BLOCKS.toArray(new Block[0]));
+    }
+
+    @SubscribeEvent
     public static void onModelRegister(ModelRegistryEvent event) {
         for (Item item : ItemsInit.ITEMS) {
             if(item instanceof IHasModel) {
@@ -28,10 +34,10 @@ public class RegistryHandler {
             }
         }
 
-        //for (Block block : BlocksInit.BLOCKS) {
-        //    if (block instanceof IHasModel) {
-        //        ((IHasModel)block).registerModels();
-        //    }
-        //}
+        for (Block block : BlocksInit.BLOCKS) {
+            if (block instanceof IHasModel) {
+                ((IHasModel)block).registerModels();
+            }
+        }
     }
 }

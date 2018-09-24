@@ -1,6 +1,5 @@
 package litewolf101.aztech.proxy;
 
-import litewolf101.aztech.objects.items.ItemBase;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -20,5 +19,13 @@ public class CommonProxy {
     }
 
     public void registerItemRenderer(Item item, int meta, String id) {
+    }
+
+    public void registerVariantRenderer(Item item, int meta, String filename, String id) {
+    }
+
+    public void RegisterTileEntityRender(){}
+
+    public void registerTileEntities(){
     }
 }

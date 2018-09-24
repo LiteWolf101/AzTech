@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "stone_type=normal": {"model": "aztech:temple_stone_normal"},
+    "stone_type=bricks": {"model": "aztech:temple_stone_bricks"},
+    "stone_type=bricks_chiseled": {"model": "aztech:temple_stone_bricks_chiseled"},
+    "stone_type=bricks_cracked": {"model": "aztech:temple_stone_bricks_cracked"}
+  }
+}

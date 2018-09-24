@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "rune_color=red": {"model": "aztech:red_rune_ore"},
+    "rune_color=yellow": {"model": "aztech:yellow_rune_ore"},
+    "rune_color=green": {"model": "aztech:green_rune_ore"},
+    "rune_color=blue": {"model": "aztech:blue_rune_ore"},
+    "rune_color=white": {"model": "aztech:white_rune_ore"},
+    "rune_color=black": {"model": "aztech:black_rune_ore"}
+  }
+}
