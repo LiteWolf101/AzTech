@@ -6,8 +6,9 @@ import litewolf101.aztech.init.ItemsInit;
 import litewolf101.aztech.objects.blocks.item.ItemBlockVariants;
 import litewolf101.aztech.utils.IHasModel;
 import litewolf101.aztech.utils.IMetaName;
-import litewolf101.aztech.utils.handlers.EnumRuneColor;
+import litewolf101.aztech.utils.handlers.EnumEmpowerType;
 import litewolf101.aztech.utils.handlers.EnumStage;
+import litewolf101.aztech.utils.handlers.EnumTempleStoneType;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -16,36 +17,37 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.*;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 /**
- * Created by LiteWolf101 on 9/21/2018.
+ * Created by LiteWolf101 on 9/24/2018.
  */
-public class BlockSlaughtiveRune extends Block implements IHasModel, IMetaName{
-    public static final PropertyEnum<EnumStage.EnumType> STAGE = PropertyEnum.<EnumStage.EnumType>create("stage", EnumStage.EnumType.class);
-    public BlockSlaughtiveRune(String name, Material material) {
+public class EmpowerRune extends Block implements IHasModel, IMetaName{
+    public static final PropertyEnum<EnumEmpowerType.EnumType> EMPOWER_TYPE = PropertyEnum.<EnumEmpowerType.EnumType>create("empower_type", EnumEmpowerType.EnumType.class);
+    public EmpowerRune(String name, Material material) {
         super(material);
         setUnlocalizedName(name);
         setRegistryName(name);
         setSoundType(SoundType.STONE);
         setCreativeTab(AzTech.CREATIVE_TAB);
-        setDefaultState(this.blockState.getBaseState().withProperty(STAGE, EnumStage.EnumType.STAGE_0));
+        setDefaultState(this.blockState.getBaseState().withProperty(EMPOWER_TYPE, EnumEmpowerType.EnumType.HOSTILE));
         setHarvestLevel("pickaxe", 1);
         setHardness(2f);
         setTickRandomly(true);
@@ -63,37 +65,40 @@ public class BlockSlaughtiveRune extends Block implements IHasModel, IMetaName{
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         this.randomDisplayTick(state,worldIn, pos, rand);
         worldIn.scheduleUpdate(pos, this, 20);
-        changeStateFromCustomCondition(worldIn, state, pos);
+        giveEffect(worldIn, state, pos);
     }
 
     @Override
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
         worldIn.scheduleUpdate(pos, this, 20);
-        changeStateFromCustomCondition(worldIn, state, pos);
+        giveEffect(worldIn, state, pos);
     }
 
     @Override
     public int damageDropped(IBlockState state) {
-        return 0;
+        return ((EnumEmpowerType.EnumType)state.getValue(EMPOWER_TYPE)).getMeta();
     }
 
     @Override
     public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
-        items.add(new ItemStack(this, 1, 0));
-        //this is done on purpose because only the first stage should show in the creative tab yet all the meta still exists
+
+        for(EnumEmpowerType.EnumType empowerType$enumtype : EnumEmpowerType.EnumType.values()) {
+
+            items.add(new ItemStack(this, 1, empowerType$enumtype.getMeta()));
+        }
     }
 
     @Override
     @SuppressWarnings("deprecation")
     public IBlockState getStateFromMeta(int meta) {
 
-        return this.getDefaultState().withProperty(STAGE, EnumStage.EnumType.byMetadata(meta));
+        return this.getDefaultState().withProperty(EMPOWER_TYPE, EnumEmpowerType.EnumType.byMetadata(meta));
     }
 
     @Override
     public int getMetaFromState(IBlockState state) {
 
-        return ((EnumStage.EnumType)state.getValue(STAGE)).getMeta();
+        return ((EnumEmpowerType.EnumType)state.getValue(EMPOWER_TYPE)).getMeta();
     }
 
     @Override
@@ -105,54 +110,42 @@ public class BlockSlaughtiveRune extends Block implements IHasModel, IMetaName{
     @Override
     protected BlockStateContainer createBlockState() {
 
-        return new BlockStateContainer(this, new IProperty[] {STAGE});
+        return new BlockStateContainer(this, new IProperty[] {EMPOWER_TYPE});
     }
-    private final List<EntitySlime> dedslime = new ArrayList<EntitySlime>();
 
-    public void changeStateFromCustomCondition(World world, IBlockState state, BlockPos pos){
-        int newState = this.turnStateToInt(world, pos);
-        boolean hasBeenAttacked = false;
+    @Override
+    public void registerModels() {
+        for(int i = 0; i < EnumEmpowerType.EnumType.values().length; i++)
+        {
+            AzTech.proxy.registerVariantRenderer(Item.getItemFromBlock(this), i, EnumEmpowerType.EnumType.values()[i].getName() + "_empower_rune", "inventory");
+        }
+    }
+
+    @Override
+    public String getSpecialName(ItemStack stack) {
+        return EnumEmpowerType.EnumType.values()[stack.getItemDamage()].getName();
+    }
+
+    public void giveEffect(World world, IBlockState state, BlockPos pos){
         double x = pos.getX();
         double y = pos.getY();
         double z = pos.getZ();
 
         AxisAlignedBB detectbb = new AxisAlignedBB(pos, pos.add(1, 1, 1)).grow(5D, 1D, 5D);
         List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, detectbb);
-        List<EntitySlime> aboutToBeDedStuff = world.getEntitiesWithinAABB(EntitySlime.class, detectbb);
-        for (EntitySlime slime : aboutToBeDedStuff) {
-            if (slime.deathTime > 0) {
-                dedslime.add(slime);
+        for (EntityLivingBase entity : entities) {
+            if (world.getBlockState(pos) == state.withProperty(EMPOWER_TYPE, EnumEmpowerType.EnumType.HOSTILE)){
+                if (entity instanceof IMob) {
+                    entity.addPotionEffect(new PotionEffect(Potion.getPotionById(5), 40, 2));
+                }
+            }
+            if (world.getBlockState(pos) == state.withProperty(EMPOWER_TYPE, EnumEmpowerType.EnumType.FRIENDLY)){
+                if (entity instanceof EntityPlayer) {
+                    entity.addPotionEffect(new PotionEffect(Potion.getPotionById(5), 40, 2));
+                }
             }
         }
-
-        int power = Math.min(6, dedslime.size());
-        world.setBlockState(pos, state.withProperty(STAGE, EnumStage.EnumType.byMetadata(power)));
     }
-
-    public IBlockState getStateFromInt(World world, BlockPos pos, int state){
-        state = this.turnStateToInt(world, pos);
-        return getStateFromMeta(state);
-    }
-
-    public int turnStateToInt(World world, BlockPos pos){
-        int currentState = 0;
-        IBlockState thisBlock = world.getBlockState(pos);
-        if (thisBlock.getValue(STAGE) == EnumStage.EnumType.STAGE_1) {
-            currentState = 1;
-        } else if (thisBlock.getValue(STAGE) == EnumStage.EnumType.STAGE_2) {
-            currentState = 2;
-        } else if (thisBlock.getValue(STAGE) == EnumStage.EnumType.STAGE_3) {
-            currentState = 3;
-        } else if (thisBlock.getValue(STAGE) == EnumStage.EnumType.STAGE_4) {
-            currentState = 4;
-        } else if (thisBlock.getValue(STAGE) == EnumStage.EnumType.STAGE_5) {
-            currentState = 5;
-        } else if (thisBlock.getValue(STAGE) == EnumStage.EnumType.STAGE_6) {
-            currentState = 6;
-        } else return 0;
-        return currentState;
-    }
-    //TODO make this a tile entity
 
     @Override
     public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
@@ -169,24 +162,5 @@ public class BlockSlaughtiveRune extends Block implements IHasModel, IMetaName{
         worldIn.spawnParticle(EnumParticleTypes.REDSTONE, x, y, z - 5, 0, 0, 0);
         worldIn.spawnParticle(EnumParticleTypes.REDSTONE, x + 5, y, z - 5, 0, 0, 0);
         worldIn.spawnParticle(EnumParticleTypes.REDSTONE, x + 5, y, z, 0, 0, 0);
-        if(worldIn.getBlockState(pos) == stateIn.withProperty(STAGE, EnumStage.EnumType.STAGE_6)){
-            worldIn.playSound(null, x, y, z, SoundEvents.BLOCK_NOTE_CHIME, SoundCategory.BLOCKS, 0.5f, 2f);
-            worldIn.spawnParticle(EnumParticleTypes.REDSTONE, (x - 0.5) + random , y, (z - 0.5) + random1 , 0, 0.1D, 0);
-        }
-    }
-
-
-
-    @Override
-    public void registerModels() {
-        for(int i = 0; i < EnumStage.EnumType.values().length; i++)
-        {
-            AzTech.proxy.registerVariantRenderer(Item.getItemFromBlock(this), i, "slaughtive_rune_" + EnumStage.EnumType.values()[i].getName(), "inventory");
-        }
-    }
-
-    @Override
-    public String getSpecialName(ItemStack stack) {
-        return EnumStage.EnumType.values()[stack.getItemDamage()].getName();
     }
 }
