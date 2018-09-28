@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "aztech:blocks/keyhole_rune_inactive"
+  }
+}

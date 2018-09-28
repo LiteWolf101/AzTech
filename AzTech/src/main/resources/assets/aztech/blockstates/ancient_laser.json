@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "facing=north": {"model": "aztech:ancient_laser", "x": 90},
+    "facing=east": {"model": "aztech:ancient_laser", "x": 90, "y": 90},
+    "facing=south": {"model": "aztech:ancient_laser", "x":90, "y": 180},
+    "facing=west": {"model": "aztech:ancient_laser", "x":90, "y": -90},
+    "facing=up": {"model": "aztech:ancient_laser"},
+    "facing=down": {"model": "aztech:ancient_laser", "x":180}
+  }
+}

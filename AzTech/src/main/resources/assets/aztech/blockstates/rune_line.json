@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "activation_state=inactive": {"model": "aztech:rune_line_inactive"},
+    "activation_state=active": {"model": "aztech:rune_line_active"}
+  }
+}

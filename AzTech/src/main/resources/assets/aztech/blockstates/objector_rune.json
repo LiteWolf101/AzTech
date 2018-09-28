@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "activated=false,facing=north": {"model": "aztech:objector_rune_inactive", "x": 90},
+    "activated=false,facing=east": {"model": "aztech:objector_rune_inactive", "x": 90, "y": 90},
+    "activated=false,facing=south": {"model": "aztech:objector_rune_inactive", "x":90, "y": 180},
+    "activated=false,facing=west": {"model": "aztech:objector_rune_inactive", "x":90, "y": -90},
+    "activated=false,facing=up": {"model": "aztech:objector_rune_inactive"},
+    "activated=false,facing=down": {"model": "aztech:objector_rune_inactive", "x":180},
+    "activated=true,facing=north": {"model": "aztech:objector_rune_active", "x": 90},
+    "activated=true,facing=east": {"model": "aztech:objector_rune_active", "x": 90, "y": 90},
+    "activated=true,facing=south": {"model": "aztech:objector_rune_active", "x":90, "y": 180},
+    "activated=true,facing=west": {"model": "aztech:objector_rune_active", "x":90, "y": -90},
+    "activated=true,facing=up": {"model": "aztech:objector_rune_active"},
+    "activated=true,facing=down": {"model": "aztech:objector_rune_active", "x":180}
+  }
+}

@@ -6,7 +6,6 @@ import litewolf101.aztech.init.ItemsInit;
 import litewolf101.aztech.objects.blocks.item.ItemBlockVariants;
 import litewolf101.aztech.utils.IHasModel;
 import litewolf101.aztech.utils.IMetaName;
-import litewolf101.aztech.utils.handlers.EnumRuneColor;
 import litewolf101.aztech.utils.handlers.EnumTempleStoneType;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;

@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "aztech:blocks/rune_line_active"
+  }
+}
