@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "activated=false,facing=north": {"model": "aztech:ancient_laser", "x": 90},
+    "activated=false,facing=east": {"model": "aztech:ancient_laser", "x": 90, "y": 90},
+    "activated=false,facing=south": {"model": "aztech:ancient_laser", "x":90, "y": 180},
+    "activated=false,facing=west": {"model": "aztech:ancient_laser", "x":90, "y": -90},
+    "activated=false,facing=up": {"model": "aztech:ancient_laser"},
+    "activated=false,facing=down": {"model": "aztech:ancient_laser", "x":180},
+    "activated=true,facing=north": {"model": "aztech:ancient_laser_active", "x": 90},
+    "activated=true,facing=east": {"model": "aztech:ancient_laser_active", "x": 90, "y": 90},
+    "activated=true,facing=south": {"model": "aztech:ancient_laser_active", "x":90, "y": 180},
+    "activated=true,facing=west": {"model": "aztech:ancient_laser_active", "x":90, "y": -90},
+    "activated=true,facing=up": {"model": "aztech:ancient_laser_active"},
+    "activated=true,facing=down": {"model": "aztech:ancient_laser_active", "x":180}
+  }
+}

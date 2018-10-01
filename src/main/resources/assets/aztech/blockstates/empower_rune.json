@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "empower_type=hostile": {"model": "aztech:hostile_empower_rune"},
+    "empower_type=friendly": {"model": "aztech:friendly_empower_rune"}
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "activation_state=inactive": {"model": "aztech:r_to_r_translator_inactive"},
+    "activation_state=active": {"model": "aztech:r_to_r_translator_active"}
+  }
+}

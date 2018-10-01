@@ -1,0 +1,82 @@
+#English Lang File for AzTech Mod
+#Use this symbol for colored text:(§)
+
+#Items
+item.aztech_badge.name=AzTech Badge
+
+item.red_rune_shard.name=Red Rune Shard
+item.yellow_rune_shard.name=Yellow Rune Shard
+item.green_rune_shard.name=Green Rune Shard
+item.blue_rune_shard.name=Blue Rune Shard
+item.white_rune_shard.name=White Rune Shard
+item.black_rune_shard.name=Black Rune Shard
+
+#Blocks
+tile.rune_ore_red.name=Red Rune Ore
+tile.rune_ore_yellow.name=Yellow Rune Ore
+tile.rune_ore_green.name=Green Rune Ore
+tile.rune_ore_blue.name=Blue Rune Ore
+tile.rune_ore_white.name=White Rune Ore
+tile.rune_ore_black.name=Black Rune Ore
+
+tile.temple_stone_normal.name=§6Temple Stone
+tile.temple_stone_bricks.name=§6Temple Stone Bricks
+tile.temple_stone_bricks_chiseled.name=§6Temple Stone Bricks Chiseled
+tile.temple_stone_bricks_cracked.name=§6Temple Stone Bricks Cracked
+
+tile.slaughtive_rune_stage_0.name=§cSlaughtive Rune(WIP)
+
+tile.empower_rune_hostile.name=§cEmpower Rune
+tile.empower_rune_friendly.name=§9Empower Rune
+
+tile.ancient_stone.name=Ancient Stone
+tile.ancient_cobblestone.name=Ancient Cobblestone
+tile.ancient_dry_mud.name=Ancient Dry Mud
+tile.ancient_rock.name=Ancient Rock
+tile.ancient_bedrock.name=Ancient Bedrock
+tile.ancient_chiseled_bricks.name=Ancient Chiseled Bricks
+tile.ancient_bricks.name=Ancient Bricks
+tile.ancient_muddy_bricks.name=Ancient Muddy Bricks
+
+tile.detector_rune_inactive.name=§cDetector Rune(WIP)
+tile.detector_rune_active.name=§cDetector Rune(WIP)
+
+tile.ancient_dirt.name=Ancient Dirt
+tile.ancient_grass.name=Ancient Grass
+
+tile.ancient_laser_down.name=§cAncient Laser(WIP)
+
+tile.enemy_emitter_rune.name=§cEnemy Emitter Rune
+
+tile.lantern_north.name=§6Lantern
+
+tile.objector_rune_down.name=§cObjector Rune(WIP)
+
+tile.insertive_rune_down.name=§cInsertive Rune(WIP)
+
+tile.keyhole_rune_inactive.name=§cKeyhole Rune(WIP)
+
+tile.door_rune.name=§cDoor Rune(WIP)
+
+tile.rune_line_inactive.name=§cRune Line(WIP)
+
+tile.r_to_r_translator_inactive.name=§cRedstone->Rune Translator(WIP)
+
+tile.rune_block_red.name=Red Rune Block
+tile.rune_block_yellow.name=Yellow Rune Block
+tile.rune_block_green.name=Green Rune Block
+tile.rune_block_blue.name=Blue Rune Block
+tile.rune_block_white.name=White Rune Block
+tile.rune_block_black.name=Black Rune Block
+
+tile.temple_rune_block_red.name=§6Red Temple Rune Block
+tile.temple_rune_block_yellow.name=§6Yellow Temple Rune Block
+tile.temple_rune_block_green.name=§6Green Temple Rune Block
+tile.temple_rune_block_blue.name=§6Blue Temple Rune Block
+tile.temple_rune_block_white.name=§6White Temple Rune Block
+tile.temple_rune_block_black.name=§6Black Temple Rune Block
+
+
+
+#Creative Tab
+itemGroup.aztech=§eAzTech
