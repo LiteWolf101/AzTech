@@ -4,10 +4,12 @@ import litewolf101.aztech.AzTech;
 import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.init.ItemsInit;
 import litewolf101.aztech.objects.blocks.item.ItemBlockVariants;
+import litewolf101.aztech.tileentity.TETempleRuneBlock;
 import litewolf101.aztech.utils.IHasModel;
 import litewolf101.aztech.utils.IMetaName;
 import litewolf101.aztech.utils.handlers.EnumRuneColor;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockContainer;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -18,62 +20,39 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import java.util.Random;
+import javax.annotation.Nullable;
 
 /**
- * Created by LiteWolf101 on 9/21/2018.
+ * Created by LiteWolf101 on 9/29/2018.
  */
-public class BlockRuneOre extends Block implements IHasModel, IMetaName {
+public class TempleRuneBlock extends BlockContainer implements IHasModel, IMetaName{
     public static final PropertyEnum<EnumRuneColor.EnumType> RUNE_COLOR = PropertyEnum.<EnumRuneColor.EnumType>create("rune_color", EnumRuneColor.EnumType.class);
-    public BlockRuneOre(String name, Material material) {
+    public TempleRuneBlock(String name, Material material) {
         super(material);
         setUnlocalizedName(name);
         setRegistryName(name);
         setSoundType(SoundType.STONE);
         setCreativeTab(AzTech.CREATIVE_TAB);
         setDefaultState(this.blockState.getBaseState().withProperty(RUNE_COLOR, EnumRuneColor.EnumType.RED));
-        setHarvestLevel("pickaxe", 2);
-        setHardness(2f);
+        setHarvestLevel("pickaxe", 3);
+        setHardness(4f);
+        setLightLevel(0.5f);
 
         BlocksInit.BLOCKS.add(this);
         ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));
     }
 
-    //@Override
-    //public int damageDropped(IBlockState state) {
-    //    return ((EnumRuneColor.EnumType)state.getValue(RUNE_COLOR)).getMeta();
-    //}
-
-
     @Override
-    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        Item item = null;
-        switch ((EnumRuneColor.EnumType)state.getValue(RUNE_COLOR)){
-            case YELLOW:
-                item = ItemsInit.YELLOW_RUNE_SHARD;
-                break;
-            case GREEN:
-                item = ItemsInit.GREEN_RUNE_SHARD;
-                break;
-            case BLUE:
-                item = ItemsInit.BLUE_RUNE_SHARD;
-                break;
-            case WHITE:
-                item = ItemsInit.WHITE_RUNE_SHARD;
-                break;
-            case BLACK:
-                item = ItemsInit.BLACK_RUNE_SHARD;
-                break;
-            default:
-                item = ItemsInit.RED_RUNE_SHARD;
-        }
-        return item;
+    public int damageDropped(IBlockState state) {
+        return ((EnumRuneColor.EnumType)state.getValue(RUNE_COLOR)).getMeta();
     }
 
     @Override
@@ -110,18 +89,45 @@ public class BlockRuneOre extends Block implements IHasModel, IMetaName {
         return new BlockStateContainer(this, new IProperty[] {RUNE_COLOR});
     }
 
+    @Override
+    @SuppressWarnings("deprecation")
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
 
+    @Override
+    public BlockRenderLayer getBlockLayer() {
+        return BlockRenderLayer.CUTOUT;
+    }
+
+    @Override
+    @SuppressWarnings("deprecation")
+    public boolean isFullCube(IBlockState state) {
+        return false;
+    }
 
     @Override
     public void registerModels() {
         for(int i = 0; i < EnumRuneColor.EnumType.values().length; i++)
         {
-            AzTech.proxy.registerVariantRenderer(Item.getItemFromBlock(this), i, EnumRuneColor.EnumType.values()[i].getName() + "_rune_ore", "inventory");
+            AzTech.proxy.registerVariantRenderer(Item.getItemFromBlock(this), i, EnumRuneColor.EnumType.values()[i].getName() + "_temple_rune_block", "inventory");
         }
     }
 
     @Override
     public String getSpecialName(ItemStack stack) {
         return EnumRuneColor.EnumType.values()[stack.getItemDamage()].getName();
+    }
+
+    @Override
+    public EnumBlockRenderType getRenderType(IBlockState state)
+    {
+        return EnumBlockRenderType.MODEL;
+    }
+
+    @Nullable
+    @Override
+    public TileEntity createNewTileEntity(World worldIn, int meta) {
+        return new TETempleRuneBlock();
     }
 }

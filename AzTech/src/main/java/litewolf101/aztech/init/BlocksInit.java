@@ -39,4 +39,5 @@ public class BlocksInit {
     public static final Block RUNE_LINE = new RuneLine("rune_line", Material.CIRCUITS);
     public static final Block R2R_TRANSLATOR = new R2RTranslator("r_to_r_translator", Material.ROCK);
     public static final Block RUNE_BLOCK = new RuneBlock("rune_block", Material.ROCK);
+    public static final Block TEMPLE_RUNE_BLOCK = new TempleRuneBlock("temple_rune_block", Material.ROCK);
 }
