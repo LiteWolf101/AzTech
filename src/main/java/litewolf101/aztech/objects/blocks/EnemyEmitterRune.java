@@ -4,18 +4,16 @@ import litewolf101.aztech.AzTech;
 import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.init.ItemsInit;
 import litewolf101.aztech.utils.IHasModel;
-import litewolf101.aztech.utils.IMetaName;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockFurnace;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -70,6 +68,7 @@ public class EnemyEmitterRune extends Block implements IHasModel{
         EntityZombie zombie = new EntityZombie(worldIn);
         zombie.setLocationAndAngles(pos.getX() + (double)randx, pos.getY() + 1, pos.getZ() + (double)randz, 0, 0);
         worldIn.spawnEntity(zombie);
+        worldIn.playSound(null, zombie.posX, zombie.posY, zombie.posZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.BLOCKS, 1f, 1f);
     }
 
     @Override

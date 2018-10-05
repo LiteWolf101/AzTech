@@ -1,11 +1,12 @@
 package litewolf101.aztech.objects.blocks.render;
 
 import litewolf101.aztech.objects.blocks.TempleRuneBlock;
-import litewolf101.aztech.objects.blocks.model.*;
+import litewolf101.aztech.objects.blocks.model.ModelRuneCore;
 import litewolf101.aztech.tileentity.TETempleRuneBlock;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 import org.lwjgl.opengl.GL11;
 
 /**
@@ -23,11 +24,12 @@ public class RenderTempleRuneCore extends TileEntitySpecialRenderer<TETempleRune
     @Override
     public void render(TETempleRuneBlock te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
         long angle = (System.currentTimeMillis() / 50) % 360;
+        long height = (System.currentTimeMillis() / 50) % 60;
         IBlockState state = te.getWorld().getBlockState(te.getPos());
 
         GL11.glPushMatrix();
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        GL11.glTranslatef((float)x+0.25f,(float)y+0.25f,(float)z+0.25f);
+        GL11.glTranslatef((float)x+0.25f,(float)y+0.25f + (0.1f*MathHelper.sin(height*0.106f)),(float)z+0.25f);
         GL11.glScalef(0.5f, 0.5f, 0.5f);
         GL11.glRotatef(angle, 1F, 1F, 1F);
         switch (state.getValue(TempleRuneBlock.RUNE_COLOR)){

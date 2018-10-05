@@ -4,11 +4,10 @@ import litewolf101.aztech.AzTech;
 import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.init.ItemsInit;
 import litewolf101.aztech.objects.blocks.item.ItemBlockVariants;
-import litewolf101.aztech.tileentity.TESlaughtiveRune;
+import litewolf101.aztech.tileentity.*;
 import litewolf101.aztech.utils.IHasModel;
 import litewolf101.aztech.utils.IMetaName;
 import litewolf101.aztech.utils.handlers.EnumStage;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -17,25 +16,18 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -56,17 +48,6 @@ public class BlockSlaughtiveRune extends BlockContainer implements IHasModel, IM
 
         BlocksInit.BLOCKS.add(this);
         ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));
-    }
-
-    @Override
-    public int tickRate(World worldIn) {
-        return 20;
-    }
-
-    @Override
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-        this.randomDisplayTick(state,worldIn, pos, rand);
-        worldIn.scheduleUpdate(pos, this, 20);
     }
 
     @Override
@@ -128,7 +109,6 @@ public class BlockSlaughtiveRune extends BlockContainer implements IHasModel, IM
         worldIn.spawnParticle(EnumParticleTypes.REDSTONE, x + 5, y, z - 5, 0, 0, 0);
         worldIn.spawnParticle(EnumParticleTypes.REDSTONE, x + 5, y, z, 0, 0, 0);
         if(worldIn.getBlockState(pos) == stateIn.withProperty(STAGE, EnumStage.EnumType.STAGE_6)){
-            worldIn.playSound(null, x, y, z, SoundEvents.BLOCK_NOTE_CHIME, SoundCategory.BLOCKS, 0.5f, 2f);
             worldIn.spawnParticle(EnumParticleTypes.REDSTONE, (x - 0.5) + random , y, (z - 0.5) + random1 , 0, 0.1D, 0);
         }
     }
@@ -154,6 +134,20 @@ public class BlockSlaughtiveRune extends BlockContainer implements IHasModel, IM
     @Nullable
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return new TESlaughtiveRune();
+        if (meta == 0){
+            return new TESlaughtiveRune0();
+        } else if (meta == 1){
+            return new TESlaughtiveRune1();
+        } else if (meta == 2){
+            return new TESlaughtiveRune2();
+        } else if (meta == 3){
+            return new TESlaughtiveRune3();
+        } else if (meta == 4){
+            return new TESlaughtiveRune4();
+        } else if (meta == 5){
+            return new TESlaughtiveRune5();
+        } else if (meta == 6){
+            return new TESlaughtiveRune6();
+        } else return null;
     }
 }

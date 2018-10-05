@@ -4,9 +4,11 @@ import litewolf101.aztech.AzTech;
 import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.init.ItemsInit;
 import litewolf101.aztech.objects.blocks.item.ItemBlockVariants;
+import litewolf101.aztech.tileentity.TEObjectorRune;
 import litewolf101.aztech.utils.IHasModel;
 import litewolf101.aztech.utils.IMetaName;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockContainer;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -18,16 +20,20 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
+
 /**
  * Created by LiteWolf101 on 9/27/2018.
  */
-public class ObjectorRune extends Block implements IHasModel, IMetaName {
+public class ObjectorRune extends BlockContainer implements IHasModel, IMetaName {
     public static final PropertyDirection FACING = PropertyDirection.create("facing");
     public static final PropertyBool ACTIVATED = PropertyBool.create("activated");
     public ObjectorRune(String name, Material material) {
@@ -96,6 +102,10 @@ public class ObjectorRune extends Block implements IHasModel, IMetaName {
         return new BlockStateContainer(this, new IProperty[] {FACING, ACTIVATED});
     }
 
+    @Override
+    public EnumBlockRenderType getRenderType(IBlockState state) {
+        return EnumBlockRenderType.MODEL;
+    }
 
     @Override
     public void registerModels() {
@@ -105,5 +115,11 @@ public class ObjectorRune extends Block implements IHasModel, IMetaName {
     @Override
     public String getSpecialName(ItemStack stack) {
         return EnumFacing.values()[stack.getItemDamage()].getName();
+    }
+
+    @Nullable
+    @Override
+    public TileEntity createNewTileEntity(World world, int i) {
+        return new TEObjectorRune();
     }
 }

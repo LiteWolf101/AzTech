@@ -24,7 +24,7 @@ tile.temple_stone_bricks.name=§6Temple Stone Bricks
 tile.temple_stone_bricks_chiseled.name=§6Temple Stone Bricks Chiseled
 tile.temple_stone_bricks_cracked.name=§6Temple Stone Bricks Cracked
 
-tile.slaughtive_rune_stage_0.name=§cSlaughtive Rune(WIP)
+tile.slaughtive_rune_stage_0.name=§cSlaughtive Rune
 
 tile.empower_rune_hostile.name=§cEmpower Rune
 tile.empower_rune_friendly.name=§9Empower Rune
@@ -38,13 +38,13 @@ tile.ancient_chiseled_bricks.name=Ancient Chiseled Bricks
 tile.ancient_bricks.name=Ancient Bricks
 tile.ancient_muddy_bricks.name=Ancient Muddy Bricks
 
-tile.detector_rune_inactive.name=§cDetector Rune(WIP)
-tile.detector_rune_active.name=§cDetector Rune(WIP)
+tile.detector_rune_inactive.name=§cDetector Rune
+tile.detector_rune_active.name=§cDetector Rune
 
 tile.ancient_dirt.name=Ancient Dirt
 tile.ancient_grass.name=Ancient Grass
 
-tile.ancient_laser_down.name=§cAncient Laser(WIP)
+tile.ancient_laser_down.name=§cAncient Laser
 
 tile.enemy_emitter_rune.name=§cEnemy Emitter Rune
 
@@ -52,15 +52,15 @@ tile.lantern_north.name=§6Lantern
 
 tile.objector_rune_down.name=§cObjector Rune(WIP)
 
-tile.insertive_rune_down.name=§cInsertive Rune(WIP)
+tile.insertive_rune_down.name=§cInsertive Rune(NYI)
 
-tile.keyhole_rune_inactive.name=§cKeyhole Rune(WIP)
+tile.keyhole_rune_inactive.name=§cKeyhole Rune(NYI)
 
-tile.door_rune.name=§cDoor Rune(WIP)
+tile.door_rune.name=§cDoor Rune(NYI)
 
 tile.rune_line_inactive.name=§cRune Line(WIP)
 
-tile.r_to_r_translator_inactive.name=§cRedstone->Rune Translator(WIP)
+tile.r_to_r_translator_inactive.name=§cRedstone->Rune Translator
 
 tile.rune_block_red.name=Red Rune Block
 tile.rune_block_yellow.name=Yellow Rune Block

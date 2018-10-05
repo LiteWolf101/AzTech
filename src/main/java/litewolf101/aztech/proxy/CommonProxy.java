@@ -1,7 +1,6 @@
 package litewolf101.aztech.proxy;
 
-import litewolf101.aztech.tileentity.TESlaughtiveRune;
-import litewolf101.aztech.tileentity.TETempleRuneBlock;
+import litewolf101.aztech.tileentity.*;
 import litewolf101.aztech.utils.Reference;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -32,6 +31,15 @@ public class CommonProxy {
 
     public void registerTileEntities(){
         GameRegistry.registerTileEntity(TETempleRuneBlock.class, Reference.MODID + ":te_temple_rune_block");
-        GameRegistry.registerTileEntity(TESlaughtiveRune.class, Reference.MODID + ":te_slaughtive_rune");
+        GameRegistry.registerTileEntity(TESlaughtiveRune0.class, Reference.MODID + ":te_slaughtive_rune_0");
+        GameRegistry.registerTileEntity(TESlaughtiveRune1.class, Reference.MODID + ":te_slaughtive_rune_1");
+        GameRegistry.registerTileEntity(TESlaughtiveRune2.class, Reference.MODID + ":te_slaughtive_rune_2");
+        GameRegistry.registerTileEntity(TESlaughtiveRune3.class, Reference.MODID + ":te_slaughtive_rune_3");
+        GameRegistry.registerTileEntity(TESlaughtiveRune4.class, Reference.MODID + ":te_slaughtive_rune_4");
+        GameRegistry.registerTileEntity(TESlaughtiveRune5.class, Reference.MODID + ":te_slaughtive_rune_5");
+        GameRegistry.registerTileEntity(TESlaughtiveRune6.class, Reference.MODID + ":te_slaughtive_rune_6");
+        GameRegistry.registerTileEntity(TEAncientLaser.class, Reference.MODID + ":te_ancient_laser");
+        GameRegistry.registerTileEntity(TERuneLine.class, Reference.MODID + ":te_rune_line");
+        GameRegistry.registerTileEntity(TEObjectorRune.class, Reference.MODID + ":te_objector_rune");
     }
 }

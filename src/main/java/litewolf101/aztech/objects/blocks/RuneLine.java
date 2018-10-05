@@ -4,10 +4,11 @@ import litewolf101.aztech.AzTech;
 import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.init.ItemsInit;
 import litewolf101.aztech.objects.blocks.item.ItemBlockVariants;
+import litewolf101.aztech.tileentity.TERuneLine;
 import litewolf101.aztech.utils.IHasModel;
 import litewolf101.aztech.utils.IMetaName;
 import litewolf101.aztech.utils.handlers.EnumRuneState;
-import net.minecraft.block.Block;
+import net.minecraft.block.BlockContainer;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -18,16 +19,20 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
+
 /**
  * Created by LiteWolf101 on 9/28/2018.
  */
-public class RuneLine extends Block implements IHasModel, IMetaName{
+public class RuneLine extends BlockContainer implements IHasModel, IMetaName{
     public static final PropertyEnum<EnumRuneState.EnumType> ACTIVATION = PropertyEnum.<EnumRuneState.EnumType>create("activation_state", EnumRuneState.EnumType.class);
     public RuneLine(String name, Material material) {
         super(material);
@@ -58,6 +63,11 @@ public class RuneLine extends Block implements IHasModel, IMetaName{
         items.add(new ItemStack(this, 1, 0));
         //this is done on purpose because only the first stage should show in the creative tab yet all the meta still exists
     }
+    @Override
+    public EnumBlockRenderType getRenderType(IBlockState state) {
+        return EnumBlockRenderType.MODEL;
+    }
+
 
     @Override
     @SuppressWarnings("deprecation")
@@ -91,5 +101,11 @@ public class RuneLine extends Block implements IHasModel, IMetaName{
     @Override
     public String getSpecialName(ItemStack stack) {
         return EnumRuneState.EnumType.values()[stack.getItemDamage()].getName();
+    }
+
+    @Nullable
+    @Override
+    public TileEntity createNewTileEntity(World world, int i) {
+        return new TERuneLine();
     }
 }

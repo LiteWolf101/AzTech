@@ -19,16 +19,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import org.omg.PortableInterceptor.ACTIVE;
 
 import java.util.Random;
-
-import static litewolf101.aztech.objects.blocks.AncientLaser.ACTIVATED;
 
 /**
  * Created by LiteWolf101 on 9/28/2018.
@@ -62,20 +58,10 @@ public class R2RTranslator extends Block implements IHasModel,IMetaName{
             if (!worldIn.isBlockPowered(pos))
             {
                 worldIn.setBlockState(pos, BlocksInit.R2R_TRANSLATOR.getDefaultState().withProperty(ACTIVATION, EnumRuneState.EnumType.INACTIVE), 3);
-                for (EnumFacing enumfacing : EnumFacing.values())
-                {
-                    worldIn.notifyNeighborsOfStateChange(pos.offset(enumfacing), this, false);
-                    //worldIn.scheduleBlockUpdate(pos.offset(enumfacing), this, 4, 1);
-                }
             }
             else if (worldIn.isBlockPowered(pos))
             {
                 worldIn.setBlockState(pos, BlocksInit.R2R_TRANSLATOR.getDefaultState().withProperty(ACTIVATION, EnumRuneState.EnumType.ACTIVE), 3);
-                for (EnumFacing enumfacing : EnumFacing.values())
-                {
-                    worldIn.notifyNeighborsOfStateChange(pos.offset(enumfacing), this, false);
-                    //worldIn.scheduleBlockUpdate(pos.offset(enumfacing), this, 4, 1);
-                }
             }
         }
     }
@@ -88,20 +74,10 @@ public class R2RTranslator extends Block implements IHasModel,IMetaName{
             if (!worldIn.isBlockPowered(pos))
             {
                 worldIn.setBlockState(pos, BlocksInit.R2R_TRANSLATOR.getDefaultState().withProperty(ACTIVATION, EnumRuneState.EnumType.INACTIVE), 3);
-                for (EnumFacing enumfacing : EnumFacing.values())
-                {
-                    worldIn.notifyNeighborsOfStateChange(pos.offset(enumfacing), this, false);
-                    //worldIn.scheduleBlockUpdate(pos.offset(enumfacing), this, 4, 1);
-                }
             }
             else if (worldIn.isBlockPowered(pos))
             {
                 worldIn.setBlockState(pos, BlocksInit.R2R_TRANSLATOR.getDefaultState().withProperty(ACTIVATION, EnumRuneState.EnumType.ACTIVE), 3);
-                for (EnumFacing enumfacing : EnumFacing.values())
-                {
-                    worldIn.notifyNeighborsOfStateChange(pos.offset(enumfacing), this, false);
-                    //worldIn.scheduleBlockUpdate(pos.offset(enumfacing), this, 4, 1);
-                }
             }
         }
     }

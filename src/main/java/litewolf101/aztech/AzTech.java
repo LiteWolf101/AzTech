@@ -1,5 +1,6 @@
 package litewolf101.aztech;
 
+import litewolf101.aztech.commands.CommandAzTech;
 import litewolf101.aztech.init.ItemsInit;
 import litewolf101.aztech.proxy.CommonProxy;
 import litewolf101.aztech.utils.Reference;
@@ -10,6 +11,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
 /**
  * Created by LiteWolf101 on 9/20/2018.
@@ -50,5 +52,10 @@ public class AzTech {
     public static void postInit(FMLPostInitializationEvent event) {
         System.out.println(Reference.MODID + ":postInit");
         proxy.postInit(event);
+    }
+
+    @Mod.EventHandler
+    public void serverLoad(FMLServerStartingEvent event) {
+        event.registerServerCommand(new CommandAzTech());
     }
 }
