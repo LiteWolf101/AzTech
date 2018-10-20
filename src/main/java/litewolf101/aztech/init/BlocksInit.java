@@ -40,4 +40,24 @@ public class BlocksInit {
     public static final Block R2R_TRANSLATOR = new R2RTranslator("r_to_r_translator", Material.ROCK);
     public static final Block RUNE_BLOCK = new RuneBlock("rune_block", Material.ROCK);
     public static final Block TEMPLE_RUNE_BLOCK = new TempleRuneBlock("temple_rune_block", Material.ROCK);
+    public static final Block TEMPLE_MIRROR = new TempleMirror("temple_mirror", Material.ROCK);
+    public static final Block COAL_ORE = new AncientOre("ancient_coal_ore", Material.ROCK);
+    public static final Block IRON_ORE = new AncientOre("ancient_iron_ore", Material.ROCK);
+    public static final Block REDSTONE_ORE = new AncientOre("ancient_redstone_ore", Material.ROCK);
+    public static final Block GOLD_ORE = new AncientOre("ancient_gold_ore", Material.ROCK);
+    public static final Block LAPIS_ORE = new AncientOre("ancient_lapis_ore", Material.ROCK);
+    public static final Block DIAMOND_ORE = new AncientOre("ancient_diamond_ore", Material.ROCK);
+    public static final Block EMERALD_ORE = new AncientOre("ancient_emerald_ore", Material.ROCK);
+    public static final Block QUARTZ_ORE = new AncientOre("ancient_quartz_ore", Material.ROCK);
+    //Seems contradictory, but to a programming organization perspective, it makes sense
+    public static final Block NEW_RED_RUNE_ORE = new AncientOre("ancient_red_rune_ore", Material.ROCK);
+    public static final Block NEW_YELLOW_RUNE_ORE = new AncientOre("ancient_yellow_rune_ore", Material.ROCK);
+    public static final Block NEW_GREEN_RUNE_ORE = new AncientOre("ancient_green_rune_ore", Material.ROCK);
+    public static final Block NEW_BLUE_RUNE_ORE = new AncientOre("ancient_blue_rune_ore", Material.ROCK);
+    public static final Block NEW_WHITE_RUNE_ORE = new AncientOre("ancient_white_rune_ore", Material.ROCK);
+    public static final Block NEW_BLACK_RUNE_ORE = new AncientOre("ancient_black_rune_ore", Material.ROCK);
+
+    public static final Block GEOLUMINESCENT_OBELISK = new GeoluminescentObelisk("geoluminescent_obelisk", Material.ROCK);
+    public static final Block AZTECH_PORTAL = new AzTechPortal("aztech_portal", Material.PORTAL);
+    public static final Block PORTAL_CONSTRUCT = new PortalMultiblock("portal_multiblock", Material.PORTAL);
 }

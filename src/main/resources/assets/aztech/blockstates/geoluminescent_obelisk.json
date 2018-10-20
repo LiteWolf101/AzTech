@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "half=bottom": {"model": "aztech:geoluminescent_obelisk_bottom"},
+    "half=top": {"model": "aztech:geoluminescent_obelisk_top"}
+  }
+}

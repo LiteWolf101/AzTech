@@ -1,7 +1,11 @@
 package litewolf101.aztech.proxy;
 
+import litewolf101.aztech.objects.blocks.render.RenderPortalConstruct;
 import litewolf101.aztech.objects.blocks.render.RenderTempleRuneCore;
+import litewolf101.aztech.objects.blocks.render.RenderTileGeoObelisk;
+import litewolf101.aztech.tileentity.TEGeoObelisk;
 import litewolf101.aztech.tileentity.TETempleRuneBlock;
+import litewolf101.aztech.tileentity.masterPortalConstruct;
 import litewolf101.aztech.utils.Reference;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
@@ -44,5 +48,7 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void RegisterTileEntityRender() {
         ClientRegistry.bindTileEntitySpecialRenderer(TETempleRuneBlock.class, new RenderTempleRuneCore());
+        ClientRegistry.bindTileEntitySpecialRenderer(TEGeoObelisk.class, new RenderTileGeoObelisk());
+        ClientRegistry.bindTileEntitySpecialRenderer(masterPortalConstruct.class, new RenderPortalConstruct());
     }
 }

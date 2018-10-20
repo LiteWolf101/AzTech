@@ -8,10 +8,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
-
 import static litewolf101.aztech.objects.blocks.AncientLaser.ACTIVATED;
 import static litewolf101.aztech.objects.blocks.AncientLaser.FACING;
 import static litewolf101.aztech.objects.blocks.BlockSlaughtiveRune.STAGE;
@@ -84,7 +80,7 @@ public class TEAncientLaser extends TileEntity implements ITickable{
     public void replaceLaser(int range, EnumFacing direction){
         for (int i = 1; i <= range; i++) {
             if (world.getBlockState(pos.offset(direction, i)).getBlock() == BlocksInit.LASER_BLOCK) {
-                world.destroyBlock(pos.offset(direction, i), false);
+                world.setBlockToAir(pos.offset(direction, i));
             }
         }
     }

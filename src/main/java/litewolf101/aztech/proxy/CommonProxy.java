@@ -1,5 +1,6 @@
 package litewolf101.aztech.proxy;
 
+import litewolf101.aztech.dimension.AztechDimension;
 import litewolf101.aztech.tileentity.*;
 import litewolf101.aztech.utils.Reference;
 import net.minecraft.item.Item;
@@ -13,6 +14,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
  */
 public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
+        AztechDimension.init();
     }
 
     public void init(FMLInitializationEvent event) {
@@ -41,5 +43,8 @@ public class CommonProxy {
         GameRegistry.registerTileEntity(TEAncientLaser.class, Reference.MODID + ":te_ancient_laser");
         GameRegistry.registerTileEntity(TERuneLine.class, Reference.MODID + ":te_rune_line");
         GameRegistry.registerTileEntity(TEObjectorRune.class, Reference.MODID + ":te_objector_rune");
+        GameRegistry.registerTileEntity(TEGeoObelisk.class, Reference.MODID + ":te_geo_obelisk");
+        GameRegistry.registerTileEntity(TEPortalConstruct.class, Reference.MODID + ":te_portal_construct_basic");
+        GameRegistry.registerTileEntity(masterPortalConstruct.class, Reference.MODID + ":te_master_portal_construct");
     }
 }

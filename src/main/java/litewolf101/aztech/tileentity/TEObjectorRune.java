@@ -1,7 +1,6 @@
 package litewolf101.aztech.tileentity;
 
 import litewolf101.aztech.init.BlocksInit;
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;

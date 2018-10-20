@@ -7,7 +7,6 @@ import litewolf101.aztech.objects.blocks.item.ItemBlockVariants;
 import litewolf101.aztech.tileentity.TEObjectorRune;
 import litewolf101.aztech.utils.IHasModel;
 import litewolf101.aztech.utils.IMetaName;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;

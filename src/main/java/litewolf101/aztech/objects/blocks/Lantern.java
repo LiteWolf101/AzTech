@@ -16,14 +16,21 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.Random;
 
 /**
  * Created by LiteWolf101 on 9/27/2018.
@@ -43,6 +50,23 @@ public class Lantern extends Block implements IHasModel, IMetaName {
 
         BlocksInit.BLOCKS.add(this);
         ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));
+    }
+    @SideOnly(Side.CLIENT)
+    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
+        double d0 = (double)pos.getX();
+        double d1 = (double)pos.getY();
+        double d2 = (double)pos.getZ();
+        Random randomx = new Random();
+        Random randomy = new Random();
+        Random randomz = new Random();
+        double randx = randomx.nextDouble();
+        double randy = randomx.nextDouble();
+        double randz = randomz.nextDouble();
+        worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+        worldIn.spawnParticle(EnumParticleTypes.SMOKE_LARGE, d0 + randx, d1, d2 + randz, 0.0D, 0.0D, 0.0D);
+        worldIn.spawnParticle(EnumParticleTypes.FLAME, d0 + randx, d1 + randy, d2 + randz, 0.0D, 0.0D, 0.0D);
+        worldIn.playSound(d0 + 0.5D, d1, d2, SoundEvents.BLOCK_FURNACE_FIRE_CRACKLE, SoundCategory.BLOCKS, 0.5F, 1.0F, false);
+
     }
 
     @Override
