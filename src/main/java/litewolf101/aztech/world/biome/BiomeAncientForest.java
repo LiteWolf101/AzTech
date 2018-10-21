@@ -15,6 +15,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeDecorator;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenTallGrass;
@@ -32,6 +33,8 @@ public class BiomeAncientForest extends Biome{
         this.setRegistryName(new ResourceLocation(Reference.MODID, "biome_ancient_forest"));
         this.decorator.flowersPerChunk = 0;
         this.decorator.treesPerChunk = 4;
+        this.topBlock = BlocksInit.ANCIENT_GRASS.getDefaultState();
+        this.fillerBlock = BlocksInit.ANCIENT_DIRT.getDefaultState();
         properties.setTemperature(1.7F);
         properties.setHeightVariation(0.5F);
         properties.setRainDisabled();
@@ -44,6 +47,8 @@ public class BiomeAncientForest extends Biome{
         spawnableCreatureList.add(new SpawnListEntry(EntitySheep.class, 5, 1, 1));
         spawnableCreatureList.add(new SpawnListEntry(EntityCow.class, 6, 2, 2));
     }
+
+
 
     @Override
     public float getSpawningChance() {
@@ -90,8 +95,8 @@ public class BiomeAncientForest extends Biome{
 
     protected void generateAncientForestTerrain(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal) {
         int seaLevel = worldIn.getSeaLevel();
-        IBlockState topBlock = BlocksInit.ANCIENT_GRASS.getDefaultState();
-        IBlockState fillerBlock = BlocksInit.ANCIENT_DIRT.getDefaultState();
+        IBlockState topBlock = this.topBlock;
+        IBlockState fillerBlock = this.fillerBlock;
         int j = -1;
         int k = (int) (noiseVal / 3.0D + 3.0D + rand.nextDouble() * 0.25D);
         int chunkX = x & 15;

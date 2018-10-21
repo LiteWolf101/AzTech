@@ -11,6 +11,9 @@ item.blue_rune_shard.name=Blue Rune Shard
 item.white_rune_shard.name=White Rune Shard
 item.black_rune_shard.name=Black Rune Shard
 
+item.geoluminescent_obelisk_item.name=§6Geoluminescent Obelisk
+item.aztech_portal_item.name=§5Aztech Portal
+
 #Blocks
 tile.rune_ore_red.name=Red Rune Ore
 tile.rune_ore_yellow.name=Yellow Rune Ore
@@ -76,7 +79,20 @@ tile.temple_rune_block_blue.name=§6Blue Temple Rune Block
 tile.temple_rune_block_white.name=§6White Temple Rune Block
 tile.temple_rune_block_black.name=§6Black Temple Rune Block
 
-
+tile.ancient_coal_ore.name=Ancient Coal Ore
+tile.ancient_iron_ore.name=Ancient Iron Ore
+tile.ancient_redstone_ore.name=Ancient Redstone Ore
+tile.ancient_gold_ore.name=Ancient Gold Ore
+tile.ancient_lapis_ore.name=Ancient Lapis Ore
+tile.ancient_diamond_ore.name=Ancient Diamond Ore
+tile.ancient_emerald_ore.name=Ancient Emerald Ore
+tile.ancient_quartz_ore.name=Ancient Quartz Ore
+tile.ancient_red_rune_ore.name=Ancient Red Rune Ore
+tile.ancient_yellow_rune_ore.name=Ancient Yellow Rune Ore
+tile.ancient_green_rune_ore.name=Ancient Green Rune Ore
+tile.ancient_blue_rune_ore.name=Ancient Blue Rune Ore
+tile.ancient_white_rune_ore.name=Ancient White Rune Ore
+tile.ancient_black_rune_ore.name=Ancient Black Rune Ore
 
 #Creative Tab
 itemGroup.aztech=§eAzTech

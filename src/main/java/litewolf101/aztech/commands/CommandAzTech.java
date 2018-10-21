@@ -53,7 +53,7 @@ public class CommandAzTech extends CommandBase {
         }
         if (strings[0].equals("dim_teleport")) {
             if (sender instanceof EntityPlayer){
-                CustomTeleporter.teleportToDimension((EntityPlayer) sender, 17, 0, 100, 0);
+                CustomTeleporter.teleportToDimension((EntityPlayer) sender, 17, 0, 70, 0);
             }
         }
 

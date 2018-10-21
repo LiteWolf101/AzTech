@@ -7,6 +7,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.biome.BiomeProvider;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -30,7 +31,7 @@ public class AztechWorldProvider extends WorldProvider {
 
     @Override
     public IChunkGenerator createChunkGenerator() {
-        return new AztechChunkGenerator(world);
+        return new AztechChunkGenerator(world, world.getSeed());
     }
 
     @Override
@@ -55,6 +56,11 @@ public class AztechWorldProvider extends WorldProvider {
             float f1 = 1.0F - (float)i / 15.0F;
             this.lightBrightnessTable[i] = (1.0F - f1) / (f1 * 3.0F + 1.0F) * 0.9F + 0.1F;
         }
+    }
+
+    @Override
+    public boolean canDoRainSnowIce(Chunk chunk) {
+        return false;
     }
 
     public boolean isSurfaceWorld()

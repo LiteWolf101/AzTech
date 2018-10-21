@@ -17,6 +17,8 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
@@ -116,18 +118,28 @@ public class masterPortalConstruct extends TileEntity implements ITickable{
         int x = this.getPos().getX();
         int y = this.getPos().getY();
         int z = this.getPos().getZ();
-        AxisAlignedBB bb = new AxisAlignedBB(pos.getX(), pos.getY(), pos.getZ(), pos.getX()+1, pos.getY()+2, pos.getZ()+1);
-        List<EntityLivingBase> victims = world.getEntitiesWithinAABB(EntityLivingBase.class, bb);
-        for (EntityLivingBase entities : victims) {
-            if (entities instanceof EntityPlayerMP){
-                if (this.world.provider.getDimension() == 17){
-                    CustomTeleporter.teleportToDimension((EntityPlayerMP) entities, 0, x, y, z);
-                } else {
-                    CustomTeleporter.teleportToDimension((EntityPlayerMP) entities, 17, x, y, z);
+        if(world.getBlockState(pos) == BlocksInit.PORTAL_CONSTRUCT.getDefaultState().withProperty(PART, EnumPortalPart.EnumType.BOTTOM)) {
+            BlockPos portalpos = new BlockPos(pos.getX(), pos.getY(), pos.getZ());
+            AxisAlignedBB bb = new AxisAlignedBB(portalpos.getX(), portalpos.getY(), portalpos.getZ(), portalpos.getX()+0.85, portalpos.getY()+2, portalpos.getZ()+0.85);
+            List<EntityLivingBase> victims = world.getEntitiesWithinAABB(EntityLivingBase.class, bb);
+            for (EntityLivingBase entities : victims) {
+                if (entities instanceof EntityPlayerMP){
+                    if (this.world.provider.getDimension() == 17){
+                        CustomTeleporter.teleportToDimension((EntityPlayerMP) entities, 0, x, y, z);
+                    } else {
+                        CustomTeleporter.teleportToDimension((EntityPlayerMP) entities, 17, x, y, z);
+                    }
+
                 }
 
             }
-
         }
     }
+    @Override
+    @SideOnly(Side.CLIENT)
+    public AxisAlignedBB getRenderBoundingBox()
+    {
+        return INFINITE_EXTENT_AABB;
+    }
+
 }

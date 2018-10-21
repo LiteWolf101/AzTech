@@ -10,11 +10,15 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 
+import java.util.ArrayList;
+
 /**
  * Created by LiteWolf101 on 10/20/2018.
  */
 @Mod.EventBusSubscriber(modid = Reference.MODID)
-public class AztechWorldUtils {
+public class AztechBiomes {
+    public static ArrayList<Biome> BIOME_LIST = new ArrayList<Biome>();
+
     public static final BiomeAncientForest biomeAncientForest = new BiomeAncientForest();
 
     @SubscribeEvent
@@ -23,13 +27,20 @@ public class AztechWorldUtils {
 
         registry.register(biomeAncientForest);
 
-        BiomeDictionary.addTypes(biomeAncientForest, BiomeDictionary.Type.FOREST);
+        BiomeDictionary.addTypes(biomeAncientForest, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.SPOOKY);
 
-        BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(biomeAncientForest, 1000));
+        BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(biomeAncientForest, 20));
 
 
         BiomeManager.addSpawnBiome(biomeAncientForest);
 
         BiomeProvider.allowedBiomes.add(biomeAncientForest);
+
+
+        addBiomesToList();
+    }
+
+    public static void addBiomesToList(){
+        BIOME_LIST.add(biomeAncientForest);
     }
 }
