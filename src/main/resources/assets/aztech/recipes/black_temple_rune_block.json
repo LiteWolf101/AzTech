@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AAA",
+    "ACA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "aztech:temple_stone",
+      "data": 3
+    },
+    "C": {
+      "item": "aztech:rune_block",
+      "data": 5
+    }
+  },
+  "result": {
+    "item": "aztech:temple_rune_block",
+    "data": 5,
+    "count": 1
+  }
+}

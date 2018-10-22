@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AAA",
+    "ABA",
+    "CCC"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:stick",
+      "data": 0
+    },
+    "B": {
+      "item": "minecraft:torch",
+      "data": 0
+    },
+    "C": {
+      "item": "minecraft:wooden_slab",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "aztech:lantern",
+    "data": 0,
+    "count": 6
+  }
+}

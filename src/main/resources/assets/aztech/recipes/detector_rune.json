@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " A ",
+    "BBB"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:stone_pressure_plate",
+      "data": 0
+    },
+    "B": {
+      "item": "aztech:temple_stone",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "aztech:detector_rune",
+    "data": 0,
+    "count": 1
+  }
+}

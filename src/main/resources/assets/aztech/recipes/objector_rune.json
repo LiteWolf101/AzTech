@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ABA",
+    "ACA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "aztech:temple_stone",
+      "data": 0
+    },
+    "B": {
+      "item": "minecraft:glass",
+      "data": 0
+    },
+    "C": {
+      "item": "aztech:yellow_rune_shard",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "aztech:objector_rune",
+    "data": 0,
+    "count": 1
+  }
+}

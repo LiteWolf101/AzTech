@@ -1,9 +1,12 @@
 package litewolf101.aztech.proxy;
 
 import litewolf101.aztech.dimension.AztechDimension;
+import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.tileentity.*;
 import litewolf101.aztech.utils.Reference;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;

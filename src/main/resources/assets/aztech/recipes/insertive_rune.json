@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " A ",
+    "A A",
+    " B "
+  ],
+  "key": {
+    "A": {
+      "item": "aztech:temple_stone",
+      "data": 0
+    },
+    "B": {
+      "item": "aztech:detector_rune",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "aztech:insertive_rune",
+    "data": 0,
+    "count": 1
+  }
+}

@@ -17,7 +17,7 @@ public class BlocksInit {
     public static final Block TEMPLE_STONE = new BlockTempleStone("temple_stone", Material.ROCK);
     public static final Block SLAUGHTIVE_RUNE = new BlockSlaughtiveRune("slaughtive_rune", Material.ROCK);
     public static final Block EMPOWER_RUNE = new EmpowerRune("empower_rune", Material.ROCK);
-    public static final Block ANCIENT_STONE = new BlockBase("ancient_stone", Material.ROCK);
+    public static final Block ANCIENT_STONE = new AncientStone("ancient_stone", Material.ROCK);
     public static final Block ANCIENT_COBBLESTONE = new BlockBase("ancient_cobblestone", Material.ROCK);
     public static final Block ANCIENT_DRY_MUD = new BlockBase("ancient_dry_mud", Material.ROCK);
     public static final Block ANCIENT_ROCK = new BlockBase("ancient_rock", Material.ROCK);

@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ABC",
+    "BDB",
+    "CBA"
+  ],
+  "key": {
+    "A": {
+      "item": "aztech:temple_stone",
+      "data": 0
+    },
+    "B": {
+      "item": "minecraft:stained_glass",
+      "data": 14
+    },
+    "C": {
+      "item": "aztech:red_rune_shard",
+      "data": 0
+    },
+    "D": {
+      "item": "minecraft:redstone_block",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "aztech:r_to_r_translator",
+    "data": 0,
+    "count": 1
+  }
+}
