@@ -3,12 +3,14 @@ package litewolf101.aztech.utils.handlers;
 import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.init.ItemsInit;
 import litewolf101.aztech.utils.IHasModel;
+import litewolf101.aztech.world.worldgen.WorldGenAzTechOres;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
  * Created by LiteWolf101 on 9/20/2018.
@@ -39,5 +41,9 @@ public class RegistryHandler {
                 ((IHasModel)block).registerModels();
             }
         }
+    }
+
+    public static void otherRegistries(){
+        GameRegistry.registerWorldGenerator(new WorldGenAzTechOres(), 0);
     }
 }

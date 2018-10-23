@@ -5,6 +5,7 @@ import litewolf101.aztech.init.FurnaceRecipes;
 import litewolf101.aztech.init.ItemsInit;
 import litewolf101.aztech.proxy.CommonProxy;
 import litewolf101.aztech.utils.Reference;
+import litewolf101.aztech.utils.handlers.RegistryHandler;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Mod;
@@ -41,6 +42,7 @@ public class AzTech {
         proxy.preInit(event);
         proxy.registerTileEntities();
         proxy.RegisterTileEntityRender();
+        RegistryHandler.otherRegistries();
 
     }
 

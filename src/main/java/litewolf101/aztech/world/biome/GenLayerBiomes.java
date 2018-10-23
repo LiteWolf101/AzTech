@@ -1,6 +1,5 @@
 package litewolf101.aztech.world.biome;
 
-import litewolf101.aztech.utils.AztechBiomes;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;

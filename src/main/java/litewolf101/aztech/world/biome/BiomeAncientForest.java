@@ -31,8 +31,6 @@ public class BiomeAncientForest extends Biome{
     public BiomeAncientForest() {
         super(properties);
         this.setRegistryName(new ResourceLocation(Reference.MODID, "biome_ancient_forest"));
-        this.decorator.flowersPerChunk = 0;
-        this.decorator.treesPerChunk = 4;
         this.topBlock = BlocksInit.ANCIENT_GRASS.getDefaultState();
         this.fillerBlock = BlocksInit.ANCIENT_DIRT.getDefaultState();
         properties.setTemperature(1.7F);
@@ -56,26 +54,8 @@ public class BiomeAncientForest extends Biome{
     }
 
     @Override
-    public WorldGenerator getRandomWorldGenForGrass(Random rand) {
-        if (rand.nextInt(4) == 0) {
-            return new WorldGenTallGrass(BlockTallGrass.EnumType.FERN);
-        } else {
-            return new WorldGenTallGrass(BlockTallGrass.EnumType.GRASS);
-        }
-    }
-
-    @Override
     public int getGrassColorAtPos(BlockPos pos) {
         return 9493052;
-    }
-
-    @Override
-    public WorldGenAbstractTree getRandomTreeFeature(Random random) {
-        if (random.nextInt(10) == 0) {
-            return BIG_TREE_FEATURE;
-        } else {
-            return TREE_FEATURE;
-        }
     }
 
     @Override

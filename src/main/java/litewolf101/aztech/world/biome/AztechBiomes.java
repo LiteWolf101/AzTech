@@ -1,5 +1,6 @@
-package litewolf101.aztech.utils;
+package litewolf101.aztech.world.biome;
 
+import litewolf101.aztech.utils.Reference;
 import litewolf101.aztech.world.biome.BiomeAncientForest;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeProvider;
@@ -29,12 +30,12 @@ public class AztechBiomes {
 
         BiomeDictionary.addTypes(biomeAncientForest, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.SPOOKY);
 
-        BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(biomeAncientForest, 20));
+        //BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(biomeAncientForest, 20));
 
 
-        BiomeManager.addSpawnBiome(biomeAncientForest);
+        //BiomeManager.addSpawnBiome(biomeAncientForest);
 
-        BiomeProvider.allowedBiomes.add(biomeAncientForest);
+        //BiomeProvider.allowedBiomes.add(biomeAncientForest);
 
 
         addBiomesToList();

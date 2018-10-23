@@ -34,6 +34,7 @@ public class CommonProxy {
 
     public void RegisterTileEntityRender(){}
 
+    @SuppressWarnings("deprecation")
     public void registerTileEntities(){
         GameRegistry.registerTileEntity(TETempleRuneBlock.class, Reference.MODID + ":te_temple_rune_block");
         GameRegistry.registerTileEntity(TESlaughtiveRune0.class, Reference.MODID + ":te_slaughtive_rune_0");

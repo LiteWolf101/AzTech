@@ -1,8 +1,6 @@
 package litewolf101.aztech.world.biome;
 
-import litewolf101.aztech.utils.AztechBiomes;
 import net.minecraft.world.WorldType;
-import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.layer.*;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.WorldTypeEvent;
