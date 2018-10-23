@@ -31,10 +31,7 @@ public class AztechBiomes {
         BiomeDictionary.addTypes(biomeAncientForest, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.SPOOKY);
 
         //BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(biomeAncientForest, 20));
-
-
         //BiomeManager.addSpawnBiome(biomeAncientForest);
-
         //BiomeProvider.allowedBiomes.add(biomeAncientForest);
 
 

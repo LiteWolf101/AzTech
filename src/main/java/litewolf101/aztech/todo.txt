@@ -1,2 +1,2 @@
-For testing purposes
-because why not
+//TODO READ
+Add config for ores and dimension
