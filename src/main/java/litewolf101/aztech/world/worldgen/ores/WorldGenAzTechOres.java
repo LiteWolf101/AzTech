@@ -1,4 +1,4 @@
-package litewolf101.aztech.world.worldgen;
+package litewolf101.aztech.world.worldgen.ores;
 
 import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.utils.handlers.EnumRuneColor;
@@ -67,7 +67,7 @@ public class WorldGenAzTechOres implements IWorldGenerator {
                 break;
             case 1:
                 break;
-            case 17:
+            case 17://TODO Adjust dimension number
                 runGenerator(ancient_coal_ore, world, random, chunkX, chunkZ, 20, 5, 160);
                 runGenerator(ancient_iron_ore, world, random, chunkX, chunkZ, 15, 5, 160);
                 runGenerator(ancient_redstone_ore, world, random, chunkX, chunkZ, 7, 5, 160);

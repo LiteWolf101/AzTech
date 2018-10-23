@@ -49,11 +49,13 @@ public class CommandAzTech extends CommandBase {
             throw new WrongUsageException(getUsage(sender));
         }
         if (strings[0].equals("data")) {
-            sender.sendMessage(new TextComponentString(TextFormatting.GOLD + "\u2605" + "MOD: " + TextFormatting.RESET + Reference.NAME + "\n" + TextFormatting.GOLD + "\u2605" + "VERSION: " + TextFormatting.RESET + Reference.VERSION + "\n" + TextFormatting.GOLD + "\u2605" + "MINECRAFT VERSION: " + TextFormatting.RESET + Reference.ACCEPTED_MINECRAFT_VERSIONS));
+            sender.sendMessage(new TextComponentString(TextFormatting.GOLD + "\u2605" + "MOD: " + TextFormatting.RESET + Reference.NAME + "\n"
+                    + TextFormatting.GOLD + "\u2605" + "VERSION: " + TextFormatting.RESET + Reference.VERSION + "\n"
+                    + TextFormatting.GOLD + "\u2605" + "MINECRAFT VERSION: " + TextFormatting.RESET + Reference.ACCEPTED_MINECRAFT_VERSIONS));
         }
         if (strings[0].equals("dim_teleport")) {
             if (sender instanceof EntityPlayer){
-                CustomTeleporter.teleportToDimension((EntityPlayer) sender, 17, 0, 70, 0);
+                CustomTeleporter.teleportToDimension((EntityPlayer) sender, 17, 0, 70, 0);//TODO Adjust dimension number
             }
         }
 

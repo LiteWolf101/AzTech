@@ -65,6 +65,7 @@ public class AztechChunkGenerator implements IChunkGenerator, IChunkProvider {
     public AztechChunkGenerator(World world, long seed) {
         worldObj = world;
         rand = new Random(seed + 1);
+        world.setSeaLevel(29);
 
         noiseGen1 = new NoiseGeneratorOctaves(rand, 16);
         noiseGen2 = new NoiseGeneratorOctaves(rand, 16);
@@ -85,6 +86,7 @@ public class AztechChunkGenerator implements IChunkGenerator, IChunkProvider {
         int k = i + 1;
         int l = 17;
         int i1 = i + 1;
+        int j = this.worldObj.getSeaLevel();
         noiseArray = initializeNoiseField(noiseArray, x * i, 0, z * i, k, l, i1);
 
         for (int j1 = 0; j1 < i; ++j1)
@@ -114,6 +116,10 @@ public class AztechChunkGenerator implements IChunkGenerator, IChunkProvider {
 
                             for (int k2 = 0; k2 < 4; ++k2) {
                                 IBlockState iblockstate = null;
+                                if (l1 * 8 + i2 < j)
+                                {
+                                    iblockstate = Blocks.WATER.getDefaultState();
+                                }
 
                                 if (d15 > 0.0D)
                                     iblockstate = BlocksInit.ANCIENT_STONE.getDefaultState();
@@ -141,6 +147,7 @@ public class AztechChunkGenerator implements IChunkGenerator, IChunkProvider {
     public Chunk generateChunk(int x, int z) {
         rand.setSeed(x * 341873128712L + z * 132897987541L);
         ChunkPrimer chunkprimer = new ChunkPrimer();
+
         biomesForGeneration = worldObj.getBiomeProvider().getBiomes(biomesForGeneration, x * 16, z * 16, 16, 16);
         generateTerrain(x, z, chunkprimer);
         replaceBlocksForBiome(x, z, biomesForGeneration, chunkprimer);
@@ -305,6 +312,10 @@ public class AztechChunkGenerator implements IChunkGenerator, IChunkProvider {
                                 } else if (yInChunk >= var5 + 4 && yInChunk <= var5 + 120) {
                                     topBlock = biome.topBlock;
                                     fillerBlock = biome.fillerBlock;
+                                }
+                                if (yInChunk < worldObj.getSeaLevel() && (topBlock == null || topBlock.getMaterial() == Material.AIR || fillerBlock.getMaterial() == Material.AIR))
+                                {
+                                    topBlock = Blocks.WATER.getDefaultState();
                                 }
                                 if (yInChunk < var5 && topBlock.getMaterial() == Material.AIR)
                                     if (biome.getDefaultTemperature() < 0.15F)

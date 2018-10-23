@@ -124,7 +124,7 @@ public class masterPortalConstruct extends TileEntity implements ITickable{
             List<EntityLivingBase> victims = world.getEntitiesWithinAABB(EntityLivingBase.class, bb);
             for (EntityLivingBase entities : victims) {
                 if (entities instanceof EntityPlayerMP){
-                    if (this.world.provider.getDimension() == 17){
+                    if (this.world.provider.getDimension() == 17 ){//TODO Adjust dimension number
                         CustomTeleporter.teleportToDimension((EntityPlayerMP) entities, 0, x, y, z);
                     } else {
                         CustomTeleporter.teleportToDimension((EntityPlayerMP) entities, 17, x, y, z);

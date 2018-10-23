@@ -17,10 +17,10 @@ public class AztechDimension {
     }
 
     private static void registerDimensionTypes() {
-        aztech = DimensionType.register(Reference.MODID, "_aztech", 17, AztechWorldProvider.class, false);
+        aztech = DimensionType.register(Reference.MODID, "_aztech", 17, AztechWorldProvider.class, false);//TODO Adjust dimension number
     }
 
     private static void registerDimensions() {
-        DimensionManager.registerDimension(17, AztechDimension.aztech);
+        DimensionManager.registerDimension(17, AztechDimension.aztech);//TODO Adjust dimension number
     }
 }

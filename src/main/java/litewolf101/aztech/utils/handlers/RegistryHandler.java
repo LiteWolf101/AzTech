@@ -3,7 +3,7 @@ package litewolf101.aztech.utils.handlers;
 import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.init.ItemsInit;
 import litewolf101.aztech.utils.IHasModel;
-import litewolf101.aztech.world.worldgen.WorldGenAzTechOres;
+import litewolf101.aztech.world.worldgen.ores.WorldGenAzTechOres;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;

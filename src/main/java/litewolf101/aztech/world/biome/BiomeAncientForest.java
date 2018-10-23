@@ -2,6 +2,8 @@ package litewolf101.aztech.world.biome;
 
 import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.utils.Reference;
+import litewolf101.aztech.world.worldgen.AztechBiomeDecor;
+import litewolf101.aztech.world.worldgen.trees.WorldGenAztechOakTree;
 import net.minecraft.block.BlockSand;
 import net.minecraft.block.BlockTallGrass;
 import net.minecraft.block.material.Material;
@@ -37,6 +39,8 @@ public class BiomeAncientForest extends Biome{
         properties.setHeightVariation(0.5F);
         properties.setRainDisabled();
 
+        getAztechBiomeDecor().setAztechOakTreesPerChunk(1);
+
         spawnableMonsterList.clear();
         spawnableMonsterList.add(new SpawnListEntry(EntityZombie.class, 7, 1, 1));
 
@@ -46,7 +50,14 @@ public class BiomeAncientForest extends Biome{
         spawnableCreatureList.add(new SpawnListEntry(EntityCow.class, 6, 2, 2));
     }
 
-
+    @Override
+    public WorldGenAbstractTree getRandomTreeFeature(Random random) {
+        if (random.nextInt(10) == 0) {
+            return TREE_FEATURE;
+        } else {
+            return new WorldGenAztechOakTree(true);
+        }
+    }
 
     @Override
     public float getSpawningChance() {
@@ -56,6 +67,15 @@ public class BiomeAncientForest extends Biome{
     @Override
     public int getGrassColorAtPos(BlockPos pos) {
         return 9493052;
+    }
+
+    @Override
+    public BiomeDecorator createBiomeDecorator() {
+        return new AztechBiomeDecor();
+    }
+
+    protected AztechBiomeDecor getAztechBiomeDecor() {
+        return (AztechBiomeDecor) this.decorator;
     }
 
     @Override
@@ -71,6 +91,23 @@ public class BiomeAncientForest extends Biome{
     @Override
     public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal) {
         this.generateAncientForestTerrain(worldIn, rand, chunkPrimerIn, x, z, noiseVal);
+    }
+
+    @Override
+    public void decorate(World worldIn, Random rand, BlockPos pos) {
+        super.decorate(worldIn, rand, pos);
+
+        WorldGenAztechOakTree aztechOakTree = new WorldGenAztechOakTree(true);
+
+        BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos(0, 0, 0);
+        for (int i = 0; i < 3; i++) {
+            int rx = pos.getX() + rand.nextInt(16) + 8;
+            int ry = 15 + rand.nextInt(20) + 4;
+            int rz = pos.getZ() + rand.nextInt(16) + 8;
+            mutPos.setPos(rx, ry, rz);
+            aztechOakTree.generate(worldIn, rand, mutPos);
+
+        }
     }
 
     protected void generateAncientForestTerrain(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal) {
