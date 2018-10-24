@@ -6,6 +6,7 @@ import litewolf101.aztech.init.ItemsInit;
 import litewolf101.aztech.proxy.CommonProxy;
 import litewolf101.aztech.utils.Reference;
 import litewolf101.aztech.utils.handlers.RegistryHandler;
+import litewolf101.aztech.world.worldgen.ores.WorldGenAzTechOres;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Mod;
@@ -15,6 +16,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
  * Created by LiteWolf101 on 9/20/2018.
@@ -43,6 +45,7 @@ public class AzTech {
         proxy.registerTileEntities();
         proxy.RegisterTileEntityRender();
         proxy.registerCustomStructures();
+        GameRegistry.registerWorldGenerator(new WorldGenAzTechOres(), 3);
 
     }
 

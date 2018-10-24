@@ -44,6 +44,5 @@ public class RegistryHandler {
     }
 
     public static void otherRegistries(){
-        GameRegistry.registerWorldGenerator(new WorldGenAzTechOres(), 0);
     }
 }

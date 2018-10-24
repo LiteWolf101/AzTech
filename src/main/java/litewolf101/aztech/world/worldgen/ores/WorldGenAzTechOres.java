@@ -27,12 +27,12 @@ public class WorldGenAzTechOres implements IWorldGenerator {
     public WorldGenAzTechOres() {
         Random random = new Random();
         int weight = random.nextInt(3);
-        red_rune_ore = new WorldGenMinable(BlocksInit.RUNE_ORE.getDefaultState().withProperty(RUNE_COLOR, EnumRuneColor.EnumType.RED), 1 + weight, BlockMatcher.forBlock(Blocks.STONE));
-        yellow_rune_ore = new WorldGenMinable(BlocksInit.RUNE_ORE.getDefaultState().withProperty(RUNE_COLOR, EnumRuneColor.EnumType.YELLOW), 1 + weight, BlockMatcher.forBlock(Blocks.STONE));
-        green_rune_ore = new WorldGenMinable(BlocksInit.RUNE_ORE.getDefaultState().withProperty(RUNE_COLOR, EnumRuneColor.EnumType.GREEN), 1 + weight, BlockMatcher.forBlock(Blocks.STONE));
-        blue_rune_ore = new WorldGenMinable(BlocksInit.RUNE_ORE.getDefaultState().withProperty(RUNE_COLOR, EnumRuneColor.EnumType.BLUE), 1 + weight, BlockMatcher.forBlock(Blocks.STONE));
-        white_rune_ore = new WorldGenMinable(BlocksInit.RUNE_ORE.getDefaultState().withProperty(RUNE_COLOR, EnumRuneColor.EnumType.WHITE), 1 + weight, BlockMatcher.forBlock(Blocks.STONE));
-        black_rune_ore = new WorldGenMinable(BlocksInit.RUNE_ORE.getDefaultState().withProperty(RUNE_COLOR, EnumRuneColor.EnumType.BLACK), 1 + weight, BlockMatcher.forBlock(Blocks.STONE));
+        red_rune_ore = new WorldGenMinable(BlocksInit.RUNE_ORE.getDefaultState().withProperty(RUNE_COLOR, EnumRuneColor.EnumType.RED), 5 + weight, BlockMatcher.forBlock(Blocks.STONE));
+        yellow_rune_ore = new WorldGenMinable(BlocksInit.RUNE_ORE.getDefaultState().withProperty(RUNE_COLOR, EnumRuneColor.EnumType.YELLOW), 5 + weight, BlockMatcher.forBlock(Blocks.STONE));
+        green_rune_ore = new WorldGenMinable(BlocksInit.RUNE_ORE.getDefaultState().withProperty(RUNE_COLOR, EnumRuneColor.EnumType.GREEN), 5 + weight, BlockMatcher.forBlock(Blocks.STONE));
+        blue_rune_ore = new WorldGenMinable(BlocksInit.RUNE_ORE.getDefaultState().withProperty(RUNE_COLOR, EnumRuneColor.EnumType.BLUE), 5 + weight, BlockMatcher.forBlock(Blocks.STONE));
+        white_rune_ore = new WorldGenMinable(BlocksInit.RUNE_ORE.getDefaultState().withProperty(RUNE_COLOR, EnumRuneColor.EnumType.WHITE), 5 + weight, BlockMatcher.forBlock(Blocks.STONE));
+        black_rune_ore = new WorldGenMinable(BlocksInit.RUNE_ORE.getDefaultState().withProperty(RUNE_COLOR, EnumRuneColor.EnumType.BLACK), 5 + weight, BlockMatcher.forBlock(Blocks.STONE));
 
         ancient_coal_ore = new WorldGenMinable(BlocksInit.COAL_ORE.getDefaultState(), 7 + weight, BlockMatcher.forBlock(BlocksInit.ANCIENT_STONE));
         ancient_iron_ore = new WorldGenMinable(BlocksInit.IRON_ORE.getDefaultState(), 4 + weight, BlockMatcher.forBlock(BlocksInit.ANCIENT_STONE));
@@ -58,12 +58,12 @@ public class WorldGenAzTechOres implements IWorldGenerator {
             case -1:
                 break;
             case 0:
-                runGenerator(red_rune_ore, world, random, chunkX, chunkZ, 20, 17, 35);
-                runGenerator(yellow_rune_ore, world, random, chunkX, chunkZ, 20, 17, 35);
-                runGenerator(green_rune_ore, world, random, chunkX, chunkZ, 20, 17, 35);
-                runGenerator(blue_rune_ore, world, random, chunkX, chunkZ, 20, 17, 35);
-                runGenerator(white_rune_ore, world, random, chunkX, chunkZ, 20, 17, 35);
-                runGenerator(black_rune_ore, world, random, chunkX, chunkZ, 20, 17, 35);
+                runGenerator(red_rune_ore, world, random, chunkX, chunkZ, 20, 12, 45);
+                runGenerator(yellow_rune_ore, world, random, chunkX, chunkZ, 20, 12, 45);
+                runGenerator(green_rune_ore, world, random, chunkX, chunkZ, 20, 12, 45);
+                runGenerator(blue_rune_ore, world, random, chunkX, chunkZ, 20, 12, 45);
+                runGenerator(white_rune_ore, world, random, chunkX, chunkZ, 20, 12, 45);
+                runGenerator(black_rune_ore, world, random, chunkX, chunkZ, 20, 12, 45);
                 break;
             case 1:
                 break;
