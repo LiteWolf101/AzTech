@@ -2,14 +2,13 @@ package litewolf101.aztech.world.biome;
 
 import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.utils.Reference;
-import litewolf101.aztech.world.worldgen.AztechBiomeDecor;
-import litewolf101.aztech.world.worldgen.trees.WorldGenAztechOakTree;
-import net.minecraft.block.BlockFlower;
+import litewolf101.aztech.world.worldgen.feature.WorldGenDryMudReplaceable;
 import net.minecraft.block.BlockSand;
-import net.minecraft.block.BlockTallGrass;
-import net.minecraft.block.BlockYellowFlower;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.monster.EntityHusk;
+import net.minecraft.entity.monster.EntitySkeleton;
+import net.minecraft.entity.monster.EntityWitherSkeleton;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntityPig;
@@ -19,119 +18,101 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeDecorator;
 import net.minecraft.world.chunk.ChunkPrimer;
-import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.feature.WorldGenBlockBlob;
+import net.minecraft.world.gen.feature.WorldGenCactus;
+import net.minecraft.world.gen.feature.WorldGenDeadBush;
+import net.minecraft.world.gen.feature.WorldGenLakes;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeManager;
 
 import java.util.Random;
 
 /**
- * Created by LiteWolf101 on 10/20/2018.
+ * Created by LiteWolf101 on 10/24/2018.
  */
-public class BiomeAncientForest extends Biome{
-    private static BiomeProperties properties = new Biome.BiomeProperties("Ancient Forest");
-    public BiomeAncientForest() {
+public class BiomeAridLands extends Biome {
+    private static BiomeProperties properties = new Biome.BiomeProperties("Arid Lands");
+    public BiomeAridLands() {
         super(properties);
-        this.topBlock = BlocksInit.ANCIENT_GRASS.getDefaultState();
-        this.fillerBlock = BlocksInit.ANCIENT_DIRT.getDefaultState();
+        this.fillerBlock = Blocks.SANDSTONE.getDefaultState();
+        this.topBlock = Blocks.SAND.getDefaultState();
         properties.setTemperature(1.7F);
-        properties.setHeightVariation(0.5F);
+        properties.setHeightVariation(0.1F);
         properties.setRainDisabled();
-
-        getAztechBiomeDecor().setAztechOakTreesPerChunk(1);
+        properties.setBaseHeight(0.2f);
 
         spawnableMonsterList.clear();
-        spawnableMonsterList.add(new SpawnListEntry(EntityZombie.class, 7, 1, 1));
+        spawnableMonsterList.add(new SpawnListEntry(EntityHusk.class, 7, 1, 1));
+        spawnableMonsterList.add(new SpawnListEntry(EntitySkeleton.class, 7, 1, 1));
+        spawnableMonsterList.add(new SpawnListEntry(EntityWitherSkeleton.class, 7, 1, 1));
+
 
         spawnableCreatureList.clear();
-        spawnableCreatureList.add(new SpawnListEntry(EntityPig.class, 3, 1, 1));
-        spawnableCreatureList.add(new SpawnListEntry(EntitySheep.class, 5, 1, 1));
-        spawnableCreatureList.add(new SpawnListEntry(EntityCow.class, 6, 2, 2));
-    }
-
-    @Override
-    public WorldGenAbstractTree getRandomTreeFeature(Random random) {
-        if (random.nextInt(10) == 0) {
-            return TREE_FEATURE;
-        } else {
-            return new WorldGenAztechOakTree(true);
-        }
     }
 
     @Override
     public float getSpawningChance() {
-        return 0.07F;
+        return 0.12F;
     }
 
     @Override
     public int getGrassColorAtPos(BlockPos pos) {
-        return 9493052;
-    }
-
-    @Override
-    public BiomeDecorator createBiomeDecorator() {
-        return new AztechBiomeDecor();
-    }
-
-    protected AztechBiomeDecor getAztechBiomeDecor() {
-        return (AztechBiomeDecor) this.decorator;
+        return 13492102;
     }
 
     @Override
     public int getFoliageColorAtPos(BlockPos pos) {
-        return 9493052;
+        return getGrassColorAtPos(pos);
     }
 
     @Override
     public int getWaterColorMultiplier() {
-        return 9493052;
-    }
-
-    @Override
-    public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal) {
-        this.generateAncientForestTerrain(worldIn, rand, chunkPrimerIn, x, z, noiseVal);
+        return 7245492;
     }
 
     @Override
     public void decorate(World worldIn, Random rand, BlockPos pos) {
         super.decorate(worldIn, rand, pos);
 
-        WorldGenAztechOakTree aztechOakTree = new WorldGenAztechOakTree(true);
-        WorldGenTallGrass tallGrass = new WorldGenTallGrass(BlockTallGrass.EnumType.GRASS);
-        WorldGenLakes genLakes = new WorldGenLakes(Blocks.WATER);
+        WorldGenCactus cactus = new WorldGenCactus();
+        WorldGenDryMudReplaceable dryMudReplaceable = new WorldGenDryMudReplaceable();
         WorldGenLakes genLavaLakes = new WorldGenLakes(Blocks.LAVA);
-        WorldGenFlowers genFlowers = new WorldGenFlowers(Blocks.YELLOW_FLOWER, BlockFlower.EnumFlowerType.DANDELION);
-        WorldGenFlowers genFlowers2 = new WorldGenFlowers(Blocks.RED_FLOWER, BlockFlower.EnumFlowerType.ALLIUM);
+        WorldGenDeadBush deadBush = new WorldGenDeadBush();
 
         BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos(0, 0, 0);
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 20; i++) {
+            int rx = pos.getX() + rand.nextInt(16) + 8;
+            int ry = 15 + rand.nextInt(60) + 8;
+            int rz = pos.getZ() + rand.nextInt(16) + 8;
+            mutPos.setPos(rx, ry, rz);
+            cactus.generate(worldIn, rand, mutPos);
+            deadBush.generate(worldIn, rand, mutPos);
+        }
+        for (int i = 0; i < 60; i++) {
             int rx = pos.getX() + rand.nextInt(16) + 8;
             int ry = 15 + rand.nextInt(60) + 4;
             int rz = pos.getZ() + rand.nextInt(16) + 8;
             mutPos.setPos(rx, ry, rz);
-            aztechOakTree.generate(worldIn, rand, mutPos);
-        }
-        for (int i = 0; i < 15; i++) {
-            int rx = pos.getX() + rand.nextInt(16) + 8;
-            int ry = 5 + rand.nextInt(90) + 4;
-            int rz = pos.getZ() + rand.nextInt(16) + 8;
-            mutPos.setPos(rx, ry, rz);
-            tallGrass.generate(worldIn, rand, mutPos);
-            genFlowers.generate(worldIn, rand, mutPos);
-            genFlowers2.generate(worldIn, rand, mutPos);
+            dryMudReplaceable.generate(worldIn, rand, mutPos);
         }
         for (int i = 0; i < 1; i++) {
             int rx = pos.getX() + rand.nextInt(16) + 8;
             int ry = 15 + rand.nextInt(60) + 4;
             int rz = pos.getZ() + rand.nextInt(16) + 8;
             mutPos.setPos(rx, ry, rz);
-            genLakes.generate(worldIn, rand, mutPos);
-            genLavaLakes.generate(worldIn, rand, mutPos);
-
+            if (rand.nextInt(10) == 0){
+                genLavaLakes.generate(worldIn, rand, mutPos);
+            }
         }
     }
 
-    protected void generateAncientForestTerrain(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal) {
+    @Override
+    public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal) {
+        this.generateAridLandsTerrain(worldIn, rand, chunkPrimerIn, x, z, noiseVal);
+    }
+
+    protected void generateAridLandsTerrain(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal) {
         int seaLevel = worldIn.getSeaLevel();
         IBlockState topBlock = this.topBlock;
         IBlockState fillerBlock = this.fillerBlock;
@@ -155,8 +136,8 @@ public class BiomeAncientForest extends Biome{
                             topBlock = AIR;
                             fillerBlock = STONE;
                         } else if (currentY >= seaLevel - 4 && currentY <= seaLevel + 1) {
-                            topBlock = BlocksInit.ANCIENT_GRASS.getDefaultState();
-                            fillerBlock = BlocksInit.ANCIENT_DIRT.getDefaultState();
+                            topBlock = this.topBlock;
+                            fillerBlock = this.fillerBlock;
                         }
 
                         if (currentY < seaLevel && (topBlock == null || topBlock.getMaterial() == Material.AIR)) {

@@ -4,6 +4,7 @@ import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.utils.handlers.AztechStructureHandler;
 import litewolf101.aztech.world.biome.AztechBiomes;
 import litewolf101.aztech.world.biome.BiomeAncientForest;
+import litewolf101.aztech.world.worldgen.ores.WorldGenAzTechOres;
 import net.minecraft.block.Block;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
@@ -26,6 +27,7 @@ import java.util.Random;
  */
 public class WorldGenCustomStructures implements IWorldGenerator {
     public static final AztechStructureHandler AZTECH_PORTAL = new AztechStructureHandler("aztech_portal");
+    public static final WorldGenAzTechOres oreGen = new WorldGenAzTechOres();
 
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
@@ -37,12 +39,14 @@ public class WorldGenCustomStructures implements IWorldGenerator {
                 generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, 500, Blocks.GRASS, Biomes.PLAINS.getBiomeClass());
                 generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, 500, Blocks.GRASS, Biomes.SAVANNA.getBiomeClass());
                 generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, 500, Blocks.GRASS, Biomes.DESERT.getBiomeClass());
+                //oreGen.generate(random, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
                 break;
             case 1:
                 break;
             case -1:
                 break;
             case 17: //TODO Adjust Dimension number
+                oreGen.generate(random, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
                 break;
         }
     }
@@ -61,7 +65,6 @@ public class WorldGenCustomStructures implements IWorldGenerator {
             if (classesList.contains(biome)){
                 if(random.nextInt(chance) == 0){
                     generator.generate(world, random, pos);
-                    System.out.println("Spawn" + pos);
                 }
             }
         }

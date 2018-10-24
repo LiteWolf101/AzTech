@@ -1,21 +1,20 @@
 package litewolf101.aztech.world.biome;
 
 import litewolf101.aztech.init.BlocksInit;
-import litewolf101.aztech.utils.Reference;
 import litewolf101.aztech.world.worldgen.AztechBiomeDecor;
 import litewolf101.aztech.world.worldgen.trees.WorldGenAztechOakTree;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.BlockSand;
 import net.minecraft.block.BlockTallGrass;
-import net.minecraft.block.BlockYellowFlower;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.monster.EntityCaveSpider;
+import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -26,36 +25,29 @@ import net.minecraft.world.gen.feature.*;
 import java.util.Random;
 
 /**
- * Created by LiteWolf101 on 10/20/2018.
+ * Created by LiteWolf101 on 10/24/2018.
  */
-public class BiomeAncientForest extends Biome{
-    private static BiomeProperties properties = new Biome.BiomeProperties("Ancient Forest");
-    public BiomeAncientForest() {
+public class BiomeMurkySwamp extends Biome{
+    private static BiomeProperties properties = new Biome.BiomeProperties("Murky Swamp");
+    public BiomeMurkySwamp() {
         super(properties);
-        this.topBlock = BlocksInit.ANCIENT_GRASS.getDefaultState();
-        this.fillerBlock = BlocksInit.ANCIENT_DIRT.getDefaultState();
-        properties.setTemperature(1.7F);
-        properties.setHeightVariation(0.5F);
+        this.topBlock = Blocks.GRASS.getDefaultState();
+        this.fillerBlock = Blocks.DIRT.getDefaultState();
+        properties.setTemperature(1.4F);
+        properties.setHeightVariation(0.1F);
         properties.setRainDisabled();
 
         getAztechBiomeDecor().setAztechOakTreesPerChunk(1);
 
         spawnableMonsterList.clear();
         spawnableMonsterList.add(new SpawnListEntry(EntityZombie.class, 7, 1, 1));
+        spawnableMonsterList.add(new SpawnListEntry(EntitySpider.class, 7, 1, 1));
+        spawnableMonsterList.add(new SpawnListEntry(EntityCaveSpider.class, 7, 1, 1));
 
         spawnableCreatureList.clear();
         spawnableCreatureList.add(new SpawnListEntry(EntityPig.class, 3, 1, 1));
         spawnableCreatureList.add(new SpawnListEntry(EntitySheep.class, 5, 1, 1));
         spawnableCreatureList.add(new SpawnListEntry(EntityCow.class, 6, 2, 2));
-    }
-
-    @Override
-    public WorldGenAbstractTree getRandomTreeFeature(Random random) {
-        if (random.nextInt(10) == 0) {
-            return TREE_FEATURE;
-        } else {
-            return new WorldGenAztechOakTree(true);
-        }
     }
 
     @Override
@@ -65,7 +57,7 @@ public class BiomeAncientForest extends Biome{
 
     @Override
     public int getGrassColorAtPos(BlockPos pos) {
-        return 9493052;
+        return 587547;
     }
 
     @Override
@@ -79,17 +71,17 @@ public class BiomeAncientForest extends Biome{
 
     @Override
     public int getFoliageColorAtPos(BlockPos pos) {
-        return 9493052;
+        return 587547;
     }
 
     @Override
     public int getWaterColorMultiplier() {
-        return 9493052;
+        return 4609537;
     }
 
     @Override
     public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal) {
-        this.generateAncientForestTerrain(worldIn, rand, chunkPrimerIn, x, z, noiseVal);
+        this.generateMurkySwampTerrain(worldIn, rand, chunkPrimerIn, x, z, noiseVal);
     }
 
     @Override
@@ -102,6 +94,7 @@ public class BiomeAncientForest extends Biome{
         WorldGenLakes genLavaLakes = new WorldGenLakes(Blocks.LAVA);
         WorldGenFlowers genFlowers = new WorldGenFlowers(Blocks.YELLOW_FLOWER, BlockFlower.EnumFlowerType.DANDELION);
         WorldGenFlowers genFlowers2 = new WorldGenFlowers(Blocks.RED_FLOWER, BlockFlower.EnumFlowerType.ALLIUM);
+        //Add AzTech Liquids
 
         BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos(0, 0, 0);
         for (int i = 0; i < 15; i++) {
@@ -119,19 +112,18 @@ public class BiomeAncientForest extends Biome{
             tallGrass.generate(worldIn, rand, mutPos);
             genFlowers.generate(worldIn, rand, mutPos);
             genFlowers2.generate(worldIn, rand, mutPos);
+            genLakes.generate(worldIn, rand, mutPos);
         }
         for (int i = 0; i < 1; i++) {
             int rx = pos.getX() + rand.nextInt(16) + 8;
             int ry = 15 + rand.nextInt(60) + 4;
             int rz = pos.getZ() + rand.nextInt(16) + 8;
             mutPos.setPos(rx, ry, rz);
-            genLakes.generate(worldIn, rand, mutPos);
             genLavaLakes.generate(worldIn, rand, mutPos);
-
         }
     }
 
-    protected void generateAncientForestTerrain(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal) {
+    protected void generateMurkySwampTerrain(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal) {
         int seaLevel = worldIn.getSeaLevel();
         IBlockState topBlock = this.topBlock;
         IBlockState fillerBlock = this.fillerBlock;
@@ -155,8 +147,8 @@ public class BiomeAncientForest extends Biome{
                             topBlock = AIR;
                             fillerBlock = STONE;
                         } else if (currentY >= seaLevel - 4 && currentY <= seaLevel + 1) {
-                            topBlock = BlocksInit.ANCIENT_GRASS.getDefaultState();
-                            fillerBlock = BlocksInit.ANCIENT_DIRT.getDefaultState();
+                            topBlock = this.topBlock;
+                            fillerBlock = this.fillerBlock;
                         }
 
                         if (currentY < seaLevel && (topBlock == null || topBlock.getMaterial() == Material.AIR)) {

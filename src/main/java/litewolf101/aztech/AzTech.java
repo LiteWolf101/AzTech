@@ -42,7 +42,6 @@ public class AzTech {
         proxy.preInit(event);
         proxy.registerTileEntities();
         proxy.RegisterTileEntityRender();
-        RegistryHandler.otherRegistries();
         proxy.registerCustomStructures();
 
     }
@@ -52,6 +51,7 @@ public class AzTech {
         System.out.println(Reference.MODID + ":init");
         proxy.init(event);
         FurnaceRecipes.registerFurnaceRecipes();
+        RegistryHandler.otherRegistries();
     }
 
     @Mod.EventHandler

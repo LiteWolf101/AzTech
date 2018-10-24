@@ -19,7 +19,7 @@ public abstract class GenLayerAztech extends GenLayer {
         genLayer = new GenLayerFuzzyZoom(2000L, genLayer);
 
         genLayer = new GenLayerBiomes(100L, genLayer);
-        genLayer = GenLayerZoom.magnify(2000L, genLayer, 1);
+        genLayer = GenLayerZoom.magnify(2000L, genLayer, biomeSize);
 
         genLayer = new GenLayerVoronoiZoom(10L, genLayer);
         genLayer.initWorldGenSeed(seed);
