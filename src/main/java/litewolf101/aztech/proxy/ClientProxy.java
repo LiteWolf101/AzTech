@@ -7,6 +7,7 @@ import litewolf101.aztech.tileentity.TEGeoObelisk;
 import litewolf101.aztech.tileentity.TETempleRuneBlock;
 import litewolf101.aztech.tileentity.masterPortalConstruct;
 import litewolf101.aztech.utils.Reference;
+import litewolf101.aztech.world.worldgen.structures.WorldGenCustomStructures;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
@@ -15,6 +16,7 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
  * Created by LiteWolf101 on 9/20/2018.
@@ -45,6 +47,10 @@ public class ClientProxy extends CommonProxy {
         ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(new ResourceLocation(Reference.MODID, filename), id));
     }
 
+    @Override
+    public void registerCustomStructures() {
+        GameRegistry.registerWorldGenerator(new WorldGenCustomStructures(), 0);
+    }
     @Override
     public void RegisterTileEntityRender() {
         ClientRegistry.bindTileEntitySpecialRenderer(TETempleRuneBlock.class, new RenderTempleRuneCore());

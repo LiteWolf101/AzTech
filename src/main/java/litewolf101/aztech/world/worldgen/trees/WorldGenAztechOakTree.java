@@ -42,9 +42,57 @@ public class WorldGenAztechOakTree extends WorldGenAbstractTree {
         if (position.getY() <= 13 && position.getY() + minTrunkHeight + 1 >= 128 || materialBelow != Material.GRASS && materialBelow != Material.GROUND || worldIn.provider.getDimension() != 17) {
             return false;
         }
+        buildLeaves(worldIn, position, trunkHeight);
         buildTrunk(worldIn, position, trunkHeight);
         buildSupport(worldIn, position, trunkHeight);
         return true;
+    }
+
+    private void buildLeaves(World worldIn, BlockPos position, int trunkHeight) {
+        Random rand = new Random();
+        int leafDrop = rand.nextInt(4) + 1;
+        int leafDrop2 = rand.nextInt(4) + 1;
+        int leafDrop3 = rand.nextInt(4) + 1;
+        int leafDrop4 = rand.nextInt(4) + 1;
+        for(int x = -3; x <= 3; x++){
+            for (int z = -3; z <= 3; z++){
+                setBlockAndNotifyAdequately(worldIn, position.add(x, trunkHeight + 2, z), leaves);
+            }
+        }
+        worldIn.setBlockToAir(position.add(-3, trunkHeight + 2, -3));
+        worldIn.setBlockToAir(position.add(-3, trunkHeight + 2, 3));
+        worldIn.setBlockToAir(position.add(3, trunkHeight + 2, 3));
+        worldIn.setBlockToAir(position.add(3, trunkHeight + 2, -3));
+        for(int x = -2; x <= 2; x++){
+            for (int z = -2; z <= 2; z++){
+                setBlockAndNotifyAdequately(worldIn, position.add(x, trunkHeight + 3, z), leaves);
+            }
+        }
+        worldIn.setBlockToAir(position.add(-2, trunkHeight + 3, -2));
+        worldIn.setBlockToAir(position.add(-2, trunkHeight + 3, 2));
+        worldIn.setBlockToAir(position.add(2, trunkHeight + 3, 2));
+        worldIn.setBlockToAir(position.add(2, trunkHeight + 3, -2));
+        for(int x = -1; x <= 1; x++){
+            for (int z = -1; z <= 1; z++){
+                setBlockAndNotifyAdequately(worldIn, position.add(x, trunkHeight + 4, z), leaves);
+            }
+        }
+        setBlockAndNotifyAdequately(worldIn, position.add(0, trunkHeight + 3, 3), leaves);
+        setBlockAndNotifyAdequately(worldIn, position.add(3, trunkHeight + 3, 0), leaves);
+        setBlockAndNotifyAdequately(worldIn, position.add(0, trunkHeight + 3, -3), leaves);
+        setBlockAndNotifyAdequately(worldIn, position.add(-3, trunkHeight + 3, 0), leaves);
+        for (int y = 0; y <= leafDrop; y++){
+            setBlockAndNotifyAdequately(worldIn, position.add(-4, trunkHeight + 2 - y, 0), leaves);
+        }
+        for (int y = 0; y <= leafDrop2; y++){
+            setBlockAndNotifyAdequately(worldIn, position.add(4, trunkHeight + 2 - y, 0), leaves);
+        }
+        for (int y = 0; y <= leafDrop3; y++){
+            setBlockAndNotifyAdequately(worldIn, position.add(0, trunkHeight + 2 - y, -4), leaves);
+        }
+        for (int y = 0; y <= leafDrop4; y++){
+            setBlockAndNotifyAdequately(worldIn, position.add(0, trunkHeight + 2 - y, 4), leaves);
+        }
     }
 
     @Override
@@ -78,7 +126,6 @@ public class WorldGenAztechOakTree extends WorldGenAbstractTree {
         setBlockAndNotifyAdequately(worldIn, position.add(1, trunkHeight + 3, 0), log);
         setBlockAndNotifyAdequately(worldIn, position.add(0, trunkHeight + 3, 1), log);
         setBlockAndNotifyAdequately(worldIn, position.add(-1, trunkHeight + 3, 0), log);
-
     }
 
     private void buildTrunk(World worldIn, BlockPos position, int trunkHeight) {

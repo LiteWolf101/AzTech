@@ -7,6 +7,8 @@ import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.world.biome.BiomeAncientForest;
 import litewolf101.aztech.world.mapgen.MapGenAztechCaves;
 import litewolf101.aztech.world.mapgen.MapGenAztechRavine;
+import litewolf101.aztech.world.worldgen.structures.GenAztechPortal;
+import litewolf101.aztech.world.worldgen.structures.WorldGenCustomStructures;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -21,6 +23,7 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.*;
+import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.ChunkGeneratorEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
@@ -61,11 +64,12 @@ public class AztechChunkGenerator implements IChunkGenerator, IChunkProvider {
 
     private final MapGenBase caveGenerator;
     private final MapGenBase ravineGenerator;
+    private final WorldGenerator portal;
 
     public AztechChunkGenerator(World world, long seed) {
         worldObj = world;
         rand = new Random(seed + 1);
-        world.setSeaLevel(29);
+        world.setSeaLevel(32);
 
         noiseGen1 = new NoiseGeneratorOctaves(rand, 16);
         noiseGen2 = new NoiseGeneratorOctaves(rand, 16);
@@ -79,6 +83,7 @@ public class AztechChunkGenerator implements IChunkGenerator, IChunkProvider {
 
         caveGenerator = new MapGenAztechCaves();
         ravineGenerator = new MapGenAztechRavine();
+        portal = new GenAztechPortal();
     }
 
     public void generateTerrain(int x, int z, ChunkPrimer chunkPrimer) {
@@ -154,6 +159,7 @@ public class AztechChunkGenerator implements IChunkGenerator, IChunkProvider {
 
         caveGenerator.generate(worldObj, x, z, chunkprimer);
         ravineGenerator.generate(worldObj, x, z, chunkprimer);
+
 
         Chunk chunk = new Chunk(worldObj, chunkprimer, x, z);
         byte[] biomeArrayReference = chunk.getBiomeArray();
@@ -351,12 +357,15 @@ public class AztechChunkGenerator implements IChunkGenerator, IChunkProvider {
         int j = z * 16;
         BlockPos blockCoord = new BlockPos(i, 0, j);
         Biome biomeBase = this.worldObj.getBiome(blockCoord.add(16, 0, 16));
-
+        BlockPos blockpos = new BlockPos(i, 0, j);
         if (biomeBase instanceof Biome) {//modded biome base
             Biome biome = (Biome) biomeBase;///modded biome base
             rand.setSeed(worldObj.getSeed());
             rand.setSeed(x * (rand.nextLong() / 2L * 2L + 1L) + z * (rand.nextLong() / 2L * 2L + 1L) ^ worldObj.getSeed());
             biome.decorate(this.worldObj, this.rand, blockCoord);
+        }
+        if (rand.nextInt(10) == 0){
+            portal.generate(worldObj, this.rand, blockpos.add(this.rand.nextInt(16) + 8, this.rand.nextInt(128), this.rand.nextInt(16) + 8));
         }
         BlockFalling.fallInstantly = false;
     }

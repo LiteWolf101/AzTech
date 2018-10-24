@@ -43,6 +43,7 @@ public class AzTech {
         proxy.registerTileEntities();
         proxy.RegisterTileEntityRender();
         RegistryHandler.otherRegistries();
+        proxy.registerCustomStructures();
 
     }
 

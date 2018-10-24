@@ -4,8 +4,10 @@ import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.utils.Reference;
 import litewolf101.aztech.world.worldgen.AztechBiomeDecor;
 import litewolf101.aztech.world.worldgen.trees.WorldGenAztechOakTree;
+import net.minecraft.block.BlockFlower;
 import net.minecraft.block.BlockSand;
 import net.minecraft.block.BlockTallGrass;
+import net.minecraft.block.BlockYellowFlower;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.monster.EntityZombie;
@@ -19,9 +21,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeDecorator;
 import net.minecraft.world.chunk.ChunkPrimer;
-import net.minecraft.world.gen.feature.WorldGenAbstractTree;
-import net.minecraft.world.gen.feature.WorldGenTallGrass;
-import net.minecraft.world.gen.feature.WorldGenerator;
+import net.minecraft.world.gen.feature.*;
 
 import java.util.Random;
 
@@ -98,14 +98,36 @@ public class BiomeAncientForest extends Biome{
         super.decorate(worldIn, rand, pos);
 
         WorldGenAztechOakTree aztechOakTree = new WorldGenAztechOakTree(true);
+        WorldGenTallGrass tallGrass = new WorldGenTallGrass(BlockTallGrass.EnumType.GRASS);
+        WorldGenLakes genLakes = new WorldGenLakes(Blocks.WATER);
+        WorldGenLakes genLavaLakes = new WorldGenLakes(Blocks.LAVA);
+        WorldGenFlowers genFlowers = new WorldGenFlowers(Blocks.YELLOW_FLOWER, BlockFlower.EnumFlowerType.DANDELION);
+        WorldGenFlowers genFlowers2 = new WorldGenFlowers(Blocks.RED_FLOWER, BlockFlower.EnumFlowerType.ALLIUM);
 
         BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos(0, 0, 0);
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 15; i++) {
             int rx = pos.getX() + rand.nextInt(16) + 8;
-            int ry = 15 + rand.nextInt(20) + 4;
+            int ry = 15 + rand.nextInt(60) + 4;
             int rz = pos.getZ() + rand.nextInt(16) + 8;
             mutPos.setPos(rx, ry, rz);
             aztechOakTree.generate(worldIn, rand, mutPos);
+        }
+        for (int i = 0; i < 15; i++) {
+            int rx = pos.getX() + rand.nextInt(16) + 8;
+            int ry = 5 + rand.nextInt(90) + 4;
+            int rz = pos.getZ() + rand.nextInt(16) + 8;
+            mutPos.setPos(rx, ry, rz);
+            tallGrass.generate(worldIn, rand, mutPos);
+            genFlowers.generate(worldIn, rand, mutPos);
+            genFlowers2.generate(worldIn, rand, mutPos);
+        }
+        for (int i = 0; i < 1; i++) {
+            int rx = pos.getX() + rand.nextInt(16) + 8;
+            int ry = 15 + rand.nextInt(60) + 4;
+            int rz = pos.getZ() + rand.nextInt(16) + 8;
+            mutPos.setPos(rx, ry, rz);
+            genLakes.generate(worldIn, rand, mutPos);
+            genLavaLakes.generate(worldIn, rand, mutPos);
 
         }
     }

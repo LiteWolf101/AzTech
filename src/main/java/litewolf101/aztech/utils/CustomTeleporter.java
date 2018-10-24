@@ -1,8 +1,10 @@
 package litewolf101.aztech.utils;
 
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Blocks;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Teleporter;
@@ -52,6 +54,10 @@ public class CustomTeleporter extends Teleporter{
 
         worldServer.getMinecraftServer().getPlayerList().transferPlayerToDimension(entityPlayerMP, dimension, new CustomTeleporter(worldServer, x, y, z));
         player.setPositionAndUpdate(x, y, z);
+        BlockPos pos = player.getPosition();
+        //TODO Replace with structure
+        worldServer.setBlockState(pos, Blocks.AIR.getDefaultState());
+        worldServer.setBlockState(pos.up(), Blocks.AIR.getDefaultState());
         if (oldDimension == 1) {
             // For some reason teleporting out of the end does weird things. Compensate for that
             player.setPositionAndUpdate(x, y, z);
