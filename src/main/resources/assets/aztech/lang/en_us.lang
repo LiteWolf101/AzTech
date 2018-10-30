@@ -94,5 +94,24 @@ tile.ancient_blue_rune_ore.name=Ancient Blue Rune Ore
 tile.ancient_white_rune_ore.name=Ancient White Rune Ore
 tile.ancient_black_rune_ore.name=Ancient Black Rune Ore
 
+#Entities
+entity.eye_guardian.name=§6Eye Guardian
+
 #Creative Tab
 itemGroup.aztech=§eAzTech
+
+#Advancements
+advancement.aztech.mine_shard=Aztech
+advancement.aztech.mine_shard.desc=Mine a rune shard
+
+advancement.aztech.mine_all_shards=Fractured...
+advancement.aztech.mine_all_shards.desc=Mine all rune shards
+
+advancement.aztech.craft_all_shard_blocks=...But Whole
+advancement.aztech.craft_all_shard_blocks.desc=Craft all of the shard blocks
+
+advancement.aztech.craft_all_temple_rune_blocks=Overexpensive Jewelry
+advancement.aztech.craft_all_temple_rune_blocks.desc=Craft all of the temple rune blocks
+
+advancement.aztech.enter_aztech=Backwards in Time...?
+advancement.aztech.enter_aztech.desc=Enter the Aztech Dimension

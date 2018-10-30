@@ -1,0 +1,24 @@
+{
+  "display": {
+    "icon": {
+      "item": "aztech:aztech_badge"
+    },
+    "title": {
+      "translate": "advancement.aztech.enter_aztech"
+    },
+    "frame": "challenge",
+    "description": {
+      "translate": "advancement.aztech.enter_aztech.desc"
+    },
+    "announce_to_chat": true
+  },
+  "parent": "aztech:root",
+  "criteria": {
+    "in_aztech": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "dimension": "aztech"
+      }
+    }
+  }
+}

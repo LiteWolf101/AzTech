@@ -1,0 +1,42 @@
+{
+  "entity.eye_guardian.eye_ambient": {
+    "category": "entity",
+    "subtitle": "entity.eye_guardian.eye_ambient",
+    "sounds": [
+      {
+        "name": "aztech:entity/eye_guardian/eye_ambient",
+        "stream": true
+      }
+    ]
+  },
+  "entity.eye_guardian.eye_hurt": {
+    "category": "entity",
+    "subtitle": "entity.eye_guardian.eye_hurt",
+    "sounds": [
+      {
+        "name": "aztech:entity/eye_guardian/eye_hurt",
+        "stream": true
+      }
+    ]
+  },
+  "entity.eye_guardian.eye_death": {
+    "category": "entity",
+    "subtitle": "entity.eye_guardian.eye_death",
+    "sounds": [
+      {
+        "name": "aztech:entity/eye_guardian/eye_death",
+        "stream": true
+      }
+    ]
+  },
+  "entity.eye_master.eye_master_ambient": {
+    "category": "entity",
+    "subtitle": "entity.eye_master.eye_master_ambient",
+    "sounds": [
+      {
+        "name": "aztech:entity/eye_master/eye_master_ambient",
+        "stream": true
+      }
+    ]
+  }
+}

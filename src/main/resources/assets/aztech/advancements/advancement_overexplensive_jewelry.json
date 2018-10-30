@@ -1,0 +1,93 @@
+{
+  "display": {
+    "icon": {
+      "item": "aztech:temple_rune_block",
+      "data": 0
+    },
+    "title": {
+      "translate": "advancement.aztech.craft_all_temple_rune_blocks"
+    },
+    "frame": "challenge",
+    "description": {
+      "translate": "advancement.aztech.craft_all_temple_rune_blocks.desc"
+    },
+    "announce_to_chat": true
+  },
+  "parent": "aztech:advancement_but_whole",
+  "criteria": {
+    "red": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "aztech:temple_rune_block",
+            "data": 0
+          }
+        ]
+      }
+    },
+    "yellow": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "aztech:temple_rune_block",
+            "data": 1
+          }
+        ]
+      }
+    },
+    "green": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "aztech:temple_rune_block",
+            "data": 2
+          }
+        ]
+      }
+    },
+    "blue": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "aztech:temple_rune_block",
+            "data": 3
+          }
+        ]
+      }
+    },
+    "white": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "aztech:temple_rune_block",
+            "data": 4
+          }
+        ]
+      }
+    },
+    "black": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "aztech:temple_rune_block",
+            "data": 5
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    ["red"],
+    ["yellow"],
+    ["green"],
+    ["blue"],
+    ["white"],
+    ["black"]
+  ]
+}

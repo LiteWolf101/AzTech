@@ -19,6 +19,7 @@ public class BlockUnbreakable extends Block implements IHasModel {
         setRegistryName(name);
         setCreativeTab(AzTech.CREATIVE_TAB);
         setBlockUnbreakable();
+        setResistance(2000);
 
         BlocksInit.BLOCKS.add(this);
         ItemsInit.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));

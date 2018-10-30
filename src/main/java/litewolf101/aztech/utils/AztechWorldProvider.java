@@ -80,7 +80,7 @@ public class AztechWorldProvider extends WorldProvider {
 
     public boolean canRespawnHere()
     {
-        return true;
+        return false;
     }
 
     @SideOnly(Side.CLIENT)

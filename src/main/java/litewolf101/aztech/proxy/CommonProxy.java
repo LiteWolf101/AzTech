@@ -2,11 +2,17 @@ package litewolf101.aztech.proxy;
 
 import litewolf101.aztech.dimension.AztechDimension;
 import litewolf101.aztech.init.BlocksInit;
+import litewolf101.aztech.init.ModEntities;
 import litewolf101.aztech.tileentity.*;
 import litewolf101.aztech.utils.Reference;
+import litewolf101.aztech.utils.client.particle.AzTechParticleTypes;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -18,6 +24,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
         AztechDimension.init();
+        ModEntities.init();
     }
 
     public void init(FMLInitializationEvent event) {
@@ -52,5 +59,8 @@ public class CommonProxy {
         GameRegistry.registerTileEntity(TEGeoObelisk.class, Reference.MODID + ":te_geo_obelisk");
         GameRegistry.registerTileEntity(TEPortalConstruct.class, Reference.MODID + ":te_portal_construct_basic");
         GameRegistry.registerTileEntity(masterPortalConstruct.class, Reference.MODID + ":te_master_portal_construct");
+    }
+
+    public void spawnParticle(World world, AzTechParticleTypes particle, double x, double y, double z, double velX, double velY, double velZ) {
     }
 }

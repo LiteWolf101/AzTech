@@ -2,6 +2,7 @@ package litewolf101.aztech.world.biome;
 
 import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.world.worldgen.AztechBiomeDecor;
+import litewolf101.aztech.world.worldgen.structures.GenHut;
 import litewolf101.aztech.world.worldgen.trees.WorldGenAztechOakTree;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.BlockSand;
@@ -70,7 +71,7 @@ public class BiomeMurkySwamp extends Biome{
     }
 
     @Override
-    public int getFoliageColorAtPos(BlockPos pos) {
+    public int getModdedBiomeGrassColor(int original) {
         return 587547;
     }
 
@@ -89,6 +90,7 @@ public class BiomeMurkySwamp extends Biome{
         super.decorate(worldIn, rand, pos);
 
         WorldGenAztechOakTree aztechOakTree = new WorldGenAztechOakTree(true);
+        GenHut hut = new GenHut();
         WorldGenTallGrass tallGrass = new WorldGenTallGrass(BlockTallGrass.EnumType.GRASS);
         WorldGenLakes genLakes = new WorldGenLakes(Blocks.WATER);
         WorldGenLakes genLavaLakes = new WorldGenLakes(Blocks.LAVA);
@@ -97,7 +99,7 @@ public class BiomeMurkySwamp extends Biome{
         //Add AzTech Liquids
 
         BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos(0, 0, 0);
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 25; i++) {
             int rx = pos.getX() + rand.nextInt(16) + 8;
             int ry = 15 + rand.nextInt(60) + 4;
             int rz = pos.getZ() + rand.nextInt(16) + 8;
@@ -109,10 +111,15 @@ public class BiomeMurkySwamp extends Biome{
             int ry = 5 + rand.nextInt(90) + 4;
             int rz = pos.getZ() + rand.nextInt(16) + 8;
             mutPos.setPos(rx, ry, rz);
+            genLakes.generate(worldIn, rand, mutPos);
             tallGrass.generate(worldIn, rand, mutPos);
             genFlowers.generate(worldIn, rand, mutPos);
             genFlowers2.generate(worldIn, rand, mutPos);
-            genLakes.generate(worldIn, rand, mutPos);
+            if (mutPos.getY() == worldIn.getSeaLevel() + 1){
+                if(rand.nextInt(50) == 0){//TODO Add rates to config
+                    hut.generate(worldIn, rand, mutPos);
+                }
+            }
         }
         for (int i = 0; i < 1; i++) {
             int rx = pos.getX() + rand.nextInt(16) + 8;

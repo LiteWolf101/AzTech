@@ -8,6 +8,7 @@ import litewolf101.aztech.world.biome.BiomeAncientForest;
 import litewolf101.aztech.world.mapgen.MapGenAztechCaves;
 import litewolf101.aztech.world.mapgen.MapGenAztechRavine;
 import litewolf101.aztech.world.worldgen.structures.GenAztechPortal;
+import litewolf101.aztech.world.worldgen.structures.GenHut;
 import litewolf101.aztech.world.worldgen.structures.WorldGenCustomStructures;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.material.Material;
@@ -316,7 +317,9 @@ public class AztechChunkGenerator implements IChunkGenerator, IChunkProvider {
                                     topBlock = Blocks.AIR.getDefaultState();
                                     fillerBlock = BlocksInit.ANCIENT_STONE.getDefaultState();
                                 } else if (yInChunk >= var5 + 4 && yInChunk <= var5 + 120) {
-                                    topBlock = biome.topBlock;
+                                    if (yInChunk < worldObj.getSeaLevel() - 2){
+                                        topBlock = Blocks.GRAVEL.getDefaultState();
+                                    } else topBlock = biome.topBlock;
                                     fillerBlock = biome.fillerBlock;
                                 }
                                 if (yInChunk < worldObj.getSeaLevel() && (topBlock == null || topBlock.getMaterial() == Material.AIR || fillerBlock.getMaterial() == Material.AIR))

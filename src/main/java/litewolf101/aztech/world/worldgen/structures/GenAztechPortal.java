@@ -2,6 +2,7 @@ package litewolf101.aztech.world.worldgen.structures;
 
 import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.objects.blocks.BlockTempleStone;
+import litewolf101.aztech.utils.IStructure;
 import litewolf101.aztech.utils.handlers.EnumHalf;
 import litewolf101.aztech.utils.handlers.EnumPortalPart;
 import litewolf101.aztech.utils.handlers.EnumTempleStoneType;
@@ -15,6 +16,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.MapGenBase;
 import net.minecraft.world.gen.feature.WorldGenerator;
+import net.minecraft.world.gen.structure.template.TemplateManager;
 
 import java.util.Random;
 
@@ -25,7 +27,7 @@ import static litewolf101.aztech.objects.blocks.PortalMultiblock.PART;
 /**
  * Created by LiteWolf101 on 10/23/2018.
  */
-public class GenAztechPortal extends WorldGenerator {
+public class GenAztechPortal extends WorldGenerator{
     protected IBlockState stone = BlocksInit.TEMPLE_STONE.getDefaultState();
     protected IBlockState stone2 = BlocksInit.TEMPLE_STONE.getDefaultState().withProperty(STONE_TYPE, EnumTempleStoneType.EnumType.BRICKS);
 
@@ -43,6 +45,7 @@ public class GenAztechPortal extends WorldGenerator {
     }
 
     protected void generatePortal(World world, Random random, BlockPos pos) {
+
         for (int x = -3; x <= 3; x++){
             for (int z = -3; z <= 3; z++){
                 for (int y = 0; y <= 4; y++){
