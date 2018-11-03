@@ -171,7 +171,7 @@ public class MobEyeMaster extends EntityMob implements IMob {
             if (attackCooldown < 50) {
                 isAttacking = true;
                 this.master.setEntityInvulnerable(false);
-                if (entity != null){
+                if (entity != null && !((EntityPlayer) entity).isCreative()){
                     if (this.master.getEntityBoundingBox().intersects(entity.getEntityBoundingBox()))
                     {
                         this.master.attackEntityAsMob(entity);

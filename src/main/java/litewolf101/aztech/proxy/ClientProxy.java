@@ -8,10 +8,7 @@ import litewolf101.aztech.tileentity.TEGeoObelisk;
 import litewolf101.aztech.tileentity.TETempleRuneBlock;
 import litewolf101.aztech.tileentity.masterPortalConstruct;
 import litewolf101.aztech.utils.Reference;
-import litewolf101.aztech.utils.client.particle.AzTechParticleTypes;
-import litewolf101.aztech.utils.client.particle.ParticleEnemyLink;
-import litewolf101.aztech.utils.client.particle.ParticleEyeGuardian;
-import litewolf101.aztech.utils.client.particle.ParticleEyeMaster;
+import litewolf101.aztech.utils.client.particle.*;
 import litewolf101.aztech.utils.handlers.AzTechSoundHandler;
 import litewolf101.aztech.world.worldgen.structures.WorldGenCustomStructures;
 import net.minecraft.client.Minecraft;
@@ -104,6 +101,28 @@ public class ClientProxy extends CommonProxy {
                         break;
                     case ENEMY_LINK:
                         particle = new ParticleEnemyLink(world, x, y, z, velX, velY, velZ);
+                        break;
+                    case PYRONANT:
+                        particle = new ParticlePyronant(world, x, y, z, (float)velX, (float)velY, (float)velZ);
+                        break;
+                    case RED_SPARKLE:
+                        particle = new ParticleRedSparkle(world, x, y, z, velX, velY, velZ);
+                        break;
+                    case YELLOW_SPARKLE:
+                        particle = new ParticleYellowSparkle(world, x, y, z, velX, velY, velZ);
+                        break;
+                    case GREEN_SPARKLE:
+                        particle = new ParticleGreenSparkle(world, x, y, z, velX, velY, velZ);
+                        break;
+                    case BLUE_SPARKLE:
+                        particle = new ParticleBlueSparkle(world, x, y, z, velX, velY, velZ);
+                        break;
+                    case WHITE_SPARKLE:
+                        particle = new ParticleWhiteSparkle(world, x, y, z, velX, velY, velZ);
+                        break;
+                    case BLACK_SPARKLE:
+                        particle = new ParticleBlackSparkle(world, x, y, z, velX, velY, velZ);
+                        break;
                 }
 
                 if (particle != null) {

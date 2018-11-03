@@ -7,6 +7,7 @@ import litewolf101.aztech.objects.blocks.item.ItemBlockVariants;
 import litewolf101.aztech.tileentity.TETempleRuneBlock;
 import litewolf101.aztech.utils.IHasModel;
 import litewolf101.aztech.utils.IMetaName;
+import litewolf101.aztech.utils.client.particle.AzTechParticleTypes;
 import litewolf101.aztech.utils.handlers.EnumRuneColor;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.SoundType;
@@ -28,6 +29,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+import java.util.Random;
 
 /**
  * Created by LiteWolf101 on 9/29/2018.
@@ -86,6 +88,30 @@ public class TempleRuneBlock extends BlockContainer implements IHasModel, IMetaN
     protected BlockStateContainer createBlockState() {
 
         return new BlockStateContainer(this, new IProperty[] {RUNE_COLOR});
+    }
+
+    @Override
+    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
+        double x = pos.getX();
+        double y = pos.getY();
+        double z = pos.getZ();
+        double randx = rand.nextDouble() + x;
+        double randy = rand.nextDouble() + y;
+        double randz = rand.nextDouble() + z;
+
+        if (worldIn.getBlockState(pos).getValue(RUNE_COLOR) == EnumRuneColor.EnumType.RED){
+            AzTech.proxy.spawnParticle(worldIn, AzTechParticleTypes.RED_SPARKLE, randx, randy, randz, 0, 0, 0);
+        } else if (worldIn.getBlockState(pos).getValue(RUNE_COLOR) == EnumRuneColor.EnumType.YELLOW){
+            AzTech.proxy.spawnParticle(worldIn, AzTechParticleTypes.YELLOW_SPARKLE, randx, randy, randz, 0, 0, 0);
+        } else if (worldIn.getBlockState(pos).getValue(RUNE_COLOR) == EnumRuneColor.EnumType.GREEN){
+            AzTech.proxy.spawnParticle(worldIn, AzTechParticleTypes.GREEN_SPARKLE, randx, randy, randz, 0, 0, 0);
+        } else if (worldIn.getBlockState(pos).getValue(RUNE_COLOR) == EnumRuneColor.EnumType.BLUE){
+            AzTech.proxy.spawnParticle(worldIn, AzTechParticleTypes.BLUE_SPARKLE, randx, randy, randz, 0, 0, 0);
+        } else if (worldIn.getBlockState(pos).getValue(RUNE_COLOR) == EnumRuneColor.EnumType.WHITE){
+            AzTech.proxy.spawnParticle(worldIn, AzTechParticleTypes.WHITE_SPARKLE, randx, randy, randz, 0, 0, 0);
+        } else if (worldIn.getBlockState(pos).getValue(RUNE_COLOR) == EnumRuneColor.EnumType.BLACK){
+            AzTech.proxy.spawnParticle(worldIn, AzTechParticleTypes.BLACK_SPARKLE, randx, randy, randz, 0, 0, 0);
+        }
     }
 
     @Override

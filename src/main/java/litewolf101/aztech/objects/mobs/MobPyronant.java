@@ -1,5 +1,7 @@
 package litewolf101.aztech.objects.mobs;
 
+import litewolf101.aztech.AzTech;
+import litewolf101.aztech.utils.client.particle.AzTechParticleTypes;
 import litewolf101.aztech.utils.handlers.AzTechSoundHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -36,6 +38,19 @@ public class MobPyronant extends EntityMob implements IMob {
         this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(32.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(35.0D);
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(3.0D);
+    }
+
+    @Override
+    public void onLivingUpdate() {
+        if (this.world.isRemote)
+        {
+
+            for (int i = 0; i < 2; ++i)
+            {
+                AzTech.proxy.spawnParticle(world, AzTechParticleTypes.PYRONANT, this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY + this.rand.nextDouble() * (double)this.height, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, 0.0D, 0.0D, 0.0D);
+            }
+        }
+        super.onLivingUpdate();
     }
 
     @Override

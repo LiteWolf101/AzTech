@@ -96,6 +96,8 @@ tile.ancient_black_rune_ore.name=Ancient Black Rune Ore
 
 #Entities
 entity.eye_guardian.name=§6Eye Guardian
+entity.eye_master.name=§6Eye Master
+entity.pyronant.name=Pyronant
 
 #Creative Tab
 itemGroup.aztech=§eAzTech
