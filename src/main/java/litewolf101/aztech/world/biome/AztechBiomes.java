@@ -23,6 +23,7 @@ public class AztechBiomes {
     public static final BiomeAncientForest biomeAncientForest = new BiomeAncientForest();
     public static final BiomeAridLands biomeAridLands = new BiomeAridLands();
     public static final BiomeMurkySwamp biomeMurkySwamp = new BiomeMurkySwamp();
+    public static final BiomeAncientOcean biomeAncientOcean = new BiomeAncientOcean();
 
     @SubscribeEvent
     public static void registerBiomes(RegistryEvent.Register<Biome> event) {
@@ -31,6 +32,7 @@ public class AztechBiomes {
         registerBiome(registry, biomeAncientForest, "ancient_forest", BiomeManager.BiomeType.WARM, 20, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.SPOOKY);
         registerBiome(registry, biomeAridLands, "arid_lands", BiomeManager.BiomeType.DESERT, 20, BiomeDictionary.Type.DEAD, BiomeDictionary.Type.DRY, BiomeDictionary.Type.HOT);
         registerBiome(registry, biomeMurkySwamp, "murky_swamp", BiomeManager.BiomeType.WARM, 20, BiomeDictionary.Type.SWAMP, BiomeDictionary.Type.WET);
+        registerBiome(registry, biomeAncientOcean, "ancient_ocean", BiomeManager.BiomeType.WARM, 15, BiomeDictionary.Type.OCEAN, BiomeDictionary.Type.WET);
     }
 
     private static <T extends Biome> void registerBiome(final IForgeRegistry<Biome> registry, final T biome, final String biomeName, final BiomeManager.BiomeType biomeType, final int weight, final BiomeDictionary.Type... types) {

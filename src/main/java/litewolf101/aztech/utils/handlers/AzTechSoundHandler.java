@@ -13,6 +13,7 @@ public class AzTechSoundHandler {
     public static SoundEvent ENTITY_EYE_GUARDIAN_HURT;
     public static SoundEvent ENTITY_EYE_GUARDIAN_DEATH;
     public static SoundEvent ENTITY_EYE_MASTER_AMBIENT;
+    public static SoundEvent PROJECTILE_EYE_LASER_FIRED;
 
 
     public static void init() {
@@ -20,6 +21,7 @@ public class AzTechSoundHandler {
         ENTITY_EYE_GUARDIAN_HURT = registerSounds("entity.eye_guardian.eye_hurt");
         ENTITY_EYE_GUARDIAN_DEATH = registerSounds("entity.eye_guardian.eye_death");
         ENTITY_EYE_MASTER_AMBIENT = registerSounds("entity.eye_master.eye_master_ambient");
+        PROJECTILE_EYE_LASER_FIRED = registerSounds("entity.eye_laser.fired");
     }
 
     private static SoundEvent registerSounds(String name){

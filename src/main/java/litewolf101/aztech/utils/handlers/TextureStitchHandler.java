@@ -19,14 +19,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @Mod.EventBusSubscriber(modid = Reference.MODID, value = Side.CLIENT)
 public class TextureStitchHandler {
     @SubscribeEvent
-    public void pre (TextureStitchEvent.Pre event){
+    public static void pre (TextureStitchEvent.Pre event){
         TextureMap map = event.getMap();
-        map.registerSprite(new ResourceLocation(Reference.MODID, ":particle/eye_master_particle"));
-        System.out.println(TextFormatting.BLUE + Reference.MODID + ":particle/eye_master_particle");
-    }
-
-    @SubscribeEvent
-    public void post (TextureStitchEvent.Post event){
-
+        map.registerSprite(new ResourceLocation(Reference.MODID, "particle/eye_master_particle"));
+        map.registerSprite(new ResourceLocation(Reference.MODID, "particle/enemy_link_particle"));
     }
 }

@@ -38,5 +38,15 @@
         "stream": true
       }
     ]
+  },
+  "entity.eye_laser.fired": {
+    "category": "entity",
+    "subtitle": "entity.eye_laser.fired",
+    "sounds": [
+      {
+        "name": "aztech:entity/eye_laser/fired",
+        "stream": true
+      }
+    ]
   }
 }

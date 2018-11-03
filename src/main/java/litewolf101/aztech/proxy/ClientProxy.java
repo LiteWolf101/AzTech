@@ -9,6 +9,8 @@ import litewolf101.aztech.tileentity.TETempleRuneBlock;
 import litewolf101.aztech.tileentity.masterPortalConstruct;
 import litewolf101.aztech.utils.Reference;
 import litewolf101.aztech.utils.client.particle.AzTechParticleTypes;
+import litewolf101.aztech.utils.client.particle.ParticleEnemyLink;
+import litewolf101.aztech.utils.client.particle.ParticleEyeGuardian;
 import litewolf101.aztech.utils.client.particle.ParticleEyeMaster;
 import litewolf101.aztech.utils.handlers.AzTechSoundHandler;
 import litewolf101.aztech.world.worldgen.structures.WorldGenCustomStructures;
@@ -97,6 +99,11 @@ public class ClientProxy extends CommonProxy {
                     case EYE_MASTER:
                         particle = new ParticleEyeMaster(world, x, y, z, velX, velY, velZ);
                         break;
+                    case EYE_GUARDIAN:
+                        particle = new ParticleEyeGuardian(world, x, y, z, velX, velY, velZ);
+                        break;
+                    case ENEMY_LINK:
+                        particle = new ParticleEnemyLink(world, x, y, z, velX, velY, velZ);
                 }
 
                 if (particle != null) {

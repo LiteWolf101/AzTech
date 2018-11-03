@@ -1,6 +1,9 @@
 package litewolf101.aztech.objects.mobs;
 
+import litewolf101.aztech.AzTech;
 import litewolf101.aztech.init.ItemsInit;
+import litewolf101.aztech.objects.projectiles.ProjectileEyeLaser;
+import litewolf101.aztech.utils.client.particle.AzTechParticleTypes;
 import litewolf101.aztech.utils.handlers.AzTechSoundHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -15,6 +18,7 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -106,7 +110,7 @@ public class MobEyeGuardian extends EntityMob implements IMob {
 
             for (int i = 0; i < 2; ++i)
             {
-                this.world.spawnParticle(EnumParticleTypes.REDSTONE, this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY + this.rand.nextDouble() * (double)this.height, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, 0.0D, 0.0D, 0.0D);
+                AzTech.proxy.spawnParticle(world, AzTechParticleTypes.EYE_GUARDIAN, this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY + this.rand.nextDouble() * (double)this.height, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, 0.0D, 0.0D, 0.0D);
             }
         }
 
@@ -224,13 +228,16 @@ public class MobEyeGuardian extends EntityMob implements IMob {
                     if (this.attackStep > 3)
                     {
                         float f = MathHelper.sqrt(MathHelper.sqrt(d0)) * 0.1F;
-                        this.guardian.world.playEvent((EntityPlayer)null, 1018, new BlockPos((int)this.guardian.posX, (int)this.guardian.posY, (int)this.guardian.posZ), 0);
+                        guardian.world.playSound(null, guardian.getPosition(), AzTechSoundHandler.PROJECTILE_EYE_LASER_FIRED, SoundCategory.HOSTILE, 2f, 1f);
 
                         for (int i = 0; i < 1; ++i)
                         {
-                            EntitySmallFireball entitysmallfireball = new EntitySmallFireball(this.guardian.world, this.guardian, d1 + this.guardian.getRNG().nextGaussian() * (double)f, d2, d3 + this.guardian.getRNG().nextGaussian() * (double)f);
-                            entitysmallfireball.posY = this.guardian.posY + (double)(this.guardian.height / 2.0F) + 0.5D;
-                            this.guardian.world.spawnEntity(entitysmallfireball);
+                            ProjectileEyeLaser eyeLaser = new ProjectileEyeLaser(this.guardian.world, this.guardian, d1 + this.guardian.getRNG().nextGaussian() * (double)f, d2, d3 + this.guardian.getRNG().nextGaussian() * (double)f);
+                            //fix...somehow.
+                            eyeLaser.posY = this.guardian.posY + (double)(this.guardian.height / 2.0F);
+                            eyeLaser.rotationPitch = this.guardian.rotationPitch;
+                            eyeLaser.rotationYaw = this.guardian.rotationYaw;
+                            this.guardian.world.spawnEntity(eyeLaser);
                         }
                     }
                 }

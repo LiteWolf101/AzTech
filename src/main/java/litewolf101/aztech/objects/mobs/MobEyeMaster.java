@@ -1,21 +1,26 @@
 package litewolf101.aztech.objects.mobs;
 
+import com.google.common.base.Predicates;
 import litewolf101.aztech.AzTech;
+import litewolf101.aztech.init.ItemsInit;
 import litewolf101.aztech.utils.client.particle.AzTechParticleTypes;
 import litewolf101.aztech.utils.handlers.AzTechSoundHandler;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-import net.minecraft.entity.ai.EntityAIWander;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.ai.*;
 import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.monster.EntityVex;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -24,12 +29,19 @@ import java.util.List;
 /**
  * Created by LiteWolf101 on 10/27/2018.
  */
-public class MobEyeMaster extends EntityMob implements IMob{
+public class MobEyeMaster extends EntityMob implements IMob {
+    public static boolean isDoingAttack;
+
+
+    public int attackTicks;
 
     public MobEyeMaster(World worldIn) {
         super(worldIn);
         setSize(3f, 3f);
         this.isImmuneToFire = true;
+        this.attackTicks = 400;
+        this.hasNoGravity();
+        isDoingAttack = DrawLinesToGuaridans.isAttacking;
     }
 
     @Override
@@ -46,6 +58,7 @@ public class MobEyeMaster extends EntityMob implements IMob{
         this(world);
         this.rotationYaw = rotationYaw;
         this.setPosition(x, y, z);
+        this.attackTicks = 400;
     }
 
     @Override
@@ -53,16 +66,16 @@ public class MobEyeMaster extends EntityMob implements IMob{
         this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
         this.tasks.addTask(3, new EntityAIWander(this, 0.2D));
         this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 32.0F, 1.0F));
-        this.tasks.addTask(2, new DrawLinesToGuaridans(this));
+        this.tasks.addTask(2, new DrawLinesToGuaridans(this, attackTicks));
     }
 
     @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.2D);
+        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.6D);
         this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(16.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(5.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2.0D);
     }
 
     @Override
@@ -74,7 +87,7 @@ public class MobEyeMaster extends EntityMob implements IMob{
     {
         if (!this.onGround && this.motionY < 0.0D)
         {
-            this.motionY *= 0.6D;
+            this.motionY *= 0.2D;
         }
 
         if (this.world.isRemote)
@@ -87,33 +100,12 @@ public class MobEyeMaster extends EntityMob implements IMob{
         }
 
         super.onLivingUpdate();
-
-        AxisAlignedBB detectbb = new AxisAlignedBB(this.posX, this.posY, this.posZ, this.posX + 10, this.posY + 10, this.posZ + 10).grow(10D);
-        List<MobEyeGuardian> guards = world.getEntitiesWithinAABB(MobEyeGuardian.class, detectbb);
-        if (guards.size() > 0){
-            MobEyeGuardian highlight = guards.get(rand.nextInt(guards.size()));
-            this.makeParticlesTo(highlight);
-        }
-
-
-
     }
 
-    public void makeParticlesTo(Entity highlight) {
-        double sx = this.posX + 0.5D;
-        double sy = this.posY + 1.0D;
-        double sz = this.posZ + 0.5D;
-
-        double dx = sx - highlight.posX;
-        double dy = sy - highlight.posY - highlight.getEyeHeight();
-        double dz = sz - highlight.posZ;
-
-        for (int i = 0; i < 5; i++) {
-            for (int v = 1; v < 8; v++){
-                world.spawnParticle(EnumParticleTypes.REDSTONE, (sx - dx/8*v), (sy - dy/8*v), (sz - dz/8*v), 0, 0, 0);
-            }
-        }
-
+    @Nullable
+    @Override
+    protected Item getDropItem() {
+        return ItemsInit.BLUE_RUNE_SHARD;
     }
 
     @Nullable
@@ -142,26 +134,61 @@ public class MobEyeMaster extends EntityMob implements IMob{
         return super.getSoundPitch() * 0.95F;
     }
 
-    private class DrawLinesToGuaridans extends EntityAIBase {
+    private static class DrawLinesToGuaridans extends EntityAIBase {
+        public static boolean isAttacking;
+        public int attackCooldown;
         private final MobEyeMaster master;
 
+
+        public DrawLinesToGuaridans(MobEyeMaster mobEyeMaster, int attackCooldown) {
+            this.master = mobEyeMaster;
+            this.attackCooldown = attackCooldown;
+        }
 
         @Override
         public boolean shouldExecute() {
             return true;
         }
 
-        public DrawLinesToGuaridans(MobEyeMaster mobEyeMaster) {
-            this.master = mobEyeMaster;
-        }
-
         @Override
         public void updateTask() {
-            AxisAlignedBB detectbb = new AxisAlignedBB(master.posX, master.posY, master.posZ, master.posX + 1, master.posY + 1, master.posZ + 1).grow(10D);
-            List<MobEyeGuardian> guards = world.getEntitiesWithinAABB(MobEyeGuardian.class, detectbb);
-            if (guards.size() > 0){
-                MobEyeGuardian highlight = guards.get(rand.nextInt(guards.size()));
-                this.makeParticlesTo(highlight);
+            Entity entity = this.master.world.getClosestPlayer(this.master.posX, this.master.posY, this.master.posZ, 48d, false);
+            --this.attackCooldown;
+            if (attackCooldown > 50) {
+                isAttacking = false;
+                this.master.setEntityInvulnerable(true);
+                AxisAlignedBB detectbb = new AxisAlignedBB(master.posX, master.posY, master.posZ, master.posX + 10, master.posY + 10, master.posZ + 10).grow(10D);
+                List<MobEyeGuardian> guards = this.master.world.getEntitiesWithinAABB(MobEyeGuardian.class, detectbb);
+                if (guards.size() > 0){
+                    MobEyeGuardian highlight = guards.get(this.master.rand.nextInt(guards.size()));
+                    this.makeParticlesTo(highlight);
+                    highlight.addPotionEffect(new PotionEffect(Potion.getPotionById(11), 10, 4));
+                }
+            }
+            if (attackCooldown == 50){
+                this.master.world.playSound(null, this.master.getPosition(), SoundEvents.ENTITY_ENDERDRAGON_GROWL, SoundCategory.HOSTILE, 2f, 1f);
+            }
+            if (attackCooldown < 50) {
+                isAttacking = true;
+                this.master.setEntityInvulnerable(false);
+                if (entity != null){
+                    if (this.master.getEntityBoundingBox().intersects(entity.getEntityBoundingBox()))
+                    {
+                        this.master.attackEntityAsMob(entity);
+                        this.master.motionY = 0.4d;
+                    }
+                    else
+                    {
+
+                        Vec3d vec3d = entity.getPositionEyes(1.0F);
+                        this.master.moveHelper.setMoveTo(vec3d.x, vec3d.y, vec3d.z, 0.8D);
+
+                    }
+                }
+            }
+
+            if (attackCooldown < 0){
+                this.attackCooldown = master.attackTicks;
             }
         }
 
@@ -174,10 +201,10 @@ public class MobEyeMaster extends EntityMob implements IMob{
             double dy = sy - highlight.posY - highlight.getEyeHeight();
             double dz = sz - highlight.posZ;
 
-            for (int i = 0; i < 5; i++) {
-                world.spawnParticle(EnumParticleTypes.REDSTONE, sx, sy, sz, -dx, -dy, -dz);
-            }
 
+            for (int v = 1; v < 8; v++){
+                AzTech.proxy.spawnParticle(this.master.world, AzTechParticleTypes.ENEMY_LINK, (sx - dx/8*v), (sy - dy/8*v), (sz - dz/8*v), 0, 0, 0);
+            }
         }
     }
 }

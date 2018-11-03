@@ -1,5 +1,6 @@
 package litewolf101.aztech.objects.mobs.model;
 
+import litewolf101.aztech.objects.mobs.MobEyeMaster;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
@@ -105,5 +106,13 @@ public class ModelEyeMaster extends ModelBase {
 
         this.eye.rotateAngleY = netHeadYaw * 0.017453292F;
         this.eye.rotateAngleX = headPitch * 0.017453292F;
+
+        //MobEyeMaster eyeMaster = (MobEyeMaster) entityIn;
+        //if (eyeMaster.isDoingAttack) {
+        //    this.eye.rotateAngleX = 180 * (float)(Math.PI / 180);
+        //}
+        //if (!eyeMaster.isDoingAttack) {
+        //    this.eye.rotateAngleX = 0;
+        //} Fix
     }
 }
