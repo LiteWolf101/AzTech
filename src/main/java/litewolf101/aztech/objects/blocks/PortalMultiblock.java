@@ -28,6 +28,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+import java.util.Random;
 
 /**
  * Created by LiteWolf101 on 10/19/2018.
@@ -147,5 +148,10 @@ public class PortalMultiblock extends Block implements IHasModel, IMetaName, ITi
         if (state == state.withProperty(PART, EnumPortalPart.EnumType.BOTTOM) || state == state.withProperty(PART, EnumPortalPart.EnumType.MIDDLE)){
             return false;
         } else return true;
+    }
+
+    @Override
+    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+        return null;
     }
 }

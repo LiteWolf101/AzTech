@@ -148,4 +148,9 @@ public class AncientLaser extends BlockContainer implements IHasModel, IMetaName
     public TileEntity createNewTileEntity(World world, int i) {
         return new TEAncientLaser();
     }
+
+    @Override
+    public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {
+        TEAncientLaser.staticReplaceLaser(worldIn.getBlockState(pos).getValue(FACING), worldIn, pos);
+    }
 }

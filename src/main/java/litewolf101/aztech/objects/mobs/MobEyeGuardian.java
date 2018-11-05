@@ -66,6 +66,7 @@ public class MobEyeGuardian extends EntityMob implements IMob {
         this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityZombie.class, true));
         this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntitySkeleton.class, true));
         this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityCreeper.class, true));
+        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, MobPyronant.class, true));
         this.tasks.addTask(2, new EntityAIAvoidEntity(this, EntityPlayer.class, 6.0F, 0.2D, 0.2D));
     }
 

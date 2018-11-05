@@ -7,6 +7,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 import static litewolf101.aztech.objects.blocks.AncientLaser.ACTIVATED;
 import static litewolf101.aztech.objects.blocks.AncientLaser.FACING;
@@ -48,7 +50,7 @@ public class TEAncientLaser extends TileEntity implements ITickable{
         world.setBlockState(pos, BlocksInit.ANCIENT_LASER.getDefaultState().withProperty(ACTIVATED, activated).withProperty(FACING, direction));
         if (activated){
             setLaser(15, direction);
-        } else {
+        } else if (doReplace(15, direction)){
             replaceLaser(15, direction);
         }
     }
@@ -79,6 +81,24 @@ public class TEAncientLaser extends TileEntity implements ITickable{
 
     public void replaceLaser(int range, EnumFacing direction){
         for (int i = 1; i <= range; i++) {
+            if (world.getBlockState(pos.offset(direction, i)).getBlock() == BlocksInit.LASER_BLOCK) {
+                world.setBlockToAir(pos.offset(direction, i));
+            }
+        }
+    }
+
+    public boolean doReplace(int range, EnumFacing direction) {
+        int check = 0;
+        for (int i = 1; i <= range; i++) {
+            if (world.getBlockState(pos.offset(direction, i+1)) == BlocksInit.ANCIENT_LASER.getDefaultState().withProperty(FACING, direction.getOpposite()).withProperty(ACTIVATED, true)) {
+                check++;
+            }
+        }
+        return check == 0;
+    }
+
+    public static void staticReplaceLaser(EnumFacing direction, World world, BlockPos pos) {
+        for (int i = 1; i <= 15; i++) {
             if (world.getBlockState(pos.offset(direction, i)).getBlock() == BlocksInit.LASER_BLOCK) {
                 world.setBlockToAir(pos.offset(direction, i));
             }

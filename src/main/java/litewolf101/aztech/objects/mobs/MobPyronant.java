@@ -5,8 +5,9 @@ import litewolf101.aztech.utils.client.particle.AzTechParticleTypes;
 import litewolf101.aztech.utils.handlers.AzTechSoundHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.ai.*;
 import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
@@ -56,7 +57,13 @@ public class MobPyronant extends EntityMob implements IMob {
     @Override
     protected void initEntityAI() {
         super.initEntityAI();
+        this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
+        this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityZombie.class, true));
+        this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, MobEyeMaster.class, true));
+        this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, MobEyeGuardian.class, true));
         this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 32.0F, 1.0F));
+        this.tasks.addTask(3, new EntityAIWanderAvoidWater(this, 0.7, 0.1f));
+        this.tasks.addTask(2, new EntityAIAttackMelee(this, 0.9, false));
     }
 
     @Override
