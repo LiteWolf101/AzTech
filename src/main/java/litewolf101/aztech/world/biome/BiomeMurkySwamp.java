@@ -2,7 +2,6 @@ package litewolf101.aztech.world.biome;
 
 import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.world.worldgen.AztechBiomeDecor;
-import litewolf101.aztech.world.worldgen.structures.GenHut;
 import litewolf101.aztech.world.worldgen.trees.WorldGenAztechOakTree;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.BlockSand;
@@ -15,6 +14,7 @@ import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.passive.EntitySheep;
+import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -49,6 +49,7 @@ public class BiomeMurkySwamp extends Biome{
         spawnableCreatureList.add(new SpawnListEntry(EntityPig.class, 3, 1, 1));
         spawnableCreatureList.add(new SpawnListEntry(EntitySheep.class, 5, 1, 1));
         spawnableCreatureList.add(new SpawnListEntry(EntityCow.class, 6, 2, 2));
+        spawnableWaterCreatureList.add(new SpawnListEntry(EntitySquid.class, 10, 2, 4));
     }
 
     @Override
@@ -90,7 +91,6 @@ public class BiomeMurkySwamp extends Biome{
         super.decorate(worldIn, rand, pos);
 
         WorldGenAztechOakTree aztechOakTree = new WorldGenAztechOakTree(true);
-        GenHut hut = new GenHut();
         WorldGenTallGrass tallGrass = new WorldGenTallGrass(BlockTallGrass.EnumType.GRASS);
         WorldGenLakes genLakes = new WorldGenLakes(Blocks.WATER);
         WorldGenLakes genLavaLakes = new WorldGenLakes(Blocks.LAVA);
@@ -115,11 +115,6 @@ public class BiomeMurkySwamp extends Biome{
             tallGrass.generate(worldIn, rand, mutPos);
             genFlowers.generate(worldIn, rand, mutPos);
             genFlowers2.generate(worldIn, rand, mutPos);
-            if (mutPos.getY() == worldIn.getSeaLevel() + 1){
-                if(rand.nextInt(50) == 0){//TODO Add rates to config
-                    hut.generate(worldIn, rand, mutPos);
-                }
-            }
         }
         for (int i = 0; i < 1; i++) {
             int rx = pos.getX() + rand.nextInt(16) + 8;

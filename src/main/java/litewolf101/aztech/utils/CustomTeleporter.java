@@ -4,22 +4,17 @@ import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.utils.handlers.EnumHalf;
 import litewolf101.aztech.utils.handlers.EnumPortalPart;
 import litewolf101.aztech.utils.handlers.EnumTempleStoneType;
-import litewolf101.aztech.world.worldgen.structures.GenAztechPortal;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Blocks;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Teleporter;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
-import net.minecraft.world.gen.feature.WorldGenerator;
 
 import javax.annotation.Nonnull;
-import java.util.Random;
 
 import static litewolf101.aztech.objects.blocks.BlockTempleStone.STONE_TYPE;
 import static litewolf101.aztech.objects.blocks.GeoluminescentObelisk.HALF;

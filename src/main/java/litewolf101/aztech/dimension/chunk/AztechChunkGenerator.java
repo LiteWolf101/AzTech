@@ -1,24 +1,15 @@
 package litewolf101.aztech.dimension.chunk;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
-import litewolf101.aztech.dimension.terraingen.AztechTerrainGenerator;
 import litewolf101.aztech.init.BlocksInit;
-import litewolf101.aztech.world.biome.BiomeAncientForest;
 import litewolf101.aztech.world.mapgen.MapGenAztechCaves;
 import litewolf101.aztech.world.mapgen.MapGenAztechRavine;
-import litewolf101.aztech.world.worldgen.structures.GenAztechPortal;
-import litewolf101.aztech.world.worldgen.structures.GenHut;
-import litewolf101.aztech.world.worldgen.structures.WorldGenCustomStructures;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EnumCreatureType;
-import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldEntitySpawner;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkPrimer;
@@ -27,15 +18,10 @@ import net.minecraft.world.gen.*;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.ChunkGeneratorEvent;
-import net.minecraftforge.event.terraingen.TerrainGen;
 import net.minecraftforge.fml.common.eventhandler.Event;
-import sun.java2d.loops.SurfaceType;
 
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
-
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.CAVE;
 
 /**
  * Created by LiteWolf101 on 10/19/2018.
@@ -65,7 +51,6 @@ public class AztechChunkGenerator implements IChunkGenerator, IChunkProvider {
 
     private final MapGenBase caveGenerator;
     private final MapGenBase ravineGenerator;
-    private final WorldGenerator portal;
 
     public AztechChunkGenerator(World world, long seed) {
         worldObj = world;
@@ -84,7 +69,6 @@ public class AztechChunkGenerator implements IChunkGenerator, IChunkProvider {
 
         caveGenerator = new MapGenAztechCaves();
         ravineGenerator = new MapGenAztechRavine();
-        portal = new GenAztechPortal();
     }
 
     public void generateTerrain(int x, int z, ChunkPrimer chunkPrimer) {
@@ -367,9 +351,6 @@ public class AztechChunkGenerator implements IChunkGenerator, IChunkProvider {
             rand.setSeed(x * (rand.nextLong() / 2L * 2L + 1L) + z * (rand.nextLong() / 2L * 2L + 1L) ^ worldObj.getSeed());
             biome.decorate(this.worldObj, this.rand, blockCoord);
         }
-        //if (rand.nextInt(10) == 0){
-        //    portal.generate(worldObj, this.rand, blockpos.add(this.rand.nextInt(16) + 8, this.rand.nextInt(128), this.rand.nextInt(16) + 8));
-        //}
         BlockFalling.fallInstantly = false;
     }
 
