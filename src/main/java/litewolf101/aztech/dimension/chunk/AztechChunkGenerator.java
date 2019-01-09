@@ -367,15 +367,15 @@ public class AztechChunkGenerator implements IChunkGenerator, IChunkProvider {
             rand.setSeed(x * (rand.nextLong() / 2L * 2L + 1L) + z * (rand.nextLong() / 2L * 2L + 1L) ^ worldObj.getSeed());
             biome.decorate(this.worldObj, this.rand, blockCoord);
         }
-        if (rand.nextInt(10) == 0){
-            portal.generate(worldObj, this.rand, blockpos.add(this.rand.nextInt(16) + 8, this.rand.nextInt(128), this.rand.nextInt(16) + 8));
-        }
+        //if (rand.nextInt(10) == 0){
+        //    portal.generate(worldObj, this.rand, blockpos.add(this.rand.nextInt(16) + 8, this.rand.nextInt(128), this.rand.nextInt(16) + 8));
+        //}
         BlockFalling.fallInstantly = false;
     }
 
     @Override
     public boolean generateStructures(Chunk chunkIn, int x, int z) {
-        return false;
+        return true;
     }
 
     @Override

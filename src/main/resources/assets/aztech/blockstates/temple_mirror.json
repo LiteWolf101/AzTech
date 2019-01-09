@@ -1,7 +1,10 @@
 {
   "variants": {
-    "normal": [
-      { "model": "aztech:temple_mirror" }
-    ]
+    "axis=x,flipped=false": {"model": "aztech:temple_mirror"},
+    "axis=y,flipped=false": {"model": "aztech:temple_mirror"},
+    "axis=z,flipped=false": {"model": "aztech:temple_mirror"},
+    "axis=x,flipped=true": {"model": "aztech:temple_mirror"},
+    "axis=y,flipped=true": {"model": "aztech:temple_mirror"},
+    "axis=z,flipped=true": {"model": "aztech:temple_mirror"}
   }
 }

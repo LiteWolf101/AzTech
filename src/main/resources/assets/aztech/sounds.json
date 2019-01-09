@@ -48,5 +48,25 @@
         "stream": true
       }
     ]
+  },
+  "block.portal_power_up": {
+    "category": "block",
+    "subtitle": "block.portal_power_up",
+    "sounds": [
+      {
+        "name": "aztech:block/portal_power_up",
+        "stream": true
+      }
+    ]
+  },
+  "ambient.azerioth_portal": {
+    "category": "ambient",
+    "subtitle": "ambient.azerioth_portal",
+    "sounds": [
+      {
+        "name": "aztech:ambient/azerioth_portal",
+        "stream": true
+      }
+    ]
   }
 }

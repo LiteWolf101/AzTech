@@ -3,6 +3,7 @@ package litewolf101.aztech.objects.mobs;
 import litewolf101.aztech.AzTech;
 import litewolf101.aztech.init.ItemsInit;
 import litewolf101.aztech.objects.projectiles.ProjectileEyeLaser;
+import litewolf101.aztech.utils.AzTechLootTables;
 import litewolf101.aztech.utils.client.particle.AzTechParticleTypes;
 import litewolf101.aztech.utils.handlers.AzTechSoundHandler;
 import net.minecraft.entity.Entity;
@@ -16,14 +17,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntitySmallFireball;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
+import net.minecraft.world.storage.loot.LootTableList;
 
 import javax.annotation.Nullable;
 
@@ -95,8 +94,8 @@ public class MobEyeGuardian extends EntityMob implements IMob {
 
     @Nullable
     @Override
-    protected Item getDropItem() {
-        return ItemsInit.RED_RUNE_SHARD;
+    protected ResourceLocation getLootTable() {
+        return AzTechLootTables.EYE_GUARDIAN;
     }
 
     public void onLivingUpdate()

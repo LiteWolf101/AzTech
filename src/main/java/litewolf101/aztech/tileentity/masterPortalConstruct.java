@@ -2,10 +2,7 @@ package litewolf101.aztech.tileentity;
 
 import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.utils.CustomTeleporter;
-import litewolf101.aztech.utils.handlers.EnumHalf;
-import litewolf101.aztech.utils.handlers.EnumPortalPart;
-import litewolf101.aztech.utils.handlers.EnumRuneColor;
-import litewolf101.aztech.utils.handlers.EnumTempleStoneType;
+import litewolf101.aztech.utils.handlers.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -38,6 +35,9 @@ public class masterPortalConstruct extends TileEntity implements ITickable{
         if(update % 20 == 0){
             conditions(this.getWorld(), this.getPos());
             teleportEntity(this.getWorld(),this.getPos());
+        }
+        if(update % 292 == 0){
+            world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), AzTechSoundHandler.PORTAL_AMBIENT, SoundCategory.AMBIENT, 1f, 1f);
         }
 
     }

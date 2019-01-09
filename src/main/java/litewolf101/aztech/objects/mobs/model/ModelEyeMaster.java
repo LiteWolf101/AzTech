@@ -55,8 +55,6 @@ public class ModelEyeMaster extends ModelBase {
 
         this.shield = new ModelRenderer(this, 32, 68);
         this.shield.addBox(-2f, -1f, 28f, 4, 4, 4);
-
-
     }
 
     @Override

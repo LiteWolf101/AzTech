@@ -39,5 +39,4 @@ public class RenderPyronant<T extends MobPyronant> extends RenderLiving<MobPyron
             return new RenderPyronant(manager, new ModelPyronant(), 0.3F);
         }
     }
-
 }

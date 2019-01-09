@@ -17,6 +17,7 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -25,11 +26,18 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+
+import static net.minecraft.util.EnumFacing.Axis.X;
+import static net.minecraft.util.EnumFacing.Axis.Y;
+import static net.minecraft.util.EnumFacing.Axis.Z;
 
 /**
  * Created by LiteWolf101 on 10/6/2018.
@@ -56,6 +64,24 @@ public class TempleMirror extends Block implements IHasModel, IMetaName, ITileEn
         return new BlockStateContainer(this, new IProperty[] {AXIS, FLIPPED});
     }
 
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+        worldIn.setBlockState(pos, state.withProperty(AXIS, getFacingFromEntity(pos, placer)).withProperty(FLIPPED, false));
+    }
+
+    public static EnumFacing.Axis getFacingFromEntity(BlockPos pos, EntityLivingBase entity) {
+        if (MathHelper.abs((float) entity.posX - (float) pos.getX()) < 2.0F && MathHelper.abs((float) entity.posZ - (float) pos.getZ()) < 2.0F) {
+            double d0 = entity.posY + (double) entity.getEyeHeight();
+            if (d0 - (double) pos.getY() > 2.0D) {
+                return Y;
+            }
+
+            if ((double) pos.getY() - d0 > 0.0D) {
+                return Y;
+            }
+        }
+        return entity.getHorizontalFacing().getAxis();
+    }
+
     @Override
     @SuppressWarnings("deprecation")
     public IBlockState getStateFromMeta(int meta) {
@@ -65,7 +91,7 @@ public class TempleMirror extends Block implements IHasModel, IMetaName, ITileEn
             enumfacing$axis = EnumFacing.Axis.X;
             flipped = false;
         } else if (meta == 1) {
-            enumfacing$axis = EnumFacing.Axis.Y;
+            enumfacing$axis = Y;
             flipped = false;
         } else if (meta == 2) {
             enumfacing$axis = EnumFacing.Axis.Z;
@@ -74,7 +100,7 @@ public class TempleMirror extends Block implements IHasModel, IMetaName, ITileEn
             enumfacing$axis = EnumFacing.Axis.X;
             flipped = true;
         } else if (meta == 4) {
-            enumfacing$axis = EnumFacing.Axis.Y;
+            enumfacing$axis = Y;
             flipped = true;
         } else if (meta == 5) {
             enumfacing$axis = EnumFacing.Axis.Z;
@@ -89,7 +115,7 @@ public class TempleMirror extends Block implements IHasModel, IMetaName, ITileEn
         if (!state.getValue(FLIPPED)){
             if (state.getValue(AXIS) == EnumFacing.Axis.X){
                 i = 0;
-            } else if (state.getValue(AXIS) == EnumFacing.Axis.Y){
+            } else if (state.getValue(AXIS) == Y){
                 i = 1;
             } else if (state.getValue(AXIS) == EnumFacing.Axis.Z){
                 i = 2;
@@ -97,7 +123,7 @@ public class TempleMirror extends Block implements IHasModel, IMetaName, ITileEn
         } else if(state.getValue(FLIPPED)){
             if (state.getValue(AXIS) == EnumFacing.Axis.X){
                 i = 3;
-            } else if (state.getValue(AXIS) == EnumFacing.Axis.Y){
+            } else if (state.getValue(AXIS) == Y){
                 i = 4;
             } else if (state.getValue(AXIS) == EnumFacing.Axis.Z){
                 i = 5;
@@ -147,5 +173,15 @@ public class TempleMirror extends Block implements IHasModel, IMetaName, ITileEn
     @Override
     public TileEntity createNewTileEntity(World world, int i) {
         return new TETempleMirror();
+    }
+
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        if (worldIn.getBlockState(pos).getValue(FLIPPED) == false) {
+            worldIn.setBlockState(pos, state.withProperty(FLIPPED, true));
+        } else if (worldIn.getBlockState(pos).getValue(FLIPPED) == true) {
+            worldIn.setBlockState(pos, state.withProperty(FLIPPED, false));
+        }
+        return true;
     }
 }

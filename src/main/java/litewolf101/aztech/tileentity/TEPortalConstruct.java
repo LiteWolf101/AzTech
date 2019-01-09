@@ -1,6 +1,7 @@
 package litewolf101.aztech.tileentity;
 
 import litewolf101.aztech.init.BlocksInit;
+import litewolf101.aztech.utils.handlers.AzTechSoundHandler;
 import litewolf101.aztech.utils.handlers.EnumPortalPart;
 import litewolf101.aztech.utils.handlers.EnumRuneColor;
 import litewolf101.aztech.utils.handlers.EnumTempleStoneType;
@@ -37,7 +38,7 @@ public class TEPortalConstruct extends TileEntity implements ITickable {
             if (checkObelisks(world, pos)){
                 if (world.getBlockState(pos.up(2)).getBlock() == BlocksInit.ANCIENT_CHISELED_BRICKS){
                     if (world.getBlockState(pos.up(3)) == BlocksInit.TEMPLE_RUNE_BLOCK.getDefaultState().withProperty(RUNE_COLOR, EnumRuneColor.EnumType.WHITE)){
-                        world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1f, 0.5f);
+                        world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), AzTechSoundHandler.PORTAL_POWER_UP, SoundCategory.BLOCKS, 1f, 1f);
                         constructPortal(world, pos);
                         valid = true;
                     }
