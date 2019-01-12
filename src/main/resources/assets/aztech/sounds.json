@@ -68,5 +68,45 @@
         "stream": true
       }
     ]
+  },
+  "entity.shield.shield_power_up": {
+    "category": "entity",
+    "subtitle": "entity.shield.shield_power_up",
+    "sounds": [
+      {
+        "name": "aztech:entity/shield/shield_power_up",
+        "stream": true
+      }
+    ]
+  },
+  "entity.shield.shield_running": {
+    "category": "entity",
+    "subtitle": "entity.shield.shield_running",
+    "sounds": [
+      {
+        "name": "aztech:entity/shield/shield_running",
+        "stream": true
+      }
+    ]
+  },
+  "entity.shield.shield_power_down": {
+    "category": "entity",
+    "subtitle": "entity.shield.shield_power_down",
+    "sounds": [
+      {
+        "name": "aztech:entity/shield/shield_power_down",
+        "stream": true
+      }
+    ]
+  },
+  "entity.fanfare": {
+    "category": "entity",
+    "subtitle": "entity.fanfare",
+    "sounds": [
+      {
+        "name": "aztech:entity/fanfare",
+        "stream": true
+      }
+    ]
   }
 }

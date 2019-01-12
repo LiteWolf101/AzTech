@@ -1,13 +1,9 @@
 package litewolf101.aztech.init;
 
-import litewolf101.aztech.utils.handlers.EnumRuneColor;
 import net.minecraft.init.Items;
-import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-
-import static litewolf101.aztech.objects.blocks.BlockRuneOre.RUNE_COLOR;
 
 /**
  * Created by LiteWolf101 on 10/22/2018.

@@ -1,10 +1,8 @@
 package litewolf101.aztech.world.worldgen.structures;
 
-import litewolf101.aztech.dimension.AztechDimension;
 import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.utils.handlers.AztechStructureHandler;
 import litewolf101.aztech.world.biome.AztechBiomes;
-import litewolf101.aztech.world.biome.BiomeAncientForest;
 import litewolf101.aztech.world.worldgen.ores.WorldGenAzTechOres;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
@@ -16,7 +14,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
-import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -25,7 +22,6 @@ import net.minecraftforge.fml.common.IWorldGenerator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -79,6 +75,8 @@ public class WorldGenCustomStructures implements IWorldGenerator {
                 generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, 10, Blocks.GRASS, AztechBiomes.biomeMurkySwamp.getBiomeClass());
                 generateHut(HUT, world, random, chunkX, chunkZ, 10, Blocks.GRASS, AztechBiomes.biomeMurkySwamp.getBiomeClass());
                 generateBasicDungeon(BASIC_DUNGEON_ENTRANCE, world, random, chunkX, chunkZ, 50, Blocks.GRASS, AztechBiomes.biomeMurkySwamp.getBiomeClass());
+                generateBasicDungeon(BASIC_DUNGEON_ENTRANCE, world, random, chunkX, chunkZ, 50, BlocksInit.ANCIENT_GRASS, AztechBiomes.biomeAncientForest.getBiomeClass());
+                generateBasicDungeon(BASIC_DUNGEON_ENTRANCE, world, random, chunkX, chunkZ, 50, Blocks.GRASS, AztechBiomes.biomeAncientOcean.getBiomeClass());
                 break;
         }
     }

@@ -2,7 +2,6 @@ package litewolf101.aztech.world.biome;
 
 import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.objects.mobs.MobPyronant;
-import litewolf101.aztech.utils.Reference;
 import litewolf101.aztech.world.worldgen.feature.WorldGenDryMudReplaceable;
 import net.minecraft.block.BlockSand;
 import net.minecraft.block.material.Material;
@@ -10,22 +9,14 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.monster.EntityHusk;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityWitherSkeleton;
-import net.minecraft.entity.monster.EntityZombie;
-import net.minecraft.entity.passive.EntityCow;
-import net.minecraft.entity.passive.EntityPig;
-import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-import net.minecraft.world.gen.feature.WorldGenBlockBlob;
 import net.minecraft.world.gen.feature.WorldGenCactus;
 import net.minecraft.world.gen.feature.WorldGenDeadBush;
 import net.minecraft.world.gen.feature.WorldGenLakes;
-import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.BiomeManager;
 
 import java.util.Random;
 

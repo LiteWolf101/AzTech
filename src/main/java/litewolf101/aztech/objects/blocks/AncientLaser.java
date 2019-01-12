@@ -49,6 +49,7 @@ public class AncientLaser extends BlockContainer implements IHasModel, IMetaName
         setLightLevel(1F);
         setHarvestLevel("pickaxe", 1);
         setHardness(1f);
+        setResistance(100f);
 
         BlocksInit.BLOCKS.add(this);
         ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));
@@ -74,7 +75,7 @@ public class AncientLaser extends BlockContainer implements IHasModel, IMetaName
 
     @Override
     public int damageDropped(IBlockState state) {
-        return 4;
+        return 0;
     }
 
     @Override

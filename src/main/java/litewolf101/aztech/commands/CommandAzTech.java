@@ -2,8 +2,10 @@ package litewolf101.aztech.commands;
 
 import litewolf101.aztech.utils.CustomTeleporter;
 import litewolf101.aztech.utils.Reference;
-import net.minecraft.command.*;
-import net.minecraft.entity.Entity;
+import net.minecraft.command.CommandBase;
+import net.minecraft.command.CommandException;
+import net.minecraft.command.ICommandSender;
+import net.minecraft.command.WrongUsageException;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;

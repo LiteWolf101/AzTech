@@ -1,6 +1,5 @@
 package litewolf101.aztech.objects.mobs.model;
 
-import litewolf101.aztech.objects.mobs.MobEyeMaster;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
@@ -15,46 +14,26 @@ public class ModelEyeMaster extends ModelBase {
     public final ModelRenderer eye;
     public final ModelRenderer shield;
     public final ModelRenderer ring;
+    public final ModelRenderer ringSec;
 
     public ModelEyeMaster() {
         textureWidth = 80;
         textureHeight = 80;
 
         this.eye = new ModelRenderer(this, 0, 0);
-        this.eye.addBox(-8f, -8f, -8f, 16, 16, 16);
+        this.eye.addBox(-8f, 8f, -8f, 16, 16, 16);
 
         this.ring = new ModelRenderer(this, 0, 32);
         this.ring.addBox(-3f, -18f, -3f, 6, 6, 6);
-        this.ring.addBox(12f, -2f, -3f, 6, 6, 6);
-        this.ring.addBox(-3f, 12f, -3f, 6, 6, 6);
-        this.ring.addBox(-18f, -2f, -3f, 6, 6, 6);
-
         ModelRenderer ring2 = new ModelRenderer(this, 0, 56);
         ring2.addBox(-2f, -26f, -2f, 4, 8, 4);
         this.ring.addChild(ring2);
 
-        ModelRenderer ring3 = new ModelRenderer(this, 24, 44);
-        ring3.addBox(18f, -1f, -2f, 8, 4, 4);
-        this.ring.addChild(ring3);
-
-        ModelRenderer ring4 = new ModelRenderer(this, 16, 56);
-        ring4.addBox(-2f, 18f, -2f, 4, 8, 4);
-        this.ring.addChild(ring4);
-
-        ModelRenderer ring5 = new ModelRenderer(this, 24, 44);
-        ring5.addBox(-26f, -1f, -2f, 8, 4, 4);
-        this.ring.addChild(ring5);
-
-        ModelRenderer ring6 = new ModelRenderer(this, 0, 68);
-        ring6.addBox(-2f, -16f, -2f, 4, 4, 4);
-        ring6.addBox(12f, -1f, -2f, 4, 4, 4);
-        ring6.addBox(-2f, 12f, -2f, 4, 4, 4);
-        ring6.addBox(-16f, -1f, -2f, 4, 4, 4);
-        ring6.rotateAngleZ = 0.8f;
-        this.ring.addChild(ring6);
+        this.ringSec = new ModelRenderer(this, 0, 68);
+        ringSec.addBox(-2f, -16f, -2f, 4, 4, 4);
 
         this.shield = new ModelRenderer(this, 32, 68);
-        this.shield.addBox(-2f, -1f, 28f, 4, 4, 4);
+        this.shield.addBox(-2f, 15f, 28f, 4, 4, 4);
     }
 
     @Override
@@ -63,7 +42,26 @@ public class ModelEyeMaster extends ModelBase {
         GL11.glPushMatrix();
         GL11.glTranslatef(0, MathHelper.sin(ageInTicks*0.08f - 0.5f)/8, 0);
         this.eye.render(scale);
+
+        this.ring.rotationPointY = 16;
+        this.ring.rotateAngleZ = ageInTicks/10;
         this.ring.render(scale);
+        this.ring.rotateAngleZ = ageInTicks/10 + 90 * ((float) Math.PI/180);
+        this.ring.render(scale);
+        this.ring.rotateAngleZ = ageInTicks/10 + 180 * ((float) Math.PI/180);
+        this.ring.render(scale);
+        this.ring.rotateAngleZ = ageInTicks/10 + 270 * ((float) Math.PI/180);
+        this.ring.render(scale);
+
+        this.ringSec.rotationPointY = 16;
+        this.ringSec.rotateAngleZ = ageInTicks/10 + (45 * ((float) Math.PI/180));
+        this.ringSec.render(scale);
+        this.ringSec.rotateAngleZ = ageInTicks/10 + (135 * ((float) Math.PI/180));
+        this.ringSec.render(scale);
+        this.ringSec.rotateAngleZ = ageInTicks/10 + (225 * ((float) Math.PI/180));
+        this.ringSec.render(scale);
+        this.ringSec.rotateAngleZ = ageInTicks/10 + (315 * ((float) Math.PI/180));
+        this.ringSec.render(scale);
         GL11.glPopMatrix();
 
         GL11.glPushMatrix();
@@ -100,7 +98,6 @@ public class ModelEyeMaster extends ModelBase {
 
     @Override
     public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-        this.ring.rotateAngleZ = ageInTicks/5;
 
         this.eye.rotateAngleY = netHeadYaw * 0.017453292F;
         this.eye.rotateAngleX = headPitch * 0.017453292F;

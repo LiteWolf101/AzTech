@@ -7,7 +7,6 @@ import litewolf101.aztech.utils.handlers.EnumRuneColor;
 import litewolf101.aztech.utils.handlers.EnumTempleStoneType;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;

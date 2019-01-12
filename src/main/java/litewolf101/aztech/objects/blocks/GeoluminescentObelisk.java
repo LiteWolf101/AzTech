@@ -45,6 +45,7 @@ public class GeoluminescentObelisk extends Block implements IHasModel, IMetaName
         setHardness(2f);
         setLightLevel(0.8f);
         setDefaultState(this.blockState.getBaseState().withProperty(HALF, EnumHalf.EnumType.BOTTOM));
+        setResistance(25f);
 
         BlocksInit.BLOCKS.add(this);
         ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));

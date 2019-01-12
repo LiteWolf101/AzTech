@@ -37,6 +37,7 @@ public class BlockTempleStone extends Block implements IHasModel, IMetaName{
         setDefaultState(this.blockState.getBaseState().withProperty(STONE_TYPE, EnumTempleStoneType.EnumType.NORMAL));
         setHarvestLevel("pickaxe", 1);
         setHardness(2f);
+        setResistance(250f);
 
         BlocksInit.BLOCKS.add(this);
         ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));

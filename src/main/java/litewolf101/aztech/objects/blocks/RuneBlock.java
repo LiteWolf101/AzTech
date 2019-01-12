@@ -37,6 +37,7 @@ public class RuneBlock extends Block implements IHasModel, IMetaName{
         setDefaultState(this.blockState.getBaseState().withProperty(RUNE_COLOR, EnumRuneColor.EnumType.RED));
         setHarvestLevel("pickaxe", 2);
         setHardness(2f);
+        setResistance(10f);
 
         BlocksInit.BLOCKS.add(this);
         ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));

@@ -30,6 +30,7 @@ public class AncientOre extends Block implements IHasModel{
         setCreativeTab(AzTech.CREATIVE_TAB);
         setHarvestLevel("pickaxe", 2);
         setHardness(2f);
+        setResistance(5.8f);
 
         BlocksInit.BLOCKS.add(this);
         ItemsInit.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));

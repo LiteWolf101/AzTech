@@ -39,6 +39,7 @@ public class InsertiveRune extends Block implements IHasModel, IMetaName{
         setHarvestLevel("pickaxe", 1);
         setHardness(2f);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+        setResistance(100f);
 
         BlocksInit.BLOCKS.add(this);
         ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));

@@ -46,6 +46,7 @@ public class TempleRuneBlock extends BlockContainer implements IHasModel, IMetaN
         setHarvestLevel("pickaxe", 3);
         setHardness(4f);
         setLightLevel(0.5f);
+        setResistance(1000f);
 
         BlocksInit.BLOCKS.add(this);
         ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));

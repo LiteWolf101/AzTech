@@ -1,12 +1,10 @@
 package litewolf101.aztech.objects.mobs;
 
 import litewolf101.aztech.AzTech;
-import litewolf101.aztech.init.ItemsInit;
 import litewolf101.aztech.objects.projectiles.ProjectileEyeLaser;
 import litewolf101.aztech.utils.AzTechLootTables;
 import litewolf101.aztech.utils.client.particle.AzTechParticleTypes;
 import litewolf101.aztech.utils.handlers.AzTechSoundHandler;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -14,15 +12,13 @@ import net.minecraft.entity.ai.*;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.monster.*;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntitySmallFireball;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.item.Item;
-import net.minecraft.util.*;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
-import net.minecraft.world.storage.loot.LootTableList;
 
 import javax.annotation.Nullable;
 

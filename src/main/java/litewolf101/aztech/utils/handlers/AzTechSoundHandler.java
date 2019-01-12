@@ -16,6 +16,10 @@ public class AzTechSoundHandler {
     public static SoundEvent PROJECTILE_EYE_LASER_FIRED;
     public static SoundEvent PORTAL_POWER_UP;
     public static SoundEvent PORTAL_AMBIENT;
+    public static SoundEvent SHIELD_POWERUP;
+    public static SoundEvent SHIELD_RUNNING;
+    public static SoundEvent SHIELD_POWERDOWN;
+    public static SoundEvent FANFARE;
 
 
     public static void init() {
@@ -26,6 +30,11 @@ public class AzTechSoundHandler {
         PROJECTILE_EYE_LASER_FIRED = registerSounds("entity.eye_laser.fired");
         PORTAL_POWER_UP = registerSounds("block.portal_power_up");
         PORTAL_AMBIENT = registerSounds("ambient.azerioth_portal");
+        SHIELD_POWERUP = registerSounds("entity.shield.shield_power_up");
+        SHIELD_RUNNING = registerSounds("entity.shield.shield_running");
+        SHIELD_POWERDOWN = registerSounds("entity.shield.shield_power_down");
+        FANFARE = registerSounds("entity.fanfare");
+
     }
 
     private static SoundEvent registerSounds(String name){

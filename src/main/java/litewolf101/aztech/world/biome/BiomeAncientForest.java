@@ -1,13 +1,11 @@
 package litewolf101.aztech.world.biome;
 
 import litewolf101.aztech.init.BlocksInit;
-import litewolf101.aztech.utils.Reference;
 import litewolf101.aztech.world.worldgen.AztechBiomeDecor;
 import litewolf101.aztech.world.worldgen.trees.WorldGenAztechOakTree;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.BlockSand;
 import net.minecraft.block.BlockTallGrass;
-import net.minecraft.block.BlockYellowFlower;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.monster.EntityZombie;
@@ -15,13 +13,15 @@ import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeDecorator;
 import net.minecraft.world.chunk.ChunkPrimer;
-import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.feature.WorldGenAbstractTree;
+import net.minecraft.world.gen.feature.WorldGenFlowers;
+import net.minecraft.world.gen.feature.WorldGenLakes;
+import net.minecraft.world.gen.feature.WorldGenTallGrass;
 
 import java.util.Random;
 

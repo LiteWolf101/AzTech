@@ -1,9 +1,7 @@
 package litewolf101.aztech.world.biome;
 
 import litewolf101.aztech.utils.Reference;
-import litewolf101.aztech.world.biome.BiomeAncientForest;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeProvider;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.event.RegistryEvent;

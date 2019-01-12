@@ -1,6 +1,5 @@
 package litewolf101.aztech.objects.projectiles.render;
 
-import litewolf101.aztech.objects.mobs.render.RenderEyeGuardian;
 import litewolf101.aztech.objects.projectiles.ProjectileEyeLaser;
 import litewolf101.aztech.objects.projectiles.model.ModelLaser;
 import net.minecraft.client.model.ModelBase;

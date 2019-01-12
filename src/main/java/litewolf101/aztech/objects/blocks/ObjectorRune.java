@@ -44,6 +44,7 @@ public class ObjectorRune extends BlockContainer implements IHasModel, IMetaName
         setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.UP).withProperty(ACTIVATED, false));
         setHarvestLevel("pickaxe", 1);
         setHardness(2f);
+        setResistance(100f);
 
         BlocksInit.BLOCKS.add(this);
         ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));

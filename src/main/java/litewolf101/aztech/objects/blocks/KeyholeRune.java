@@ -38,6 +38,7 @@ public class KeyholeRune extends Block implements IHasModel,IMetaName{
         setHarvestLevel("pickaxe", 1);
         setHardness(2f);
         setTickRandomly(true);
+        setResistance(100f);
 
         BlocksInit.BLOCKS.add(this);
         ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));

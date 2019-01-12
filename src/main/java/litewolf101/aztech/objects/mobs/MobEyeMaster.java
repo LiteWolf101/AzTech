@@ -1,25 +1,29 @@
 package litewolf101.aztech.objects.mobs;
 
-import com.google.common.base.Predicates;
 import litewolf101.aztech.AzTech;
 import litewolf101.aztech.init.ItemsInit;
 import litewolf101.aztech.utils.client.particle.AzTechParticleTypes;
 import litewolf101.aztech.utils.handlers.AzTechSoundHandler;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.*;
+import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
+import net.minecraft.entity.ai.EntityAIWander;
+import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.entity.monster.EntityVex;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.*;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -32,12 +36,11 @@ import java.util.List;
 public class MobEyeMaster extends EntityMob implements IMob {
     public static boolean isDoingAttack;
 
-
     public int attackTicks;
 
     public MobEyeMaster(World worldIn) {
         super(worldIn);
-        setSize(3f, 3f);
+        setSize(1f, 1f);
         this.isImmuneToFire = true;
         this.attackTicks = 400;
         this.hasNoGravity();
@@ -46,7 +49,7 @@ public class MobEyeMaster extends EntityMob implements IMob {
 
     @Override
     public float getEyeHeight() {
-        return 1.5f;
+        return 0.5f;
     }
 
     @Override
@@ -97,6 +100,14 @@ public class MobEyeMaster extends EntityMob implements IMob {
             {
                 AzTech.proxy.spawnParticle(world, AzTechParticleTypes.EYE_MASTER, this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY + this.rand.nextDouble() * (double)this.height, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, 0.0D, 0.0D, 0.0D);
             }
+        }
+
+        BlockPos checkpos = new BlockPos(this.posX, this.posY - 1.5, this.posZ);
+        IBlockState groundBlock = this.world.getBlockState(checkpos);
+        Material material = groundBlock.getMaterial();
+
+        if (material != Material.AIR){
+            this.motionY += (0.30000001192092896D - this.motionY) * 0.30000001192092896D;
         }
 
         super.onLivingUpdate();
@@ -156,8 +167,8 @@ public class MobEyeMaster extends EntityMob implements IMob {
             --this.attackCooldown;
             if (attackCooldown > 50) {
                 isAttacking = false;
-                this.master.setEntityInvulnerable(true);
-                AxisAlignedBB detectbb = new AxisAlignedBB(master.posX, master.posY, master.posZ, master.posX + 10, master.posY + 10, master.posZ + 10).grow(10D);
+                this.master.setEntityInvulnerable(false);
+                AxisAlignedBB detectbb = new AxisAlignedBB(master.posX, master.posY, master.posZ, master.posX + 1, master.posY + 1, master.posZ + 1).grow(10D);
                 List<MobEyeGuardian> guards = this.master.world.getEntitiesWithinAABB(MobEyeGuardian.class, detectbb);
                 if (guards.size() > 0){
                     MobEyeGuardian highlight = guards.get(this.master.rand.nextInt(guards.size()));
@@ -170,7 +181,7 @@ public class MobEyeMaster extends EntityMob implements IMob {
             }
             if (attackCooldown < 50) {
                 isAttacking = true;
-                this.master.setEntityInvulnerable(false);
+                this.master.setEntityInvulnerable(true);
                 if (entity != null && !((EntityPlayer) entity).isCreative()){
                     if (this.master.getEntityBoundingBox().intersects(entity.getEntityBoundingBox()))
                     {

@@ -1,11 +1,8 @@
 package litewolf101.aztech.utils.handlers;
 
 import litewolf101.aztech.utils.Reference;
-import net.minecraft.client.particle.Particle;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;

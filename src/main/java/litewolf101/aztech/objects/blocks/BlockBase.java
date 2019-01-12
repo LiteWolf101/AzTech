@@ -18,6 +18,7 @@ public class BlockBase extends Block implements IHasModel {
         setUnlocalizedName(name);
         setRegistryName(name);
         setCreativeTab(AzTech.CREATIVE_TAB);
+        setHarvestLevel("pickaxe", 0);
 
         BlocksInit.BLOCKS.add(this);
         ItemsInit.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));

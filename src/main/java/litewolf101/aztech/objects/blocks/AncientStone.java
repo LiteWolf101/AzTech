@@ -22,10 +22,10 @@ public class AncientStone extends Block implements IHasModel{
         setUnlocalizedName(name);
         setRegistryName(name);
         setCreativeTab(AzTech.CREATIVE_TAB);
-        setBlockUnbreakable();
         setSoundType(SoundType.STONE);
         setHarvestLevel("pickaxe", 2);
         setHardness(2f);
+        setResistance(10f);
 
         BlocksInit.BLOCKS.add(this);
         ItemsInit.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));

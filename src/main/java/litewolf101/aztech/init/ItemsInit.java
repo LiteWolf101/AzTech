@@ -1,6 +1,5 @@
 package litewolf101.aztech.init;
 
-import litewolf101.aztech.objects.blocks.GeoluminescentObelisk;
 import litewolf101.aztech.objects.items.AzTechPortalItem;
 import litewolf101.aztech.objects.items.GeoluminescentObeliskItem;
 import litewolf101.aztech.objects.items.ItemBase;

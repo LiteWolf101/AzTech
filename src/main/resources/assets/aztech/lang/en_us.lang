@@ -53,15 +53,15 @@ tile.enemy_emitter_rune.name=§cEnemy Emitter Rune
 
 tile.lantern_north.name=§6Lantern
 
-tile.objector_rune_down.name=§cObjector Rune(WIP)
+tile.objector_rune_down.name=§cObjector Rune§c(WIP)
 
-tile.insertive_rune_down.name=§cInsertive Rune(NYI)
+tile.insertive_rune_down.name=§cInsertive Rune§c(WIP)
 
-tile.keyhole_rune_inactive.name=§cKeyhole Rune(NYI)
+tile.keyhole_rune_inactive.name=§cKeyhole Rune§c(WIP)
 
-tile.door_rune.name=§cDoor Rune(NYI)
+tile.door_rune.name=§cDoor Rune§c(WIP)
 
-tile.rune_line_inactive.name=§cRune Line(WIP)
+tile.rune_line_inactive.name=§cRune Line§c(WIP)
 
 tile.r_to_r_translator_inactive.name=§cRedstone->Rune Translator
 
@@ -97,6 +97,7 @@ tile.ancient_black_rune_ore.name=Ancient Black Rune Ore
 #Entities
 entity.eye_guardian.name=§6Eye Guardian
 entity.eye_master.name=§6Eye Master
+entity.ultimate_eye.name=§6Ultimate Eye
 entity.pyronant.name=Pyronant
 
 #Creative Tab
@@ -117,3 +118,6 @@ advancement.aztech.craft_all_temple_rune_blocks.desc=Craft all of the temple run
 
 advancement.aztech.enter_aztech=Backwards in Time...?
 advancement.aztech.enter_aztech.desc=Enter the Aztech Dimension
+
+advancement.aztech.eyesore=What an Eyesore!
+advancement.aztech.eyesore.desc=Kill the §6Ultimate Eye

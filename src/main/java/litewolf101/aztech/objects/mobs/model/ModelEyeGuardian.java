@@ -2,9 +2,7 @@ package litewolf101.aztech.objects.mobs.model;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.math.MathHelper;
 import org.lwjgl.opengl.GL11;
 
