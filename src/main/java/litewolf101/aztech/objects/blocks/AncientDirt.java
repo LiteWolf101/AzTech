@@ -20,7 +20,7 @@ public class AncientDirt extends Block implements IHasModel{
         setRegistryName(name);
         setCreativeTab(AzTech.CREATIVE_TAB);
         setHarvestLevel("shovel", 0);
-        setHardness(2f);
+        setHardness(0.5f);
         setSoundType(SoundType.GROUND);
 
         BlocksInit.BLOCKS.add(this);

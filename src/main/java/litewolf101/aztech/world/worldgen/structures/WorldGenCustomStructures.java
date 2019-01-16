@@ -69,11 +69,11 @@ public class WorldGenCustomStructures implements IWorldGenerator {
             case -1:
                 break;
             case 17: //TODO Adjust Dimension number
-                generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, 10, BlocksInit.ANCIENT_GRASS, AztechBiomes.biomeAncientForest.getBiomeClass());
-                generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, 10, Blocks.GRASS, AztechBiomes.biomeAncientOcean.getBiomeClass());
-                generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, 10, Blocks.SAND, AztechBiomes.biomeAridLands.getBiomeClass());
-                generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, 10, Blocks.GRASS, AztechBiomes.biomeMurkySwamp.getBiomeClass());
-                generateHut(HUT, world, random, chunkX, chunkZ, 10, Blocks.GRASS, AztechBiomes.biomeMurkySwamp.getBiomeClass());
+                generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, 500, BlocksInit.ANCIENT_GRASS, AztechBiomes.biomeAncientForest.getBiomeClass());
+                generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, 500, Blocks.GRASS, AztechBiomes.biomeAncientOcean.getBiomeClass());
+                generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, 500, Blocks.SAND, AztechBiomes.biomeAridLands.getBiomeClass());
+                generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, 500, Blocks.GRASS, AztechBiomes.biomeMurkySwamp.getBiomeClass());
+                generateHut(HUT, world, random, chunkX, chunkZ, 150, Blocks.GRASS, AztechBiomes.biomeMurkySwamp.getBiomeClass());
                 generateBasicDungeon(BASIC_DUNGEON_ENTRANCE, world, random, chunkX, chunkZ, 50, Blocks.GRASS, AztechBiomes.biomeMurkySwamp.getBiomeClass());
                 generateBasicDungeon(BASIC_DUNGEON_ENTRANCE, world, random, chunkX, chunkZ, 50, BlocksInit.ANCIENT_GRASS, AztechBiomes.biomeAncientForest.getBiomeClass());
                 generateBasicDungeon(BASIC_DUNGEON_ENTRANCE, world, random, chunkX, chunkZ, 50, Blocks.GRASS, AztechBiomes.biomeAncientOcean.getBiomeClass());
@@ -158,6 +158,7 @@ public class WorldGenCustomStructures implements IWorldGenerator {
                         BASIC_DUNGEON_F2_MIDDLE_TOP.generate(world, random, pos.add(0, -32, -32));
                         BASIC_DUNGEON_F2_LEFT_TOP.generate(world, random, pos.add(-16, -32, -32));
                         BASIC_DUNGEON_F2_LEFT_MIDDLE.generate(world, random, pos.add(-16, -32, -16));
+
                         BASIC_DUNGEON_F3_LEFT_MIDDLE.generate(world, random, pos.add(-16, -48, -16));
                         BASIC_DUNGEON_BOSS_ROOM.generate(world, random, pos.add(0, -48, -16));
                     }

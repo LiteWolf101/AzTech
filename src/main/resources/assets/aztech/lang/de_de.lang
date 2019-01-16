@@ -1,0 +1,123 @@
+#English Lang File for AzTech Mod
+#Use this symbol for colored text:(§)
+
+#Items
+item.aztech_badge.name=AzTech-Abzeichen
+
+item.red_rune_shard.name=Rote Runenscherbe
+item.yellow_rune_shard.name=Gelbe Runenscherbe
+item.green_rune_shard.name=Grüne Runenscherbe
+item.blue_rune_shard.name=Blaue Runenscherbe
+item.white_rune_shard.name=Weiße Runenscherbe
+item.black_rune_shard.name=Schwarze Runenscherbe
+
+item.geoluminescent_obelisk_item.name=§6Geoluminescent Obelisk
+item.aztech_portal_item.name=§5Aztech Portal
+
+#Blocks
+tile.rune_ore_red.name=Rote Runenerz
+tile.rune_ore_yellow.name=Gelbe Runenerz
+tile.rune_ore_green.name=Grüne Runenerz
+tile.rune_ore_blue.name=Blaue Runenerz
+tile.rune_ore_white.name=Weiße Runenerz
+tile.rune_ore_black.name=Schwarze Runenerz
+
+tile.temple_stone_normal.name=§6Tempelstein
+tile.temple_stone_bricks.name=§6Tempelsteinziegel
+tile.temple_stone_bricks_chiseled.name=§6Tempelsteinziegelsteine ​​Gemeißelt
+tile.temple_stone_bricks_cracked.name=§6Tempelsteinziegel Rissen
+
+tile.slaughtive_rune_stage_0.name=§cSchlachtenhafte Rune
+
+tile.empower_rune_hostile.name=§cEmpower Rune
+tile.empower_rune_friendly.name=§9Empower Rune
+
+tile.ancient_stone.name=Alter Stein
+tile.ancient_cobblestone.name=Alter Kopfsteinpflaster
+tile.ancient_dry_mud.name=Alter Trockener Schlamm
+tile.ancient_rock.name=Alter Felsen
+tile.ancient_bedrock.name=Uralter Grundgestein
+tile.ancient_chiseled_bricks.name=Alte Gemeißelte Ziegel
+tile.ancient_bricks.name=Alte Ziegelsteine
+tile.ancient_muddy_bricks.name=Alte Schlammige Ziegelsteine
+
+tile.detector_rune_inactive.name=§cDetector Rune
+tile.detector_rune_active.name=§cDetector Rune
+
+tile.ancient_dirt.name=Uralter Schmutz
+tile.ancient_grass.name=Uraltes Gras
+
+tile.ancient_laser_down.name=§cAlter Laser
+
+tile.enemy_emitter_rune.name=§cFeindliche Emitterrune
+
+tile.lantern_north.name=§6Laterne
+
+tile.objector_rune_down.name=§cObjektor Rune§c(WIP)
+
+tile.insertive_rune_down.name=§cInsertive Rune§c(WIP)
+
+tile.keyhole_rune_inactive.name=§cSchlüssellochrune§c(WIP)
+
+tile.door_rune.name=§cTürrune§c(WIP)
+
+tile.rune_line_inactive.name=§cRunenlinie§c(WIP)
+
+tile.r_to_r_translator_inactive.name=§cRoter Stein->Runenübersetzer
+
+tile.rune_block_red.name=Roter Runenblock
+tile.rune_block_yellow.name=Gelber Runenblock
+tile.rune_block_green.name=Grüner Runenblock
+tile.rune_block_blue.name=Blauer Runenblock
+tile.rune_block_white.name=Weißer Runenblock
+tile.rune_block_black.name=Schwarzer Runenblock
+
+tile.temple_rune_block_red.name=§6Roter Tempel Runenblock
+tile.temple_rune_block_yellow.name=§6Gelber Tempelrunenblock
+tile.temple_rune_block_green.name=§6Grüner Tempel Runenblock
+tile.temple_rune_block_blue.name=§6Blauer Tempel Runenblock
+tile.temple_rune_block_white.name=§6Weißer Tempel-Runenblock
+tile.temple_rune_block_black.name=§6Schwarzer Tempel-Runenblock
+
+tile.ancient_coal_ore.name=Uraltes Kohlenerz
+tile.ancient_iron_ore.name=Uraltes Eisenerz
+tile.ancient_redstone_ore.name=Uraltes Redstone-Erz
+tile.ancient_gold_ore.name=Altes Golderz
+tile.ancient_lapis_ore.name=Uraltes Lapis-Erz
+tile.ancient_diamond_ore.name=Uralter Diamant-Erz
+tile.ancient_emerald_ore.name=Altes Smaragd-Erz
+tile.ancient_quartz_ore.name=Uraltes Quarzerz
+tile.ancient_red_rune_ore.name=Uraltes Rotes Runenerz
+tile.ancient_yellow_rune_ore.name=Altes Gelbes Runenerz
+tile.ancient_green_rune_ore.name=Uraltes Grünes Runenerz
+tile.ancient_blue_rune_ore.name=Altes Blaues Runenerz
+tile.ancient_white_rune_ore.name=Uraltes Weißes Runenerz
+tile.ancient_black_rune_ore.name=Uraltes Schwarzes Runenerz
+
+#Entities
+entity.eye_guardian.name=§6Eye Guardian
+entity.eye_master.name=§6Eye Master
+entity.ultimate_eye.name=§6Ultimate Eye
+entity.pyronant.name=Pyronant
+
+#Creative Tab
+itemGroup.aztech=§eAzTech
+
+#Advancements
+advancement.aztech.mine_shard=Aztech
+advancement.aztech.mine_shard.desc=Mir eine Runenscherbe!
+
+advancement.aztech.mine_all_shards=Gebrochen...
+advancement.aztech.mine_all_shards.desc=Mine alle Runenscherben!
+
+advancement.aztech.craft_all_shard_blocks=...Aber Das Ganze
+advancement.aztech.craft_all_shard_blocks.desc=Bastle alle Rune-Splitterblöcke!
+
+advancement.aztech.craft_all_temple_rune_blocks=Über Teurer Schmuck
+advancement.aztech.craft_all_temple_rune_blocks.desc=Bastle alle Tempel-Runenblöcke!
+
+advancement.aztech.enter_aztech=Rückwärts in der Zeit ...?
+advancement.aztech.enter_aztech.desc=Geben Sie die Aztech-Dimension ein
+
+advancement.aztech.eyesore=Was für ein Eyesore!
+advancement.aztech.eyesore.desc=Töte das §6Ultimate Eye

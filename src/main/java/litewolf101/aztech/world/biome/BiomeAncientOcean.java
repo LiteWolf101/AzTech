@@ -4,12 +4,16 @@ import litewolf101.aztech.init.BlocksInit;
 import net.minecraft.block.BlockSand;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.monster.EntityGuardian;
+import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -20,9 +24,12 @@ public class BiomeAncientOcean extends Biome {
     public BiomeAncientOcean() {
         super(properties);
         properties.setTemperature(1.7F);
-        properties.setHeightVariation(0.1F);
+        properties.setHeightVariation(0.0F);
         properties.setRainDisabled();
-        properties.setBaseHeight(-1.8f);
+        properties.setBaseHeight(-2.7f);
+
+        spawnableWaterCreatureList.clear();
+        this.spawnableWaterCreatureList.add(new SpawnListEntry(EntitySquid.class, 10, 4, 4));
 
 
     }

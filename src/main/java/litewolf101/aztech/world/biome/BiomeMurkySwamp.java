@@ -2,6 +2,7 @@ package litewolf101.aztech.world.biome;
 
 import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.world.worldgen.AztechBiomeDecor;
+import litewolf101.aztech.world.worldgen.feature.WorldGenAztechLiquidBase;
 import litewolf101.aztech.world.worldgen.trees.WorldGenAztechOakTree;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.BlockSand;
@@ -24,6 +25,7 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.WorldGenFlowers;
 import net.minecraft.world.gen.feature.WorldGenLakes;
 import net.minecraft.world.gen.feature.WorldGenTallGrass;
+import net.minecraft.world.gen.feature.WorldGenWaterlily;
 
 import java.util.Random;
 
@@ -37,10 +39,11 @@ public class BiomeMurkySwamp extends Biome{
         this.topBlock = Blocks.GRASS.getDefaultState();
         this.fillerBlock = Blocks.DIRT.getDefaultState();
         properties.setTemperature(1.4F);
-        properties.setHeightVariation(0.1F);
+        properties.setHeightVariation(0.2F);
+        properties.setBaseHeight(-0.5f);
         properties.setRainDisabled();
 
-        getAztechBiomeDecor().setAztechOakTreesPerChunk(1);
+        getAztechBiomeDecor().setAztechOakTreesPerChunk(4);
 
         spawnableMonsterList.clear();
         spawnableMonsterList.add(new SpawnListEntry(EntityZombie.class, 7, 1, 1));
@@ -51,7 +54,6 @@ public class BiomeMurkySwamp extends Biome{
         spawnableCreatureList.add(new SpawnListEntry(EntityPig.class, 3, 1, 1));
         spawnableCreatureList.add(new SpawnListEntry(EntitySheep.class, 5, 1, 1));
         spawnableCreatureList.add(new SpawnListEntry(EntityCow.class, 6, 2, 2));
-        spawnableWaterCreatureList.add(new SpawnListEntry(EntitySquid.class, 10, 2, 4));
     }
 
     @Override
@@ -94,14 +96,14 @@ public class BiomeMurkySwamp extends Biome{
 
         WorldGenAztechOakTree aztechOakTree = new WorldGenAztechOakTree(true);
         WorldGenTallGrass tallGrass = new WorldGenTallGrass(BlockTallGrass.EnumType.GRASS);
-        WorldGenLakes genLakes = new WorldGenLakes(Blocks.WATER);
-        WorldGenLakes genLavaLakes = new WorldGenLakes(Blocks.LAVA);
+        WorldGenAztechLiquidBase genLakes = new WorldGenAztechLiquidBase(Blocks.WATER);
+        WorldGenAztechLiquidBase genLavaLakes = new WorldGenAztechLiquidBase(Blocks.LAVA);
         WorldGenFlowers genFlowers = new WorldGenFlowers(Blocks.YELLOW_FLOWER, BlockFlower.EnumFlowerType.DANDELION);
         WorldGenFlowers genFlowers2 = new WorldGenFlowers(Blocks.RED_FLOWER, BlockFlower.EnumFlowerType.ALLIUM);
-        //Add AzTech Liquids
+        WorldGenWaterlily genWaterlily = new WorldGenWaterlily();
 
         BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos(0, 0, 0);
-        for (int i = 0; i < 25; i++) {
+        for (int i = 0; i < 75; i++) {
             int rx = pos.getX() + rand.nextInt(16) + 8;
             int ry = 15 + rand.nextInt(60) + 4;
             int rz = pos.getZ() + rand.nextInt(16) + 8;
@@ -113,10 +115,16 @@ public class BiomeMurkySwamp extends Biome{
             int ry = 5 + rand.nextInt(90) + 4;
             int rz = pos.getZ() + rand.nextInt(16) + 8;
             mutPos.setPos(rx, ry, rz);
-            genLakes.generate(worldIn, rand, mutPos);
             tallGrass.generate(worldIn, rand, mutPos);
             genFlowers.generate(worldIn, rand, mutPos);
             genFlowers2.generate(worldIn, rand, mutPos);
+        }
+        for (int i = 0; i < 90; i++) {
+            int rx = pos.getX() + rand.nextInt(16) + 8;
+            int ry = 5 + rand.nextInt(90) + 4;
+            int rz = pos.getZ() + rand.nextInt(16) + 8;
+            mutPos.setPos(rx, ry, rz);
+            genWaterlily.generate(worldIn, rand, mutPos);
         }
         for (int i = 0; i < 1; i++) {
             int rx = pos.getX() + rand.nextInt(16) + 8;
@@ -124,6 +132,7 @@ public class BiomeMurkySwamp extends Biome{
             int rz = pos.getZ() + rand.nextInt(16) + 8;
             mutPos.setPos(rx, ry, rz);
             genLavaLakes.generate(worldIn, rand, mutPos);
+            genLakes.generate(worldIn, rand, mutPos);
         }
     }
 

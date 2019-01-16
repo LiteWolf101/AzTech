@@ -1,6 +1,7 @@
 package litewolf101.aztech.dimension.chunk;
 
 import litewolf101.aztech.init.BlocksInit;
+import litewolf101.aztech.world.biome.AztechBiomes;
 import litewolf101.aztech.world.mapgen.MapGenAztechCaves;
 import litewolf101.aztech.world.mapgen.MapGenAztechRavine;
 import net.minecraft.block.BlockFalling;

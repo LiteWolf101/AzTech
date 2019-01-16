@@ -14,6 +14,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -53,6 +54,11 @@ public class AncientOre extends Block implements IHasModel{
     @Override
     public ItemStack getItem(World p_getItem_1_, BlockPos p_getItem_2_, IBlockState p_getItem_3_) {
         return new ItemStack(this);
+    }
+
+    @Override
+    public int getExpDrop(IBlockState state, IBlockAccess world, BlockPos pos, int fortune) {
+        return this == BlocksInit.COAL_ORE?3:(this == BlocksInit.REDSTONE_ORE?6:(this == BlocksInit.LAPIS_ORE?12:(this == BlocksInit.DIAMOND_ORE?20:(this == BlocksInit.EMERALD_ORE?22:(this == BlocksInit.QUARTZ_ORE?16:(this == BlocksInit.NEW_RED_RUNE_ORE?9:(this == BlocksInit.NEW_YELLOW_RUNE_ORE?9:(this == BlocksInit.NEW_GREEN_RUNE_ORE?9:(this == BlocksInit.NEW_BLUE_RUNE_ORE?9:(this == BlocksInit.NEW_WHITE_RUNE_ORE?9:(this == BlocksInit.NEW_BLACK_RUNE_ORE?9:0)))))))))));
     }
 
     @Override

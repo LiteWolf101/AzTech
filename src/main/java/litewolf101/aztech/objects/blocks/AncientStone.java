@@ -23,7 +23,7 @@ public class AncientStone extends Block implements IHasModel{
         setRegistryName(name);
         setCreativeTab(AzTech.CREATIVE_TAB);
         setSoundType(SoundType.STONE);
-        setHarvestLevel("pickaxe", 2);
+        setHarvestLevel("pickaxe", 0);
         setHardness(2f);
         setResistance(10f);
 

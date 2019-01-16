@@ -21,6 +21,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -44,11 +45,6 @@ public class BlockRuneOre extends Block implements IHasModel, IMetaName {
         BlocksInit.BLOCKS.add(this);
         ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));
     }
-
-    //@Override
-    //public int damageDropped(IBlockState state) {
-    //    return ((EnumRuneColor.EnumType)state.getValue(RUNE_COLOR)).getMeta();
-    //}
 
 
     @Override
@@ -74,6 +70,11 @@ public class BlockRuneOre extends Block implements IHasModel, IMetaName {
                 item = ItemsInit.RED_RUNE_SHARD;
         }
         return item;
+    }
+
+    @Override
+    public int getExpDrop(IBlockState state, IBlockAccess world, BlockPos pos, int fortune) {
+        return 9;
     }
 
     @Override

@@ -8,6 +8,7 @@ import net.minecraft.world.DimensionType;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.IChunkGenerator;
+import net.minecraftforge.client.IRenderHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -62,9 +63,10 @@ public class AztechWorldProvider extends WorldProvider {
         return false;
     }
 
-    public boolean isSurfaceWorld()
-    {
-        return false;
+    @Nullable
+    @Override
+    public IRenderHandler getSkyRenderer() {
+        return null;
     }
 
     public boolean canCoordinateBeSpawn(int x, int z)
@@ -85,6 +87,6 @@ public class AztechWorldProvider extends WorldProvider {
     @SideOnly(Side.CLIENT)
     public boolean doesXZShowFog(int x, int z)
     {
-        return true;
+        return false;
     }
 }

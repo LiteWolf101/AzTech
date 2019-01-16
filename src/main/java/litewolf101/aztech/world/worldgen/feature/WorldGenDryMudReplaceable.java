@@ -25,7 +25,7 @@ public class WorldGenDryMudReplaceable extends WorldGenerator{
         {
             BlockPos blockpos = position.add(rand.nextInt(8) - rand.nextInt(8),0, rand.nextInt(8) - rand.nextInt(8));
 
-            if (worldIn.isAirBlock(blockpos) && Blocks.CACTUS.canBlockStay(worldIn, blockpos))
+            if (worldIn.isAirBlock(blockpos) && Blocks.CACTUS.canBlockStay(worldIn, blockpos) && worldIn.getBlockState(position.down()).getBlock() != Blocks.CACTUS)
             {
                 worldIn.setBlockState(blockpos.down(), BlocksInit.ANCIENT_DRY_MUD.getDefaultState(), 2);
             }

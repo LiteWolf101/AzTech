@@ -32,7 +32,7 @@ public class AncientGrass extends Block implements IHasModel, IGrowable{
         setRegistryName(name);
         setCreativeTab(AzTech.CREATIVE_TAB);
         setHarvestLevel("shovel", 0);
-        setHardness(2f);
+        setHardness(0.5f);
         setSoundType(SoundType.PLANT);
         setTickRandomly(true);
 
@@ -51,7 +51,7 @@ public class AncientGrass extends Block implements IHasModel, IGrowable{
             if (world.getLightFromNeighbors(pos.up()) < 4 && world.getBlockState(pos.up()).getLightOpacity(world, pos.up()) > 2) {
                 world.setBlockState(pos, BlocksInit.ANCIENT_DIRT.getDefaultState());
             } else {
-                if (world.getLightFromNeighbors(pos.up()) >= 9) {
+                if (world.getLightFromNeighbors(pos.up()) >= 5) {
                     for (int i = 0; i < 4; ++i) {
                         BlockPos blockpos = pos.add(rand.nextInt(3) - 1, rand.nextInt(5) - 3, rand.nextInt(3) - 1);
                         if (blockpos.getY() >= 0 && blockpos.getY() < 256 && !world.isBlockLoaded(blockpos)) {

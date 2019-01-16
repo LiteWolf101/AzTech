@@ -2,7 +2,9 @@ package litewolf101.aztech.world.biome;
 
 import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.world.worldgen.AztechBiomeDecor;
+import litewolf101.aztech.world.worldgen.feature.WorldGenAztechLiquidBase;
 import litewolf101.aztech.world.worldgen.trees.WorldGenAztechOakTree;
+import litewolf101.aztech.world.worldgen.trees.WorldGenAztechOakTree2;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.BlockSand;
 import net.minecraft.block.BlockTallGrass;
@@ -39,6 +41,7 @@ public class BiomeAncientForest extends Biome{
         properties.setRainDisabled();
 
         getAztechBiomeDecor().setAztechOakTreesPerChunk(1);
+        getAztechBiomeDecor().setTallAztechOakTreesPerChunk(1);
 
         spawnableMonsterList.clear();
         spawnableMonsterList.add(new SpawnListEntry(EntityZombie.class, 7, 1, 1));
@@ -97,9 +100,10 @@ public class BiomeAncientForest extends Biome{
         super.decorate(worldIn, rand, pos);
 
         WorldGenAztechOakTree aztechOakTree = new WorldGenAztechOakTree(true);
+        WorldGenAztechOakTree2 aztechTallOakTree = new WorldGenAztechOakTree2(true);
         WorldGenTallGrass tallGrass = new WorldGenTallGrass(BlockTallGrass.EnumType.GRASS);
-        WorldGenLakes genLakes = new WorldGenLakes(Blocks.WATER);
-        WorldGenLakes genLavaLakes = new WorldGenLakes(Blocks.LAVA);
+        WorldGenAztechLiquidBase genLakes = new WorldGenAztechLiquidBase(Blocks.WATER);
+        WorldGenAztechLiquidBase genLavaLakes = new WorldGenAztechLiquidBase(Blocks.LAVA);
         WorldGenFlowers genFlowers = new WorldGenFlowers(Blocks.YELLOW_FLOWER, BlockFlower.EnumFlowerType.DANDELION);
         WorldGenFlowers genFlowers2 = new WorldGenFlowers(Blocks.RED_FLOWER, BlockFlower.EnumFlowerType.ALLIUM);
 
@@ -110,6 +114,13 @@ public class BiomeAncientForest extends Biome{
             int rz = pos.getZ() + rand.nextInt(16) + 8;
             mutPos.setPos(rx, ry, rz);
             aztechOakTree.generate(worldIn, rand, mutPos);
+        }
+        for (int i = 0; i < 25; i++) {
+            int rx = pos.getX() + rand.nextInt(16) + 8;
+            int ry = 15 + rand.nextInt(40) + 4;
+            int rz = pos.getZ() + rand.nextInt(16) + 8;
+            mutPos.setPos(rx, ry, rz);
+            aztechTallOakTree.generate(worldIn, rand, mutPos);
         }
         for (int i = 0; i < 15; i++) {
             int rx = pos.getX() + rand.nextInt(16) + 8;
@@ -122,7 +133,7 @@ public class BiomeAncientForest extends Biome{
         }
         for (int i = 0; i < 1; i++) {
             int rx = pos.getX() + rand.nextInt(16) + 8;
-            int ry = 15 + rand.nextInt(60) + 4;
+            int ry = 2 + rand.nextInt(121) + 4;
             int rz = pos.getZ() + rand.nextInt(16) + 8;
             mutPos.setPos(rx, ry, rz);
             genLakes.generate(worldIn, rand, mutPos);

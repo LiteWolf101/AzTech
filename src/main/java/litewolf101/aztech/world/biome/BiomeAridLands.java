@@ -2,6 +2,7 @@ package litewolf101.aztech.world.biome;
 
 import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.objects.mobs.MobPyronant;
+import litewolf101.aztech.world.worldgen.feature.WorldGenAztechLiquidBase;
 import litewolf101.aztech.world.worldgen.feature.WorldGenDryMudReplaceable;
 import net.minecraft.block.BlockSand;
 import net.minecraft.block.material.Material;
@@ -70,7 +71,8 @@ public class BiomeAridLands extends Biome {
 
         WorldGenCactus cactus = new WorldGenCactus();
         WorldGenDryMudReplaceable dryMudReplaceable = new WorldGenDryMudReplaceable();
-        WorldGenLakes genLavaLakes = new WorldGenLakes(Blocks.LAVA);
+        WorldGenAztechLiquidBase genLavaLakes = new WorldGenAztechLiquidBase(Blocks.LAVA);
+        WorldGenAztechLiquidBase genDryMud = new WorldGenAztechLiquidBase(BlocksInit.ANCIENT_DRY_MUD);
         WorldGenDeadBush deadBush = new WorldGenDeadBush();
 
         BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos(0, 0, 0);
@@ -82,7 +84,7 @@ public class BiomeAridLands extends Biome {
             cactus.generate(worldIn, rand, mutPos);
             deadBush.generate(worldIn, rand, mutPos);
         }
-        for (int i = 0; i < 60; i++) {
+        for (int i = 0; i < 1; i++) {
             int rx = pos.getX() + rand.nextInt(16) + 8;
             int ry = 15 + rand.nextInt(60) + 4;
             int rz = pos.getZ() + rand.nextInt(16) + 8;
@@ -96,6 +98,7 @@ public class BiomeAridLands extends Biome {
             mutPos.setPos(rx, ry, rz);
             if (rand.nextInt(10) == 0){
                 genLavaLakes.generate(worldIn, rand, mutPos);
+                genDryMud.generate(worldIn, rand, pos);
             }
         }
     }

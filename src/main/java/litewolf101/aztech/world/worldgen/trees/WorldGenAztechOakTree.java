@@ -8,6 +8,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
+import org.lwjgl.Sys;
 
 import java.util.Random;
 
@@ -18,6 +19,7 @@ import static net.minecraft.block.BlockLog.LOG_AXIS;
  */
 public class WorldGenAztechOakTree extends WorldGenAbstractTree {
     private int minTrunkHeight;
+
     protected IBlockState log = Blocks.LOG.getDefaultState().withProperty(LOG_AXIS, BlockLog.EnumAxis.NONE);
     protected IBlockState leaves = Blocks.LEAVES.getDefaultState();
 
@@ -32,19 +34,37 @@ public class WorldGenAztechOakTree extends WorldGenAbstractTree {
 
     @Override
     public boolean generate(World worldIn, Random rand, BlockPos position) {
-        int trunkHeight = rand.nextInt(3) + minTrunkHeight;
-        int treeHeight = trunkHeight + 5;
         Material materialBelow = worldIn.getBlockState(position.down()).getMaterial();
 
         //Let's make sure we're at the right height and in the right dimension
         //TODO Adjust dimension number
         if (position.getY() <= 13 && position.getY() + minTrunkHeight + 1 >= 128 || materialBelow != Material.GRASS && materialBelow != Material.GROUND || worldIn.provider.getDimension() != 17) {
             return false;
+        } else {
+            checkIsAirAndBuild(worldIn, position, rand);
         }
-        buildLeaves(worldIn, position, trunkHeight);
-        buildTrunk(worldIn, position, trunkHeight);
-        buildSupport(worldIn, position, trunkHeight);
         return true;
+    }
+
+    public void checkIsAirAndBuild(World world, BlockPos position, Random rand){
+        int trunkHeight = rand.nextInt(3) + minTrunkHeight;
+        int treeHeight = trunkHeight + 5;
+        int check = 0;
+        for (int x = -3; x <= 3; x++){
+            for (int y = trunkHeight - 1; y <= treeHeight; y++){
+                for (int z = -3; z <= 3; z++){
+                    BlockPos checkingpos = new BlockPos(position.getX() + x, position.getY() + y, position.getZ() + z);
+                    if (world.getBlockState(checkingpos).getMaterial() == Material.GROUND || world.getBlockState(checkingpos).getMaterial() == Material.ROCK) {
+                        check++;
+                    }
+                }
+            }
+        }
+        if (check == 0) {
+            buildLeaves(world, position, trunkHeight);
+            buildTrunk(world, position, trunkHeight);
+            buildSupport(world, position, trunkHeight);
+        }
     }
 
     private void buildLeaves(World worldIn, BlockPos position, int trunkHeight) {
