@@ -1,5 +1,6 @@
 package litewolf101.aztech.dimension;
 
+import litewolf101.aztech.config.AzTechConfig;
 import litewolf101.aztech.utils.AztechWorldProvider;
 import litewolf101.aztech.utils.Reference;
 import net.minecraft.world.DimensionType;
@@ -17,10 +18,10 @@ public class AztechDimension {
     }
 
     private static void registerDimensionTypes() {
-        aztech = DimensionType.register(Reference.MODID, "_aztech", 17, AztechWorldProvider.class, false);//TODO Adjust dimension number
+        aztech = DimensionType.register(Reference.MODID, "_aztech", AzTechConfig.dimension_ID, AztechWorldProvider.class, false);
     }
 
     private static void registerDimensions() {
-        DimensionManager.registerDimension(17, AztechDimension.aztech);//TODO Adjust dimension number
+        DimensionManager.registerDimension(AzTechConfig.dimension_ID, AztechDimension.aztech);
     }
 }

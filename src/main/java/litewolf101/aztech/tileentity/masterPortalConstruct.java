@@ -1,5 +1,6 @@
 package litewolf101.aztech.tileentity;
 
+import litewolf101.aztech.config.AzTechConfig;
 import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.utils.CustomTeleporter;
 import litewolf101.aztech.utils.handlers.*;
@@ -124,14 +125,12 @@ public class masterPortalConstruct extends TileEntity implements ITickable{
             List<EntityLivingBase> victims = world.getEntitiesWithinAABB(EntityLivingBase.class, bb);
             for (EntityLivingBase entities : victims) {
                 if (entities instanceof EntityPlayerMP){
-                    if (this.world.provider.getDimension() == 17 ){//TODO Adjust dimension number
+                    if (this.world.provider.getDimension() == AzTechConfig.dimension_ID ){
                         CustomTeleporter.teleportToDimension((EntityPlayerMP) entities, 0, x, y, z + 2);
                     } else {
-                        CustomTeleporter.teleportToDimension((EntityPlayerMP) entities, 17, x, y, z + 2);
+                        CustomTeleporter.teleportToDimension((EntityPlayerMP) entities, AzTechConfig.dimension_ID, x, y, z + 2);
                     }
-
                 }
-
             }
         }
     }

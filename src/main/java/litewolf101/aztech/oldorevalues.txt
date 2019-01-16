@@ -1,0 +1,19 @@
+old ore values
+
+if (world.provider.getDimensionType() == AztechDimension.aztech) {
+            runGenerator(ancient_coal_ore, world, random, chunkX, chunkZ, 20, 5, 160);
+            runGenerator(ancient_iron_ore, world, random, chunkX, chunkZ, 15, 5, 160);
+            runGenerator(ancient_redstone_ore, world, random, chunkX, chunkZ, 7, 5, 160);
+            runGenerator(ancient_gold_ore, world, random, chunkX, chunkZ, 7, 5, 160);
+            runGenerator(ancient_lapis_ore, world, random, chunkX, chunkZ, 7, 5, 160);
+            runGenerator(ancient_diamond_ore, world, random, chunkX, chunkZ, 6, 5, 160);
+            runGenerator(ancient_emerald_ore, world, random, chunkX, chunkZ, 5, 5, 160);
+            runGenerator(ancient_quartz_ore, world, random, chunkX, chunkZ, 13, 5, 160);
+            runGenerator(ancient_red_rune_ore, world, random, chunkX, chunkZ, 12, 5, 160);
+            runGenerator(ancient_yellow_rune_ore, world, random, chunkX, chunkZ, 12, 5, 160);
+            runGenerator(ancient_green_rune_ore, world, random, chunkX, chunkZ, 12, 5, 160);
+            runGenerator(ancient_blue_rune_ore, world, random, chunkX, chunkZ, 12, 5, 160);
+            runGenerator(ancient_white_rune_ore, world, random, chunkX, chunkZ, 12, 5, 160);
+            runGenerator(ancient_black_rune_ore, world, random, chunkX, chunkZ, 12, 5, 160);
+        }
+will use in config later

@@ -1,5 +1,6 @@
 package litewolf101.aztech.world.worldgen.trees;
 
+import litewolf101.aztech.config.AzTechConfig;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.material.Material;
@@ -36,8 +37,7 @@ public class WorldGenAztechOakTree2 extends WorldGenAbstractTree {
         Material materialBelow = worldIn.getBlockState(position.down()).getMaterial();
 
         //Let's make sure we're at the right height and in the right dimension
-        //TODO Adjust dimension number
-        if (position.getY() <= 13 && position.getY() + minTrunkHeight + 1 >= 128 || worldIn.getBlockState(position.up()).getMaterial() == Material.WATER || materialBelow != Material.GRASS && materialBelow != Material.GROUND || worldIn.provider.getDimension() != 17) {
+        if (position.getY() <= 13 && position.getY() + minTrunkHeight + 1 >= 128 || worldIn.getBlockState(position.up()).getMaterial() == Material.WATER || materialBelow != Material.GRASS && materialBelow != Material.GROUND || worldIn.provider.getDimension() != AzTechConfig.dimension_ID) {
             return false;
         } else {
             checkIsAirAndBuild(worldIn, position, rand);

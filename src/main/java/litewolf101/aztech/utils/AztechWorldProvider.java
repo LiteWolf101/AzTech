@@ -1,5 +1,7 @@
 package litewolf101.aztech.utils;
 
+import litewolf101.aztech.AzTech;
+import litewolf101.aztech.config.AzTechConfig;
 import litewolf101.aztech.dimension.AztechDimension;
 import litewolf101.aztech.dimension.chunk.AztechChunkGenerator;
 import litewolf101.aztech.world.biome.AztechBiomeProvider;
@@ -18,6 +20,7 @@ import javax.annotation.Nullable;
  * Created by LiteWolf101 on 10/19/2018.
  */
 public class AztechWorldProvider extends WorldProvider {
+
     @Override
     public DimensionType getDimensionType() {
         return AztechDimension.aztech;
@@ -63,12 +66,6 @@ public class AztechWorldProvider extends WorldProvider {
         return false;
     }
 
-    @Nullable
-    @Override
-    public IRenderHandler getSkyRenderer() {
-        return null;
-    }
-
     public boolean canCoordinateBeSpawn(int x, int z)
     {
         return false;
@@ -77,6 +74,18 @@ public class AztechWorldProvider extends WorldProvider {
     public float calculateCelestialAngle(long worldTime, float partialTicks)
     {
         return 0.5F;
+    }
+    @Nullable
+    @SideOnly(Side.CLIENT)
+    public float[] calcSunriseSunsetColors(float celestialAngle, float partialTicks)
+    {
+        return null;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public boolean isSkyColored()
+    {
+        return false;
     }
 
     public boolean canRespawnHere()
@@ -87,6 +96,11 @@ public class AztechWorldProvider extends WorldProvider {
     @SideOnly(Side.CLIENT)
     public boolean doesXZShowFog(int x, int z)
     {
+        return AzTechConfig.toogle_dimension_fog;
+    }
+
+    @Override
+    public boolean isSurfaceWorld() {
         return false;
     }
 }

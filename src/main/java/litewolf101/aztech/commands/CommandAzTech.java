@@ -1,5 +1,6 @@
 package litewolf101.aztech.commands;
 
+import litewolf101.aztech.config.AzTechConfig;
 import litewolf101.aztech.utils.CustomTeleporter;
 import litewolf101.aztech.utils.Reference;
 import net.minecraft.command.CommandBase;
@@ -9,11 +10,15 @@ import net.minecraft.command.WrongUsageException;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.WorldServer;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -57,7 +62,7 @@ public class CommandAzTech extends CommandBase {
         }
         if (strings[0].equals("dim_teleport")) {
             if (sender instanceof EntityPlayer){
-                CustomTeleporter.teleportToDimension((EntityPlayer) sender, 17, 0, 35, 0);//TODO Adjust dimension number
+                CustomTeleporter.teleportToDimension((EntityPlayer) sender, AzTechConfig.dimension_ID, 0, 35, 0);
             }
         }
 
@@ -66,5 +71,11 @@ public class CommandAzTech extends CommandBase {
     @Override
     public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
         return true;
+    }
+
+    @Override
+    @Nonnull
+    public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos targetPos) {
+        return Collections.emptyList();
     }
 }

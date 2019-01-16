@@ -1,5 +1,7 @@
 package litewolf101.aztech.world.worldgen.ores;
 
+import litewolf101.aztech.config.AzTechConfig;
+import litewolf101.aztech.dimension.AztechDimension;
 import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.utils.handlers.EnumRuneColor;
 import net.minecraft.block.state.pattern.BlockMatcher;
@@ -58,33 +60,32 @@ public class WorldGenAzTechOres implements IWorldGenerator {
             case -1:
                 break;
             case 0:
-                runGenerator(red_rune_ore, world, random, chunkX, chunkZ, 20, 12, 45);
-                runGenerator(yellow_rune_ore, world, random, chunkX, chunkZ, 20, 12, 45);
-                runGenerator(green_rune_ore, world, random, chunkX, chunkZ, 20, 12, 45);
-                runGenerator(blue_rune_ore, world, random, chunkX, chunkZ, 20, 12, 45);
-                runGenerator(white_rune_ore, world, random, chunkX, chunkZ, 20, 12, 45);
-                runGenerator(black_rune_ore, world, random, chunkX, chunkZ, 20, 12, 45);
+                runGenerator(red_rune_ore, world, random, chunkX, chunkZ, AzTechConfig.overworld_ore_frequency, 12, 45);
+                runGenerator(yellow_rune_ore, world, random, chunkX, chunkZ, AzTechConfig.overworld_ore_frequency, 12, 45);
+                runGenerator(green_rune_ore, world, random, chunkX, chunkZ, AzTechConfig.overworld_ore_frequency, 12, 45);
+                runGenerator(blue_rune_ore, world, random, chunkX, chunkZ, AzTechConfig.overworld_ore_frequency, 12, 45);
+                runGenerator(white_rune_ore, world, random, chunkX, chunkZ, AzTechConfig.overworld_ore_frequency, 12, 45);
+                runGenerator(black_rune_ore, world, random, chunkX, chunkZ, AzTechConfig.overworld_ore_frequency, 12, 45);
                 break;
             case 1:
                 break;
-            case 17://TODO Adjust dimension number
-                runGenerator(ancient_coal_ore, world, random, chunkX, chunkZ, 20, 5, 160);
-                runGenerator(ancient_iron_ore, world, random, chunkX, chunkZ, 15, 5, 160);
-                runGenerator(ancient_redstone_ore, world, random, chunkX, chunkZ, 7, 5, 160);
-                runGenerator(ancient_gold_ore, world, random, chunkX, chunkZ, 7, 5, 160);
-                runGenerator(ancient_lapis_ore, world, random, chunkX, chunkZ, 7, 5, 160);
-                runGenerator(ancient_diamond_ore, world, random, chunkX, chunkZ, 6, 5, 160);
-                runGenerator(ancient_emerald_ore, world, random, chunkX, chunkZ, 5, 5, 160);
-                runGenerator(ancient_quartz_ore, world, random, chunkX, chunkZ, 13, 5, 160);
-                runGenerator(ancient_red_rune_ore, world, random, chunkX, chunkZ, 12, 5, 160);
-                runGenerator(ancient_yellow_rune_ore, world, random, chunkX, chunkZ, 12, 5, 160);
-                runGenerator(ancient_green_rune_ore, world, random, chunkX, chunkZ, 12, 5, 160);
-                runGenerator(ancient_blue_rune_ore, world, random, chunkX, chunkZ, 12, 5, 160);
-                runGenerator(ancient_white_rune_ore, world, random, chunkX, chunkZ, 12, 5, 160);
-                runGenerator(ancient_black_rune_ore, world, random, chunkX, chunkZ, 12, 5, 160);
-                break;
         }
-
+        if (world.provider.getDimensionType() == AztechDimension.aztech) {
+            runGenerator(ancient_coal_ore, world, random, chunkX, chunkZ, AzTechConfig.aztech_ore_frequency, 5, 160);
+            runGenerator(ancient_iron_ore, world, random, chunkX, chunkZ, AzTechConfig.aztech_ore_frequency, 5, 160);
+            runGenerator(ancient_redstone_ore, world, random, chunkX, chunkZ, AzTechConfig.aztech_ore_frequency, 5, 160);
+            runGenerator(ancient_gold_ore, world, random, chunkX, chunkZ, AzTechConfig.aztech_ore_frequency, 5, 160);
+            runGenerator(ancient_lapis_ore, world, random, chunkX, chunkZ, AzTechConfig.aztech_ore_frequency, 5, 160);
+            runGenerator(ancient_diamond_ore, world, random, chunkX, chunkZ, AzTechConfig.aztech_ore_frequency, 5, 160);
+            runGenerator(ancient_emerald_ore, world, random, chunkX, chunkZ, AzTechConfig.aztech_ore_frequency, 5, 160);
+            runGenerator(ancient_quartz_ore, world, random, chunkX, chunkZ, AzTechConfig.aztech_ore_frequency, 5, 160);
+            runGenerator(ancient_red_rune_ore, world, random, chunkX, chunkZ, AzTechConfig.aztech_ore_frequency, 5, 160);
+            runGenerator(ancient_yellow_rune_ore, world, random, chunkX, chunkZ, AzTechConfig.aztech_ore_frequency, 5, 160);
+            runGenerator(ancient_green_rune_ore, world, random, chunkX, chunkZ, AzTechConfig.aztech_ore_frequency, 5, 160);
+            runGenerator(ancient_blue_rune_ore, world, random, chunkX, chunkZ, AzTechConfig.aztech_ore_frequency, 5, 160);
+            runGenerator(ancient_white_rune_ore, world, random, chunkX, chunkZ, AzTechConfig.aztech_ore_frequency, 5, 160);
+            runGenerator(ancient_black_rune_ore, world, random, chunkX, chunkZ, AzTechConfig.aztech_ore_frequency, 5, 160);
+        }
     }
 
     private void runGenerator(WorldGenerator gen, World world, Random rand, int chunkX, int chunkZ, int chance, int minHeight, int maxHeight){

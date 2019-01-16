@@ -63,7 +63,7 @@ public class BiomeAncientForest extends Biome{
 
     @Override
     public float getSpawningChance() {
-        return 0.07F;
+        return 0.05F;
     }
 
     @Override

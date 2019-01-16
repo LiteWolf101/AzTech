@@ -1,6 +1,7 @@
 package litewolf101.aztech;
 
 import litewolf101.aztech.commands.CommandAzTech;
+import litewolf101.aztech.config.AzTechConfig;
 import litewolf101.aztech.init.FurnaceRecipes;
 import litewolf101.aztech.init.ItemsInit;
 import litewolf101.aztech.proxy.CommonProxy;
@@ -40,6 +41,7 @@ public class AzTech {
     @Mod.EventHandler
     public static void preInit(FMLPreInitializationEvent event) {
         System.out.println(Reference.MODID + ":preInit");
+        AzTechConfig.preInit();
         proxy.preInit(event);
         proxy.registerTileEntities();
         proxy.RegisterTileEntityRender();

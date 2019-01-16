@@ -1,5 +1,7 @@
 package litewolf101.aztech.world.worldgen.structures;
 
+import litewolf101.aztech.config.AzTechConfig;
+import litewolf101.aztech.dimension.AztechDimension;
 import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.utils.handlers.AztechStructureHandler;
 import litewolf101.aztech.world.biome.AztechBiomes;
@@ -57,27 +59,27 @@ public class WorldGenCustomStructures implements IWorldGenerator {
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
         switch (world.provider.getDimension()){
             case 0:
-                generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, 500, Blocks.GRASS, Biomes.FOREST.getBiomeClass());
-                generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, 500, Blocks.GRASS, Biomes.ICE_PLAINS.getBiomeClass());
-                generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, 500, Blocks.GRASS, Biomes.TAIGA.getBiomeClass());
-                generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, 500, Blocks.GRASS, Biomes.PLAINS.getBiomeClass());
-                generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, 500, Blocks.GRASS, Biomes.SAVANNA.getBiomeClass());
-                generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, 500, Blocks.GRASS, Biomes.DESERT.getBiomeClass());
+                generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, AzTechConfig.portal_frequency, Blocks.GRASS, Biomes.FOREST.getBiomeClass());
+                generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, AzTechConfig.portal_frequency, Blocks.GRASS, Biomes.ICE_PLAINS.getBiomeClass());
+                generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, AzTechConfig.portal_frequency, Blocks.GRASS, Biomes.TAIGA.getBiomeClass());
+                generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, AzTechConfig.portal_frequency, Blocks.GRASS, Biomes.PLAINS.getBiomeClass());
+                generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, AzTechConfig.portal_frequency, Blocks.GRASS, Biomes.SAVANNA.getBiomeClass());
+                generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, AzTechConfig.portal_frequency, Blocks.GRASS, Biomes.DESERT.getBiomeClass());
                 break;
             case 1:
                 break;
             case -1:
                 break;
-            case 17: //TODO Adjust Dimension number
-                generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, 500, BlocksInit.ANCIENT_GRASS, AztechBiomes.biomeAncientForest.getBiomeClass());
-                generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, 500, Blocks.GRASS, AztechBiomes.biomeAncientOcean.getBiomeClass());
-                generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, 500, Blocks.SAND, AztechBiomes.biomeAridLands.getBiomeClass());
-                generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, 500, Blocks.GRASS, AztechBiomes.biomeMurkySwamp.getBiomeClass());
-                generateHut(HUT, world, random, chunkX, chunkZ, 150, Blocks.GRASS, AztechBiomes.biomeMurkySwamp.getBiomeClass());
-                generateBasicDungeon(BASIC_DUNGEON_ENTRANCE, world, random, chunkX, chunkZ, 50, Blocks.GRASS, AztechBiomes.biomeMurkySwamp.getBiomeClass());
-                generateBasicDungeon(BASIC_DUNGEON_ENTRANCE, world, random, chunkX, chunkZ, 50, BlocksInit.ANCIENT_GRASS, AztechBiomes.biomeAncientForest.getBiomeClass());
-                generateBasicDungeon(BASIC_DUNGEON_ENTRANCE, world, random, chunkX, chunkZ, 50, Blocks.GRASS, AztechBiomes.biomeAncientOcean.getBiomeClass());
-                break;
+        }
+        if (world.provider.getDimensionType() == AztechDimension.aztech) {
+            generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, AzTechConfig.portal_frequency, BlocksInit.ANCIENT_GRASS, AztechBiomes.biomeAncientForest.getBiomeClass());
+            generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, AzTechConfig.portal_frequency, Blocks.GRASS, AztechBiomes.biomeAncientOcean.getBiomeClass());
+            generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, AzTechConfig.portal_frequency, Blocks.SAND, AztechBiomes.biomeAridLands.getBiomeClass());
+            generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, AzTechConfig.portal_frequency, Blocks.GRASS, AztechBiomes.biomeMurkySwamp.getBiomeClass());
+            generateHut(HUT, world, random, chunkX, chunkZ, AzTechConfig.hut_frequency, Blocks.GRASS, AztechBiomes.biomeMurkySwamp.getBiomeClass());
+            generateBasicDungeon(BASIC_DUNGEON_ENTRANCE, world, random, chunkX, chunkZ, AzTechConfig.basic_dungeon_frequency, Blocks.GRASS, AztechBiomes.biomeMurkySwamp.getBiomeClass());
+            generateBasicDungeon(BASIC_DUNGEON_ENTRANCE, world, random, chunkX, chunkZ, AzTechConfig.basic_dungeon_frequency, BlocksInit.ANCIENT_GRASS, AztechBiomes.biomeAncientForest.getBiomeClass());
+            generateBasicDungeon(BASIC_DUNGEON_ENTRANCE, world, random, chunkX, chunkZ, AzTechConfig.basic_dungeon_frequency, Blocks.GRASS, AztechBiomes.biomeAncientOcean.getBiomeClass());
         }
     }
 
@@ -110,17 +112,14 @@ public class WorldGenCustomStructures implements IWorldGenerator {
 
         Class<?> biome = world.provider.getBiomeForCoords(pos).getClass();
 
-        if(world.getWorldType() != WorldType.FLAT){
-            if (classesList.contains(biome)){
-                if(random.nextInt(chance) == 0){
-                    generator.generate(world, random, pos);
-                    world.setBlockState(pos.add(3, 1, 2), Blocks.CHEST.getDefaultState().withProperty(BlockHorizontal.FACING, EnumFacing.SOUTH));
-                    TileEntity tileEntity = world.getTileEntity(pos.add(3, 1, 2));
+        if (classesList.contains(biome)){
+            if(random.nextInt(chance) == 0){
+                generator.generate(world, random, pos);
+                world.setBlockState(pos.add(3, 1, 2), Blocks.CHEST.getDefaultState().withProperty(BlockHorizontal.FACING, EnumFacing.SOUTH));
+                TileEntity tileEntity = world.getTileEntity(pos.add(3, 1, 2));
 
-                    if (tileEntity instanceof TileEntityChest)
-                    {
-                        ((TileEntityChest)tileEntity).setLootTable(LootTableList.CHESTS_SIMPLE_DUNGEON, random.nextLong());
-                    }
+                if (tileEntity instanceof TileEntityChest) {
+                    ((TileEntityChest)tileEntity).setLootTable(LootTableList.CHESTS_SIMPLE_DUNGEON, random.nextLong());
                 }
             }
         }
@@ -136,32 +135,30 @@ public class WorldGenCustomStructures implements IWorldGenerator {
 
         Class<?> biome = world.provider.getBiomeForCoords(pos).getClass();
 
-        if(world.getWorldType() != WorldType.FLAT){
-            if (classesList.contains(biome)){
-                if (pos.getY() <= 49 && pos.getY() >= 45){
-                    if(random.nextInt(chance) == 0){
-                        generator.generate(world, random, pos);
-                        BASIC_DUNGEON_F1_MIDDLE_BOTTOM.generate(world, random, pos.down(16));
-                        BASIC_DUNGEON_F1_RIGHT_BOTTOM.generate(world, random, pos.add(16, -16, 0));
-                        BASIC_DUNGEON_F1_RIGHT_MIDDLE.generate(world, random, pos.add(16, -16, -16));
-                        BASIC_DUNGEON_F1_RIGHT_TOP.generate(world, random, pos.add(16, -16, -32));
-                        BASIC_DUNGEON_F1_MIDDLE_TOP.generate(world, random, pos.add(0, -16, -32));
-                        BASIC_DUNGEON_F1_LEFT_TOP.generate(world, random, pos.add(-16, -16, -32));
-                        BASIC_DUNGEON_F1_LEFT_MIDDLE.generate(world, random, pos.add(-16, -16, -16));
-                        BASIC_DUNGEON_F1_LEFT_BOTTOM.generate(world, random, pos.add(-16, -16, 0));
+        if (classesList.contains(biome)){
+            if (pos.getY() <= 49 && pos.getY() >= 45){
+                if(random.nextInt(chance) == 0){
+                    generator.generate(world, random, pos);
+                    BASIC_DUNGEON_F1_MIDDLE_BOTTOM.generate(world, random, pos.down(16));
+                    BASIC_DUNGEON_F1_RIGHT_BOTTOM.generate(world, random, pos.add(16, -16, 0));
+                    BASIC_DUNGEON_F1_RIGHT_MIDDLE.generate(world, random, pos.add(16, -16, -16));
+                    BASIC_DUNGEON_F1_RIGHT_TOP.generate(world, random, pos.add(16, -16, -32));
+                    BASIC_DUNGEON_F1_MIDDLE_TOP.generate(world, random, pos.add(0, -16, -32));
+                    BASIC_DUNGEON_F1_LEFT_TOP.generate(world, random, pos.add(-16, -16, -32));
+                    BASIC_DUNGEON_F1_LEFT_MIDDLE.generate(world, random, pos.add(-16, -16, -16));
+                    BASIC_DUNGEON_F1_LEFT_BOTTOM.generate(world, random, pos.add(-16, -16, 0));
 
-                        BASIC_DUNGEON_F2_LEFT_BOTTOM.generate(world, random, pos.add(-16, -32, 0));
-                        BASIC_DUNGEON_F2_MIDDLE_BOTTOM.generate(world, random, pos.add(0, -32, 0));
-                        BASIC_DUNGEON_F2_RIGHT_BOTTOM.generate(world, random, pos.add(16, -32, 0));
-                        BASIC_DUNGEON_F2_RIGHT_MIDDLE.generate(world, random, pos.add(16, -32, -16));
-                        BASIC_DUNGEON_F2_RIGHT_TOP.generate(world, random, pos.add(16, -32, -32));
-                        BASIC_DUNGEON_F2_MIDDLE_TOP.generate(world, random, pos.add(0, -32, -32));
-                        BASIC_DUNGEON_F2_LEFT_TOP.generate(world, random, pos.add(-16, -32, -32));
-                        BASIC_DUNGEON_F2_LEFT_MIDDLE.generate(world, random, pos.add(-16, -32, -16));
+                    BASIC_DUNGEON_F2_LEFT_BOTTOM.generate(world, random, pos.add(-16, -32, 0));
+                    BASIC_DUNGEON_F2_MIDDLE_BOTTOM.generate(world, random, pos.add(0, -32, 0));
+                    BASIC_DUNGEON_F2_RIGHT_BOTTOM.generate(world, random, pos.add(16, -32, 0));
+                    BASIC_DUNGEON_F2_RIGHT_MIDDLE.generate(world, random, pos.add(16, -32, -16));
+                    BASIC_DUNGEON_F2_RIGHT_TOP.generate(world, random, pos.add(16, -32, -32));
+                    BASIC_DUNGEON_F2_MIDDLE_TOP.generate(world, random, pos.add(0, -32, -32));
+                    BASIC_DUNGEON_F2_LEFT_TOP.generate(world, random, pos.add(-16, -32, -32));
+                    BASIC_DUNGEON_F2_LEFT_MIDDLE.generate(world, random, pos.add(-16, -32, -16));
 
-                        BASIC_DUNGEON_F3_LEFT_MIDDLE.generate(world, random, pos.add(-16, -48, -16));
-                        BASIC_DUNGEON_BOSS_ROOM.generate(world, random, pos.add(0, -48, -16));
-                    }
+                    BASIC_DUNGEON_F3_LEFT_MIDDLE.generate(world, random, pos.add(-16, -48, -16));
+                    BASIC_DUNGEON_BOSS_ROOM.generate(world, random, pos.add(0, -48, -16));
                 }
             }
         }

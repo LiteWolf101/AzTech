@@ -47,7 +47,7 @@ public class BiomeAridLands extends Biome {
 
     @Override
     public float getSpawningChance() {
-        return 0.12F;
+        return 0.56F;
     }
 
     @Override
