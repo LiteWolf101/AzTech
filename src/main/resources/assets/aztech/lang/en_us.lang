@@ -121,25 +121,3 @@ advancement.aztech.enter_aztech.desc=Enter the Aztech Dimension
 
 advancement.aztech.eyesore=What an Eyesore!
 advancement.aztech.eyesore.desc=Kill the §6Ultimate Eye
-
-#Config
-aztech.config.dimension.dimension_id.name=Numerical Dimension ID
-aztech.config.dimension.dimension_id.comment=The Dimension ID for the AzTech dimension(default=17)
-
-aztech.config.dimension.toggle_dimensional_fog.name=Toggle Dimension Fog
-aztech.config.dimension.toggle_dimensional_fog.comment=Enable or disable fog in the AzTech Dimension(default=true)
-
-aztech.config.world.overworld_ore_frequency.name=Overworld Ore Frequency
-aztech.config.world.overworld_ore_frequency.comment=How often do AzTech ores spawn in the overworld(default=20,Higher=more rarer)
-
-aztech.config.world.aztech_ore_frequency.name=AzTech Dimension Ore Frequency
-aztech.config.world.aztech_ore_frequency.comment=How often do AzTech ores spawn in the AzTech dimension(default=13,Higher=more rarer)
-
-aztech.config.world.hut_frequency.name=Hut Frequency
-aztech.config.world.hut_frequency.comment=How often do huts spawn in the AzTech dimension(default=150,Higher=more rarer)
-
-aztech.config.world.basic_dungeon_frequency.name=Basic Dungeon Frequency
-aztech.config.world.basic_dungeon_frequency.comment=How often do basic dungeons spawn in the AzTech dimension(default=50,Higher=more rarer)
-
-aztech.config.world.portal_frequency.name=Portal Frequency
-aztech.config.world.portal_frequency.comment=How often do portals spawn(default=500,Higher=more rarer)

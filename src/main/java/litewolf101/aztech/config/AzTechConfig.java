@@ -4,6 +4,8 @@ import net.minecraft.client.resources.I18n;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -55,33 +57,19 @@ public class AzTechConfig {
         }
         //TODO fix categories
         //properties
-        Property propertyDimensionID = config.get(CATEGORY_DIMENSION, "dimension_id", 17);
-        propertyDimensionID.setLanguageKey("aztech.config.dimension.dimension_id.name");
-        propertyDimensionID.setComment(I18n.format("aztech.config.dimension.dimension_id.comment"));
+        Property propertyDimensionID = config.get(CATEGORY_DIMENSION, "dimension_id", 17,"The Dimension ID for the AzTech dimension(default=17)");
 
-        Property propertyToggleDimensionalFog = config.get(CATEGORY_DIMENSION, "enable_dimensional_fog", true);
-        propertyToggleDimensionalFog.setLanguageKey("aztech.config.dimension.toggle_dimensional_fog.name");
-        propertyToggleDimensionalFog.setComment(I18n.format("aztech.config.dimension.toggle_dimensional_fog.comment"));
+        Property propertyToggleDimensionalFog = config.get(CATEGORY_DIMENSION, "enable_dimensional_fog", true,"Enable or disable fog in the AzTech Dimension(default=true)");
 
-        Property propertyOvrwrldOreFreq = config.get(CATEGORY_DIMENSION, "overworld_ore_frequency", 20);
-        propertyOvrwrldOreFreq.setLanguageKey("aztech.config.world.overworld_ore_frequency.name");
-        propertyOvrwrldOreFreq.setComment(I18n.format("aztech.config.world.overworld_ore_frequency.comment"));
+        Property propertyOvrwrldOreFreq = config.get(CATEGORY_DIMENSION, "overworld_ore_frequency", 20,"How often do AzTech ores spawn in the overworld(default=20,Higher=more rarer)");
 
-        Property propertyAzTechOreFreq = config.get(CATEGORY_DIMENSION, "aztech_ore_frequency", 13);
-        propertyAzTechOreFreq.setLanguageKey("aztech.config.world.aztech_ore_frequency.name");
-        propertyAzTechOreFreq.setComment(I18n.format("aztech.config.world.aztech_ore_frequency.comment"));
+        Property propertyAzTechOreFreq = config.get(CATEGORY_DIMENSION, "aztech_ore_frequency", 13,"How often do AzTech ores spawn in the AzTech dimension(default=13,Higher=more rarer)");
 
-        Property propertyHutFreq = config.get(CATEGORY_DIMENSION, "hut_frequency", 150);
-        propertyHutFreq.setLanguageKey("aztech.config.world.hut_frequency.name");
-        propertyHutFreq.setComment(I18n.format("aztech.config.world.hut_frequency.comment"));
+        Property propertyHutFreq = config.get(CATEGORY_DIMENSION, "hut_frequency", 150,"How often do huts spawn in the AzTech dimension(default=150,Higher=more rarer)");
 
-        Property propertyBasicDungeonFreq = config.get(CATEGORY_DIMENSION, "basic_dungeon_frequency", 50);
-        propertyBasicDungeonFreq.setLanguageKey("aztech.config.world.basic_dungeon_frequency.name");
-        propertyBasicDungeonFreq.setComment(I18n.format("aztech.config.world.basic_dungeon_frequency.comment"));
+        Property propertyBasicDungeonFreq = config.get(CATEGORY_DIMENSION, "basic_dungeon_frequency", 50,"How often do basic dungeons spawn in the AzTech dimension(default=50,Higher=more rarer)");
 
-        Property propertyPortalFreq = config.get(CATEGORY_DIMENSION, "portal_frequency", 500);
-        propertyPortalFreq.setLanguageKey("aztech.config.world.portal_frequency.name");
-        propertyPortalFreq.setComment(I18n.format("aztech.config.world.portal_frequency.comment"));
+        Property propertyPortalFreq = config.get(CATEGORY_DIMENSION, "portal_frequency", 500,"How often do portals spawn(default=500,Higher=more rarer)");
 
 
         //list
