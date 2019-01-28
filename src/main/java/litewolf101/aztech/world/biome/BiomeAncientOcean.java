@@ -5,8 +5,8 @@ import net.minecraft.block.BlockSand;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EnumCreatureType;
-import net.minecraft.entity.monster.EntityGuardian;
-import net.minecraft.entity.passive.EntitySquid;
+import net.minecraft.entity.monster.*;
+import net.minecraft.entity.passive.*;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -27,6 +27,18 @@ public class BiomeAncientOcean extends Biome {
         properties.setHeightVariation(0.0F);
         properties.setRainDisabled();
         properties.setBaseHeight(-2.7f);
+
+        spawnableMonsterList.clear();
+        spawnableMonsterList.add(new SpawnListEntry(EntityZombie.class, 2, 1, 1));
+        spawnableMonsterList.add(new SpawnListEntry(EntitySkeleton.class, 2, 1, 1));
+        spawnableMonsterList.add(new SpawnListEntry(EntityWitch.class, 2, 1, 1));
+        spawnableMonsterList.add(new SpawnListEntry(EntityCreeper.class, 2, 1, 1));
+
+        spawnableCreatureList.clear();
+        spawnableCreatureList.add(new SpawnListEntry(EntityPig.class, 4, 1, 3));
+        spawnableCreatureList.add(new SpawnListEntry(EntityCow.class, 3, 1, 2));
+        spawnableCreatureList.add(new SpawnListEntry(EntityChicken.class, 1, 3, 5));
+        spawnableCreatureList.add(new SpawnListEntry(EntitySheep.class, 2, 1, 1));
 
         spawnableWaterCreatureList.clear();
         this.spawnableWaterCreatureList.add(new SpawnListEntry(EntitySquid.class, 10, 4, 4));

@@ -4,6 +4,7 @@ import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.world.worldgen.AztechBiomeDecor;
 import litewolf101.aztech.world.worldgen.feature.WorldGenAztechLiquidBase;
 import litewolf101.aztech.world.worldgen.trees.WorldGenAztechOakTree;
+import litewolf101.aztech.world.worldgen.trees.WorldGenSmolTree;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.BlockSand;
 import net.minecraft.block.BlockTallGrass;
@@ -44,6 +45,7 @@ public class BiomeMurkySwamp extends Biome{
         properties.setRainDisabled();
 
         getAztechBiomeDecor().setAztechOakTreesPerChunk(4);
+        getAztechBiomeDecor().setSmolTreesPerChunk(3);
 
         spawnableMonsterList.clear();
         spawnableMonsterList.add(new SpawnListEntry(EntityZombie.class, 7, 1, 1));
@@ -54,6 +56,11 @@ public class BiomeMurkySwamp extends Biome{
         spawnableCreatureList.add(new SpawnListEntry(EntityPig.class, 3, 1, 1));
         spawnableCreatureList.add(new SpawnListEntry(EntitySheep.class, 5, 1, 1));
         spawnableCreatureList.add(new SpawnListEntry(EntityCow.class, 6, 2, 2));
+
+        spawnableWaterCreatureList.clear();
+        spawnableWaterCreatureList.add(new SpawnListEntry(EntitySquid.class, 10, 2, 5));
+
+        spawnableCaveCreatureList.clear();
     }
 
     @Override
@@ -101,6 +108,7 @@ public class BiomeMurkySwamp extends Biome{
         WorldGenFlowers genFlowers = new WorldGenFlowers(Blocks.YELLOW_FLOWER, BlockFlower.EnumFlowerType.DANDELION);
         WorldGenFlowers genFlowers2 = new WorldGenFlowers(Blocks.RED_FLOWER, BlockFlower.EnumFlowerType.ALLIUM);
         WorldGenWaterlily genWaterlily = new WorldGenWaterlily();
+        WorldGenSmolTree genSmolTree = new WorldGenSmolTree(true);
 
         BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos(0, 0, 0);
         for (int i = 0; i < 75; i++) {
@@ -109,6 +117,13 @@ public class BiomeMurkySwamp extends Biome{
             int rz = pos.getZ() + rand.nextInt(16) + 8;
             mutPos.setPos(rx, ry, rz);
             aztechOakTree.generate(worldIn, rand, mutPos);
+        }
+        for (int i = 0; i < 75; i++) {
+            int rx = pos.getX() + rand.nextInt(16) + 8;
+            int ry = 15 + rand.nextInt(60) + 4;
+            int rz = pos.getZ() + rand.nextInt(16) + 8;
+            mutPos.setPos(rx, ry, rz);
+            genSmolTree.generate(worldIn, rand, mutPos);
         }
         for (int i = 0; i < 15; i++) {
             int rx = pos.getX() + rand.nextInt(16) + 8;

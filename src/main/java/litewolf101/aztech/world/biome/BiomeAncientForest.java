@@ -43,6 +43,10 @@ public class BiomeAncientForest extends Biome{
         getAztechBiomeDecor().setAztechOakTreesPerChunk(1);
         getAztechBiomeDecor().setTallAztechOakTreesPerChunk(1);
 
+        spawnableCaveCreatureList.clear();
+
+        spawnableWaterCreatureList.clear();
+
         spawnableMonsterList.clear();
         spawnableMonsterList.add(new SpawnListEntry(EntityZombie.class, 7, 1, 1));
 

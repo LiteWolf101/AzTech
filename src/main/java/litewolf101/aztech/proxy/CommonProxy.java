@@ -5,6 +5,7 @@ import litewolf101.aztech.init.ModEntities;
 import litewolf101.aztech.tileentity.*;
 import litewolf101.aztech.utils.Reference;
 import litewolf101.aztech.utils.client.particle.AzTechParticleTypes;
+import litewolf101.aztech.world.worldgen.structures.WorldGenCustomStructures;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -19,6 +20,7 @@ public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
         AztechDimension.init();
         ModEntities.init();
+        GameRegistry.registerWorldGenerator(new WorldGenCustomStructures(), 0);
     }
 
     public void init(FMLInitializationEvent event) {
@@ -34,8 +36,6 @@ public class CommonProxy {
     }
 
     public void RegisterTileEntityRender(){}
-
-    public void registerCustomStructures(){}
 
     @SuppressWarnings("deprecation")
     public void registerTileEntities(){

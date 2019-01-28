@@ -43,6 +43,10 @@ public class BiomeAridLands extends Biome {
 
 
         spawnableCreatureList.clear();
+
+        spawnableCaveCreatureList.clear();
+
+        spawnableWaterCreatureList.clear();
     }
 
     @Override

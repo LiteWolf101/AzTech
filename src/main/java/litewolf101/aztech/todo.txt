@@ -1,4 +1,3 @@
 //TODO READ
 Add config for ores
 replace air blocks with void blocks at bottom of hut
-togglable fog

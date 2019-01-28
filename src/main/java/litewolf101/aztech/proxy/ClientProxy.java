@@ -59,10 +59,6 @@ public class ClientProxy extends CommonProxy {
     }
 
     @Override
-    public void registerCustomStructures() {
-        GameRegistry.registerWorldGenerator(new WorldGenCustomStructures(), 0);
-    }
-    @Override
     public void RegisterTileEntityRender() {
         ClientRegistry.bindTileEntitySpecialRenderer(TETempleRuneBlock.class, new RenderTempleRuneCore());
         ClientRegistry.bindTileEntitySpecialRenderer(TEGeoObelisk.class, new RenderTileGeoObelisk());

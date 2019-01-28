@@ -1,9 +1,11 @@
 package litewolf101.aztech.tileentity;
 
 import litewolf101.aztech.init.BlocksInit;
+import litewolf101.aztech.objects.blocks.TempleMirror;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import org.lwjgl.Sys;
 
 import static litewolf101.aztech.objects.blocks.AncientLaser.ACTIVATED;
 import static litewolf101.aztech.objects.blocks.AncientLaser.FACING;
@@ -16,24 +18,174 @@ import static litewolf101.aztech.objects.blocks.TempleMirror.FLIPPED;
 public class TETempleMirror extends TileEntity implements ITickable{
     @Override
     public void update() {
+        //Y
         if (world.getBlockState(pos) == BlocksInit.TEMPLE_MIRROR.getDefaultState().withProperty(AXIS, EnumFacing.Axis.Y).withProperty(FLIPPED, false)) {
-            if (world.getBlockState(pos.offset(EnumFacing.NORTH)) == BlocksInit.LASER_BLOCK.getDefaultState().withProperty(AXIS, EnumFacing.Axis.X)) {
+            if (activeLaser(15, EnumFacing.NORTH)) {
                 setLaser(15, EnumFacing.EAST);
-            } else if (world.isAirBlock(pos.offset(EnumFacing.NORTH))) {
-                if (doReplace(15, EnumFacing.EAST)) {
-                    replaceLaser(15, EnumFacing.EAST);
-                }
-            } else if (!doReplace(15, EnumFacing.NORTH) && !doReplace(15, EnumFacing.EAST)) {
+            } else if (isMirrorAtPos(15, EnumFacing.NORTH) && world.getBlockState(pos.north()) == BlocksInit.LASER_BLOCK.getDefaultState().withProperty(AXIS, EnumFacing.Axis.X)) {
+                setLaser(15, EnumFacing.EAST);
+            } else if (world.getBlockState(pos.north()) != BlocksInit.LASER_BLOCK.getDefaultState().withProperty(AXIS, EnumFacing.Axis.X) && !activeLaser(15, EnumFacing.NORTH)) {
+                System.out.println("hi");
+                //replaceLaser(15, EnumFacing.EAST);
+            }
+            /**if (activeLaser(15, EnumFacing.NORTH)){
+                setLaser(15, EnumFacing.EAST);
+            }
+            if (activeLaser(15, EnumFacing.EAST)){
+                setLaser(15, EnumFacing.NORTH);
+            }
+            if (!activeLaser(15, EnumFacing.NORTH) && !activeLaser(15, EnumFacing.EAST)  && !isMirrorAtPos(15, EnumFacing.EAST) && !isMirrorAtPos(15, EnumFacing.NORTH)) {
                 replaceLaser(15, EnumFacing.NORTH);
                 replaceLaser(15, EnumFacing.EAST);
             }
-            if (world.getBlockState(pos.offset(EnumFacing.EAST)) == BlocksInit.LASER_BLOCK.getDefaultState().withProperty(AXIS, EnumFacing.Axis.Z)) {
-                setLaser(15, EnumFacing.NORTH);
-            } else if (world.isAirBlock(pos.offset(EnumFacing.EAST))) {
-                if (doReplace(15, EnumFacing.NORTH)) {
-                    replaceLaser(15, EnumFacing.NORTH);
+            if (isMirrorAtPos(15, EnumFacing.NORTH)) {
+                if (canMirroredLaserFireIntoMe(15, EnumFacing.NORTH)) {
+                    if (world.getBlockState(pos.offset(EnumFacing.NORTH)) == BlocksInit.LASER_BLOCK.getDefaultState().withProperty(AXIS, EnumFacing.Axis.X)) {
+                        setLaser(15, EnumFacing.EAST);
+                    }
+                }
+            }*/
+            /**if (isMirrorAtPos(15, EnumFacing.WEST)) {
+                if (canMirroredLaserFireIntoMe(15, EnumFacing.WEST)) {
+                    if (world.getBlockState(pos.offset(EnumFacing.WEST)) == BlocksInit.LASER_BLOCK.getDefaultState().withProperty(AXIS, EnumFacing.Axis.Z)) {
+                        setLaser(15, EnumFacing.SOUTH);
+                    } else {
+                        replaceLaser(15, EnumFacing.SOUTH);
+                    }
                 }
             }
+            if (isMirrorAtPos(15, EnumFacing.EAST)) {
+                if (canMirroredLaserFireIntoMe(15, EnumFacing.EAST)) {
+                    if (world.getBlockState(pos.offset(EnumFacing.EAST)) == BlocksInit.LASER_BLOCK.getDefaultState().withProperty(AXIS, EnumFacing.Axis.Z)) {
+                        setLaser(15, EnumFacing.NORTH);
+                    } else {
+                        replaceLaser(15, EnumFacing.NORTH);
+                    }
+                }
+            }*/
+
+            /**if (activeLaser(15, EnumFacing.SOUTH)){
+                setLaser(15, EnumFacing.WEST);
+            }
+            if (activeLaser(15, EnumFacing.WEST)){
+                setLaser(15, EnumFacing.SOUTH);
+            }
+            if (!activeLaser(15, EnumFacing.SOUTH) && !activeLaser(15, EnumFacing.WEST)  && !isMirrorAtPos(15, EnumFacing.WEST) && !isMirrorAtPos(15, EnumFacing.SOUTH)) {
+                replaceLaser(15, EnumFacing.SOUTH);
+                replaceLaser(15, EnumFacing.WEST);
+            }
+        }
+        if (world.getBlockState(pos) == BlocksInit.TEMPLE_MIRROR.getDefaultState().withProperty(AXIS, EnumFacing.Axis.Y).withProperty(FLIPPED, true)) {
+            if (activeLaser(15, EnumFacing.NORTH)){
+                setLaser(15, EnumFacing.WEST);
+            }
+            if (activeLaser(15, EnumFacing.WEST)){
+                setLaser(15, EnumFacing.NORTH);
+            }
+            if (!activeLaser(15, EnumFacing.NORTH) && !activeLaser(15, EnumFacing.WEST)) {
+                replaceLaser(15, EnumFacing.NORTH);
+                replaceLaser(15, EnumFacing.WEST);
+            }
+            if (activeLaser(15, EnumFacing.SOUTH)){
+                setLaser(15, EnumFacing.EAST);
+            }
+            if (activeLaser(15, EnumFacing.EAST)){
+                setLaser(15, EnumFacing.SOUTH);
+            }
+            if (!activeLaser(15, EnumFacing.SOUTH) && !activeLaser(15, EnumFacing.EAST)) {
+                replaceLaser(15, EnumFacing.SOUTH);
+                replaceLaser(15, EnumFacing.EAST);
+            }
+        }
+        //Z
+        if (world.getBlockState(pos) == BlocksInit.TEMPLE_MIRROR.getDefaultState().withProperty(AXIS, EnumFacing.Axis.Z).withProperty(FLIPPED, false)) {
+            if (activeLaser(15, EnumFacing.NORTH)){
+                setLaser(15, EnumFacing.DOWN);
+            }
+            if (activeLaser(15, EnumFacing.DOWN)){
+                setLaser(15, EnumFacing.NORTH);
+            }
+            if (!activeLaser(15, EnumFacing.NORTH) && !activeLaser(15, EnumFacing.DOWN)) {
+                replaceLaser(15, EnumFacing.NORTH);
+                replaceLaser(15, EnumFacing.DOWN);
+            }
+            if (activeLaser(15, EnumFacing.SOUTH)){
+                setLaser(15, EnumFacing.UP);
+            }
+            if (activeLaser(15, EnumFacing.UP)){
+                setLaser(15, EnumFacing.SOUTH);
+            }
+            if (!activeLaser(15, EnumFacing.SOUTH) && !activeLaser(15, EnumFacing.UP)) {
+                replaceLaser(15, EnumFacing.SOUTH);
+                replaceLaser(15, EnumFacing.UP);
+            }
+        }
+        if (world.getBlockState(pos) == BlocksInit.TEMPLE_MIRROR.getDefaultState().withProperty(AXIS, EnumFacing.Axis.Z).withProperty(FLIPPED, true)) {
+            if (activeLaser(15, EnumFacing.NORTH)){
+                setLaser(15, EnumFacing.UP);
+            }
+            if (activeLaser(15, EnumFacing.UP)){
+                setLaser(15, EnumFacing.NORTH);
+            }
+            if (!activeLaser(15, EnumFacing.NORTH) && !activeLaser(15, EnumFacing.UP)) {
+                replaceLaser(15, EnumFacing.NORTH);
+                replaceLaser(15, EnumFacing.UP);
+            }
+            if (activeLaser(15, EnumFacing.SOUTH)){
+                setLaser(15, EnumFacing.DOWN);
+            }
+            if (activeLaser(15, EnumFacing.DOWN)){
+                setLaser(15, EnumFacing.SOUTH);
+            }
+            if (!activeLaser(15, EnumFacing.SOUTH) && !activeLaser(15, EnumFacing.DOWN)) {
+                replaceLaser(15, EnumFacing.SOUTH);
+                replaceLaser(15, EnumFacing.DOWN);
+            }
+        }
+        //X
+        if (world.getBlockState(pos) == BlocksInit.TEMPLE_MIRROR.getDefaultState().withProperty(AXIS, EnumFacing.Axis.X).withProperty(FLIPPED, false)) {
+            if (activeLaser(15, EnumFacing.EAST)){
+                setLaser(15, EnumFacing.DOWN);
+            }
+            if (activeLaser(15, EnumFacing.DOWN)){
+                setLaser(15, EnumFacing.EAST);
+            }
+            if (!activeLaser(15, EnumFacing.EAST) && !activeLaser(15, EnumFacing.DOWN)) {
+                replaceLaser(15, EnumFacing.EAST);
+                replaceLaser(15, EnumFacing.DOWN);
+            }
+            if (activeLaser(15, EnumFacing.WEST)){
+                setLaser(15, EnumFacing.UP);
+            }
+            if (activeLaser(15, EnumFacing.UP)){
+                setLaser(15, EnumFacing.WEST);
+            }
+            if (!activeLaser(15, EnumFacing.WEST) && !activeLaser(15, EnumFacing.UP)) {
+                replaceLaser(15, EnumFacing.WEST);
+                replaceLaser(15, EnumFacing.UP);
+            }
+        }
+        if (world.getBlockState(pos) == BlocksInit.TEMPLE_MIRROR.getDefaultState().withProperty(AXIS, EnumFacing.Axis.X).withProperty(FLIPPED, true)) {
+            if (activeLaser(15, EnumFacing.WEST)){
+                setLaser(15, EnumFacing.DOWN);
+            }
+            if (activeLaser(15, EnumFacing.DOWN)){
+                setLaser(15, EnumFacing.WEST);
+            }
+            if (!activeLaser(15, EnumFacing.WEST) && !activeLaser(15, EnumFacing.DOWN)) {
+                replaceLaser(15, EnumFacing.WEST);
+                replaceLaser(15, EnumFacing.DOWN);
+            }
+            if (activeLaser(15, EnumFacing.EAST)){
+                setLaser(15, EnumFacing.UP);
+            }
+            if (activeLaser(15, EnumFacing.UP)){
+                setLaser(15, EnumFacing.EAST);
+            }
+            if (!activeLaser(15, EnumFacing.EAST) && !activeLaser(15, EnumFacing.UP)) {
+                replaceLaser(15, EnumFacing.EAST);
+                replaceLaser(15, EnumFacing.UP);
+            }*/
         }
     }
 
@@ -85,26 +237,73 @@ public class TETempleMirror extends TileEntity implements ITickable{
         }
     }
 
-    public boolean doReplace(int range, EnumFacing direction) {
+    public boolean activeLaser(int range, EnumFacing direction) {
         int check = 0;
         for (int i = 1; i <= range; i++) {
-            if (world.getBlockState(pos.offset(direction, i+1)) == BlocksInit.ANCIENT_LASER.getDefaultState().withProperty(FACING, direction.getOpposite()).withProperty(ACTIVATED, true)){
+            if (world.getBlockState(pos.offset(direction, i+1)).getBlock() == BlocksInit.TEMPLE_MIRROR) {
+                break;
+            } else if (world.getBlockState(pos.offset(direction, i+1)) == BlocksInit.ANCIENT_LASER.getDefaultState().withProperty(FACING, direction.getOpposite()).withProperty(ACTIVATED, true)){
                 check++;
+            }
+        }
+        return check > 0;
+    }
+
+    public boolean isMirrorAtPos(int range, EnumFacing direction) {
+        int check = 0;
+        for (int i = 1; i <= range; i++) {
+            if (world.getBlockState(pos.offset(direction, i+1)).getBlock() == BlocksInit.TEMPLE_MIRROR){
+                check++;
+            }
+        }
+        return check > 0;
+    }
+
+    public boolean canMirroredLaserFireIntoMe(int range, EnumFacing direction) {
+        int check = 0;
+        for (int i = 1; i <= range; i++) {
+            //X
+            if (direction == EnumFacing.NORTH || direction == EnumFacing.SOUTH) {
+                if (world.getBlockState(pos.offset(direction, i + 1)) == BlocksInit.TEMPLE_MIRROR.getDefaultState().withProperty(TempleMirror.AXIS, EnumFacing.Axis.X).withProperty(FLIPPED, false) || world.getBlockState(pos.offset(direction, i + 1)) == BlocksInit.TEMPLE_MIRROR.getDefaultState().withProperty(TempleMirror.AXIS, EnumFacing.Axis.X).withProperty(FLIPPED, true)) {
+                    check++;
+                }
+            }
+            //Y
+            if (direction == EnumFacing.UP || direction == EnumFacing.DOWN) {
+                if (world.getBlockState(pos.offset(direction, i + 1)) == BlocksInit.TEMPLE_MIRROR.getDefaultState().withProperty(TempleMirror.AXIS, EnumFacing.Axis.Y).withProperty(FLIPPED, false) || world.getBlockState(pos.offset(direction, i + 1)) == BlocksInit.TEMPLE_MIRROR.getDefaultState().withProperty(TempleMirror.AXIS, EnumFacing.Axis.Y).withProperty(FLIPPED, true)) {
+                    check++;
+                }
+            }
+            //Z
+            if (direction == EnumFacing.EAST || direction == EnumFacing.WEST) {
+                if (world.getBlockState(pos.offset(direction, i + 1)) == BlocksInit.TEMPLE_MIRROR.getDefaultState().withProperty(TempleMirror.AXIS, EnumFacing.Axis.Z).withProperty(FLIPPED, false) || world.getBlockState(pos.offset(direction, i + 1)) == BlocksInit.TEMPLE_MIRROR.getDefaultState().withProperty(TempleMirror.AXIS, EnumFacing.Axis.Z).withProperty(FLIPPED, true)) {
+                    check++;
+                }
             }
         }
         return check == 0;
     }
-
-    public boolean doubleReplace(int range, EnumFacing direction1, EnumFacing direction2) {
+    public boolean fromMirrorFiring(int range, EnumFacing direction) {
         int check = 0;
         for (int i = 1; i <= range; i++) {
-            if (world.getBlockState(pos.offset(direction1, i+1)) == BlocksInit.ANCIENT_LASER.getDefaultState().withProperty(FACING, direction1.getOpposite()).withProperty(ACTIVATED, false)){
+
+            if (world.getBlockState(pos.offset(direction, i + 1)) == BlocksInit.TEMPLE_MIRROR) {
                 check++;
             }
-            if (world.getBlockState(pos.offset(direction2, i+1)) == BlocksInit.ANCIENT_LASER.getDefaultState().withProperty(FACING, direction2.getOpposite()).withProperty(ACTIVATED, false)) {
-                check++;
-            }
+
+            //Y
+            //if (direction == EnumFacing.UP || direction == EnumFacing.DOWN) {
+            //    if (world.getBlockState(pos.offset(direction, i + 1)) == BlocksInit.TEMPLE_MIRROR.getDefaultState().withProperty(TempleMirror.AXIS, EnumFacing.Axis.Y).withProperty(FLIPPED, false) || world.getBlockState(pos.offset(direction, i + 1)) == BlocksInit.TEMPLE_MIRROR.getDefaultState().withProperty(TempleMirror.AXIS, EnumFacing.Axis.Y).withProperty(FLIPPED, true)) {
+            //        check++;
+            //    }
+            //}
+            //Z
+            //if (direction == EnumFacing.EAST || direction == EnumFacing.WEST) {
+            //    if (world.getBlockState(pos.offset(direction, i + 1)) == BlocksInit.TEMPLE_MIRROR.getDefaultState().withProperty(TempleMirror.AXIS, EnumFacing.Axis.Z).withProperty(FLIPPED, false) || world.getBlockState(pos.offset(direction, i + 1)) == BlocksInit.TEMPLE_MIRROR.getDefaultState().withProperty(TempleMirror.AXIS, EnumFacing.Axis.Z).withProperty(FLIPPED, true)) {
+            //        check++;
+            //    }
+            //}
         }
-        return check == 2;
+        return check > 0;
     }
 }
