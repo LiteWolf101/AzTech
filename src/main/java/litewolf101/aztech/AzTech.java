@@ -45,7 +45,6 @@ public class AzTech {
         proxy.preInit(event);
         proxy.registerTileEntities();
         proxy.RegisterTileEntityRender();
-        proxy.registerCustomStructures();
         GameRegistry.registerWorldGenerator(new WorldGenAzTechOres(), 3);
 
     }

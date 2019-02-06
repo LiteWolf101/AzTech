@@ -1,6 +1,5 @@
 package litewolf101.aztech.utils;
 
-import litewolf101.aztech.AzTech;
 import litewolf101.aztech.config.AzTechConfig;
 import litewolf101.aztech.dimension.AztechDimension;
 import litewolf101.aztech.dimension.chunk.AztechChunkGenerator;
@@ -10,7 +9,6 @@ import net.minecraft.world.DimensionType;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.IChunkGenerator;
-import net.minecraftforge.client.IRenderHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -102,5 +100,25 @@ public class AztechWorldProvider extends WorldProvider {
     @Override
     public boolean isSurfaceWorld() {
         return false;
+    }
+
+    @Override
+    public int getAverageGroundLevel() {
+        return world.getSeaLevel();
+    }
+
+    @Override
+    public int getHeight() {
+        return 128;
+    }
+
+    @Override
+    public int getActualHeight() {
+        return 128;
+    }
+
+    @Override
+    public double getHorizon() {
+        return world.getSeaLevel();
     }
 }

@@ -46,7 +46,6 @@ public class BlockRuneOre extends Block implements IHasModel, IMetaName {
         ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));
     }
 
-
     @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         Item item = null;
@@ -110,8 +109,6 @@ public class BlockRuneOre extends Block implements IHasModel, IMetaName {
 
         return new BlockStateContainer(this, new IProperty[] {RUNE_COLOR});
     }
-
-
 
     @Override
     public void registerModels() {

@@ -20,10 +20,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeDecorator;
 import net.minecraft.world.chunk.ChunkPrimer;
-import net.minecraft.world.gen.feature.WorldGenAbstractTree;
-import net.minecraft.world.gen.feature.WorldGenFlowers;
-import net.minecraft.world.gen.feature.WorldGenLakes;
-import net.minecraft.world.gen.feature.WorldGenTallGrass;
+import net.minecraft.world.gen.feature.*;
 
 import java.util.Random;
 
@@ -137,12 +134,11 @@ public class BiomeAncientForest extends Biome{
         }
         for (int i = 0; i < 1; i++) {
             int rx = pos.getX() + rand.nextInt(16) + 8;
-            int ry = 2 + rand.nextInt(121) + 4;
+            int ry = 2 + rand.nextInt(67) + 4;
             int rz = pos.getZ() + rand.nextInt(16) + 8;
             mutPos.setPos(rx, ry, rz);
             genLakes.generate(worldIn, rand, mutPos);
             genLavaLakes.generate(worldIn, rand, mutPos);
-
         }
     }
 

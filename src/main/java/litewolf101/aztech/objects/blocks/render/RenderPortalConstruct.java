@@ -65,7 +65,5 @@ public class RenderPortalConstruct extends TileEntitySpecialRenderer<masterPorta
         GlStateManager.disableBlend();
         GlStateManager.disableRescaleNormal();
         GlStateManager.popMatrix();
-
-
     }
 }

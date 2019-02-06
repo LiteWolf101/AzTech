@@ -63,7 +63,6 @@ public class ClientLoginEvent {
                 EntityFireworkRocket rocket = new EntityFireworkRocket(p.world, p.posX + randx, p.posY, p.posZ + randz, firework);
                 p.world.spawnEntity(rocket);
                 p.sendMessage(new TextComponentString(TextFormatting.BOLD + "" + TextFormatting.BLUE + "Happy Birthday Wufflez!"));
-
             }
             if (current.equals(aztechsBirthday)){
                 ItemStack firework = new ItemStack(Items.FIREWORKS);

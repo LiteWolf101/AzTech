@@ -2,7 +2,10 @@ package litewolf101.aztech.world.biome;
 
 import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.world.worldgen.AztechBiomeDecor;
+import litewolf101.aztech.world.worldgen.feature.WorldGenAztechClay;
+import litewolf101.aztech.world.worldgen.feature.WorldGenAztechDirt;
 import litewolf101.aztech.world.worldgen.feature.WorldGenAztechLiquidBase;
+import litewolf101.aztech.world.worldgen.feature.WorldGenAztechSand;
 import litewolf101.aztech.world.worldgen.trees.WorldGenAztechOakTree;
 import litewolf101.aztech.world.worldgen.trees.WorldGenSmolTree;
 import net.minecraft.block.BlockFlower;
@@ -23,10 +26,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeDecorator;
 import net.minecraft.world.chunk.ChunkPrimer;
-import net.minecraft.world.gen.feature.WorldGenFlowers;
-import net.minecraft.world.gen.feature.WorldGenLakes;
-import net.minecraft.world.gen.feature.WorldGenTallGrass;
-import net.minecraft.world.gen.feature.WorldGenWaterlily;
+import net.minecraft.world.gen.feature.*;
 
 import java.util.Random;
 
@@ -41,7 +41,7 @@ public class BiomeMurkySwamp extends Biome{
         this.fillerBlock = Blocks.DIRT.getDefaultState();
         properties.setTemperature(1.4F);
         properties.setHeightVariation(0.2F);
-        properties.setBaseHeight(-0.5f);
+        properties.setBaseHeight(0f);
         properties.setRainDisabled();
 
         getAztechBiomeDecor().setAztechOakTreesPerChunk(4);
@@ -109,6 +109,10 @@ public class BiomeMurkySwamp extends Biome{
         WorldGenFlowers genFlowers2 = new WorldGenFlowers(Blocks.RED_FLOWER, BlockFlower.EnumFlowerType.ALLIUM);
         WorldGenWaterlily genWaterlily = new WorldGenWaterlily();
         WorldGenSmolTree genSmolTree = new WorldGenSmolTree(true);
+        WorldGenAztechClay genAztechClay = new WorldGenAztechClay();
+        WorldGenAztechSand genAztechSand = new WorldGenAztechSand();
+        WorldGenAztechDirt genAztechDirt = new WorldGenAztechDirt();
+
 
         BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos(0, 0, 0);
         for (int i = 0; i < 75; i++) {
@@ -148,6 +152,28 @@ public class BiomeMurkySwamp extends Biome{
             mutPos.setPos(rx, ry, rz);
             genLavaLakes.generate(worldIn, rand, mutPos);
             genLakes.generate(worldIn, rand, mutPos);
+        }
+
+        for (int i = 0; i < 120; i++) {
+            int rx = pos.getX() + rand.nextInt(16) + 8;
+            int ry = 2 + rand.nextInt(67) + 4;
+            int rz = pos.getZ() + rand.nextInt(16) + 8;
+            mutPos.setPos(rx, ry, rz);
+            genAztechClay.generate(worldIn, rand, mutPos);
+        }
+        for (int i = 0; i < 120; i++) {
+            int rx = pos.getX() + rand.nextInt(16) + 8;
+            int ry = 2 + rand.nextInt(67) + 4;
+            int rz = pos.getZ() + rand.nextInt(16) + 8;
+            mutPos.setPos(rx, ry, rz);
+            genAztechSand.generate(worldIn, rand, mutPos);
+        }
+        for (int i = 0; i < 120; i++) {
+            int rx = pos.getX() + rand.nextInt(16) + 8;
+            int ry = 2 + rand.nextInt(67) + 4;
+            int rz = pos.getZ() + rand.nextInt(16) + 8;
+            mutPos.setPos(rx, ry, rz);
+            genAztechDirt.generate(worldIn, rand, mutPos);
         }
     }
 

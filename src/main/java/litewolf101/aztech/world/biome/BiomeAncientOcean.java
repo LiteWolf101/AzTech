@@ -40,8 +40,8 @@ public class BiomeAncientOcean extends Biome {
         spawnableCreatureList.add(new SpawnListEntry(EntityChicken.class, 1, 3, 5));
         spawnableCreatureList.add(new SpawnListEntry(EntitySheep.class, 2, 1, 1));
 
-        spawnableWaterCreatureList.clear();
-        this.spawnableWaterCreatureList.add(new SpawnListEntry(EntitySquid.class, 10, 4, 4));
+        //spawnableWaterCreatureList.clear();
+        this.spawnableWaterCreatureList.add(new Biome.SpawnListEntry(EntitySquid.class, 10, 4, 4));
 
 
     }

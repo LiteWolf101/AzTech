@@ -13,7 +13,7 @@ public abstract class GenLayerAztech extends GenLayer {
 
     public static GenLayer[] initializeAllBiomeGenerators(long seed, WorldType worldType) {
         //check
-        byte biomeSize = (byte)getModdedBiomeSize(worldType, (worldType == WorldType.LARGE_BIOMES ? 7 : 5));
+        byte biomeSize = (byte)getModdedBiomeSize(worldType, (worldType == WorldType.LARGE_BIOMES ? 8 : 6));
 
         GenLayer genLayer = new GenLayerIsland(1L);
         genLayer = new GenLayerFuzzyZoom(2000L, genLayer);
