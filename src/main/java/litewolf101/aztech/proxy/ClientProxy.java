@@ -12,6 +12,7 @@ import litewolf101.aztech.tileentity.masterPortalConstruct;
 import litewolf101.aztech.utils.Reference;
 import litewolf101.aztech.utils.client.particle.*;
 import litewolf101.aztech.utils.handlers.AzTechSoundHandler;
+import litewolf101.aztech.utils.handlers.ColorHandler;
 import litewolf101.aztech.world.worldgen.structures.WorldGenCustomStructures;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
@@ -41,6 +42,8 @@ public class ClientProxy extends CommonProxy {
     public void init(FMLInitializationEvent event) {
         super.init(event);
         AzTechSoundHandler.init();
+        ColorHandler.init();
+        ColorHandler.registerExtraBlockColors();
     }
 
     @Override

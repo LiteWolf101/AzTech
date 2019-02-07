@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AAA",
+    " B ",
+    " B "
+  ],
+  "key": {
+    "A": {
+      "item": "aztech:white_rune_shard",
+      "data": 0
+    },
+    "B": {
+      "item": "minecraft:stick",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "aztech:white_rune_pickaxe",
+    "data": 0,
+    "count": 1
+  }
+}

@@ -26,7 +26,7 @@ public class BiomeAncientOcean extends Biome {
         properties.setTemperature(1.7F);
         properties.setHeightVariation(0.0F);
         properties.setRainDisabled();
-        properties.setBaseHeight(-2.7f);
+        properties.setBaseHeight(-6.7f);
 
         spawnableMonsterList.clear();
         spawnableMonsterList.add(new SpawnListEntry(EntityZombie.class, 2, 1, 1));

@@ -69,7 +69,7 @@ public class BiomeAncientForest extends Biome{
 
     @Override
     public int getGrassColorAtPos(BlockPos pos) {
-        return 9493052;
+        return 13756270;
     }
 
     @Override

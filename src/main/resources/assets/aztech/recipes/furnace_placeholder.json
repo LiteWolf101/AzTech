@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AAA",
+    "A A",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "aztech:ancient_cobblestone",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "minecraft:furnace",
+    "data": 0,
+    "count": 1
+  }
+}

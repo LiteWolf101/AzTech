@@ -37,7 +37,7 @@ public class WorldGenAztechDirt extends WorldGenerator {
                             BlockPos blockpos = new BlockPos(k, k1, l);
                             Block block = worldIn.getBlockState(blockpos).getBlock();
 
-                            if (block == Blocks.GRAVEL || block == Blocks.SAND || block == Blocks.CLAY)
+                            if (block == Blocks.GRAVEL || block == Blocks.CLAY)
                             {
                                 worldIn.setBlockState(blockpos, Blocks.DIRT.getDefaultState(), 2);
                             }

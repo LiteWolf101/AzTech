@@ -37,8 +37,8 @@ public class BiomeMurkySwamp extends Biome{
     private static BiomeProperties properties = new Biome.BiomeProperties("Murky Swamp");
     public BiomeMurkySwamp() {
         super(properties);
-        this.topBlock = Blocks.GRASS.getDefaultState();
-        this.fillerBlock = Blocks.DIRT.getDefaultState();
+        this.topBlock = BlocksInit.ANCIENT_GRASS.getDefaultState();
+        this.fillerBlock = BlocksInit.ANCIENT_DIRT.getDefaultState();
         properties.setTemperature(1.4F);
         properties.setHeightVariation(0.2F);
         properties.setBaseHeight(0f);
@@ -88,9 +88,16 @@ public class BiomeMurkySwamp extends Biome{
     }
 
     @Override
-    public int getWaterColorMultiplier() {
-        return 4609537;
+    public int getFoliageColorAtPos(BlockPos pos) {
+        return getGrassColorAtPos(pos);
     }
+
+    @Override
+    public int getWaterColorMultiplier() {
+        return 10875392;
+    }
+
+
 
     @Override
     public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal) {
@@ -156,21 +163,21 @@ public class BiomeMurkySwamp extends Biome{
 
         for (int i = 0; i < 120; i++) {
             int rx = pos.getX() + rand.nextInt(16) + 8;
-            int ry = 2 + rand.nextInt(67) + 4;
+            int ry = worldIn.getSeaLevel() - rand.nextInt(6);
             int rz = pos.getZ() + rand.nextInt(16) + 8;
             mutPos.setPos(rx, ry, rz);
             genAztechClay.generate(worldIn, rand, mutPos);
         }
         for (int i = 0; i < 120; i++) {
             int rx = pos.getX() + rand.nextInt(16) + 8;
-            int ry = 2 + rand.nextInt(67) + 4;
+            int ry = worldIn.getSeaLevel() - rand.nextInt(6);
             int rz = pos.getZ() + rand.nextInt(16) + 8;
             mutPos.setPos(rx, ry, rz);
             genAztechSand.generate(worldIn, rand, mutPos);
         }
         for (int i = 0; i < 120; i++) {
             int rx = pos.getX() + rand.nextInt(16) + 8;
-            int ry = 2 + rand.nextInt(67) + 4;
+            int ry = worldIn.getSeaLevel() - rand.nextInt(6);
             int rz = pos.getZ() + rand.nextInt(16) + 8;
             mutPos.setPos(rx, ry, rz);
             genAztechDirt.generate(worldIn, rand, mutPos);

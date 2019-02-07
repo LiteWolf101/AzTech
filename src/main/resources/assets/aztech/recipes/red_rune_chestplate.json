@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "A A",
+    "AAA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "aztech:red_rune_shard",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "aztech:red_rune_chestplate",
+    "data": 0,
+    "count": 1
+  }
+}

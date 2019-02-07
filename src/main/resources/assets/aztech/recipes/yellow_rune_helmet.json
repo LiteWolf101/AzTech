@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AAA",
+    "A A"
+  ],
+  "key": {
+    "A": {
+      "item": "aztech:yellow_rune_shard",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "aztech:yellow_rune_helmet",
+    "data": 0,
+    "count": 1
+  }
+}
