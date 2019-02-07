@@ -14,6 +14,71 @@ item.black_rune_shard.name=Black Rune Shard
 item.geoluminescent_obelisk_item.name=§6Geoluminescent Obelisk
 item.aztech_portal_item.name=§5Aztech Portal
 
+#Items/Tools
+item.red_rune_hoe.name=Red Rune Hoe
+item.yellow_rune_hoe.name=Yellow Rune Hoe
+item.green_rune_hoe.name=Green Rune Hoe
+item.blue_rune_hoe.name=Blue Rune Hoe
+item.white_rune_hoe.name=White Rune Hoe
+item.black_rune_hoe.name=Black Rune Hoe
+
+item.red_rune_axe.name=Red Rune Axe
+item.yellow_rune_axe.name=Yellow Rune Axe
+item.green_rune_axe.name=Green Rune Axe
+item.blue_rune_axe.name=Blue Rune Axe
+item.white_rune_axe.name=White Rune Axe
+item.black_rune_axe.name=Black Rune Axe
+
+item.red_rune_shovel.name=Red Rune Shovel
+item.yellow_rune_shovel.name=Yellow Rune Shovel
+item.green_rune_shovel.name=Green Rune Shovel
+item.blue_rune_shovel.name=Blue Rune Shovel
+item.white_rune_shovel.name=White Rune Shovel
+item.black_rune_shovel.name=Black Rune Shovel
+
+item.red_rune_sword.name=Red Rune Sword
+item.yellow_rune_sword.name=Yellow Rune Sword
+item.green_rune_sword.name=Green Rune Sword
+item.blue_rune_sword.name=Blue Rune Sword
+item.white_rune_sword.name=White Rune Sword
+item.black_rune_sword.name=Black Rune Sword
+
+item.red_rune_pickaxe.name=Red Rune Pickaxe
+item.yellow_rune_pickaxe.name=Yellow Rune Pickaxe
+item.green_rune_pickaxe.name=Green Rune Pickaxe
+item.blue_rune_pickaxe.name=Blue Rune Pickaxe
+item.white_rune_pickaxe.name=White Rune Pickaxe
+item.black_rune_pickaxe.name=Black Rune Pickaxe
+
+#Items/Armour
+item.red_rune_helmet.name=Red Rune Helmet
+item.yellow_rune_helmet.name=Yellow Rune Helmet
+item.green_rune_helmet.name=Green Rune Helmet
+item.blue_rune_helmet.name=Blue Rune Helmet
+item.white_rune_helmet.name=White Rune Helmet
+item.black_rune_helmet.name=Black Rune Helmet
+
+item.red_rune_chestplate.name=Red Rune Chestplate
+item.yellow_rune_chestplate.name=Yellow Rune Chestplate
+item.green_rune_chestplate.name=Green Rune Chestplate
+item.blue_rune_chestplate.name=Blue Rune Chestplate
+item.white_rune_chestplate.name=White Rune Chestplate
+item.black_rune_chestplate.name=Black Rune Chestplate
+
+item.red_rune_leggings.name=Red Rune Leggings
+item.yellow_rune_leggings.name=Yellow Rune Leggings
+item.green_rune_leggings.name=Green Rune Leggings
+item.blue_rune_leggings.name=Blue Rune Leggings
+item.white_rune_leggings.name=White Rune Leggings
+item.black_rune_leggings.name=Black Rune Leggings
+
+item.red_rune_boots.name=Red Rune Boots
+item.yellow_rune_boots.name=Yellow Rune Boots
+item.green_rune_boots.name=Green Rune Boots
+item.blue_rune_boots.name=Blue Rune Boots
+item.white_rune_boots.name=White Rune Boots
+item.black_rune_boots.name=Black Rune Boots
+
 #Blocks
 tile.rune_ore_red.name=Red Rune Ore
 tile.rune_ore_yellow.name=Yellow Rune Ore
