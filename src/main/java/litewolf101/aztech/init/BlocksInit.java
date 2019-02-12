@@ -49,6 +49,7 @@ public class BlocksInit {
     public static final Block DIAMOND_ORE = new AncientOre("ancient_diamond_ore", Material.ROCK);
     public static final Block EMERALD_ORE = new AncientOre("ancient_emerald_ore", Material.ROCK);
     public static final Block QUARTZ_ORE = new AncientOre("ancient_quartz_ore", Material.ROCK);
+    public static final Block ANCIENT_FARMLAND = new AncientFarmland("ancient_farmland", Material.GROUND);
     //Seems contradictory, but to a programming organization perspective, it makes sense
     public static final Block NEW_RED_RUNE_ORE = new AncientOre("ancient_red_rune_ore", Material.ROCK);
     public static final Block NEW_YELLOW_RUNE_ORE = new AncientOre("ancient_yellow_rune_ore", Material.ROCK);

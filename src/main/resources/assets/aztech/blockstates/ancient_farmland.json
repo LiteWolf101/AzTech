@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "moisture=0": {"model": "aztech:ancient_farmland_0"},
+    "moisture=1": {"model": "aztech:ancient_farmland_1"},
+    "moisture=2": {"model": "aztech:ancient_farmland_2"},
+    "moisture=3": {"model": "aztech:ancient_farmland_3"},
+    "moisture=4": {"model": "aztech:ancient_farmland_4"},
+    "moisture=5": {"model": "aztech:ancient_farmland_5"},
+    "moisture=6": {"model": "aztech:ancient_farmland_6"},
+    "moisture=7": {"model": "aztech:ancient_farmland_7"}
+  }
+}
