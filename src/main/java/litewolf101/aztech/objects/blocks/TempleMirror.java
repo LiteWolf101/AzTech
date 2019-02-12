@@ -18,6 +18,7 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -40,6 +41,7 @@ import static net.minecraft.util.EnumFacing.Axis.Y;
 public class TempleMirror extends Block implements IHasModel, IMetaName, ITileEntityProvider {
     public static final PropertyEnum<EnumFacing.Axis> AXIS = PropertyEnum.<EnumFacing.Axis>create("axis", EnumFacing.Axis.class);
     public static final PropertyBool FLIPPED = PropertyBool.create("flipped");
+    public static final PropertyBool INVERT_IO = PropertyBool.create("inverted_io");
     public TempleMirror(String name, Material material) {
         super(material);
         setUnlocalizedName(name);
@@ -48,7 +50,7 @@ public class TempleMirror extends Block implements IHasModel, IMetaName, ITileEn
         setHarvestLevel("pickaxe", 1);
         setHardness(2f);
         setSoundType(SoundType.GLASS);
-        setDefaultState(blockState.getBaseState().withProperty(AXIS, EnumFacing.Axis.X).withProperty(FLIPPED, false));
+        setDefaultState(blockState.getBaseState().withProperty(AXIS, EnumFacing.Axis.X).withProperty(FLIPPED, false).withProperty(INVERT_IO, false));
         setResistance(100f);
 
         BlocksInit.BLOCKS.add(this);
@@ -57,11 +59,11 @@ public class TempleMirror extends Block implements IHasModel, IMetaName, ITileEn
     @Override
     protected BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this, new IProperty[] {AXIS, FLIPPED});
+        return new BlockStateContainer(this, new IProperty[] {AXIS, FLIPPED, INVERT_IO});
     }
 
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-        worldIn.setBlockState(pos, state.withProperty(AXIS, getFacingFromEntity(pos, placer)).withProperty(FLIPPED, false));
+        worldIn.setBlockState(pos, state.withProperty(AXIS, getFacingFromEntity(pos, placer)).withProperty(FLIPPED, false).withProperty(INVERT_IO, false));
     }
 
     public static EnumFacing.Axis getFacingFromEntity(BlockPos pos, EntityLivingBase entity) {
@@ -83,46 +85,97 @@ public class TempleMirror extends Block implements IHasModel, IMetaName, ITileEn
     public IBlockState getStateFromMeta(int meta) {
         EnumFacing.Axis enumfacing$axis = EnumFacing.Axis.X;
         Boolean flipped = this.getDefaultState().getValue(FLIPPED);
+        Boolean invertIO = this.getDefaultState().getValue(INVERT_IO);
         if (meta == 0) {
             enumfacing$axis = EnumFacing.Axis.X;
             flipped = false;
+            invertIO = false;
         } else if (meta == 1) {
             enumfacing$axis = Y;
             flipped = false;
+            invertIO = false;
         } else if (meta == 2) {
             enumfacing$axis = EnumFacing.Axis.Z;
             flipped = false;
+            invertIO = false;
         } else if (meta == 3) {
             enumfacing$axis = EnumFacing.Axis.X;
             flipped = true;
+            invertIO = false;
         } else if (meta == 4) {
             enumfacing$axis = Y;
             flipped = true;
+            invertIO = false;
         } else if (meta == 5) {
             enumfacing$axis = EnumFacing.Axis.Z;
             flipped = true;
+            invertIO = false;
+        }else if (meta == 6) {
+            enumfacing$axis = EnumFacing.Axis.X;
+            flipped = false;
+            invertIO = true;
+        } else if (meta == 7) {
+            enumfacing$axis = Y;
+            flipped = false;
+            invertIO = true;
+        } else if (meta == 8) {
+            enumfacing$axis = EnumFacing.Axis.Z;
+            flipped = false;
+            invertIO = true;
+        } else if (meta == 9) {
+            enumfacing$axis = EnumFacing.Axis.X;
+            flipped = true;
+            invertIO = true;
+        } else if (meta == 10) {
+            enumfacing$axis = Y;
+            flipped = true;
+            invertIO = true;
+        } else if (meta == 11) {
+            enumfacing$axis = EnumFacing.Axis.Z;
+            flipped = true;
+            invertIO = true;
         }
-        return this.getDefaultState().withProperty(AXIS, enumfacing$axis).withProperty(FLIPPED, flipped);
+        return this.getDefaultState().withProperty(AXIS, enumfacing$axis).withProperty(FLIPPED, flipped).withProperty(INVERT_IO, invertIO);
     }
 
     @Override
     public int getMetaFromState(IBlockState state) {
         int i = 0;
-        if (!state.getValue(FLIPPED)){
-            if (state.getValue(AXIS) == EnumFacing.Axis.X){
-                i = 0;
-            } else if (state.getValue(AXIS) == Y){
-                i = 1;
-            } else if (state.getValue(AXIS) == EnumFacing.Axis.Z){
-                i = 2;
+        if (!state.getValue(INVERT_IO)) {
+            if (!state.getValue(FLIPPED)){
+                if (state.getValue(AXIS) == EnumFacing.Axis.X){
+                    i = 0;
+                } else if (state.getValue(AXIS) == Y){
+                    i = 1;
+                } else if (state.getValue(AXIS) == EnumFacing.Axis.Z){
+                    i = 2;
+                }
+            } else if(state.getValue(FLIPPED)){
+                if (state.getValue(AXIS) == EnumFacing.Axis.X){
+                    i = 3;
+                } else if (state.getValue(AXIS) == Y){
+                    i = 4;
+                } else if (state.getValue(AXIS) == EnumFacing.Axis.Z){
+                    i = 5;
+                }
             }
-        } else if(state.getValue(FLIPPED)){
-            if (state.getValue(AXIS) == EnumFacing.Axis.X){
-                i = 3;
-            } else if (state.getValue(AXIS) == Y){
-                i = 4;
-            } else if (state.getValue(AXIS) == EnumFacing.Axis.Z){
-                i = 5;
+        } else if (state.getValue(INVERT_IO)) {
+            if (!state.getValue(FLIPPED)){
+                if (state.getValue(AXIS) == EnumFacing.Axis.X){
+                    i = 6;
+                } else if (state.getValue(AXIS) == Y){
+                    i = 7;
+                } else if (state.getValue(AXIS) == EnumFacing.Axis.Z){
+                    i = 8;
+                }
+            } else if(state.getValue(FLIPPED)){
+                if (state.getValue(AXIS) == EnumFacing.Axis.X){
+                    i = 9;
+                } else if (state.getValue(AXIS) == Y){
+                    i = 10;
+                } else if (state.getValue(AXIS) == EnumFacing.Axis.Z){
+                    i = 11;
+                }
             }
         }
 
@@ -177,6 +230,11 @@ public class TempleMirror extends Block implements IHasModel, IMetaName, ITileEn
             worldIn.setBlockState(pos, state.withProperty(FLIPPED, true));
         } else if (worldIn.getBlockState(pos).getValue(FLIPPED) == true) {
             worldIn.setBlockState(pos, state.withProperty(FLIPPED, false));
+        }
+        if (worldIn.getBlockState(pos).getValue(INVERT_IO) == false &&  playerIn.getHeldItemMainhand().getItem() == Item.getItemFromBlock(Blocks.REDSTONE_TORCH)) {
+            worldIn.setBlockState(pos, state.withProperty(INVERT_IO, true));
+        } else if (worldIn.getBlockState(pos).getValue(INVERT_IO) == true &&  playerIn.getHeldItemMainhand().getItem() == Item.getItemFromBlock(Blocks.REDSTONE_TORCH)) {
+            worldIn.setBlockState(pos, state.withProperty(INVERT_IO, false));
         }
         return true;
     }
