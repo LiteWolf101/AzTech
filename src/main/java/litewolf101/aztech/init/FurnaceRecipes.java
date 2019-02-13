@@ -35,6 +35,9 @@ public class FurnaceRecipes {
         GameRegistry.addSmelting(BlocksInit.NEW_BLACK_RUNE_ORE, new ItemStack(ItemsInit.BLACK_RUNE_SHARD), 1.4f);
         GameRegistry.addSmelting(new ItemStack(Item.getItemFromBlock(BlocksInit.TEMPLE_STONE), 1, 1), new ItemStack(Item.getItemFromBlock(BlocksInit.TEMPLE_STONE), 1, 2), 0.2f);
 
+        //food
+        GameRegistry.addSmelting(ItemsInit.SORGHUM_SOUP, new ItemStack(ItemsInit.SORGHUM_POPCORN), 0);
+
 
 
 

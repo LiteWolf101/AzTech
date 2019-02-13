@@ -2,10 +2,7 @@ package litewolf101.aztech.world.biome;
 
 import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.world.worldgen.AztechBiomeDecor;
-import litewolf101.aztech.world.worldgen.feature.WorldGenAztechClay;
-import litewolf101.aztech.world.worldgen.feature.WorldGenAztechDirt;
-import litewolf101.aztech.world.worldgen.feature.WorldGenAztechLiquidBase;
-import litewolf101.aztech.world.worldgen.feature.WorldGenAztechSand;
+import litewolf101.aztech.world.worldgen.feature.*;
 import litewolf101.aztech.world.worldgen.trees.WorldGenAztechOakTree;
 import litewolf101.aztech.world.worldgen.trees.WorldGenSmolTree;
 import net.minecraft.block.BlockFlower;
@@ -119,6 +116,7 @@ public class BiomeMurkySwamp extends Biome{
         WorldGenAztechClay genAztechClay = new WorldGenAztechClay();
         WorldGenAztechSand genAztechSand = new WorldGenAztechSand();
         WorldGenAztechDirt genAztechDirt = new WorldGenAztechDirt();
+        WorldGenCropBlotch cropBlotch = new WorldGenCropBlotch();
 
 
         BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos(0, 0, 0);
@@ -159,6 +157,7 @@ public class BiomeMurkySwamp extends Biome{
             mutPos.setPos(rx, ry, rz);
             genLavaLakes.generate(worldIn, rand, mutPos);
             genLakes.generate(worldIn, rand, mutPos);
+            cropBlotch.generate(worldIn, rand, mutPos);
         }
 
         for (int i = 0; i < 120; i++) {

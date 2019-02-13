@@ -2,10 +2,7 @@ package litewolf101.aztech.init;
 
 import litewolf101.aztech.objects.Armour.ArmourBase;
 import litewolf101.aztech.objects.Tools.*;
-import litewolf101.aztech.objects.items.AzTechPortalItem;
-import litewolf101.aztech.objects.items.GeoluminescentObeliskItem;
-import litewolf101.aztech.objects.items.ItemBase;
-import litewolf101.aztech.objects.items.ItemFoodSorghum;
+import litewolf101.aztech.objects.items.*;
 import litewolf101.aztech.utils.Reference;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -46,6 +43,8 @@ public class ItemsInit {
 
     //food
     public static final Item SORGHUM = new ItemFoodSorghum("food_sorghum");
+    public static final Item SORGHUM_SOUP = new ItemSorghumSoup("sorghum_soup");
+    public static final Item SORGHUM_POPCORN = new ItemSorghumPopcorn("sorghum_popcorn");
 
     //tools/weapons
     public static final Item RED_RUNE_HOE = new ToolHoe("red_rune_hoe", TOOL_RUNE);

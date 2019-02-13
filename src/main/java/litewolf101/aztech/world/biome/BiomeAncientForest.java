@@ -3,6 +3,7 @@ package litewolf101.aztech.world.biome;
 import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.world.worldgen.AztechBiomeDecor;
 import litewolf101.aztech.world.worldgen.feature.WorldGenAztechLiquidBase;
+import litewolf101.aztech.world.worldgen.feature.WorldGenCropBlotch;
 import litewolf101.aztech.world.worldgen.trees.WorldGenAztechOakTree;
 import litewolf101.aztech.world.worldgen.trees.WorldGenAztechOakTree2;
 import net.minecraft.block.BlockFlower;
@@ -107,6 +108,7 @@ public class BiomeAncientForest extends Biome{
         WorldGenAztechLiquidBase genLavaLakes = new WorldGenAztechLiquidBase(Blocks.LAVA);
         WorldGenFlowers genFlowers = new WorldGenFlowers(Blocks.YELLOW_FLOWER, BlockFlower.EnumFlowerType.DANDELION);
         WorldGenFlowers genFlowers2 = new WorldGenFlowers(Blocks.RED_FLOWER, BlockFlower.EnumFlowerType.ALLIUM);
+        WorldGenCropBlotch cropBlotch = new WorldGenCropBlotch();
 
         BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos(0, 0, 0);
         for (int i = 0; i < 15; i++) {
@@ -139,6 +141,7 @@ public class BiomeAncientForest extends Biome{
             mutPos.setPos(rx, ry, rz);
             genLakes.generate(worldIn, rand, mutPos);
             genLavaLakes.generate(worldIn, rand, mutPos);
+            cropBlotch.generate(worldIn, rand, mutPos);
         }
     }
 
