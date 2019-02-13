@@ -5,6 +5,7 @@ import litewolf101.aztech.objects.Tools.*;
 import litewolf101.aztech.objects.items.AzTechPortalItem;
 import litewolf101.aztech.objects.items.GeoluminescentObeliskItem;
 import litewolf101.aztech.objects.items.ItemBase;
+import litewolf101.aztech.objects.items.ItemFoodSorghum;
 import litewolf101.aztech.utils.Reference;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -42,6 +43,9 @@ public class ItemsInit {
     public static final Item BLACK_RUNE_SHARD = new ItemBase("black_rune_shard");
     public static final Item GEOLUMINESCENT_OBELISK = new GeoluminescentObeliskItem("geoluminescent_obelisk_item", BlocksInit.GEOLUMINESCENT_OBELISK);
     public static final Item AZTECH_PORTAL = new AzTechPortalItem("aztech_portal_item", BlocksInit.AZTECH_PORTAL);
+
+    //food
+    public static final Item SORGHUM = new ItemFoodSorghum("food_sorghum");
 
     //tools/weapons
     public static final Item RED_RUNE_HOE = new ToolHoe("red_rune_hoe", TOOL_RUNE);

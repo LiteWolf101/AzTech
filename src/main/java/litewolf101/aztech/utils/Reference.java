@@ -6,6 +6,6 @@ package litewolf101.aztech.utils;
 public class Reference {
     public static final String MODID = "aztech";
     public static final String NAME = "AzTech";
-    public static final String VERSION = "1.63";
+    public static final String VERSION = "1.64";
     public static final String ACCEPTED_MINECRAFT_VERSIONS = "[1.12.2]";
 }

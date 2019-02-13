@@ -58,6 +58,8 @@ public class BlocksInit {
     public static final Block NEW_WHITE_RUNE_ORE = new AncientOre("ancient_white_rune_ore", Material.ROCK);
     public static final Block NEW_BLACK_RUNE_ORE = new AncientOre("ancient_black_rune_ore", Material.ROCK);
 
+    public static final Block SORGHUM = new BlockSorghum("crop_sorghum");
+
     public static final Block GEOLUMINESCENT_OBELISK = new GeoluminescentObelisk("geoluminescent_obelisk", Material.ROCK);
     public static final Block AZTECH_PORTAL = new AzTechPortal("aztech_portal", Material.PORTAL);
     public static final Block PORTAL_CONSTRUCT = new PortalMultiblock("portal_multiblock", Material.PORTAL);

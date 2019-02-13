@@ -14,6 +14,9 @@ item.black_rune_shard.name=Black Rune Shard
 item.geoluminescent_obelisk_item.name=§6Geoluminescent Obelisk
 item.aztech_portal_item.name=§5Aztech Portal
 
+#Items/Food
+item.food_sorghum.name=Sorghum
+
 #Items/Tools
 item.red_rune_hoe.name=Red Rune Hoe
 item.yellow_rune_hoe.name=Yellow Rune Hoe

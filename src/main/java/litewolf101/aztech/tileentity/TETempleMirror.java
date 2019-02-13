@@ -317,73 +317,15 @@ public class TETempleMirror extends TileEntity implements ITickable{
         }
     }
 
-    public boolean activeLaser(int range, EnumFacing direction) {
-        int check = 0;
-        for (int i = 1; i <= range; i++) {
-            if (world.getBlockState(pos.offset(direction, i+1)).getBlock() == BlocksInit.TEMPLE_MIRROR) {
-                break;
-            } else if (world.getBlockState(pos.offset(direction, i+1)) == BlocksInit.ANCIENT_LASER.getDefaultState().withProperty(FACING, direction.getOpposite()).withProperty(ACTIVATED, true)){
-                check++;
-            }
-        }
-        return check > 0;
-    }
-
-    public boolean isMirrorAtPos(int range, EnumFacing direction) {
-        int check = 0;
-        for (int i = 1; i <= range; i++) {
-            if (world.getBlockState(pos.offset(direction, i+1)).getBlock() == BlocksInit.TEMPLE_MIRROR){
-                check++;
-            }
-        }
-        return check > 0;
-    }
-
-    public boolean canMirroredLaserFireIntoMe(int range, EnumFacing direction) {
-        int check = 0;
-        for (int i = 1; i <= range; i++) {
-            //X
-            if (direction == EnumFacing.NORTH || direction == EnumFacing.SOUTH) {
-                if (world.getBlockState(pos.offset(direction, i + 1)) == BlocksInit.TEMPLE_MIRROR.getDefaultState().withProperty(TempleMirror.AXIS, EnumFacing.Axis.X).withProperty(FLIPPED, false) || world.getBlockState(pos.offset(direction, i + 1)) == BlocksInit.TEMPLE_MIRROR.getDefaultState().withProperty(TempleMirror.AXIS, EnumFacing.Axis.X).withProperty(FLIPPED, true)) {
-                    check++;
-                }
-            }
-            //Y
-            if (direction == EnumFacing.UP || direction == EnumFacing.DOWN) {
-                if (world.getBlockState(pos.offset(direction, i + 1)) == BlocksInit.TEMPLE_MIRROR.getDefaultState().withProperty(TempleMirror.AXIS, EnumFacing.Axis.Y).withProperty(FLIPPED, false) || world.getBlockState(pos.offset(direction, i + 1)) == BlocksInit.TEMPLE_MIRROR.getDefaultState().withProperty(TempleMirror.AXIS, EnumFacing.Axis.Y).withProperty(FLIPPED, true)) {
-                    check++;
-                }
-            }
-            //Z
-            if (direction == EnumFacing.EAST || direction == EnumFacing.WEST) {
-                if (world.getBlockState(pos.offset(direction, i + 1)) == BlocksInit.TEMPLE_MIRROR.getDefaultState().withProperty(TempleMirror.AXIS, EnumFacing.Axis.Z).withProperty(FLIPPED, false) || world.getBlockState(pos.offset(direction, i + 1)) == BlocksInit.TEMPLE_MIRROR.getDefaultState().withProperty(TempleMirror.AXIS, EnumFacing.Axis.Z).withProperty(FLIPPED, true)) {
-                    check++;
-                }
-            }
-        }
-        return check == 0;
-    }
-    public boolean fromMirrorFiring(int range, EnumFacing direction) {
-        int check = 0;
-        for (int i = 1; i <= range; i++) {
-
-            if (world.getBlockState(pos.offset(direction, i + 1)) == BlocksInit.TEMPLE_MIRROR) {
-                check++;
-            }
-
-            //Y
-            //if (direction == EnumFacing.UP || direction == EnumFacing.DOWN) {
-            //    if (world.getBlockState(pos.offset(direction, i + 1)) == BlocksInit.TEMPLE_MIRROR.getDefaultState().withProperty(TempleMirror.AXIS, EnumFacing.Axis.Y).withProperty(FLIPPED, false) || world.getBlockState(pos.offset(direction, i + 1)) == BlocksInit.TEMPLE_MIRROR.getDefaultState().withProperty(TempleMirror.AXIS, EnumFacing.Axis.Y).withProperty(FLIPPED, true)) {
-            //        check++;
-            //    }
-            //}
-            //Z
-            //if (direction == EnumFacing.EAST || direction == EnumFacing.WEST) {
-            //    if (world.getBlockState(pos.offset(direction, i + 1)) == BlocksInit.TEMPLE_MIRROR.getDefaultState().withProperty(TempleMirror.AXIS, EnumFacing.Axis.Z).withProperty(FLIPPED, false) || world.getBlockState(pos.offset(direction, i + 1)) == BlocksInit.TEMPLE_MIRROR.getDefaultState().withProperty(TempleMirror.AXIS, EnumFacing.Axis.Z).withProperty(FLIPPED, true)) {
-            //        check++;
-            //    }
-            //}
-        }
-        return check > 0;
-    }
+    //public boolean activeLaser(int range, EnumFacing direction) {
+    //    int check = 0;
+    //    for (int i = 1; i <= range; i++) {
+    //        if (world.getBlockState(pos.offset(direction, i+1)).getBlock() == BlocksInit.TEMPLE_MIRROR) {
+    //            break;
+    //        } else if (world.getBlockState(pos.offset(direction, i+1)) == BlocksInit.ANCIENT_LASER.getDefaultState().withProperty(FACING, direction.getOpposite()).withProperty(ACTIVATED, true)){
+    //            check++;
+    //        }
+    //    }
+    //    return check > 0;
+    //}
 }

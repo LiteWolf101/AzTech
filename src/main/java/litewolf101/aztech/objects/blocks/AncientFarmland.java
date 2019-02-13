@@ -25,6 +25,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -141,6 +142,11 @@ public class AncientFarmland extends Block implements IHasModel, IMetaName {
         }
     }
 
+    @Override
+    public boolean isFertile(World world, BlockPos pos) {
+        return world.getBlockState(pos).getValue(MOISTURE).intValue() > 3;
+    }
+
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
     {
         super.onBlockAdded(worldIn, pos, state);
@@ -204,6 +210,11 @@ public class AncientFarmland extends Block implements IHasModel, IMetaName {
         {
             AzTech.proxy.registerVariantRenderer(Item.getItemFromBlock(this), i, "ancient_farmland_moist_" + i, "inventory");
         }
+    }
+
+    @Override
+    public boolean canSustainPlant(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plantable) {
+        return true;
     }
 
     @Override
