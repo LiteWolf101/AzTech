@@ -13,7 +13,7 @@ import static litewolf101.aztech.objects.blocks.ObjectorRune.ACTIVATED;
 /**
  * Created by LiteWolf101 on 10/5/2018.
  */
-public class TEObjectorRune extends TileEntity implements ITickable{
+public class TEObjectorRune extends TileEntity implements ITickable {
 
     @Override
     public void update() {

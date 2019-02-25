@@ -6,12 +6,11 @@ import litewolf101.aztech.init.ItemsInit;
 import litewolf101.aztech.objects.blocks.item.ItemBlockVariants;
 import litewolf101.aztech.utils.IHasModel;
 import litewolf101.aztech.utils.IMetaName;
-import litewolf101.aztech.utils.handlers.EnumRuneState;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -29,15 +28,15 @@ import java.util.Random;
 /**
  * Created by LiteWolf101 on 9/28/2018.
  */
-public class R2RTranslator extends Block implements IHasModel,IMetaName{
-    public static final PropertyEnum<EnumRuneState.EnumType> ACTIVATION = PropertyEnum.<EnumRuneState.EnumType>create("activation_state", EnumRuneState.EnumType.class);
+public class R2RTranslator extends Block implements IHasModel, IMetaName{
+    public static final PropertyBool ACTIVATED = PropertyBool.create("activated");
     public R2RTranslator(String name, Material material) {
         super(material);
         setUnlocalizedName(name);
         setRegistryName(name);
         setSoundType(SoundType.METAL);
         setCreativeTab(AzTech.CREATIVE_TAB);
-        setDefaultState(this.blockState.getBaseState().withProperty(ACTIVATION, EnumRuneState.EnumType.INACTIVE));
+        setDefaultState(this.blockState.getBaseState().withProperty(ACTIVATED, false));
         setBlockUnbreakable();
         setTickRandomly(true);
 
@@ -57,11 +56,11 @@ public class R2RTranslator extends Block implements IHasModel,IMetaName{
         {
             if (!worldIn.isBlockPowered(pos))
             {
-                worldIn.setBlockState(pos, BlocksInit.R2R_TRANSLATOR.getDefaultState().withProperty(ACTIVATION, EnumRuneState.EnumType.INACTIVE), 3);
+                worldIn.setBlockState(pos, BlocksInit.R2R_TRANSLATOR.getDefaultState().withProperty(ACTIVATED, false), 3);
             }
             else if (worldIn.isBlockPowered(pos))
             {
-                worldIn.setBlockState(pos, BlocksInit.R2R_TRANSLATOR.getDefaultState().withProperty(ACTIVATION, EnumRuneState.EnumType.ACTIVE), 3);
+                worldIn.setBlockState(pos, BlocksInit.R2R_TRANSLATOR.getDefaultState().withProperty(ACTIVATED, true), 3);
             }
         }
     }
@@ -73,11 +72,11 @@ public class R2RTranslator extends Block implements IHasModel,IMetaName{
         {
             if (!worldIn.isBlockPowered(pos))
             {
-                worldIn.setBlockState(pos, BlocksInit.R2R_TRANSLATOR.getDefaultState().withProperty(ACTIVATION, EnumRuneState.EnumType.INACTIVE), 3);
+                worldIn.setBlockState(pos, BlocksInit.R2R_TRANSLATOR.getDefaultState().withProperty(ACTIVATED, false), 3);
             }
             else if (worldIn.isBlockPowered(pos))
             {
-                worldIn.setBlockState(pos, BlocksInit.R2R_TRANSLATOR.getDefaultState().withProperty(ACTIVATION, EnumRuneState.EnumType.ACTIVE), 3);
+                worldIn.setBlockState(pos, BlocksInit.R2R_TRANSLATOR.getDefaultState().withProperty(ACTIVATED, true), 3);
             }
         }
     }
@@ -104,12 +103,14 @@ public class R2RTranslator extends Block implements IHasModel,IMetaName{
     @Override
     @SuppressWarnings("deprecation")
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(ACTIVATION, EnumRuneState.EnumType.byMetadata(meta));
+        boolean activated = meta > 0;
+        return getDefaultState().withProperty(ACTIVATED, activated);
     }
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        return ((EnumRuneState.EnumType)state.getValue(ACTIVATION)).getMeta();
+        boolean activated = state.getValue(ACTIVATED);
+        return (activated ? 1 : 0);
     }
 
     @Override
@@ -119,19 +120,25 @@ public class R2RTranslator extends Block implements IHasModel,IMetaName{
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[] {ACTIVATION});
+        return new BlockStateContainer(this, new IProperty[] {ACTIVATED});
     }
 
     @Override
     public void registerModels() {
-        for(int i = 0; i < EnumRuneState.EnumType.values().length; i++)
-        {
-            AzTech.proxy.registerVariantRenderer(Item.getItemFromBlock(this), i, "r_to_r_translator_" + EnumRuneState.EnumType.values()[i].getName(), "inventory");
-        }
+        AzTech.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
     }
 
     @Override
     public String getSpecialName(ItemStack stack) {
-        return EnumRuneState.EnumType.values()[stack.getItemDamage()].getName();
+        String name = null;
+        switch (stack.getItemDamage()){
+            case 1:
+                name = "on";
+
+                break;
+            default:
+                name = "off";
+        }
+        return name;
     }
 }

@@ -41,7 +41,6 @@ public class AzTech {
     @Mod.EventHandler
     public static void preInit(FMLPreInitializationEvent event) {
         System.out.println(Reference.MODID + ":preInit");
-        AzTechConfig.preInit();
         proxy.preInit(event);
         proxy.registerTileEntities();
         proxy.RegisterTileEntityRender();

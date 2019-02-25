@@ -1,6 +1,5 @@
 package litewolf101.aztech.objects.Tools;
 
-import com.sun.corba.se.impl.encoding.OSFCodeSetRegistry;
 import litewolf101.aztech.AzTech;
 import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.init.ItemsInit;
@@ -8,7 +7,6 @@ import litewolf101.aztech.utils.IHasModel;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;

@@ -11,6 +11,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -31,14 +32,14 @@ import java.util.Random;
  * Created by LiteWolf101 on 9/25/2018.
  */
 public class DetectorRune extends Block implements IHasModel, IMetaName{
-    public static final PropertyEnum<EnumRuneState.EnumType> ACTIVATION = PropertyEnum.<EnumRuneState.EnumType>create("activation_state", EnumRuneState.EnumType.class);
+    public static final PropertyBool ACTIVATED = PropertyBool.create("activated");
     public DetectorRune(String name, Material material) {
         super(material);
         setUnlocalizedName(name);
         setRegistryName(name);
         setSoundType(SoundType.STONE);
         setCreativeTab(AzTech.CREATIVE_TAB);
-        setDefaultState(this.blockState.getBaseState().withProperty(ACTIVATION, EnumRuneState.EnumType.INACTIVE));
+        setDefaultState(this.blockState.getBaseState().withProperty(ACTIVATED, false));
         setHarvestLevel("pickaxe", 1);
         setHardness(2f);
         setTickRandomly(true);
@@ -57,9 +58,9 @@ public class DetectorRune extends Block implements IHasModel, IMetaName{
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         this.randomDisplayTick(state,worldIn, pos, rand);
         worldIn.scheduleUpdate(pos, this, 20);
-        if (state.getValue(ACTIVATION).equals(EnumRuneState.EnumType.ACTIVE))
+        if (state.getValue(ACTIVATED).equals(true))
         {
-            worldIn.setBlockState(pos, getDefaultState().withProperty(ACTIVATION, EnumRuneState.EnumType.INACTIVE), 3);
+            worldIn.setBlockState(pos, getDefaultState().withProperty(ACTIVATED, false), 3);
         }
     }
 
@@ -73,13 +74,9 @@ public class DetectorRune extends Block implements IHasModel, IMetaName{
 
     private void activate(World world, BlockPos pos)
     {
-        if (world.getBlockState(pos).getValue(ACTIVATION).equals(EnumRuneState.EnumType.INACTIVE))
+        if (world.getBlockState(pos).getValue(ACTIVATED).equals(false))
         {
-            world.setBlockState(pos, getDefaultState().withProperty(ACTIVATION, EnumRuneState.EnumType.ACTIVE), 3);
-            //for (EnumFacing enumfacing : EnumFacing.values())
-            //{
-                //world.notifyNeighborsOfStateChange(pos.offset(enumfacing), this);
-            //}
+            world.setBlockState(pos, getDefaultState().withProperty(ACTIVATED, true), 3);
         }
         world.scheduleUpdate(pos, this, this.tickRate(world));
     }
@@ -89,7 +86,7 @@ public class DetectorRune extends Block implements IHasModel, IMetaName{
         double d0 = (double)pos.getX() + 0.5D;
         double d1 = (double)pos.getY() + 1.2D;
         double d2 = (double)pos.getZ() + 0.5D;
-        if (state.getValue(ACTIVATION).equals(EnumRuneState.EnumType.ACTIVE)){
+        if (state.getValue(ACTIVATED).equals(true)){
             worldIn.spawnParticle(EnumParticleTypes.REDSTONE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
         }
     }
@@ -107,18 +104,23 @@ public class DetectorRune extends Block implements IHasModel, IMetaName{
     @Override
     public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
         items.add(new ItemStack(this, 1, 0));
-        //this is done on purpose because only the first stage should show in the creative tab yet all the meta still exists
     }
 
     @Override
     @SuppressWarnings("deprecation")
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(ACTIVATION, EnumRuneState.EnumType.byMetadata(meta));
+        IBlockState state = this.getDefaultState().withProperty(ACTIVATED, false);
+        switch (meta) {
+            case 1:
+                state = this.getDefaultState().withProperty(ACTIVATED, true);
+            default: this.getDefaultState().withProperty(ACTIVATED, false);
+        }
+        return state;
     }
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        return ((EnumRuneState.EnumType)state.getValue(ACTIVATION)).getMeta();
+        return this.getDefaultState().getValue(ACTIVATED) ? 1 : 0;
     }
 
     @Override
@@ -128,21 +130,25 @@ public class DetectorRune extends Block implements IHasModel, IMetaName{
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[] {ACTIVATION});
+        return new BlockStateContainer(this, new IProperty[] {ACTIVATED});
     }
 
     @Override
     public void registerModels() {
-        for(int i = 0; i < EnumRuneState.EnumType.values().length; i++)
-        {
-            AzTech.proxy.registerVariantRenderer(Item.getItemFromBlock(this), i, "detector_rune_" + EnumRuneState.EnumType.values()[i].getName(), "inventory");
-        }
+        AzTech.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
     }
 
     @Override
     public String getSpecialName(ItemStack stack) {
-        return EnumRuneState.EnumType.values()[stack.getItemDamage()].getName();
+        String name = null;
+        switch (stack.getItemDamage()){
+            case 1:
+                name = "on";
+
+                break;
+            default:
+                name = "off";
+        }
+        return name;
     }
-
-
 }

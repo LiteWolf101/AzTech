@@ -77,18 +77,16 @@ public class ObjectorRune extends BlockContainer implements IHasModel, IMetaName
     @Override
     @SuppressWarnings("deprecation")
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.getFront(meta & 7));
+        EnumFacing direction = EnumFacing.VALUES[meta > 5 ? meta - 5 : meta];
+        boolean activated = meta > 5;
+        return getDefaultState().withProperty(FACING, direction).withProperty(ACTIVATED, activated);
     }
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        int i = 0;
-        i = i | ((EnumFacing)state.getValue(FACING)).getIndex();
-
-        if (((Boolean)state.getValue(ACTIVATED)).booleanValue()) {
-            i |= 7;
-        }
-        return i;
+        EnumFacing direction = state.getValue(FACING);
+        boolean activated = state.getValue(ACTIVATED);
+        return direction.getIndex() + (activated ? 5 : 0);
     }
 
     @Override

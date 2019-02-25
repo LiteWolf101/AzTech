@@ -16,6 +16,8 @@ item.aztech_portal_item.name=§5Aztech Portal
 
 #Items/Food
 item.food_sorghum.name=Sorghum
+item.sorghum_soup.name=Sorghum Soup
+item.sorghum_popcorn.name=Sorghum Popcorn
 
 #Items/Tools
 item.red_rune_hoe.name=Red Rune Hoe
@@ -108,9 +110,9 @@ tile.ancient_bedrock.name=Ancient Bedrock
 tile.ancient_chiseled_bricks.name=Ancient Chiseled Bricks
 tile.ancient_bricks.name=Ancient Bricks
 tile.ancient_muddy_bricks.name=Ancient Muddy Bricks
+tile.ancient_farmland_moist_0.name=Ancient Farmland
 
-tile.detector_rune_inactive.name=§cDetector Rune
-tile.detector_rune_active.name=§cDetector Rune
+tile.detector_rune_off.name=§cDetector Rune
 
 tile.ancient_dirt.name=Ancient Dirt
 tile.ancient_grass.name=Ancient Grass
@@ -121,19 +123,19 @@ tile.enemy_emitter_rune.name=§cEnemy Emitter Rune
 
 tile.lantern_north.name=§6Lantern
 
-tile.objector_rune_down.name=§cObjector Rune§c(WIP)
+tile.objector_rune_down.name=§cObjector Rune
 
 tile.insertive_rune_down.name=§cInsertive Rune§c(WIP)
 
-tile.keyhole_rune_inactive.name=§cKeyhole Rune§c(WIP)
+tile.keyhole_rune_off.name=§cKeyhole Rune§c(WIP)
 
-tile.temple_mirror_x.name=§cTemple Mirror§c(WIP)
+tile.temple_mirror_x.name=§cTemple Mirror
 
 tile.door_rune.name=§cDoor Rune§c(WIP)
 
 tile.rune_line_inactive.name=§cRune Line§c(WIP)
 
-tile.r_to_r_translator_inactive.name=§cRedstone->Rune Translator
+tile.r_to_r_translator_off.name=§cRedstone->Rune Translator
 
 tile.rune_block_red.name=Red Rune Block
 tile.rune_block_yellow.name=Yellow Rune Block
@@ -191,3 +193,12 @@ advancement.aztech.enter_aztech.desc=Enter the Aztech Dimension
 
 advancement.aztech.eyesore=What an Eyesore!
 advancement.aztech.eyesore.desc=Kill the §6Ultimate Eye
+
+#Configuration
+config.toggle_fog=Toggle Fog
+config.dim_id=Aztech Dimension ID
+config.overworld_ore_freq=AzTech Ore Frequency(Overworld)
+config.aztech_ore_freq=AzTech Ore Frequency(AzTech)
+config.aztech_portal_freq=AzTech Portal Frequency
+config.aztech_hut_freq=AzTech Hut Frequency
+config.aztech_basic_dungeon_freq=Basic dungeon Frequency

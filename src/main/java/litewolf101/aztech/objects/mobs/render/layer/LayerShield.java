@@ -1,23 +1,14 @@
 package litewolf101.aztech.objects.mobs.render.layer;
 
 import litewolf101.aztech.objects.mobs.BossUltimateEye;
-import litewolf101.aztech.objects.mobs.MobPyronant;
-import litewolf101.aztech.objects.mobs.model.ModelPyronantRing;
 import litewolf101.aztech.objects.mobs.model.ModelShield;
-import litewolf101.aztech.objects.mobs.render.RenderPyronant;
 import litewolf101.aztech.objects.mobs.render.RenderUltimateEye;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.Sys;
 
 /**
  * Created by LiteWolf101 on 11/2/2018.

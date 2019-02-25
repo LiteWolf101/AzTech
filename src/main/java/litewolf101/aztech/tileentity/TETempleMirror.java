@@ -1,14 +1,9 @@
 package litewolf101.aztech.tileentity;
 
 import litewolf101.aztech.init.BlocksInit;
-import litewolf101.aztech.objects.blocks.LaserBlock;
-import litewolf101.aztech.objects.blocks.TempleMirror;
-import net.minecraft.block.BlockLog;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
-import org.lwjgl.Sys;
 
 import static litewolf101.aztech.objects.blocks.AncientLaser.ACTIVATED;
 import static litewolf101.aztech.objects.blocks.AncientLaser.FACING;

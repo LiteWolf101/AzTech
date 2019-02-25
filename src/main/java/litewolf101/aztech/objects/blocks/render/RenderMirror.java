@@ -8,9 +8,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
-import static litewolf101.aztech.objects.blocks.TempleMirror.AXIS;
-import static litewolf101.aztech.objects.blocks.TempleMirror.FLIPPED;
-import static litewolf101.aztech.objects.blocks.TempleMirror.INVERT_IO;
+import static litewolf101.aztech.objects.blocks.TempleMirror.*;
 
 /**
  * Created by LiteWolf101 on 11/5/2018.

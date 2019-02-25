@@ -88,13 +88,11 @@ public class BlockRuneOre extends Block implements IHasModel, IMetaName {
     @Override
     @SuppressWarnings("deprecation")
     public IBlockState getStateFromMeta(int meta) {
-
         return this.getDefaultState().withProperty(RUNE_COLOR, EnumRuneColor.EnumType.byMetadata(meta));
     }
 
     @Override
     public int getMetaFromState(IBlockState state) {
-
         return ((EnumRuneColor.EnumType)state.getValue(RUNE_COLOR)).getMeta();
     }
 

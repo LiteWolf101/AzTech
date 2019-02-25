@@ -9,7 +9,9 @@ public class EnumRuneState {
     public static enum EnumType implements IStringSerializable
     {
         INACTIVE(0, "inactive"),
-        ACTIVE(1, "active");
+        POWERING_UP(1, "powering_up"),
+        ACTIVE(2, "active"),
+        POWERING_DOWN(3, "powering_down");
 
         private static final EnumType[] META_LOOKUP = new EnumType[values().length];
         private final int meta;

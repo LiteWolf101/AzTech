@@ -6,8 +6,6 @@ import litewolf101.aztech.init.ItemsInit;
 import litewolf101.aztech.utils.IHasModel;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemAxe;
-import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemTool;
 
 import java.util.Set;

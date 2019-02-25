@@ -5,7 +5,6 @@ import litewolf101.aztech.init.ItemsInit;
 import litewolf101.aztech.utils.IHasModel;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
-import net.minecraft.item.ItemHoe;
 
 /**
  * Created by LiteWolf101 on Jan

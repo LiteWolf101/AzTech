@@ -7,7 +7,6 @@ import litewolf101.aztech.objects.blocks.item.ItemBlockVariants;
 import litewolf101.aztech.tileentity.TEAncientLaser;
 import litewolf101.aztech.utils.IHasModel;
 import litewolf101.aztech.utils.IMetaName;
-import litewolf101.aztech.utils.handlers.EnumRuneState;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -28,10 +27,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import static litewolf101.aztech.objects.blocks.R2RTranslator.ACTIVATION;
 
 /**
  * Created by LiteWolf101 on 9/27/2018.
@@ -81,22 +82,20 @@ public class AncientLaser extends BlockContainer implements IHasModel, IMetaName
     @Override
     @SuppressWarnings("deprecation")
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.getFront(meta & 7));
+        EnumFacing direction = EnumFacing.VALUES[meta > 5 ? meta - 5 : meta];
+        boolean activated = meta > 5;
+        return getDefaultState().withProperty(FACING, direction).withProperty(ACTIVATED, activated);
     }
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        int i = 0;
-        i = i | ((EnumFacing)state.getValue(FACING)).getIndex();
-
-        if (((Boolean)state.getValue(ACTIVATED)).booleanValue()) {
-            i |= 7;
-        }
-        return i;
+        EnumFacing direction = state.getValue(FACING);
+        boolean activated = state.getValue(ACTIVATED);
+        return direction.getIndex() + (activated ? 5 : 0);
     }
 
     @Override
-    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+    public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target,@Nonnull World world,@Nonnull BlockPos pos, EntityPlayer player) {
         return new ItemStack(BlocksInit.ANCIENT_LASER, 1, 0);
     }
 
@@ -108,21 +107,25 @@ public class AncientLaser extends BlockContainer implements IHasModel, IMetaName
 
     @Override
     @SuppressWarnings("deprecation")
+    @SideOnly(Side.CLIENT)
     public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public BlockRenderLayer getBlockLayer() {
         return BlockRenderLayer.CUTOUT;
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public EnumBlockRenderType getRenderType(IBlockState p_getRenderType_1_) {
         return EnumBlockRenderType.MODEL;
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public boolean isFullCube(IBlockState p_isFullCube_1_) {
         return false;
     }
@@ -135,13 +138,6 @@ public class AncientLaser extends BlockContainer implements IHasModel, IMetaName
     @Override
     public String getSpecialName(ItemStack stack) {
         return EnumFacing.values()[stack.getItemDamage()].getName();
-    }
-
-    public boolean isBlockBeingActivated(BlockPos pos, World world){
-        if (world.getBlockState(pos.south()).getBlock() == BlocksInit.R2R_TRANSLATOR.getDefaultState().withProperty(ACTIVATION, EnumRuneState.EnumType.ACTIVE)){
-            System.out.println("powered");
-            return true;
-        } else return false;
     }
 
     @Nullable

@@ -1,5 +1,6 @@
 package litewolf101.aztech.proxy;
 
+import litewolf101.aztech.AzTech;
 import litewolf101.aztech.init.ModEntities;
 import litewolf101.aztech.objects.blocks.render.RenderMirror;
 import litewolf101.aztech.objects.blocks.render.RenderPortalConstruct;
@@ -11,9 +12,9 @@ import litewolf101.aztech.tileentity.TETempleRuneBlock;
 import litewolf101.aztech.tileentity.masterPortalConstruct;
 import litewolf101.aztech.utils.Reference;
 import litewolf101.aztech.utils.client.particle.*;
+import litewolf101.aztech.utils.gui.GUIHandler;
 import litewolf101.aztech.utils.handlers.AzTechSoundHandler;
 import litewolf101.aztech.utils.handlers.ColorHandler;
-import litewolf101.aztech.world.worldgen.structures.WorldGenCustomStructures;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -26,7 +27,7 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 /**
  * Created by LiteWolf101 on 9/20/2018.
@@ -44,6 +45,7 @@ public class ClientProxy extends CommonProxy {
         AzTechSoundHandler.init();
         ColorHandler.init();
         ColorHandler.registerExtraBlockColors();
+        NetworkRegistry.INSTANCE.registerGuiHandler(AzTech.instance, new GUIHandler());
     }
 
     @Override

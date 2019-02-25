@@ -1,6 +1,5 @@
 package litewolf101.aztech.objects.mobs.model;
 
-import litewolf101.aztech.objects.mobs.BossUltimateEye;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;

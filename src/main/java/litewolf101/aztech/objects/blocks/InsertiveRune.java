@@ -4,32 +4,44 @@ import litewolf101.aztech.AzTech;
 import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.init.ItemsInit;
 import litewolf101.aztech.objects.blocks.item.ItemBlockVariants;
+import litewolf101.aztech.tileentity.TEAncientLaser;
+import litewolf101.aztech.tileentity.TileEntityInsertiveRune;
 import litewolf101.aztech.utils.IHasModel;
 import litewolf101.aztech.utils.IMetaName;
+import litewolf101.aztech.utils.gui.GUIHandler;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockFurnace;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Random;
 
 /**
  * Created by LiteWolf101 on 9/28/2018.
  */
-public class InsertiveRune extends Block implements IHasModel, IMetaName{
+public class InsertiveRune extends BlockContainer implements IHasModel, IMetaName {
     public static final PropertyDirection FACING = BlockFurnace.FACING;
+    public static final PropertyBool ACTIVATED = PropertyBool.create("activated");
     public InsertiveRune(String name, Material material) {
         super(material);
         setUnlocalizedName(name);
@@ -38,7 +50,7 @@ public class InsertiveRune extends Block implements IHasModel, IMetaName{
         setCreativeTab(AzTech.CREATIVE_TAB);
         setHarvestLevel("pickaxe", 1);
         setHardness(2f);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(ACTIVATED, false));
         setResistance(100f);
 
         BlocksInit.BLOCKS.add(this);
@@ -102,30 +114,23 @@ public class InsertiveRune extends Block implements IHasModel, IMetaName{
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state)
-    {
-        return new ItemStack(BlocksInit.INSERTIVE_RUNE);
+    public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull World world, @Nonnull BlockPos pos, EntityPlayer player) {
+        return new ItemStack(BlocksInit.INSERTIVE_RUNE, 1, 0);
     }
 
     @Override
     @SuppressWarnings("deprecation")
-    public IBlockState getStateFromMeta(int meta)
-    {
-        EnumFacing enumfacing = EnumFacing.getFront(meta);
-
-        if (enumfacing.getAxis() == EnumFacing.Axis.Y)
-        {
-            enumfacing = EnumFacing.NORTH;
-        }
-
-        return this.getDefaultState().withProperty(FACING, enumfacing);
+    public IBlockState getStateFromMeta(int meta) {
+        EnumFacing direction = EnumFacing.VALUES[meta > 5 ? meta - 5 : meta];
+        boolean activated = meta > 5;
+        return getDefaultState().withProperty(FACING, direction).withProperty(ACTIVATED, activated);
     }
 
     @Override
-    public int getMetaFromState(IBlockState state)
-    {
-        return ((EnumFacing)state.getValue(FACING)).getIndex();
+    public int getMetaFromState(IBlockState state) {
+        EnumFacing direction = state.getValue(FACING);
+        boolean activated = state.getValue(ACTIVATED);
+        return direction.getIndex() + (activated ? 5 : 0);
     }
 
     @Override
@@ -143,11 +148,24 @@ public class InsertiveRune extends Block implements IHasModel, IMetaName{
     }
 
     @Override
-    public void registerModels() {
-        for(int i = 0; i < EnumFacing.values().length - 2; i++)
-        {
-            AzTech.proxy.registerVariantRenderer(Item.getItemFromBlock(this), i, "insertive_rune_" + EnumFacing.values()[i].getName(), "inventory");
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        if (!worldIn.isRemote) {
+            if (playerIn.getHeldItemMainhand() == ItemStack.EMPTY) {
+                playerIn.openGui(AzTech.instance, GUIHandler.BLOCK_INSERTIVE_RUNE, worldIn, pos.getX(), pos.getY(), pos.getZ());
+            }
         }
+        return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
+    }
+
+    @Nullable
+    @Override
+    public TileEntity createNewTileEntity(World world, int i) {
+        return new TileEntityInsertiveRune();
+    }
+
+    @Override
+    public void registerModels() {
+        AzTech.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
     }
 
     @Override
@@ -157,6 +175,6 @@ public class InsertiveRune extends Block implements IHasModel, IMetaName{
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[] {FACING});
+        return new BlockStateContainer(this, new IProperty[] {FACING, ACTIVATED});
     }
 }

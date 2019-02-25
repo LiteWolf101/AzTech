@@ -4,7 +4,6 @@ import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.objects.blocks.TempleMirror;
 import litewolf101.aztech.utils.handlers.EnumRuneState;
 import litewolf101.aztech.utils.handlers.EnumStage;
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -16,7 +15,6 @@ import static litewolf101.aztech.objects.blocks.AncientLaser.ACTIVATED;
 import static litewolf101.aztech.objects.blocks.AncientLaser.FACING;
 import static litewolf101.aztech.objects.blocks.BlockSlaughtiveRune.STAGE;
 import static litewolf101.aztech.objects.blocks.LaserBlock.AXIS;
-import static litewolf101.aztech.objects.blocks.R2RTranslator.ACTIVATION;
 import static litewolf101.aztech.objects.blocks.TempleMirror.FLIPPED;
 import static litewolf101.aztech.objects.blocks.TempleMirror.INVERT_IO;
 
@@ -26,29 +24,29 @@ import static litewolf101.aztech.objects.blocks.TempleMirror.INVERT_IO;
 public class TEAncientLaser extends TileEntity implements ITickable {
     @Override
     public void update() {
-        IBlockState source1 = BlocksInit.R2R_TRANSLATOR.getDefaultState().withProperty(ACTIVATION, EnumRuneState.EnumType.ACTIVE);
-        IBlockState source2 = BlocksInit.DETECTOR_RUNE.getDefaultState().withProperty(ACTIVATION, EnumRuneState.EnumType.ACTIVE);
+        IBlockState source1 = BlocksInit.R2R_TRANSLATOR.getDefaultState().withProperty(ACTIVATED, true);
+        IBlockState source2 = BlocksInit.DETECTOR_RUNE.getDefaultState().withProperty(ACTIVATED, true);
         IBlockState source3 = BlocksInit.SLAUGHTIVE_RUNE.getDefaultState().withProperty(STAGE, EnumStage.EnumType.STAGE_6);
 
 
         EnumFacing direction = world.getBlockState(pos).getValue(FACING); //default
         Boolean activated = false; //default
-        if (world.getBlockState(pos.north()) == source1 || world.getBlockState(pos.north()) == source2 || world.getBlockState(pos.north()) == source3){
+        if (world.getBlockState(pos.north()) == source1 || world.getBlockState(pos.north()) == source2 || world.getBlockState(pos.north()) == source3 || isActiveObjector(pos.north())){
             direction = EnumFacing.SOUTH;
             activated = true;
-        } else if (world.getBlockState(pos.east()) == source1 | world.getBlockState(pos.east()) == source2 | world.getBlockState(pos.east()) == source3){
+        } else if (world.getBlockState(pos.east()) == source1 | world.getBlockState(pos.east()) == source2 | world.getBlockState(pos.east()) == source3 || isActiveObjector(pos.east())){
             direction = EnumFacing.WEST;
             activated = true;
-        } else if (world.getBlockState(pos.south()) == source1 | world.getBlockState(pos.south()) == source2 | world.getBlockState(pos.south()) == source3){
+        } else if (world.getBlockState(pos.south()) == source1 | world.getBlockState(pos.south()) == source2 | world.getBlockState(pos.south()) == source3 || isActiveObjector(pos.south())){
             direction = EnumFacing.NORTH;
             activated = true;
-        } else if (world.getBlockState(pos.west()) == source1 | world.getBlockState(pos.west()) == source2 | world.getBlockState(pos.west()) == source3){
+        } else if (world.getBlockState(pos.west()) == source1 | world.getBlockState(pos.west()) == source2 | world.getBlockState(pos.west()) == source3 || isActiveObjector(pos.west())){
             direction = EnumFacing.EAST;
             activated = true;
-        } else if (world.getBlockState(pos.down()) == source1 | world.getBlockState(pos.down()) == source2 | world.getBlockState(pos.down()) == source3){
+        } else if (world.getBlockState(pos.down()) == source1 | world.getBlockState(pos.down()) == source2 | world.getBlockState(pos.down()) == source3 || isActiveObjector(pos.up())){
             direction = EnumFacing.UP;
             activated = true;
-        } else if (world.getBlockState(pos.up()) == source1 | world.getBlockState(pos.up()) == source2 | world.getBlockState(pos.up()) == source3){
+        } else if (world.getBlockState(pos.up()) == source1 | world.getBlockState(pos.up()) == source2 | world.getBlockState(pos.up()) == source3 || isActiveObjector(pos.down())){
             direction = EnumFacing.DOWN;
             activated = true;
         }
@@ -58,6 +56,29 @@ public class TEAncientLaser extends TileEntity implements ITickable {
         } else if (doReplace(15, direction) && isFightingLaserInactive(15, direction)){
             replaceLaser(15, direction);
         }
+    }
+
+    public boolean isActiveObjector(BlockPos pos) {
+        boolean check = false;
+        if (world.getBlockState(pos) == BlocksInit.OBJECTOR_RUNE.getDefaultState().withProperty(FACING, EnumFacing.NORTH).withProperty(ACTIVATED, true)) {
+            check = true;
+        }
+        if (world.getBlockState(pos) == BlocksInit.OBJECTOR_RUNE.getDefaultState().withProperty(FACING, EnumFacing.EAST).withProperty(ACTIVATED, true)) {
+            check = true;
+        }
+        if (world.getBlockState(pos) == BlocksInit.OBJECTOR_RUNE.getDefaultState().withProperty(FACING, EnumFacing.SOUTH).withProperty(ACTIVATED, true)) {
+            check = true;
+        }
+        if (world.getBlockState(pos) == BlocksInit.OBJECTOR_RUNE.getDefaultState().withProperty(FACING, EnumFacing.WEST).withProperty(ACTIVATED, true)) {
+            check = true;
+        }
+        if (world.getBlockState(pos) == BlocksInit.OBJECTOR_RUNE.getDefaultState().withProperty(FACING, EnumFacing.UP).withProperty(ACTIVATED, true)) {
+            check = true;
+        }
+        if (world.getBlockState(pos) == BlocksInit.OBJECTOR_RUNE.getDefaultState().withProperty(FACING, EnumFacing.DOWN).withProperty(ACTIVATED, true)) {
+            check = true;
+        }
+        return check;
     }
 
     public void setLaser(int range, EnumFacing direction){
@@ -161,28 +182,5 @@ public class TEAncientLaser extends TileEntity implements ITickable {
         }
     }
 
-    public boolean canMirroredLaserFireIntoMe(int range, EnumFacing direction) {
-        int check = 0;
-        for (int i = 1; i <= range; i++) {
-            //X
-            if (direction == EnumFacing.NORTH || direction == EnumFacing.SOUTH) {
-                if (world.getBlockState(pos.offset(direction, i + 1)) == BlocksInit.TEMPLE_MIRROR.getDefaultState().withProperty(TempleMirror.AXIS, EnumFacing.Axis.X).withProperty(FLIPPED, false) || world.getBlockState(pos.offset(direction, i + 1)) == BlocksInit.TEMPLE_MIRROR.getDefaultState().withProperty(TempleMirror.AXIS, EnumFacing.Axis.X).withProperty(FLIPPED, true)) {
-                    check++;
-                }
-            }
-            //Y
-            if (direction == EnumFacing.UP || direction == EnumFacing.DOWN) {
-                if (world.getBlockState(pos.offset(direction, i + 1)) == BlocksInit.TEMPLE_MIRROR.getDefaultState().withProperty(TempleMirror.AXIS, EnumFacing.Axis.Y).withProperty(FLIPPED, false) || world.getBlockState(pos.offset(direction, i + 1)) == BlocksInit.TEMPLE_MIRROR.getDefaultState().withProperty(TempleMirror.AXIS, EnumFacing.Axis.Y).withProperty(FLIPPED, true)) {
-                    check++;
-                }
-            }
-            //Z
-            if (direction == EnumFacing.EAST || direction == EnumFacing.WEST) {
-                if (world.getBlockState(pos.offset(direction, i + 1)) == BlocksInit.TEMPLE_MIRROR.getDefaultState().withProperty(TempleMirror.AXIS, EnumFacing.Axis.Z).withProperty(FLIPPED, false) || world.getBlockState(pos.offset(direction, i + 1)) == BlocksInit.TEMPLE_MIRROR.getDefaultState().withProperty(TempleMirror.AXIS, EnumFacing.Axis.Z).withProperty(FLIPPED, true)) {
-                    check++;
-                }
-            }
-        }
-        return check == 0;
-    }
+
 }

@@ -1,17 +1,14 @@
 package litewolf101.aztech.objects.mobs.render;
 
 import litewolf101.aztech.objects.mobs.BossUltimateEye;
-import litewolf101.aztech.objects.mobs.model.ModelShield;
 import litewolf101.aztech.objects.mobs.model.ModelUltimateEye;
 import litewolf101.aztech.objects.mobs.render.layer.LayerShield;
 import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
-import org.lwjgl.opengl.GL11;
 
 import javax.annotation.Nullable;
 

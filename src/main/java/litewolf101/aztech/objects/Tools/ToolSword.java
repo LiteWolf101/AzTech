@@ -3,7 +3,6 @@ package litewolf101.aztech.objects.Tools;
 import litewolf101.aztech.AzTech;
 import litewolf101.aztech.init.ItemsInit;
 import litewolf101.aztech.utils.IHasModel;
-import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemSword;
 
 /**
