@@ -26,6 +26,9 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.common.config.Config;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -56,6 +59,20 @@ public class InsertiveRune extends BlockContainer implements IHasModel, IMetaNam
     public Item getItemDropped(IBlockState state, Random rand, int fortune)
     {
         return Item.getItemFromBlock(BlocksInit.INSERTIVE_RUNE);
+    }
+
+    @Override
+    @SuppressWarnings("deprecation")
+    @SideOnly(Side.CLIENT)
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
+
+    @Override
+    @SuppressWarnings("deprecation")
+    @SideOnly(Side.CLIENT)
+    public boolean isFullCube(IBlockState state) {
+        return false;
     }
 
     @Override

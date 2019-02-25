@@ -2,14 +2,8 @@ package litewolf101.aztech.proxy;
 
 import litewolf101.aztech.AzTech;
 import litewolf101.aztech.init.ModEntities;
-import litewolf101.aztech.objects.blocks.render.RenderMirror;
-import litewolf101.aztech.objects.blocks.render.RenderPortalConstruct;
-import litewolf101.aztech.objects.blocks.render.RenderTempleRuneCore;
-import litewolf101.aztech.objects.blocks.render.RenderTileGeoObelisk;
-import litewolf101.aztech.tileentity.TEGeoObelisk;
-import litewolf101.aztech.tileentity.TETempleMirror;
-import litewolf101.aztech.tileentity.TETempleRuneBlock;
-import litewolf101.aztech.tileentity.masterPortalConstruct;
+import litewolf101.aztech.objects.blocks.render.*;
+import litewolf101.aztech.tileentity.*;
 import litewolf101.aztech.utils.Reference;
 import litewolf101.aztech.utils.client.particle.*;
 import litewolf101.aztech.utils.gui.GUIHandler;
@@ -69,6 +63,7 @@ public class ClientProxy extends CommonProxy {
         ClientRegistry.bindTileEntitySpecialRenderer(TEGeoObelisk.class, new RenderTileGeoObelisk());
         ClientRegistry.bindTileEntitySpecialRenderer(masterPortalConstruct.class, new RenderPortalConstruct());
         ClientRegistry.bindTileEntitySpecialRenderer(TETempleMirror.class, new RenderMirror());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityInsertiveRune.class, new RenderInsertiveRune());
     }
 
     @Override

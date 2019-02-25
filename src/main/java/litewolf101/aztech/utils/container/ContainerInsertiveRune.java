@@ -5,6 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
 
 /**
  * Created by LiteWolf101 on Feb
@@ -47,5 +48,35 @@ public class ContainerInsertiveRune extends Container{
         tileEntity.closeInventory(playerIn);
     }
 
+    @Override
+    public ItemStack transferStackInSlot(EntityPlayer playerIn, int fromSlot) {
+        ItemStack previous = ItemStack.EMPTY;
+        Slot slot = (Slot) this.inventorySlots.get(fromSlot);
 
+        if (slot != null && slot.getHasStack()) {
+            ItemStack current = slot.getStack();
+            previous = current.copy();
+            int inventorySize = tileEntity.getSizeInventory();
+
+            if (fromSlot < inventorySize) {
+                // From container inventory to player's inventory
+                if (!this.mergeItemStack(current, inventorySize, inventorySize + 36, true))
+                    return ItemStack.EMPTY;
+            } else {
+                // From the player's inventory to container
+                if (!this.mergeItemStack(current, 0, inventorySize, false))
+                    return ItemStack.EMPTY;
+            }
+
+            if (current.getCount() == 0)
+                slot.putStack(ItemStack.EMPTY);
+            else
+                slot.onSlotChanged();
+
+            if (current.getCount() == previous.getCount())
+                return null;
+            slot.onTake(playerIn, current);
+        }
+        return previous;
+    }
 }

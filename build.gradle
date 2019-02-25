@@ -17,7 +17,7 @@ archivesBaseName = "Aztech"
 sourceCompatibility = targetCompatibility = '1.8'
 
 def getVersion() {
-    return "${project.build_major}.${build_minor}.${build_patcj}"
+    return "${project.build_major}.${build_minor}.${build_patch}"
 }
 
 compileJava {
