@@ -4,6 +4,7 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
+import org.lwjgl.opengl.GL11;
 
 /**
  * Created by LiteWolf101 on 10/19/2018.
@@ -101,6 +102,7 @@ public class ModelPortalConstruct extends ModelBase {
     public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
         GlStateManager.pushMatrix();
         GlStateManager.enableBlend();
+        GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         GlStateManager.color(1, 1, 1, 0.7f);
         GlStateManager.pushMatrix();
         base.render(scale);
@@ -114,6 +116,7 @@ public class ModelPortalConstruct extends ModelBase {
     public void renderModel(float scale){
         GlStateManager.pushMatrix();
         GlStateManager.enableBlend();
+        GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         GlStateManager.color(1, 1, 1, 0.7f);
         GlStateManager.pushMatrix();
         base.render(scale);

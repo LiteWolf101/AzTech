@@ -1,17 +1,18 @@
 package litewolf101.aztech.world.biome;
 
 import litewolf101.aztech.init.BlocksInit;
-import litewolf101.aztech.world.worldgen.AztechBiomeDecor;
 import litewolf101.aztech.world.worldgen.feature.WorldGenAztechLiquidBase;
 import litewolf101.aztech.world.worldgen.feature.WorldGenCropBlotch;
 import litewolf101.aztech.world.worldgen.trees.WorldGenAztechOakTree;
 import litewolf101.aztech.world.worldgen.trees.WorldGenAztechOakTree2;
 import net.minecraft.block.BlockFlower;
+import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.BlockSand;
 import net.minecraft.block.BlockTallGrass;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.entity.monster.*;
+import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.passive.EntitySheep;
@@ -19,20 +20,24 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeDecorator;
 import net.minecraft.world.chunk.ChunkPrimer;
-import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenFlowers;
+import net.minecraft.world.gen.feature.WorldGenMegaJungle;
+import net.minecraft.world.gen.feature.WorldGenShrub;
 import net.minecraft.world.gen.feature.WorldGenTallGrass;
 
 import java.util.Random;
 
+import static net.minecraft.block.BlockOldLog.VARIANT;
+
 /**
- * Created by LiteWolf101 on 10/20/2018.
+ * Created by LiteWolf101 on Feb
+ * /25/2019
  */
-public class BiomeAncientForest extends Biome {
-    private static BiomeProperties properties = new Biome.BiomeProperties("Ancient Forest");
-    public BiomeAncientForest() {
+public class BiomeAncientJungle extends Biome {
+    private static BiomeProperties properties = new Biome.BiomeProperties("Ancient Jungle");
+
+    public BiomeAncientJungle() {
         super(properties);
         this.topBlock = BlocksInit.ANCIENT_GRASS.getDefaultState();
         this.fillerBlock = BlocksInit.ANCIENT_DIRT.getDefaultState();
@@ -40,53 +45,41 @@ public class BiomeAncientForest extends Biome {
         properties.setHeightVariation(0.5F);
         properties.setRainDisabled();
 
-        getAztechBiomeDecor().setAztechOakTreesPerChunk(1);
-        getAztechBiomeDecor().setTallAztechOakTreesPerChunk(1);
-
         spawnableCaveCreatureList.clear();
 
         spawnableWaterCreatureList.clear();
 
         spawnableMonsterList.clear();
-        spawnableMonsterList.add(new SpawnListEntry(EntityZombie.class, 7, 1, 1));
+        spawnableMonsterList.add(new SpawnListEntry(EntityZombie.class, 3, 1, 1));
+        spawnableMonsterList.add(new SpawnListEntry(EntitySkeleton.class, 4, 1, 1));
+        spawnableMonsterList.add(new SpawnListEntry(EntityWitch.class, 1, 1, 1));
+        spawnableMonsterList.add(new SpawnListEntry(EntityCreeper.class, 2, 1, 1));
+        spawnableMonsterList.add(new SpawnListEntry(EntityEnderman.class, 1, 1, 3));
+        spawnableMonsterList.add(new SpawnListEntry(EntitySpider.class, 4, 2, 3));
+        //spawnableMonsterList.add(new SpawnListEntry(SoulStealer.class, 7, 1, 1));
+        //spawnableMonsterList.add(new SpawnListEntry(Ex.class, 7, 1, 1));
+        //spawnableMonsterList.add(new SpawnListEntry(AoAo.class, 7, 1, 1));
 
         spawnableCreatureList.clear();
         spawnableCreatureList.add(new SpawnListEntry(EntityPig.class, 3, 1, 1));
         spawnableCreatureList.add(new SpawnListEntry(EntitySheep.class, 5, 1, 1));
         spawnableCreatureList.add(new SpawnListEntry(EntityCow.class, 6, 2, 2));
-    }
-
-    @Override
-    public WorldGenAbstractTree getRandomTreeFeature(Random random) {
-        if (random.nextInt(10) == 0) {
-            return TREE_FEATURE;
-        } else {
-            return new WorldGenAztechOakTree(true);
-        }
+        spawnableCreatureList.add(new SpawnListEntry(EntityChicken.class, 6, 2, 2));
     }
 
     @Override
     public float getSpawningChance() {
-        return 0.05F;
+        return 0.025F;
     }
 
     @Override
     public int getGrassColorAtPos(BlockPos pos) {
-        return 13756270;
-    }
-
-    @Override
-    public BiomeDecorator createBiomeDecorator() {
-        return new AztechBiomeDecor();
-    }
-
-    protected AztechBiomeDecor getAztechBiomeDecor() {
-        return (AztechBiomeDecor) this.decorator;
+        return 2585617;
     }
 
     @Override
     public int getFoliageColorAtPos(BlockPos pos) {
-        return 9493052;
+        return 2585617;
     }
 
     @Override
@@ -103,29 +96,26 @@ public class BiomeAncientForest extends Biome {
     public void decorate(World worldIn, Random rand, BlockPos pos) {
         super.decorate(worldIn, rand, pos);
 
-        WorldGenAztechOakTree aztechOakTree = new WorldGenAztechOakTree(true);
-        WorldGenAztechOakTree2 aztechTallOakTree = new WorldGenAztechOakTree2(true);
+        WorldGenMegaJungle genMegaJungle = new WorldGenMegaJungle(false, 10, 6, Blocks.LOG.getDefaultState().withProperty(VARIANT, BlockPlanks.EnumType.JUNGLE), Blocks.LEAVES.getDefaultState().withProperty(VARIANT, BlockPlanks.EnumType.JUNGLE));
+        WorldGenShrub genShrub = new WorldGenShrub(Blocks.LOG.getDefaultState().withProperty(VARIANT, BlockPlanks.EnumType.JUNGLE), Blocks.LEAVES.getDefaultState().withProperty(VARIANT, BlockPlanks.EnumType.JUNGLE));
         WorldGenTallGrass tallGrass = new WorldGenTallGrass(BlockTallGrass.EnumType.GRASS);
         WorldGenAztechLiquidBase genLakes = new WorldGenAztechLiquidBase(Blocks.WATER);
-        WorldGenAztechLiquidBase genLavaLakes = new WorldGenAztechLiquidBase(Blocks.LAVA);
-        WorldGenFlowers genFlowers = new WorldGenFlowers(Blocks.YELLOW_FLOWER, BlockFlower.EnumFlowerType.DANDELION);
-        WorldGenFlowers genFlowers2 = new WorldGenFlowers(Blocks.RED_FLOWER, BlockFlower.EnumFlowerType.ALLIUM);
         WorldGenCropBlotch cropBlotch = new WorldGenCropBlotch();
 
         BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos(0, 0, 0);
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 180; i++) {
             int rx = pos.getX() + rand.nextInt(16) + 8;
             int ry = 15 + rand.nextInt(60) + 4;
             int rz = pos.getZ() + rand.nextInt(16) + 8;
             mutPos.setPos(rx, ry, rz);
-            aztechOakTree.generate(worldIn, rand, mutPos);
+            genMegaJungle.generate(worldIn, rand, mutPos);
         }
-        for (int i = 0; i < 25; i++) {
+        for (int i = 0; i < 10; i++) {
             int rx = pos.getX() + rand.nextInt(16) + 8;
-            int ry = 15 + rand.nextInt(40) + 4;
+            int ry = 15 + rand.nextInt(60) + 4;
             int rz = pos.getZ() + rand.nextInt(16) + 8;
             mutPos.setPos(rx, ry, rz);
-            aztechTallOakTree.generate(worldIn, rand, mutPos);
+            genShrub.generate(worldIn, rand, mutPos);
         }
         for (int i = 0; i < 15; i++) {
             int rx = pos.getX() + rand.nextInt(16) + 8;
@@ -133,8 +123,6 @@ public class BiomeAncientForest extends Biome {
             int rz = pos.getZ() + rand.nextInt(16) + 8;
             mutPos.setPos(rx, ry, rz);
             tallGrass.generate(worldIn, rand, mutPos);
-            genFlowers.generate(worldIn, rand, mutPos);
-            genFlowers2.generate(worldIn, rand, mutPos);
         }
         for (int i = 0; i < 1; i++) {
             int rx = pos.getX() + rand.nextInt(16) + 8;
@@ -142,7 +130,6 @@ public class BiomeAncientForest extends Biome {
             int rz = pos.getZ() + rand.nextInt(16) + 8;
             mutPos.setPos(rx, ry, rz);
             genLakes.generate(worldIn, rand, mutPos);
-            genLavaLakes.generate(worldIn, rand, mutPos);
             cropBlotch.generate(worldIn, rand, mutPos);
         }
     }

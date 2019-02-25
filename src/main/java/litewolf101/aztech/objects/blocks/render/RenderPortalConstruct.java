@@ -8,6 +8,7 @@ import litewolf101.aztech.utils.handlers.EnumPortalPart;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 
 import static litewolf101.aztech.objects.blocks.PortalMultiblock.PART;
 
@@ -58,6 +59,7 @@ public class RenderPortalConstruct extends TileEntitySpecialRenderer<masterPorta
         GlStateManager.scale(0.7f + ((float) size/1000), 0.7f + ((float) size/1000), 0.7f + ((float) size/1000));
         GlStateManager.rotate(angle, 1f, 1f, 1f);
         GlStateManager.enableBlend();
+        GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         GlStateManager.color(1f, 1f, 1f, 1f - (((float) size/200)));
         GlStateManager.pushMatrix();
         modelRuneCore.renderModel(0.0625f);

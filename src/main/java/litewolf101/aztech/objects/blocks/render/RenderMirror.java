@@ -27,7 +27,7 @@ public class RenderMirror extends TileEntitySpecialRenderer<TETempleMirror>{
 
     public void renderReflector (TETempleMirror te, double x, double y, double z){
         GlStateManager.enableBlend();
-        GlStateManager.enableAlpha();
+        GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         GL11.glPushMatrix();
         GL11.glTranslatef((float)x+0.5f,(float)y+0.5f,(float)z+0.5f);
         GL11.glScalef(0.8f, 0.8f, 0.8f);
@@ -48,13 +48,12 @@ public class RenderMirror extends TileEntitySpecialRenderer<TETempleMirror>{
         modelMirror.renderModel(0.0625f);
         GL11.glPopMatrix();
         GL11.glPopMatrix();
-        GlStateManager.disableAlpha();
         GlStateManager.disableBlend();
     }
 
     public void renderIO (TETempleMirror te, double x, double y, double z) {
         GlStateManager.enableBlend();
-        GlStateManager.enableAlpha();
+        GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         GL11.glPushMatrix();
         if (te.getWorld().getBlockState(te.getPos()).getValue(AXIS) == EnumFacing.Axis.X) {
             if (te.getWorld().getBlockState(te.getPos()).getValue(INVERT_IO) == false) {
@@ -87,13 +86,12 @@ public class RenderMirror extends TileEntitySpecialRenderer<TETempleMirror>{
         modelMirror.renderModel(0.0625f);
         GL11.glPopMatrix();
         GL11.glPopMatrix();
-        GlStateManager.disableAlpha();
         GlStateManager.disableBlend();
     }
 
     public void renderIO2 (TETempleMirror te, double x, double y, double z) {
         GlStateManager.enableBlend();
-        GlStateManager.enableAlpha();
+        GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         GL11.glPushMatrix();
         if (te.getWorld().getBlockState(te.getPos()).getValue(AXIS) == EnumFacing.Axis.X) {
             if (te.getWorld().getBlockState(te.getPos()).getValue(INVERT_IO) == false) {
@@ -126,7 +124,6 @@ public class RenderMirror extends TileEntitySpecialRenderer<TETempleMirror>{
         modelMirror.renderModel(0.0625f);
         GL11.glPopMatrix();
         GL11.glPopMatrix();
-        GlStateManager.disableAlpha();
         GlStateManager.disableBlend();
     }
 }

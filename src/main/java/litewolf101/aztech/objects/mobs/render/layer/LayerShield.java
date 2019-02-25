@@ -9,6 +9,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
 
 /**
  * Created by LiteWolf101 on 11/2/2018.
@@ -27,8 +28,8 @@ public class LayerShield<T extends BossUltimateEye> implements LayerRenderer<T> 
     @Override
     public void doRenderLayer(T entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
         GlStateManager.pushMatrix();
-        GlStateManager.enableAlpha();
         GlStateManager.enableBlend();
+        GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         this.renderUltimateEye.bindTexture(texture);
         if (entitylivingbaseIn.getInvulnerable()) {
             GlStateManager.scale(1.75f, 1.75f, 1.75f);
@@ -40,7 +41,6 @@ public class LayerShield<T extends BossUltimateEye> implements LayerRenderer<T> 
             modelShield.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
         }
         GlStateManager.disableBlend();
-        GlStateManager.disableAlpha();
         GlStateManager.popMatrix();
     }
 
