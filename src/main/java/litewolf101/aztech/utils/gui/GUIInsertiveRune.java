@@ -63,9 +63,11 @@ public class GUIInsertiveRune extends GuiContainer{
         this.buttonList.clear();
         if(button.id == 0){
             this.buttonList.add(new ButtonLock(1, 265, 68));
+            System.out.println("locked");
         }
         if(button.id == 1){
             this.buttonList.add(new ButtonUnLock(0, 265, 68));
+            System.out.println("unlocked");
         }
     }
 }

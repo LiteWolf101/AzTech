@@ -9,10 +9,8 @@ import litewolf101.aztech.tileentity.TileEntityInsertiveRune;
 import litewolf101.aztech.utils.IHasModel;
 import litewolf101.aztech.utils.IMetaName;
 import litewolf101.aztech.utils.gui.GUIHandler;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockContainer;
-import net.minecraft.block.BlockFurnace;
-import net.minecraft.block.SoundType;
+import litewolf101.aztech.utils.handlers.EnumDirectional;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
@@ -24,10 +22,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.Mirror;
-import net.minecraft.util.Rotation;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
@@ -40,7 +35,7 @@ import java.util.Random;
  * Created by LiteWolf101 on 9/28/2018.
  */
 public class InsertiveRune extends BlockContainer implements IHasModel, IMetaName {
-    public static final PropertyDirection FACING = BlockFurnace.FACING;
+    public static final PropertyDirection FACING = BlockHorizontal.FACING;
     public static final PropertyBool ACTIVATED = PropertyBool.create("activated");
     public InsertiveRune(String name, Material material) {
         super(material);
@@ -64,6 +59,23 @@ public class InsertiveRune extends BlockContainer implements IHasModel, IMetaNam
     }
 
     @Override
+    public EnumBlockRenderType getRenderType(IBlockState state) {
+        return EnumBlockRenderType.MODEL;
+    }
+
+    @Override
+    @SuppressWarnings("deprecation")
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+    {
+        return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
+    }
+
+    @Override
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
+    {
+        worldIn.setBlockState(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()), 2);
+    }
+
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
     {
         this.setDefaultFacing(worldIn, pos, state);
@@ -98,19 +110,6 @@ public class InsertiveRune extends BlockContainer implements IHasModel, IMetaNam
 
             worldIn.setBlockState(pos, state.withProperty(FACING, enumfacing), 2);
         }
-    }
-
-    @Override
-    @SuppressWarnings("deprecation")
-    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
-    {
-        return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
-    }
-
-    @Override
-    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
-    {
-        worldIn.setBlockState(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()), 2);
     }
 
     @Override

@@ -54,6 +54,7 @@ public class CommonProxy {
         GameRegistry.registerTileEntity(TEPortalConstruct.class, Reference.MODID + ":te_portal_construct_basic");
         GameRegistry.registerTileEntity(masterPortalConstruct.class, Reference.MODID + ":te_master_portal_construct");
         GameRegistry.registerTileEntity(TETempleMirror.class, Reference.MODID + ":te_temple_mirror");
+        GameRegistry.registerTileEntity(TileEntityInsertiveRune.class, Reference.MODID + ":te_insertive_rune");
     }
 
     public void spawnParticle(World world, AzTechParticleTypes particle, double x, double y, double z, double velX, double velY, double velZ) {
