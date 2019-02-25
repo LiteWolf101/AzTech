@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ABA",
+    "BCB",
+    "ABA"
+  ],
+  "key": {
+    "A": {
+      "item": "aztech:temple_stone",
+      "data": 3
+    },
+    "B": {
+      "item": "aztech:red_rune_shard",
+      "data": 0
+    },
+    "C": {
+      "item": "minecraft:redstone",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "aztech:empower_rune",
+    "data": 0,
+    "count": 1
+  }
+}

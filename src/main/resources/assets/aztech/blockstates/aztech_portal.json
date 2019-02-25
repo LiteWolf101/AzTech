@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "half=bottom": {"model": "aztech:aztech_portal_bottom"},
+    "half=top": {"model": "aztech:aztech_portal_top"}
+  }
+}

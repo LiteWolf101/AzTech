@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "normal": [
+      { "model": "aztech:ancient_redstone_ore" }
+    ]
+  }
+}

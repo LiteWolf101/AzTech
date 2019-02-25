@@ -1,0 +1,87 @@
+{
+  "display": {
+    "icon": {
+      "item": "aztech:red_rune_shard"
+    },
+    "title": {
+      "translate": "advancement.aztech.mine_shard"
+    },
+    "description": {
+      "translate": "advancement.aztech.mine_shard.desc"
+    },
+    "background": "aztech:textures/blocks/temple_stone_normal.png",
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "mine_red_shard": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "aztech:red_rune_shard"
+          }
+        ]
+      }
+    },
+    "mine_yellow_shard": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "aztech:yellow_rune_shard"
+          }
+        ]
+      }
+    },
+    "mine_green_shard": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "aztech:green_rune_shard"
+          }
+        ]
+      }
+    },
+    "mine_blue_shard": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "aztech:blue_rune_shard"
+          }
+        ]
+      }
+    },
+    "mine_white_shard": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "aztech:white_rune_shard"
+          }
+        ]
+      }
+    },
+    "mine_black_shard": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "aztech:black_rune_shard"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "mine_red_shard",
+      "mine_yellow_shard",
+      "mine_green_shard",
+      "mine_blue_shard",
+      "mine_white_shard",
+      "mine_black_shard"
+    ]
+  ]
+}

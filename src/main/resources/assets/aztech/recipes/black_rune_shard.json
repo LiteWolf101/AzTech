@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "aztech:rune_block",
+      "data": 5
+    }
+  ],
+  "result": {
+    "item": "aztech:black_rune_shard",
+    "data": 0,
+    "count": 9
+  }
+}

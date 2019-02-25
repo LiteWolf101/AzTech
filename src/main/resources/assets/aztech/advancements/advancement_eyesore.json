@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "aztech:aztech_badge"
+    },
+    "title": {
+      "translate": "advancement.aztech.eyesore"
+    },
+    "frame": "goal",
+    "description": {
+      "translate": "advancement.aztech.eyesore.desc"
+    },
+    "announce_to_chat": true
+  },
+  "parent": "aztech:advancement_in_aztech",
+  "criteria": {
+    "eyesore": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "aztech:ultimate_eye"
+        }
+      }
+    }
+  }
+}

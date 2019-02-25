@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "activated=false": {"model": "aztech:detector_rune_inactive"},
+    "activated=true": {"model": "aztech:detector_rune_active"}
+  }
+}

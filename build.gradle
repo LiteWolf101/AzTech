@@ -1,0 +1,49 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven { url = "http://files.minecraftforge.net/maven" }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'net.minecraftforge.gradle.forge'
+
+version = "${project.mc_version}-${getVersion()}"
+group = "litewolf101.aztech"
+archivesBaseName = "Aztech"
+sourceCompatibility = targetCompatibility = '1.8'
+
+def getVersion() {
+    return "${project.build_major}.${build_minor}.${build_patcj}"
+}
+
+compileJava {
+    sourceCompatibility = targetCompatibility = '1.8'
+}
+
+minecraft {
+    version = "${project.mc_version}-${project.forge_version}"
+    runDir = ".minecraft"
+    mappings = project.obf_mappings
+}
+
+dependencies {
+
+}
+
+processResources {
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+        expand 'version':project.version, 'mcversion':project.minecraft.version
+    }
+        
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}

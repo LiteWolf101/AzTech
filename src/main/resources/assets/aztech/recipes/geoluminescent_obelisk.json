@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " A ",
+    "ABA",
+    "DCD"
+  ],
+  "key": {
+    "A": {
+      "item": "aztech:ancient_stone",
+      "data": 0
+    },
+    "B": {
+      "item": "aztech:white_rune_shard",
+      "data": 0
+    },
+    "C": {
+      "item": "aztech:black_rune_shard",
+      "data": 0
+    },
+    "D": {
+      "item": "aztech:temple_stone",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "aztech:geoluminescent_obelisk_item",
+    "data": 0,
+    "count": 1
+  }
+}

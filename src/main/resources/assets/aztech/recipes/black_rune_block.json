@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AAA",
+    "AAA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "aztech:black_rune_shard",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "aztech:rune_block",
+    "data": 5,
+    "count": 1
+  }
+}

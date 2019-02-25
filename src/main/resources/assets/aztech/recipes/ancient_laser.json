@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " A ",
+    " B ",
+    "CDC"
+  ],
+  "key": {
+    "A": {
+      "item": "aztech:white_rune_shard",
+      "data": 0
+    },
+    "B": {
+      "item": "minecraft:stick",
+      "data": 0
+    },
+    "C": {
+      "item": "aztech:temple_stone",
+      "data": 0
+    },
+    "D": {
+      "item": "aztech:ancient_chiseled_bricks",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "aztech:ancient_laser",
+    "data": 0,
+    "count": 1
+  }
+}

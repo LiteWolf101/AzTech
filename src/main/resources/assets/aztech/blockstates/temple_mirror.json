@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x,flipped=false,inverted_io=false": {"model": "aztech:temple_mirror"},
+    "axis=y,flipped=false,inverted_io=false": {"model": "aztech:temple_mirror"},
+    "axis=z,flipped=false,inverted_io=false": {"model": "aztech:temple_mirror"},
+    "axis=x,flipped=true,inverted_io=false": {"model": "aztech:temple_mirror"},
+    "axis=y,flipped=true,inverted_io=false": {"model": "aztech:temple_mirror"},
+    "axis=z,flipped=true,inverted_io=false": {"model": "aztech:temple_mirror"},
+    "axis=x,flipped=false,inverted_io=true": {"model": "aztech:temple_mirror"},
+    "axis=y,flipped=false,inverted_io=true": {"model": "aztech:temple_mirror"},
+    "axis=z,flipped=false,inverted_io=true": {"model": "aztech:temple_mirror"},
+    "axis=x,flipped=true,inverted_io=true": {"model": "aztech:temple_mirror"},
+    "axis=y,flipped=true,inverted_io=true": {"model": "aztech:temple_mirror"},
+    "axis=z,flipped=true,inverted_io=true": {"model": "aztech:temple_mirror"}
+  }
+}

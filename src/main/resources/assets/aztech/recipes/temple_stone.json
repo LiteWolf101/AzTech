@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AA",
+    "AA"
+  ],
+  "key": {
+    "A": {
+      "item": "aztech:ancient_rock",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "aztech:temple_stone",
+    "data": 0,
+    "count": 4
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "display": {
+    "icon": {
+      "item": "aztech:rune_block",
+      "data": 4
+    },
+    "title": {
+      "translate": "advancement.aztech.craft_all_shard_blocks"
+    },
+    "description": {
+      "translate": "advancement.aztech.craft_all_shard_blocks.desc"
+    },
+    "announce_to_chat": true
+  },
+  "parent": "aztech:advancement_fractured",
+  "criteria": {
+    "red_shard_block": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "aztech:rune_block",
+            "data": 0
+          }
+        ]
+      }
+    },
+    "yellow_shard_block": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "aztech:rune_block",
+            "data": 1
+          }
+        ]
+      }
+    },
+    "green_shard_block": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "aztech:rune_block",
+            "data": 2
+          }
+        ]
+      }
+    },
+    "blue_shard_block": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "aztech:rune_block",
+            "data": 3
+          }
+        ]
+      }
+    },
+    "white_shard_block": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "aztech:rune_block",
+            "data": 4
+          }
+        ]
+      }
+    },
+    "black_shard_block": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "aztech:rune_block",
+            "data": 5
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    ["red_shard_block"],
+    ["yellow_shard_block"],
+    ["green_shard_block"],
+    ["blue_shard_block"],
+    ["white_shard_block"],
+    ["black_shard_block"]
+  ]
+}

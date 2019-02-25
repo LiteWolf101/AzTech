@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AAA",
+    "ABA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "aztech:temple_stone",
+      "data": 0
+    },
+    "B": {
+      "item": "aztech:green_rune_shard",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "aztech:door_rune",
+    "data": 0,
+    "count": 8
+  }
+}

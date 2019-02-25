@@ -1,8 +1,0 @@
-{
-  "variants": {
-    "facing=north": { "model": "aztech:insertive_rune" },
-    "facing=east": { "model": "aztech:insertive_rune", "y": 90 },
-    "facing=south": { "model": "aztech:insertive_rune", "y": 180 },
-    "facing=west": { "model": "aztech:insertive_rune", "y": 270 }
-  }
-}

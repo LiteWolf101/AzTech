@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "activated=false,facing=north": { "model": "aztech:insertive_rune" },
+    "activated=false,facing=east": { "model": "aztech:insertive_rune", "y": 90 },
+    "activated=false,facing=south": { "model": "aztech:insertive_rune", "y": 180 },
+    "activated=false,facing=west": { "model": "aztech:insertive_rune", "y": 270 },
+    "activated=true,facing=north": { "model": "aztech:insertive_rune" },
+    "activated=true,facing=east": { "model": "aztech:insertive_rune", "y": 90 },
+    "activated=true,facing=south": { "model": "aztech:insertive_rune", "y": 180 },
+    "activated=true,facing=west": { "model": "aztech:insertive_rune", "y": 270 }
+  }
+}

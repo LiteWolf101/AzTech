@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "aztech:items/green_rune_chestplate"
+  }
+}
