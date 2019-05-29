@@ -1,43 +1,36 @@
 package litewolf101.aztech.tileentity;
 
+import litewolf101.aztech.init.BlocksInit;
+import litewolf101.aztech.objects.blocks.InsertiveRune;
+import net.minecraft.block.BlockHorizontal;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ItemStackHelper;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTPrimitive;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraftforge.common.util.Constants;
+import net.minecraft.util.text.TextFormatting;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Arrays;
+
+import static litewolf101.aztech.objects.blocks.InsertiveRune.ACTIVATED;
 
 /**
  * Created by LiteWolf101 on Feb
  * /15/2019
  */
-public class TileEntityInsertiveRune extends TileEntity implements IInventory {
+public class TileEntityInsertiveRune extends TileEntity implements IInventory, ITickable {
     private NonNullList<ItemStack> inventory = NonNullList.<ItemStack>withSize(2, ItemStack.EMPTY);
-    @Override
-    public void readFromNBT(NBTTagCompound compound) {
-        super.readFromNBT(compound);
-        this.inventory = NonNullList.<ItemStack>withSize(this.getSizeInventory(), ItemStack.EMPTY);
-        ItemStackHelper.loadAllItems(compound, inventory);
-    }
-
-    @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        super.writeToNBT(compound);
-        ItemStackHelper.saveAllItems(compound, inventory);
-        return compound;
-    }
+    public boolean locked;
 
     @Override
     public int getSizeInventory() {
@@ -87,7 +80,10 @@ public class TileEntityInsertiveRune extends TileEntity implements IInventory {
 
     @Override
     public boolean isUsableByPlayer(EntityPlayer player) {
-        return player.getDistanceSq(this.pos.add(0.5, 0.5, 0.5)) <= 64;
+        if (player.isSpectator()) {
+            player.sendMessage(new TextComponentString(TextFormatting.RED + "Cannot open gui in spectator mode!"));
+        }
+        return player.getDistanceSq(this.pos.add(0.5, 0.5, 0.5)) <= 64 && !player.isSpectator();
     }
 
     @Override
@@ -102,6 +98,11 @@ public class TileEntityInsertiveRune extends TileEntity implements IInventory {
 
     @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
+        if (locked) {
+            if (index == 1) {
+                return false;
+            }
+        }
         return true;
     }
 
@@ -141,61 +142,51 @@ public class TileEntityInsertiveRune extends TileEntity implements IInventory {
         return new TextComponentString(this.getName());
     }
 
-    @Nonnull
-    public static ItemStack decrStackSize(IInventory inv, int slot, int size) {
-        ItemStack item = inv.getStackInSlot(slot);
+    @Override
+    public void update() {
+        IBlockState iblockstate = world.getBlockState(pos);
+        boolean flag1 = false;
+        Item item0 = this.getStackInSlot(0).getItem();
+        Item item1 = this.getStackInSlot(1).getItem();
 
-        if (!item.isEmpty()) {
-            if (item.getCount() <= size) {
-                inv.setInventorySlotContents(slot, ItemStack.EMPTY);
-                inv.markDirty();
-                return item;
-            }
-            ItemStack itemstack1 = item.splitStack(size);
-            if (item.getCount() == 0) {
-                inv.setInventorySlotContents(slot, ItemStack.EMPTY);
+        if (this.getStackInSlot(0) != ItemStack.EMPTY) {
+            if (item0 != Items.AIR && item0 == item1) {
+                flag1 = true;
+                if (iblockstate == BlocksInit.INSERTIVE_RUNE.getDefaultState().withProperty(BlockHorizontal.FACING, iblockstate.getValue(BlockHorizontal.FACING)).withProperty(ACTIVATED, false)) {
+                    InsertiveRune.setState(true, this.world, this.pos);
+                }
             } else {
-                inv.setInventorySlotContents(slot, item);
+                if (iblockstate == BlocksInit.INSERTIVE_RUNE.getDefaultState().withProperty(BlockHorizontal.FACING, iblockstate.getValue(BlockHorizontal.FACING)).withProperty(ACTIVATED, true)) {
+                    InsertiveRune.setState(false, this.world, this.pos);
+                }
             }
-
-            inv.markDirty();
-            return itemstack1;
-        }
-        return ItemStack.EMPTY;
-    }
-
-    public static ItemStack removeStackFromSlot(IInventory inv, int slot) {
-        ItemStack stack = inv.getStackInSlot(slot);
-        inv.setInventorySlotContents(slot, ItemStack.EMPTY);
-        return stack;
-    }
-
-    public static NBTTagList writeItemStacksToTag(ItemStack[] items, int maxQuantity) {
-        NBTTagList tagList = new NBTTagList();
-        for (int i = 0; i < items.length; i++) {
-            NBTTagCompound tag = new NBTTagCompound();
-            tag.setShort("Slot", (short) i);
-            items[i].writeToNBT(tag);
-
-            if (maxQuantity > Short.MAX_VALUE) {
-                tag.setInteger("Quantity", items[i].getCount());
-            } else if (maxQuantity > Byte.MAX_VALUE) {
-                tag.setShort("Quantity", (short) items[i].getCount());
-            }
-
-            tagList.appendTag(tag);
-        }
-        return tagList;
-    }
-
-    public static void readItemStacksFromTag(ItemStack[] items, NBTTagList tagList) {
-        for (int i = 0; i < tagList.tagCount(); i++) {
-            NBTTagCompound tag = tagList.getCompoundTagAt(i);
-            int b = tag.getShort("Slot");
-            items[b] = new ItemStack(tag);
-            if (tag.hasKey("Quantity")) {
-                items[b].setCount(((NBTPrimitive) tag.getTag("Quantity")).getInt());
+            if (flag1){
+                this.markDirty();
             }
         }
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound compound) {
+        super.readFromNBT(compound);
+        this.inventory = NonNullList.<ItemStack>withSize(this.getSizeInventory(), ItemStack.EMPTY);
+        this.locked = compound.getBoolean("Locked");
+        ItemStackHelper.loadAllItems(compound, inventory);
+    }
+
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+        super.writeToNBT(compound);
+        ItemStackHelper.saveAllItems(compound, inventory);
+        compound.setBoolean("Locked", isLocked());
+        return compound;
+    }
+
+    public boolean isLocked() {
+        return this.locked;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
     }
 }

@@ -1,10 +1,7 @@
 package litewolf101.aztech.tileentity;
 
 import litewolf101.aztech.init.BlocksInit;
-import litewolf101.aztech.objects.blocks.TempleMirror;
-import litewolf101.aztech.utils.handlers.EnumRuneState;
-import litewolf101.aztech.utils.handlers.EnumStage;
-import net.minecraft.block.state.IBlockState;
+import litewolf101.aztech.utils.handlers.MiscHandler;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
@@ -13,7 +10,6 @@ import net.minecraft.world.World;
 
 import static litewolf101.aztech.objects.blocks.AncientLaser.ACTIVATED;
 import static litewolf101.aztech.objects.blocks.AncientLaser.FACING;
-import static litewolf101.aztech.objects.blocks.BlockSlaughtiveRune.STAGE;
 import static litewolf101.aztech.objects.blocks.LaserBlock.AXIS;
 import static litewolf101.aztech.objects.blocks.TempleMirror.FLIPPED;
 import static litewolf101.aztech.objects.blocks.TempleMirror.INVERT_IO;
@@ -24,30 +20,26 @@ import static litewolf101.aztech.objects.blocks.TempleMirror.INVERT_IO;
 public class TEAncientLaser extends TileEntity implements ITickable {
     @Override
     public void update() {
-        IBlockState source1 = BlocksInit.R2R_TRANSLATOR.getDefaultState().withProperty(ACTIVATED, true);
-        IBlockState source2 = BlocksInit.DETECTOR_RUNE.getDefaultState().withProperty(ACTIVATED, true);
-        IBlockState source3 = BlocksInit.SLAUGHTIVE_RUNE.getDefaultState().withProperty(STAGE, EnumStage.EnumType.STAGE_6);
-
 
         EnumFacing direction = world.getBlockState(pos).getValue(FACING); //default
         Boolean activated = false; //default
-        if (world.getBlockState(pos.north()) == source1 || world.getBlockState(pos.north()) == source2 || world.getBlockState(pos.north()) == source3 || isActiveObjector(pos.north())){
+        if (MiscHandler.SOURCES.contains(world.getBlockState(pos.north())) || isActiveObjector(pos.north())){
             direction = EnumFacing.SOUTH;
             activated = true;
-        } else if (world.getBlockState(pos.east()) == source1 | world.getBlockState(pos.east()) == source2 | world.getBlockState(pos.east()) == source3 || isActiveObjector(pos.east())){
+        } else if (MiscHandler.SOURCES.contains(world.getBlockState(pos.east())) || isActiveObjector(pos.east())){
             direction = EnumFacing.WEST;
             activated = true;
-        } else if (world.getBlockState(pos.south()) == source1 | world.getBlockState(pos.south()) == source2 | world.getBlockState(pos.south()) == source3 || isActiveObjector(pos.south())){
+        } else if (MiscHandler.SOURCES.contains(world.getBlockState(pos.south())) || isActiveObjector(pos.south())){
             direction = EnumFacing.NORTH;
             activated = true;
-        } else if (world.getBlockState(pos.west()) == source1 | world.getBlockState(pos.west()) == source2 | world.getBlockState(pos.west()) == source3 || isActiveObjector(pos.west())){
+        } else if (MiscHandler.SOURCES.contains(world.getBlockState(pos.west())) || isActiveObjector(pos.west())){
             direction = EnumFacing.EAST;
             activated = true;
-        } else if (world.getBlockState(pos.down()) == source1 | world.getBlockState(pos.down()) == source2 | world.getBlockState(pos.down()) == source3 || isActiveObjector(pos.up())){
-            direction = EnumFacing.UP;
-            activated = true;
-        } else if (world.getBlockState(pos.up()) == source1 | world.getBlockState(pos.up()) == source2 | world.getBlockState(pos.up()) == source3 || isActiveObjector(pos.down())){
+        } else if (MiscHandler.SOURCES.contains(world.getBlockState(pos.up())) || isActiveObjector(pos.up())){
             direction = EnumFacing.DOWN;
+            activated = true;
+        } else if (MiscHandler.SOURCES.contains(world.getBlockState(pos.down())) || isActiveObjector(pos.down())){
+            direction = EnumFacing.UP;
             activated = true;
         }
         world.setBlockState(pos, BlocksInit.ANCIENT_LASER.getDefaultState().withProperty(ACTIVATED, activated).withProperty(FACING, direction));

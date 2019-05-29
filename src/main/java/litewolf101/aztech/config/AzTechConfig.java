@@ -1,46 +1,50 @@
 package litewolf101.aztech.config;
 
-import litewolf101.aztech.utils.Reference;
-import net.minecraftforge.common.config.Config;
+import litewolf101.aztech.proxy.CommonProxy;
+import net.minecraftforge.common.config.Configuration;
 
 /**
  * Created by LiteWolf101 on Jan
  * /15/2019
  */
-@Config(modid = Reference.MODID, name = "aztech_config", type = Config.Type.INSTANCE)
 public class AzTechConfig {
-    @Config.LangKey("config.toggle_fog")
-    @Config.RequiresMcRestart
-    @Config.Comment("Set to true to enable fog in the AzTech dimension")
-    public static boolean toogle_dimension_fog = false;
+    public static final String CATEGORY_GENERAL = "general";
+    public static final String CATEGORY_DIMENSION = "dimension";
 
-    @Config.LangKey("config.dim_id")
-    @Config.RequiresMcRestart
-    @Config.Comment("Dimension ID")
-    public static int dimension_ID = 17;
+    public static int dimension_ID;
+    public static boolean toogle_dimension_fog;
+    public static int overworld_ore_frequency;
+    public static int aztech_ore_frequency;
+    public static int hut_frequency;
+    public static int basic_dungeon_frequency;
+    public static int portal_frequency;
 
-    @Config.LangKey("config.overworld_ore_freq")
-    @Config.RequiresWorldRestart
-    @Config.Comment("How often AzTech ores spawn in the overworld (Higher number=lower chance)")
-    public static int overworld_ore_frequency = 20;
+    public static void readConfig() {
+        Configuration cfg = CommonProxy.getConfig();
+        try {
+            cfg.load();
+            initGeneralConfig(cfg);
+            initDimensionConfig(cfg);
+        } catch (Exception e1) {
+            System.out.println("Error loading config!" + e1);
+        } finally {
+            if (cfg.hasChanged()) {
+                cfg.save();
+            }
+        }
+    }
 
-    @Config.LangKey("config.aztech_ore_freq")
-    @Config.RequiresWorldRestart
-    @Config.Comment("How often AzTech ores spawn in the AzTech dimension (Higher number=lower chance)")
-    public static int aztech_ore_frequency = 13;
+    private static void initGeneralConfig(Configuration cfg) {
+        cfg.addCustomCategoryComment(CATEGORY_GENERAL, "General configuration");
+        dimension_ID = cfg.getInt("AzTech Dimension ID", CATEGORY_GENERAL, 17, 2, 9001, "The dimension ID number for the AzTech dimension");
+        toogle_dimension_fog = cfg.getBoolean("Toggle Dimension Fog", CATEGORY_GENERAL, false, "Set to true to enable fog in the AzTech dimension");
+    }
 
-    @Config.LangKey("config.aztech_portal_freq")
-    @Config.RequiresWorldRestart
-    @Config.Comment("How often AzTech portals spawn in the overworld (Higher number=lower chance)")
-    public static int portal_frequency = 500;
-
-    @Config.LangKey("config.aztech_hut_freq")
-    @Config.RequiresWorldRestart
-    @Config.Comment("How often huts spawn in the AzTech dimension (Higher number=lower chance)")
-    public static int hut_frequency = 150;
-
-    @Config.LangKey("config.aztech_basic_dungeon_freq")
-    @Config.RequiresWorldRestart
-    @Config.Comment("How often basic dungeons spawn in the AzTech dimension (Higher number=lower chance)")
-    public static int basic_dungeon_frequency = 50;
+    private static void initDimensionConfig(Configuration cfg) {
+        overworld_ore_frequency = cfg.getInt("Overworld Ore Frequency", CATEGORY_DIMENSION, 20, 1, 9001, "How frequent AzTech ores spawn in the overworld. Lower number = higher chance");
+        aztech_ore_frequency = cfg.getInt("AzTech Ore Frequency", CATEGORY_DIMENSION, 13, 1, 9001, "How frequent ores spawn in the AzTech dimension. Lower number = higher chance");
+        hut_frequency = cfg.getInt("Hut Frequency", CATEGORY_DIMENSION, 150, 1, 9001, "How frequent huts spawn in the AzTech dimension. Lower number = higher chance");
+        basic_dungeon_frequency = cfg.getInt("Basic Dungeon Frequency", CATEGORY_DIMENSION, 50, 1, 9001, "How frequent basic dungeons spawn in the AzTech dimension. Lower number = higher chance");
+        portal_frequency = cfg.getInt("Portal Frequency", CATEGORY_DIMENSION, 500, 1, 9001, "How AzTech portals spawn in the overworld and AzTech dimension. Lower number = higher chance");
+    }
 }

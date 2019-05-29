@@ -1,6 +1,7 @@
 package litewolf101.aztech.world.biome;
 
 import litewolf101.aztech.init.BlocksInit;
+import litewolf101.aztech.objects.mobs.MobAncientSquid;
 import litewolf101.aztech.world.worldgen.AztechBiomeDecor;
 import litewolf101.aztech.world.worldgen.feature.*;
 import litewolf101.aztech.world.worldgen.trees.WorldGenAztechOakTree;
@@ -57,7 +58,7 @@ public class BiomeMurkySwamp extends Biome{
         spawnableCreatureList.add(new SpawnListEntry(EntityCow.class, 6, 2, 2));
 
         spawnableWaterCreatureList.clear();
-        spawnableWaterCreatureList.add(new SpawnListEntry(EntitySquid.class, 10, 2, 5));
+        spawnableWaterCreatureList.add(new SpawnListEntry(MobAncientSquid.class, 10, 2, 5));
 
         spawnableCaveCreatureList.clear();
     }

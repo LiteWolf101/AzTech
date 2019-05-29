@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "activated=false,facing=north": {"model": "aztech:red_rl_straight_north_inactive"},
+    "activated=false,facing=east": {"model": "aztech:red_rl_straight_east_inactive"},
+    "activated=false,facing=south": {"model": "aztech:red_rl_straight_south_inactive"},
+    "activated=false,facing=west": {"model": "aztech:red_rl_straight_west_inactive"},
+    "activated=true,facing=north": {"model": "aztech:red_rl_straight_north_active"},
+    "activated=true,facing=east": {"model": "aztech:red_rl_straight_east_active"},
+    "activated=true,facing=south": {"model": "aztech:red_rl_straight_south_active"},
+    "activated=true,facing=west": {"model": "aztech:red_rl_straight_west_active"}
+  }
+}

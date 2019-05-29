@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "aztech:blocks/red_rl_west_leftturn_on",
+    "down": "aztech:blocks/temple_stone_normal",
+    "up": "aztech:blocks/red_rl_west_leftturn_on",
+    "north": "aztech:blocks/temple_stone_normal",
+    "east": "aztech:blocks/temple_stone_normal",
+    "south": "aztech:blocks/temple_stone_normal",
+    "west": "aztech:blocks/temple_stone_normal"
+  }
+}

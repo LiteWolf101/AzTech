@@ -1,6 +1,7 @@
 package litewolf101.aztech.world.biome;
 
 import litewolf101.aztech.init.BlocksInit;
+import litewolf101.aztech.objects.mobs.MobAncientSquid;
 import litewolf101.aztech.world.worldgen.AztechBiomeDecor;
 import litewolf101.aztech.world.worldgen.feature.WorldGenAztechLiquidBase;
 import litewolf101.aztech.world.worldgen.feature.WorldGenCropBlotch;
@@ -11,10 +12,11 @@ import net.minecraft.block.BlockSand;
 import net.minecraft.block.BlockTallGrass;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.entity.monster.EntityHusk;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.passive.EntitySheep;
+import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -46,9 +48,10 @@ public class BiomeAncientForest extends Biome {
         spawnableCaveCreatureList.clear();
 
         spawnableWaterCreatureList.clear();
+        this.spawnableWaterCreatureList.add(new Biome.SpawnListEntry(MobAncientSquid.class, 10, 4, 4));
 
         spawnableMonsterList.clear();
-        spawnableMonsterList.add(new SpawnListEntry(EntityZombie.class, 7, 1, 1));
+        spawnableMonsterList.add(new SpawnListEntry(EntityHusk.class, 7, 1, 1));
 
         spawnableCreatureList.clear();
         spawnableCreatureList.add(new SpawnListEntry(EntityPig.class, 3, 1, 1));

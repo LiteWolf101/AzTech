@@ -36,7 +36,6 @@ public class BlocksInit {
     public static final Block INSERTIVE_RUNE = new InsertiveRune("insertive_rune", Material.ROCK);
     public static final Block KEYHOLE_RUNE = new KeyholeRune("keyhole_rune", Material.ROCK);
     public static final Block DOOR_RUNE = new DoorRune("door_rune", Material.ROCK);
-    public static final Block RUNE_LINE = new RuneLine("rune_line", Material.CIRCUITS);
     public static final Block R2R_TRANSLATOR = new R2RTranslator("r_to_r_translator", Material.ROCK);
     public static final Block RUNE_BLOCK = new RuneBlock("rune_block", Material.ROCK);
     public static final Block TEMPLE_RUNE_BLOCK = new TempleRuneBlock("temple_rune_block", Material.ROCK);
@@ -63,4 +62,11 @@ public class BlocksInit {
     public static final Block GEOLUMINESCENT_OBELISK = new GeoluminescentObelisk("geoluminescent_obelisk", Material.ROCK);
     public static final Block AZTECH_PORTAL = new AzTechPortal("aztech_portal", Material.PORTAL);
     public static final Block PORTAL_CONSTRUCT = new PortalMultiblock("portal_multiblock", Material.PORTAL);
+    public static final Block ANCIENT_ENERGY_PILLAR = new AncientEnergyPillar("ancient_energy_pillar", Material.ROCK);
+
+    //rune lines. There's a lot of em
+    public static final Block RED_RUNE_LINE_DOT = new RedRuneLine("red_rune_line");
+    public static final Block RED_RUNE_LINE_STRAIGHT = new RedRuneLineStraight("red_rune_line_straight");
+    public static final Block RED_RUNE_LINE_LEFT_TURN = new RedRuneLineLeftTurn("red_rune_line_left_turn");
+    public static final Block RED_RUNE_LINE_RIGHT_TURN = new RedRuneLineRightTurn("red_rune_line_right_turn");
 }

@@ -4,13 +4,14 @@ import litewolf101.aztech.AzTech;
 import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.init.ItemsInit;
 import litewolf101.aztech.objects.blocks.item.ItemBlockVariants;
-import litewolf101.aztech.tileentity.TEAncientLaser;
 import litewolf101.aztech.tileentity.TileEntityInsertiveRune;
 import litewolf101.aztech.utils.IHasModel;
 import litewolf101.aztech.utils.IMetaName;
 import litewolf101.aztech.utils.gui.GUIHandler;
-import litewolf101.aztech.utils.handlers.EnumDirectional;
-import net.minecraft.block.*;
+import litewolf101.aztech.utils.handlers.MiscHandler;
+import net.minecraft.block.BlockContainer;
+import net.minecraft.block.BlockHorizontal;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
@@ -19,14 +20,16 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import net.minecraftforge.common.config.Config;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -40,6 +43,8 @@ import java.util.Random;
 public class InsertiveRune extends BlockContainer implements IHasModel, IMetaName {
     public static final PropertyDirection FACING = BlockHorizontal.FACING;
     public static final PropertyBool ACTIVATED = PropertyBool.create("activated");
+    private static boolean keepInventory;
+
     public InsertiveRune(String name, Material material) {
         super(material);
         setUnlocalizedName(name);
@@ -53,6 +58,10 @@ public class InsertiveRune extends BlockContainer implements IHasModel, IMetaNam
 
         BlocksInit.BLOCKS.add(this);
         ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));
+        MiscHandler.SOURCES.add(getDefaultState().withProperty(FACING, EnumFacing.NORTH).withProperty(ACTIVATED, true));
+        MiscHandler.SOURCES.add(getDefaultState().withProperty(FACING, EnumFacing.EAST).withProperty(ACTIVATED, true));
+        MiscHandler.SOURCES.add(getDefaultState().withProperty(FACING, EnumFacing.SOUTH).withProperty(ACTIVATED, true));
+        MiscHandler.SOURCES.add(getDefaultState().withProperty(FACING, EnumFacing.WEST).withProperty(ACTIVATED, true));
     }
 
     @Override
@@ -168,7 +177,13 @@ public class InsertiveRune extends BlockContainer implements IHasModel, IMetaNam
         if (!worldIn.isRemote) {
             if (playerIn.getHeldItemMainhand() == ItemStack.EMPTY) {
                 playerIn.openGui(AzTech.instance, GUIHandler.BLOCK_INSERTIVE_RUNE, worldIn, pos.getX(), pos.getY(), pos.getZ());
+            } else if (playerIn.isSpectator()) {
+                playerIn.sendMessage(new TextComponentString(TextFormatting.RED + "Cannot open gui in spectator mode!"));
             }
+        }
+        TileEntity tileentity = worldIn.getTileEntity(pos);
+        if (tileentity instanceof TileEntityInsertiveRune) {
+            System.out.println("Tile Entity State:" + ((TileEntityInsertiveRune) tileentity).isLocked());
         }
         return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
     }
@@ -192,5 +207,47 @@ public class InsertiveRune extends BlockContainer implements IHasModel, IMetaNam
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, new IProperty[] {FACING, ACTIVATED});
+    }
+
+    public static void setState(boolean active, World worldIn, BlockPos pos)
+    {
+        IBlockState iblockstate = worldIn.getBlockState(pos);
+        TileEntity tileentity = worldIn.getTileEntity(pos);
+        keepInventory = true;
+
+        if (active)
+        {
+            worldIn.setBlockState(pos, BlocksInit.INSERTIVE_RUNE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)).withProperty(ACTIVATED, true), 3);
+            worldIn.setBlockState(pos, BlocksInit.INSERTIVE_RUNE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)).withProperty(ACTIVATED, true), 3);
+        }
+        else
+        {
+            worldIn.setBlockState(pos, BlocksInit.INSERTIVE_RUNE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)).withProperty(ACTIVATED, false), 3);
+            worldIn.setBlockState(pos, BlocksInit.INSERTIVE_RUNE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)).withProperty(ACTIVATED, false), 3);
+        }
+
+        keepInventory = false;
+
+        if (tileentity != null)
+        {
+            tileentity.validate();
+            worldIn.setTileEntity(pos, tileentity);
+        }
+    }
+
+    @Override
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
+    {
+        if (!keepInventory)
+        {
+            TileEntity tileentity = worldIn.getTileEntity(pos);
+
+            if (tileentity instanceof TileEntityInsertiveRune)
+            {
+                InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), ((TileEntityInsertiveRune) tileentity).getStackInSlot(0));
+            }
+        }
+
+        super.breakBlock(worldIn, pos, state);
     }
 }

@@ -6,6 +6,8 @@ import litewolf101.aztech.init.ItemsInit;
 import litewolf101.aztech.objects.blocks.item.ItemBlockVariants;
 import litewolf101.aztech.utils.IHasModel;
 import litewolf101.aztech.utils.IMetaName;
+import litewolf101.aztech.utils.IRunePowerSource;
+import litewolf101.aztech.utils.handlers.MiscHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -18,6 +20,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -28,8 +31,9 @@ import java.util.Random;
 /**
  * Created by LiteWolf101 on 9/28/2018.
  */
-public class R2RTranslator extends Block implements IHasModel, IMetaName{
+public class R2RTranslator extends Block implements IHasModel, IMetaName, IRunePowerSource {
     public static final PropertyBool ACTIVATED = PropertyBool.create("activated");
+
     public R2RTranslator(String name, Material material) {
         super(material);
         setUnlocalizedName(name);
@@ -42,6 +46,7 @@ public class R2RTranslator extends Block implements IHasModel, IMetaName{
 
         BlocksInit.BLOCKS.add(this);
         ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));
+        MiscHandler.SOURCES.add(getDefaultState().withProperty(ACTIVATED, true));
     }
 
     @Override
@@ -52,14 +57,10 @@ public class R2RTranslator extends Block implements IHasModel, IMetaName{
     @Override
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
         worldIn.scheduleUpdate(pos, this, 5);
-        if (!worldIn.isRemote)
-        {
-            if (!worldIn.isBlockPowered(pos))
-            {
+        if (!worldIn.isRemote) {
+            if (!worldIn.isBlockPowered(pos)) {
                 worldIn.setBlockState(pos, BlocksInit.R2R_TRANSLATOR.getDefaultState().withProperty(ACTIVATED, false), 3);
-            }
-            else if (worldIn.isBlockPowered(pos))
-            {
+            } else if (worldIn.isBlockPowered(pos)) {
                 worldIn.setBlockState(pos, BlocksInit.R2R_TRANSLATOR.getDefaultState().withProperty(ACTIVATED, true), 3);
             }
         }
@@ -68,19 +69,14 @@ public class R2RTranslator extends Block implements IHasModel, IMetaName{
     @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         worldIn.scheduleUpdate(pos, this, 5);
-        if (!worldIn.isRemote)
-        {
-            if (!worldIn.isBlockPowered(pos))
-            {
+        if (!worldIn.isRemote) {
+            if (!worldIn.isBlockPowered(pos)) {
                 worldIn.setBlockState(pos, BlocksInit.R2R_TRANSLATOR.getDefaultState().withProperty(ACTIVATED, false), 3);
-            }
-            else if (worldIn.isBlockPowered(pos))
-            {
+            } else if (worldIn.isBlockPowered(pos)) {
                 worldIn.setBlockState(pos, BlocksInit.R2R_TRANSLATOR.getDefaultState().withProperty(ACTIVATED, true), 3);
             }
         }
     }
-
 
 
     @Override
@@ -120,7 +116,7 @@ public class R2RTranslator extends Block implements IHasModel, IMetaName{
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[] {ACTIVATED});
+        return new BlockStateContainer(this, new IProperty[]{ACTIVATED});
     }
 
     @Override
@@ -131,7 +127,7 @@ public class R2RTranslator extends Block implements IHasModel, IMetaName{
     @Override
     public String getSpecialName(ItemStack stack) {
         String name = null;
-        switch (stack.getItemDamage()){
+        switch (stack.getItemDamage()) {
             case 1:
                 name = "on";
 
@@ -140,5 +136,10 @@ public class R2RTranslator extends Block implements IHasModel, IMetaName{
                 name = "off";
         }
         return name;
+    }
+
+    @Override
+    public IBlockState isRunePowerSourceAt(World world, IBlockState state, EnumFacing facing, BlockPos pos) {
+        return getDefaultState().withProperty(ACTIVATED, true);
     }
 }

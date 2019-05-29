@@ -8,6 +8,7 @@ import litewolf101.aztech.utils.handlers.EnumPortalPart;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 import org.lwjgl.opengl.GL11;
 
 import static litewolf101.aztech.objects.blocks.PortalMultiblock.PART;
@@ -28,6 +29,12 @@ public class RenderPortalConstruct extends TileEntitySpecialRenderer<masterPorta
         }
         long angle = (System.currentTimeMillis() / 20) % 360;
         long size = ((System.currentTimeMillis() / 3)% 300);
+        long color = ((System.currentTimeMillis() / 100) % 100);
+        float color1 = ((float) color) / 100;
+        float pi = (float) Math.PI;
+        float colorR = 0.5f * MathHelper.cos(color1 * (2 * pi) - (pi / 2)) + 0.5f;
+        float colorG = 0.5f * MathHelper.sin(color1 * (2 * pi) - (pi / 2)) + 0.5f;
+        float colorB = 0.5f * MathHelper.sin(color1 * (2 * pi) - (pi)) + 0.5f;
 
         GlStateManager.pushMatrix();
         GlStateManager.enableRescaleNormal();
@@ -46,6 +53,7 @@ public class RenderPortalConstruct extends TileEntitySpecialRenderer<masterPorta
         bindTexture(this.textureCore);
         GlStateManager.scale(0.7f, 0.7f, 0.7f);
         GlStateManager.rotate(angle, 1f, 1f, 1f);
+        GlStateManager.color(colorR, colorG, colorB);
         GlStateManager.pushMatrix();
         modelRuneCore.renderModel(0.0625f);
         GlStateManager.popMatrix();
@@ -60,7 +68,7 @@ public class RenderPortalConstruct extends TileEntitySpecialRenderer<masterPorta
         GlStateManager.rotate(angle, 1f, 1f, 1f);
         GlStateManager.enableBlend();
         GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        GlStateManager.color(1f, 1f, 1f, 1f - (((float) size/200)));
+        GlStateManager.color(colorR, colorG, colorB, 1f - (((float) size/200)));
         GlStateManager.pushMatrix();
         modelRuneCore.renderModel(0.0625f);
         GlStateManager.popMatrix();

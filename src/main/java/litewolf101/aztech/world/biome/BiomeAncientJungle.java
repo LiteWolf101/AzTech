@@ -1,11 +1,11 @@
 package litewolf101.aztech.world.biome;
 
 import litewolf101.aztech.init.BlocksInit;
+import litewolf101.aztech.objects.mobs.MobAncientSquid;
 import litewolf101.aztech.world.worldgen.feature.WorldGenAztechLiquidBase;
 import litewolf101.aztech.world.worldgen.feature.WorldGenCropBlotch;
+import litewolf101.aztech.world.worldgen.feature.WorldGenMelonsInAzTech;
 import litewolf101.aztech.world.worldgen.trees.WorldGenAztechOakTree;
-import litewolf101.aztech.world.worldgen.trees.WorldGenAztechOakTree2;
-import net.minecraft.block.BlockFlower;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.BlockSand;
 import net.minecraft.block.BlockTallGrass;
@@ -21,7 +21,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
-import net.minecraft.world.gen.feature.WorldGenFlowers;
 import net.minecraft.world.gen.feature.WorldGenMegaJungle;
 import net.minecraft.world.gen.feature.WorldGenShrub;
 import net.minecraft.world.gen.feature.WorldGenTallGrass;
@@ -50,7 +49,7 @@ public class BiomeAncientJungle extends Biome {
         spawnableWaterCreatureList.clear();
 
         spawnableMonsterList.clear();
-        spawnableMonsterList.add(new SpawnListEntry(EntityZombie.class, 3, 1, 1));
+        spawnableMonsterList.add(new SpawnListEntry(EntityHusk.class, 3, 1, 1));
         spawnableMonsterList.add(new SpawnListEntry(EntitySkeleton.class, 4, 1, 1));
         spawnableMonsterList.add(new SpawnListEntry(EntityWitch.class, 1, 1, 1));
         spawnableMonsterList.add(new SpawnListEntry(EntityCreeper.class, 2, 1, 1));
@@ -65,6 +64,9 @@ public class BiomeAncientJungle extends Biome {
         spawnableCreatureList.add(new SpawnListEntry(EntitySheep.class, 5, 1, 1));
         spawnableCreatureList.add(new SpawnListEntry(EntityCow.class, 6, 2, 2));
         spawnableCreatureList.add(new SpawnListEntry(EntityChicken.class, 6, 2, 2));
+
+        spawnableWaterCreatureList.clear();
+        spawnableWaterCreatureList.add(new SpawnListEntry(MobAncientSquid.class, 10, 4, 4));
     }
 
     @Override
@@ -101,16 +103,25 @@ public class BiomeAncientJungle extends Biome {
         WorldGenTallGrass tallGrass = new WorldGenTallGrass(BlockTallGrass.EnumType.GRASS);
         WorldGenAztechLiquidBase genLakes = new WorldGenAztechLiquidBase(Blocks.WATER);
         WorldGenCropBlotch cropBlotch = new WorldGenCropBlotch();
+        WorldGenAztechOakTree genAztechOakTree = new WorldGenAztechOakTree(false, 5);
+        WorldGenMelonsInAzTech genMelon = new WorldGenMelonsInAzTech();
 
         BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos(0, 0, 0);
-        for (int i = 0; i < 180; i++) {
+        for (int i = 0; i < 380; i++) {
             int rx = pos.getX() + rand.nextInt(16) + 8;
-            int ry = 15 + rand.nextInt(60) + 4;
+            int ry = 15 + rand.nextInt(100) + 4;
             int rz = pos.getZ() + rand.nextInt(16) + 8;
             mutPos.setPos(rx, ry, rz);
             genMegaJungle.generate(worldIn, rand, mutPos);
         }
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 60; i++) {
+            int rx = pos.getX() + rand.nextInt(16) + 8;
+            int ry = 15 + rand.nextInt(100) + 4;
+            int rz = pos.getZ() + rand.nextInt(16) + 8;
+            mutPos.setPos(rx, ry, rz);
+            genAztechOakTree.generate(worldIn, rand, mutPos);
+        }
+        for (int i = 0; i < 100; i++) {
             int rx = pos.getX() + rand.nextInt(16) + 8;
             int ry = 15 + rand.nextInt(60) + 4;
             int rz = pos.getZ() + rand.nextInt(16) + 8;
@@ -123,6 +134,7 @@ public class BiomeAncientJungle extends Biome {
             int rz = pos.getZ() + rand.nextInt(16) + 8;
             mutPos.setPos(rx, ry, rz);
             tallGrass.generate(worldIn, rand, mutPos);
+            genMelon.generate(worldIn, rand, mutPos);
         }
         for (int i = 0; i < 1; i++) {
             int rx = pos.getX() + rand.nextInt(16) + 8;

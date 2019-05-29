@@ -195,10 +195,5 @@ advancement.aztech.eyesore=What an Eyesore!
 advancement.aztech.eyesore.desc=Kill the §6Ultimate Eye
 
 #Configuration
-config.toggle_fog=Toggle Fog
-config.dim_id=Aztech Dimension ID
-config.overworld_ore_freq=AzTech Ore Frequency(Overworld)
-config.aztech_ore_freq=AzTech Ore Frequency(AzTech)
-config.aztech_portal_freq=AzTech Portal Frequency
-config.aztech_hut_freq=AzTech Hut Frequency
-config.aztech_basic_dungeon_freq=Basic dungeon Frequency
+aztech.category.general.name=General
+aztech.category.dimension.name=Dimension

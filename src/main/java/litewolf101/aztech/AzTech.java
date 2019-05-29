@@ -1,7 +1,6 @@
 package litewolf101.aztech;
 
 import litewolf101.aztech.commands.CommandAzTech;
-import litewolf101.aztech.config.AzTechConfig;
 import litewolf101.aztech.init.FurnaceRecipes;
 import litewolf101.aztech.init.ItemsInit;
 import litewolf101.aztech.proxy.CommonProxy;
@@ -21,7 +20,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 /**
  * Created by LiteWolf101 on 9/20/2018.
  */
-@Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION, acceptedMinecraftVersions = Reference.ACCEPTED_MINECRAFT_VERSIONS)
+@Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION, acceptedMinecraftVersions = Reference.ACCEPTED_MINECRAFT_VERSIONS, guiFactory = Reference.GUI_FACTORY)
 public class AzTech {
 
     @Mod.Instance
@@ -45,7 +44,7 @@ public class AzTech {
         proxy.registerTileEntities();
         proxy.RegisterTileEntityRender();
         GameRegistry.registerWorldGenerator(new WorldGenAzTechOres(), 3);
-
+        //AzTechConfig.preInit();
     }
 
     @Mod.EventHandler

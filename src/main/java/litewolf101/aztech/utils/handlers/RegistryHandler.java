@@ -2,6 +2,7 @@ package litewolf101.aztech.utils.handlers;
 
 import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.init.ItemsInit;
+import litewolf101.aztech.init.PotionsInit;
 import litewolf101.aztech.utils.IHasModel;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -42,5 +43,6 @@ public class RegistryHandler {
     }
 
     public static void otherRegistries(){
+        PotionsInit.registerPotions();
     }
 }

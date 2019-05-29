@@ -126,9 +126,9 @@ public class masterPortalConstruct extends TileEntity implements ITickable{
             for (EntityLivingBase entities : victims) {
                 if (entities instanceof EntityPlayerMP){
                     if (this.world.provider.getDimension() == AzTechConfig.dimension_ID ){
-                        CustomTeleporter.teleportToDimension((EntityPlayerMP) entities, 0, x, y, z + 2);
+                        CustomTeleporter.teleportToDimension((EntityPlayerMP) entities, 0, x, y, z + 2, true);
                     } else {
-                        CustomTeleporter.teleportToDimension((EntityPlayerMP) entities, AzTechConfig.dimension_ID, x, y, z + 2);
+                        CustomTeleporter.teleportToDimension((EntityPlayerMP) entities, AzTechConfig.dimension_ID, x, y, z + 2, true);
                     }
                 }
             }

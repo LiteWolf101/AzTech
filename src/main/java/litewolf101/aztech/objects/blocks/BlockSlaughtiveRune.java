@@ -7,7 +7,9 @@ import litewolf101.aztech.objects.blocks.item.ItemBlockVariants;
 import litewolf101.aztech.tileentity.*;
 import litewolf101.aztech.utils.IHasModel;
 import litewolf101.aztech.utils.IMetaName;
+import litewolf101.aztech.utils.IRunePowerSource;
 import litewolf101.aztech.utils.handlers.EnumStage;
+import litewolf101.aztech.utils.handlers.MiscHandler;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -21,6 +23,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
@@ -33,7 +36,7 @@ import java.util.Random;
 /**
  * Created by LiteWolf101 on 9/21/2018.
  */
-public class BlockSlaughtiveRune extends BlockContainer implements IHasModel, IMetaName{
+public class BlockSlaughtiveRune extends BlockContainer implements IHasModel, IMetaName, IRunePowerSource {
     public static final PropertyEnum<EnumStage.EnumType> STAGE = PropertyEnum.<EnumStage.EnumType>create("stage", EnumStage.EnumType.class);
     public BlockSlaughtiveRune(String name, Material material) {
         super(material);
@@ -49,6 +52,7 @@ public class BlockSlaughtiveRune extends BlockContainer implements IHasModel, IM
 
         BlocksInit.BLOCKS.add(this);
         ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));
+        MiscHandler.SOURCES.add(this.getDefaultState().withProperty(STAGE, EnumStage.EnumType.STAGE_6));
     }
 
     @Override
@@ -150,5 +154,10 @@ public class BlockSlaughtiveRune extends BlockContainer implements IHasModel, IM
         } else if (meta == 6){
             return new TESlaughtiveRune6();
         } else return null;
+    }
+
+    @Override
+    public IBlockState isRunePowerSourceAt(World world, IBlockState state, EnumFacing facing, BlockPos pos) {
+        return this.getDefaultState().withProperty(STAGE, EnumStage.EnumType.STAGE_6);
     }
 }

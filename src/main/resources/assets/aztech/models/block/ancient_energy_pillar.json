@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "aztech:blocks/ancient_energy_pillar",
+    "up": "aztech:blocks/temple_stone_normal",
+    "down": "aztech:blocks/temple_stone_normal",
+    "north": "aztech:blocks/ancient_energy_pillar",
+    "south": "aztech:blocks/ancient_energy_pillar",
+    "east": "aztech:blocks/ancient_energy_pillar",
+    "west": "aztech:blocks/ancient_energy_pillar"
+  }
+}

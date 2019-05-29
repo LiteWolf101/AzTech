@@ -19,7 +19,7 @@ public class ContainerInsertiveRune extends Container{
 
         //top slots
         this.addSlotToContainer(new Slot(tileEntity, 0, 44, 31));
-        this.addSlotToContainer(new Slot(tileEntity, 1, 116, 31));
+        this.addSlotToContainer(new SlotLockable(tileEntity, tileEntity, 1, 116, 31));
 
         //inventory
         for (int i = 0; i < 3; ++i)

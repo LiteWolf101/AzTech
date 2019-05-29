@@ -1,6 +1,7 @@
 package litewolf101.aztech.world.biome;
 
 import litewolf101.aztech.init.BlocksInit;
+import litewolf101.aztech.objects.mobs.MobAncientSquid;
 import litewolf101.aztech.objects.mobs.MobPyronant;
 import litewolf101.aztech.world.worldgen.feature.WorldGenAztechLiquidBase;
 import litewolf101.aztech.world.worldgen.feature.WorldGenDryMudReplaceable;
@@ -46,6 +47,7 @@ public class BiomeAridLands extends Biome {
         spawnableCaveCreatureList.clear();
 
         spawnableWaterCreatureList.clear();
+        spawnableWaterCreatureList.add(new SpawnListEntry(MobAncientSquid.class, 10, 4, 8));
     }
 
     @Override

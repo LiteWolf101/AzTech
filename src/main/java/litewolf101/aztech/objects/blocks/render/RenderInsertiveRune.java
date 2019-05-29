@@ -5,10 +5,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.item.EntityItem;
@@ -45,13 +43,13 @@ public class RenderInsertiveRune extends TileEntitySpecialRenderer<TileEntityIns
                 GlStateManager.rotate(0, 0, 1, 0);
             }
             if (state.getValue(FACING) == EnumFacing.EAST) {
-                GlStateManager.rotate(90, 0, 1, 0);
+                GlStateManager.rotate(-90, 0, 1, 0);
             }
             if (state.getValue(FACING) == EnumFacing.SOUTH) {
-                GlStateManager.rotate(180, 0, 1, 0);
+                GlStateManager.rotate(-180, 0, 1, 0);
             }
             if (state.getValue(FACING) == EnumFacing.WEST) {
-                GlStateManager.rotate(270, 0, 1, 0);
+                GlStateManager.rotate(-270, 0, 1, 0);
             }
             GlStateManager.scale(0.5,0.5,0.5);
             model = net.minecraftforge.client.ForgeHooksClient.handleCameraTransforms(model, ItemCameraTransforms.TransformType.FIXED, false);

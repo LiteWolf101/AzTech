@@ -17,3 +17,61 @@ if (world.provider.getDimensionType() == AztechDimension.aztech) {
             runGenerator(ancient_black_rune_ore, world, random, chunkX, chunkZ, 12, 5, 160);
         }
 will use in config later
+
+
+
+
+
+
+
+    //TODO Revert to old config style to adjust for new config code
+
+    /*@Config.Ignore
+    private static final String config = Reference.MODID + ".config.";
+
+    @Config.LangKey(config + "general")
+    @Config.Comment("General AzTech Utilities")
+    public static GeneralUtils general = new GeneralUtils();
+
+    public static class GeneralUtils {
+        @Config.LangKey("config.toggle_fog")
+        @Config.RequiresMcRestart
+        @Config.Comment("Set to true to enable fog in the AzTech dimension")
+        public static boolean toogle_dimension_fog = false;
+
+        @Config.LangKey("config.dim_id")
+        @Config.RequiresMcRestart
+        @Config.Comment("Dimension ID")
+        public static int dimension_ID = 17;
+    }
+
+    @Config.LangKey(config + "worldgen")
+    @Config.Comment("AzTech World Generation")
+    public static AzTechWorldGen aztechWorldGen = new AzTechWorldGen();
+
+    public static class AzTechWorldGen {
+        @Config.LangKey("config.overworld_ore_freq")
+        @Config.RequiresWorldRestart
+        @Config.Comment("How often AzTech ores spawn in the overworld (Higher number=lower chance)")
+        public static int overworld_ore_frequency = 20;
+
+        @Config.LangKey("config.aztech_ore_freq")
+        @Config.RequiresWorldRestart
+        @Config.Comment("How often AzTech ores spawn in the AzTech dimension (Higher number=lower chance)")
+        public static int aztech_ore_frequency = 13;
+
+        @Config.LangKey("config.aztech_portal_freq")
+        @Config.RequiresWorldRestart
+        @Config.Comment("How often AzTech portals spawn in the overworld (Higher number=lower chance)")
+        public static int portal_frequency = 500;
+
+        @Config.LangKey("config.aztech_hut_freq")
+        @Config.RequiresWorldRestart
+        @Config.Comment("How often huts spawn in the AzTech dimension (Higher number=lower chance)")
+        public static int hut_frequency = 150;
+
+        @Config.LangKey("config.aztech_basic_dungeon_freq")
+        @Config.RequiresWorldRestart
+        @Config.Comment("How often basic dungeons spawn in the AzTech dimension (Higher number=lower chance)")
+        public static int basic_dungeon_frequency = 50;
+    }*/

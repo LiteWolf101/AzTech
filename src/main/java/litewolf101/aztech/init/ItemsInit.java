@@ -8,6 +8,7 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.EnumHelper;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class ItemsInit {
     public static final Item.ToolMaterial TOOL_RUNE = EnumHelper.addToolMaterial("tool_rune", 2, 657, 2.3f, 1.7f, 13);
 
     //materials armor
-    public static final ItemArmor.ArmorMaterial ARMOUR_RED_RUNE = EnumHelper.addArmorMaterial("armour_red_rune", Reference.MODID + ":red_rune", 20, new int[]{3, 6, 7, 3}, 11, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 1.7f);
+    public static final ItemArmor.ArmorMaterial ARMOUR_RED_RUNE = EnumHelper.addArmorMaterial("armour_red_rune", Reference.MODID + ":red_rune", 20, new int[]{3, 6, 7, 3}, 11, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 1.7f).setRepairItem(new ItemStack(ItemsInit.RED_RUNE_SHARD));
     public static final ItemArmor.ArmorMaterial ARMOUR_YELLOW_RUNE = EnumHelper.addArmorMaterial("armour_yellow_rune", Reference.MODID + ":yellow_rune", 20, new int[]{3, 6, 7, 3}, 11, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 1.7f);
     public static final ItemArmor.ArmorMaterial ARMOUR_GREEN_RUNE = EnumHelper.addArmorMaterial("armour_green_rune", Reference.MODID + ":green_rune", 20, new int[]{3, 6, 7, 3}, 11, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 1.7f);
     public static final ItemArmor.ArmorMaterial ARMOUR_BLUE_RUNE = EnumHelper.addArmorMaterial("armour_blue_rune", Reference.MODID + ":blue_rune", 20, new int[]{3, 6, 7, 3}, 11, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 1.7f);

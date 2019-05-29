@@ -8,7 +8,6 @@ import litewolf101.aztech.world.biome.AztechBiomes;
 import litewolf101.aztech.world.worldgen.ores.WorldGenAzTechOres;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
@@ -59,12 +58,7 @@ public class WorldGenCustomStructures implements IWorldGenerator {
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
         switch (world.provider.getDimension()){
             case 0:
-                generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, AzTechConfig.portal_frequency, Blocks.GRASS, Biomes.FOREST.getBiomeClass());
-                generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, AzTechConfig.portal_frequency, Blocks.GRASS, Biomes.ICE_PLAINS.getBiomeClass());
-                generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, AzTechConfig.portal_frequency, Blocks.GRASS, Biomes.TAIGA.getBiomeClass());
-                generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, AzTechConfig.portal_frequency, Blocks.GRASS, Biomes.PLAINS.getBiomeClass());
-                generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, AzTechConfig.portal_frequency, Blocks.GRASS, Biomes.SAVANNA.getBiomeClass());
-                generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, AzTechConfig.portal_frequency, Blocks.GRASS, Biomes.DESERT.getBiomeClass());
+                generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, AzTechConfig.portal_frequency);
                 break;
             case 1:
                 break;
@@ -72,10 +66,7 @@ public class WorldGenCustomStructures implements IWorldGenerator {
                 break;
         }
         if (world.provider.getDimensionType() == AztechDimension.aztech) {
-            generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, AzTechConfig.portal_frequency, BlocksInit.ANCIENT_GRASS, AztechBiomes.biomeAncientForest.getBiomeClass());
-            generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, AzTechConfig.portal_frequency, Blocks.GRASS, AztechBiomes.biomeAncientOcean.getBiomeClass());
-            generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, AzTechConfig.portal_frequency, Blocks.SAND, AztechBiomes.biomeAridLands.getBiomeClass());
-            generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, AzTechConfig.portal_frequency, Blocks.GRASS, AztechBiomes.biomeMurkySwamp.getBiomeClass());
+            generateStructure(AZTECH_PORTAL, world, random, chunkX, chunkZ, AzTechConfig.portal_frequency);
             generateHut(HUT, world, random, chunkX, chunkZ, AzTechConfig.hut_frequency, Blocks.GRASS, AztechBiomes.biomeMurkySwamp.getBiomeClass());
             generateBasicDungeon(BASIC_DUNGEON_ENTRANCE, world, random, chunkX, chunkZ, AzTechConfig.basic_dungeon_frequency, Blocks.GRASS, AztechBiomes.biomeMurkySwamp.getBiomeClass());
             generateBasicDungeon(BASIC_DUNGEON_ENTRANCE, world, random, chunkX, chunkZ, AzTechConfig.basic_dungeon_frequency, BlocksInit.ANCIENT_GRASS, AztechBiomes.biomeAncientForest.getBiomeClass());
@@ -99,6 +90,17 @@ public class WorldGenCustomStructures implements IWorldGenerator {
                     generator.generate(world, random, pos);
                 }
             }
+        }
+    }
+
+    private void generateStructure(WorldGenerator generator, World world, Random random, int chunkX, int chunkZ, int chance){
+        int x = chunkX * 16;
+        int z = chunkZ * 16;
+        int y = calculateAvalibleAir(world, x, z);
+        BlockPos pos = new BlockPos(x,y,z);
+
+        if(random.nextInt(chance) == 0){
+            generator.generate(world, random, pos);
         }
     }
 
@@ -171,6 +173,18 @@ public class WorldGenCustomStructures implements IWorldGenerator {
         while(!foundGround && y-- >= 15){
             Block block = world.getBlockState(new BlockPos(x,y,z)).getBlock();
             foundGround = block == topBlock;
+        }
+        return y;
+    }
+
+    private static int calculateAvalibleAir(World world, int x, int z){
+        int y = 1;
+
+        for (int checkY = 0; checkY < world.getHeight(); checkY++) {
+            if (world.isAirBlock(new BlockPos(x, checkY, z))) {
+                y = checkY;
+                break;
+            }
         }
         return y;
     }
