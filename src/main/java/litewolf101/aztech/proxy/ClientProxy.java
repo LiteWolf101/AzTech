@@ -116,6 +116,9 @@ public class ClientProxy extends CommonProxy {
                     case BLACK_SPARKLE:
                         particle = new ParticleBlackSparkle(world, x, y, z, velX, velY, velZ);
                         break;
+                    case SAND_DUST:
+                        particle = new ParticleDust(world, x, y, z, velX, velY, velZ);
+                        break;
                 }
 
                 if (particle != null) {

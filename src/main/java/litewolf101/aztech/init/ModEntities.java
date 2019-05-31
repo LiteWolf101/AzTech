@@ -7,9 +7,12 @@ import litewolf101.aztech.objects.projectiles.ProjectileEyeLaser;
 import litewolf101.aztech.objects.projectiles.render.RenderEyeLaser;
 import litewolf101.aztech.utils.Reference;
 import litewolf101.aztech.world.biome.AztechBiomes;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Biomes;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -33,8 +36,10 @@ public class ModEntities {
         //Projectiles
         EntityRegistry.registerModEntity(new ResourceLocation(Reference.MODID, "eye_laser"), ProjectileEyeLaser.class, "eye_laser", id++, AzTech.instance, 64, 3, true);
 
-        //Example Method
-        //EntityRegistry.addSpawn(MobFloatingStar.class, 100, 1, 1, EnumCreatureType.AMBIENT, WMMWorldUtils.biomeStarlight);
+        //Spawns
+        EntitySpawnPlacementRegistry.setPlacementType(MobAncientSquid.class, EntityLiving.SpawnPlacementType.IN_WATER);
+        EntityRegistry.addSpawn(MobAncientSquid.class, 100, 4, 4, EnumCreatureType.WATER_CREATURE, AztechBiomes.biomeAncientOcean);
+
     }
 
     @SideOnly(Side.CLIENT)

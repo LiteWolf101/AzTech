@@ -76,6 +76,6 @@ public class CommandAzTech extends CommandBase {
     @Override
     @Nonnull
     public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos targetPos) {
-        return Collections.emptyList();
+        return args.length == 1 ? commands : Collections.<String> emptyList();
     }
 }

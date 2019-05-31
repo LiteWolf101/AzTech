@@ -13,5 +13,6 @@ public enum AzTechParticleTypes {
     GREEN_SPARKLE,
     BLUE_SPARKLE,
     WHITE_SPARKLE,
-    BLACK_SPARKLE
+    BLACK_SPARKLE,
+    SAND_DUST
 }

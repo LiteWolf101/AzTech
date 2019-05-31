@@ -21,5 +21,6 @@ public class TextureStitchHandler {
         map.registerSprite(new ResourceLocation(Reference.MODID, "particle/eye_master_particle"));
         map.registerSprite(new ResourceLocation(Reference.MODID, "particle/enemy_link_particle"));
         map.registerSprite(new ResourceLocation(Reference.MODID, "particle/sparkle"));
+        map.registerSprite(new ResourceLocation(Reference.MODID, "particle/dust"));
     }
 }

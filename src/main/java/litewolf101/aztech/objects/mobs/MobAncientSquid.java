@@ -193,6 +193,8 @@ public class MobAncientSquid extends EntitySquid {
         }
     }
 
+
+
     public void travel(float strafe, float vertical, float forward)
     {
         this.move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
@@ -224,14 +226,9 @@ public class MobAncientSquid extends EntitySquid {
     }
 
     @Override
-    public boolean isInWater() {
-        return this.world.getBlockState(new BlockPos((int) this.posX, MathHelper.floor(this.posY), (int) this.posZ)).getMaterial() == Material.WATER;
-    }
-
-    @Override
     public boolean getCanSpawnHere()
     {
-        return this.posY > 13.0D && this.posY < world.getSeaLevel() && super.getCanSpawnHere() && this.isInWater();
+        return this.posY > 13.0D && this.posY < world.getSeaLevel();
     }
 
     @Override
