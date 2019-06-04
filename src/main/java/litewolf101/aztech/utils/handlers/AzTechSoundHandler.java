@@ -20,6 +20,8 @@ public class AzTechSoundHandler {
     public static SoundEvent SHIELD_RUNNING;
     public static SoundEvent SHIELD_POWERDOWN;
     public static SoundEvent FANFARE;
+    public static SoundEvent ENTITY_DUST_DEVIL_WIND_1;
+
 
 
     public static void init() {
@@ -34,6 +36,7 @@ public class AzTechSoundHandler {
         SHIELD_RUNNING = registerSounds("entity.shield.shield_running");
         SHIELD_POWERDOWN = registerSounds("entity.shield.shield_power_down");
         FANFARE = registerSounds("entity.fanfare");
+        ENTITY_DUST_DEVIL_WIND_1 = registerSounds("entity.dust_devil.wind_1");
 
     }
 

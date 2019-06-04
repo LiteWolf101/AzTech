@@ -108,5 +108,15 @@
         "stream": true
       }
     ]
+  },
+  "entity.dust_devil.wind_1": {
+    "category": "entity",
+    "subtitle": "entity.dust_devil.wind_1",
+    "sounds": [
+      {
+        "name": "aztech:entity/dust_devil/wind_1",
+        "stream": true
+      }
+    ]
   }
 }

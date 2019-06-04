@@ -123,7 +123,7 @@ public class BiomeAncientJungle extends Biome {
         }
         for (int i = 0; i < 100; i++) {
             int rx = pos.getX() + rand.nextInt(16) + 8;
-            int ry = 15 + rand.nextInt(60) + 4;
+            int ry = 15 + rand.nextInt(90) + 4;
             int rz = pos.getZ() + rand.nextInt(16) + 8;
             mutPos.setPos(rx, ry, rz);
             genShrub.generate(worldIn, rand, mutPos);

@@ -1,5 +1,6 @@
 package litewolf101.aztech.utils;
 
+import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.world.worldgen.structures.WorldGenCustomStructures;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -64,7 +65,9 @@ public class CustomTeleporter extends Teleporter {
         BlockPos pos = player.getPosition();
 
         if (usePortal) {
-            WorldGenCustomStructures.AZTECH_PORTAL.generate(worldServer, worldServer.rand, pos.add(-3, -1, -5));
+            if (worldServer.getBlockState(pos.add(-3, 2, -5)) != BlocksInit.PORTAL_CONSTRUCT || worldServer.getBlockState(pos.add(-3, 2, -5)) != BlocksInit.AZTECH_PORTAL){
+                WorldGenCustomStructures.AZTECH_PORTAL.generate(worldServer, worldServer.rand, pos.add(-3, -1, -5));
+            }
         }
 
         if (oldDimension == 1) {

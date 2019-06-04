@@ -19,18 +19,24 @@ public class ParticleDust extends Particle {
     float oSize;
     final float rotSpeed;
 
+    long time = ((System.currentTimeMillis() / 10) % 10);
+    float bendDiv = ((float) time) / 10;
+    float pi = (float) Math.PI;
+    float xBend = 0.02f * MathHelper.sin(bendDiv * (4 * pi));
+    float zBend = 0.02f * MathHelper.cos(bendDiv * (2 * pi));
+
     public ParticleDust(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn) {
         super(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
         this.setRBGColorF(1, 1, 1);
         this.particleTexture = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(new ResourceLocation(Reference.MODID, "particle/dust").toString());
-        this.motionX = 0.0D;
-        this.motionY = 0.0D;
-        this.motionZ = 0.0D;
+        this.motionX = 0.0D + xBend + xSpeedIn;
+        this.motionY = 0.0D + ySpeedIn;
+        this.motionZ = 0.0D + zBend + zSpeedIn;
         float f = 0.9F;
-        this.particleScale *= 0.75F;
+        this.particleScale *= 1.1F;
         this.particleScale *= 0.9F;
         this.oSize = this.particleScale;
-        this.particleMaxAge = (int)(32.0D / (Math.random() * 0.8D + 0.2D));
+        this.particleMaxAge = (int)(26.0D / (Math.random() * 0.8D + 0.2D));
         this.particleMaxAge = (int)((float)this.particleMaxAge * 0.9F);
         this.rotSpeed = ((float)Math.random() - 0.5F) * 0.1F;
         this.particleAngle = (float)Math.random() * ((float)Math.PI * 2F);
@@ -68,9 +74,8 @@ public class ParticleDust extends Particle {
             this.prevParticleAngle = this.particleAngle = 0.0F;
         }
 
-        this.setParticleTextureIndex(7 - this.particleAge * 8 / this.particleMaxAge);
         this.move(this.motionX, this.motionY, this.motionZ);
-        this.motionY -= 0.003000000026077032D;
-        this.motionY = Math.max(this.motionY, -0.14000000059604645D);
+        this.motionY += 0.002000000026077032D;
+        this.motionY = Math.max(this.motionY, -0.35000000059604645D);
     }
 }

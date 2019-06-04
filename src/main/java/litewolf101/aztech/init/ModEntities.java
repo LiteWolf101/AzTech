@@ -1,6 +1,7 @@
 package litewolf101.aztech.init;
 
 import litewolf101.aztech.AzTech;
+import litewolf101.aztech.objects.entitymisc.EntityDustDevil;
 import litewolf101.aztech.objects.mobs.*;
 import litewolf101.aztech.objects.mobs.render.*;
 import litewolf101.aztech.objects.projectiles.ProjectileEyeLaser;
@@ -24,6 +25,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ModEntities {
     public static void init() {
         int id = 1;
+        //Normal
         EntityRegistry.registerModEntity(new ResourceLocation(Reference.MODID, "eye_guardian"), MobEyeGuardian.class, "eye_guardian", id++, AzTech.instance, 64, 3, true, 16765727, 11011584);
         EntityRegistry.registerModEntity(new ResourceLocation(Reference.MODID, "eye_master"), MobEyeMaster.class, "eye_master", id++, AzTech.instance, 64, 3, true, 16765727, 5212623);
         EntityRegistry.registerModEntity(new ResourceLocation(Reference.MODID, "pyronant"), MobPyronant.class, "pyronant", id++, AzTech.instance, 64, 3, true, 4930138, 10455985);
@@ -35,6 +37,9 @@ public class ModEntities {
 
         //Projectiles
         EntityRegistry.registerModEntity(new ResourceLocation(Reference.MODID, "eye_laser"), ProjectileEyeLaser.class, "eye_laser", id++, AzTech.instance, 64, 3, true);
+
+        //Misc
+        EntityRegistry.registerModEntity(new ResourceLocation(Reference.MODID, "dust_devil"), EntityDustDevil.class, "dust_devil", id++, AzTech.instance, 64, 3, true);
 
         //Spawns
         EntitySpawnPlacementRegistry.setPlacementType(MobAncientSquid.class, EntityLiving.SpawnPlacementType.IN_WATER);
@@ -51,5 +56,6 @@ public class ModEntities {
         RenderingRegistry.registerEntityRenderingHandler(BossUltimateEye.class, RenderUltimateEye.FACTORY);
         RenderingRegistry.registerEntityRenderingHandler(MobSpark.class, RenderSpark.FACTORY);
         RenderingRegistry.registerEntityRenderingHandler(MobAncientSquid.class, RenderAncientSquid.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityDustDevil.class, RenderDustDevil.FACTORY);
     }
 }
