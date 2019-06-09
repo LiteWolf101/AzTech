@@ -23,6 +23,7 @@ public class ColorHandler implements IBlockColor {
     public static final IBlockColor COLOR = new ColorHandler();
     public static void registerExtraBlockColors(){
         Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(COLOR, BlocksInit.ANCIENT_GRASS);
+        Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(COLOR, BlocksInit.SHORT_GRASS);
     }
     @SuppressWarnings("deprecation")
     public static void init(){
@@ -49,10 +50,12 @@ public class ColorHandler implements IBlockColor {
             }
 
             return (red / 9 & 255) << 16 | (grn / 9 & 255) << 8 | blu / 9 & 255;
-        }, BlocksInit.ANCIENT_GRASS);
+        }, BlocksInit.ANCIENT_GRASS, BlocksInit.SHORT_GRASS);
+
         ItemColors itemColors = Minecraft.getMinecraft().getItemColors();
         itemColors.registerItemColorHandler((stack, tintIndex) -> blockColors.colorMultiplier(((ItemBlock)stack.getItem()).getBlock().getStateFromMeta(stack.getMetadata()), null, null, tintIndex),
-                BlocksInit.ANCIENT_GRASS
+                BlocksInit.ANCIENT_GRASS,
+                BlocksInit.SHORT_GRASS
         );
     }
     private ColorHandler() {

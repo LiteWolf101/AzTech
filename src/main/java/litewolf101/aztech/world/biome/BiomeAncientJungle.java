@@ -2,9 +2,11 @@ package litewolf101.aztech.world.biome;
 
 import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.objects.mobs.MobAncientSquid;
+import litewolf101.aztech.utils.handlers.EnumAzTechPlantType;
 import litewolf101.aztech.world.worldgen.feature.WorldGenAztechLiquidBase;
 import litewolf101.aztech.world.worldgen.feature.WorldGenCropBlotch;
 import litewolf101.aztech.world.worldgen.feature.WorldGenMelonsInAzTech;
+import litewolf101.aztech.world.worldgen.feature.WorldGenShortGrass;
 import litewolf101.aztech.world.worldgen.trees.WorldGenAztechOakTree;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.BlockSand;
@@ -100,7 +102,11 @@ public class BiomeAncientJungle extends Biome {
 
         WorldGenMegaJungle genMegaJungle = new WorldGenMegaJungle(false, 10, 6, Blocks.LOG.getDefaultState().withProperty(VARIANT, BlockPlanks.EnumType.JUNGLE), Blocks.LEAVES.getDefaultState().withProperty(VARIANT, BlockPlanks.EnumType.JUNGLE));
         WorldGenShrub genShrub = new WorldGenShrub(Blocks.LOG.getDefaultState().withProperty(VARIANT, BlockPlanks.EnumType.JUNGLE), Blocks.LEAVES.getDefaultState().withProperty(VARIANT, BlockPlanks.EnumType.JUNGLE));
-        WorldGenTallGrass tallGrass = new WorldGenTallGrass(BlockTallGrass.EnumType.GRASS);
+        //WorldGenTallGrass tallGrass = new WorldGenTallGrass(BlockTallGrass.EnumType.GRASS);
+        WorldGenShortGrass shortgrass1 = new WorldGenShortGrass(EnumAzTechPlantType.EnumType.NORMAL);
+        WorldGenShortGrass shortgrass2 = new WorldGenShortGrass(EnumAzTechPlantType.EnumType.STALKY);
+        WorldGenShortGrass shortgrass3 = new WorldGenShortGrass(EnumAzTechPlantType.EnumType.FLAT);
+        WorldGenShortGrass shortgrass4 = new WorldGenShortGrass(EnumAzTechPlantType.EnumType.THICC);
         WorldGenAztechLiquidBase genLakes = new WorldGenAztechLiquidBase(Blocks.WATER);
         WorldGenCropBlotch cropBlotch = new WorldGenCropBlotch();
         WorldGenAztechOakTree genAztechOakTree = new WorldGenAztechOakTree(false, 5);
@@ -133,7 +139,7 @@ public class BiomeAncientJungle extends Biome {
             int ry = 5 + rand.nextInt(90) + 4;
             int rz = pos.getZ() + rand.nextInt(16) + 8;
             mutPos.setPos(rx, ry, rz);
-            tallGrass.generate(worldIn, rand, mutPos);
+            //tallGrass.generate(worldIn, rand, mutPos);
             genMelon.generate(worldIn, rand, mutPos);
         }
         for (int i = 0; i < 1; i++) {
@@ -143,6 +149,16 @@ public class BiomeAncientJungle extends Biome {
             mutPos.setPos(rx, ry, rz);
             genLakes.generate(worldIn, rand, mutPos);
             cropBlotch.generate(worldIn, rand, mutPos);
+        }
+        for (int i = 0; i < 4; i++) {
+            int rx = pos.getX() + rand.nextInt(16) + 8;
+            int ry = 2 + rand.nextInt(124);
+            int rz = pos.getZ() + rand.nextInt(16) + 8;
+            mutPos.setPos(rx, ry, rz);
+            shortgrass1.generate(worldIn, rand, mutPos);
+            shortgrass2.generate(worldIn, rand, mutPos);
+            shortgrass3.generate(worldIn, rand, mutPos);
+            shortgrass4.generate(worldIn, rand, mutPos);
         }
     }
 

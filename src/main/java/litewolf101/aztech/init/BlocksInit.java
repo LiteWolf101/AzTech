@@ -49,6 +49,7 @@ public class BlocksInit {
     public static final Block EMERALD_ORE = new AncientOre("ancient_emerald_ore", Material.ROCK);
     public static final Block QUARTZ_ORE = new AncientOre("ancient_quartz_ore", Material.ROCK);
     public static final Block ANCIENT_FARMLAND = new AncientFarmland("ancient_farmland", Material.GROUND);
+    public static final Block SHORT_GRASS = new ShortGrass("short_grass", Material.PLANTS);
     //Seems contradictory, but to a programming organization perspective, it makes sense
     public static final Block NEW_RED_RUNE_ORE = new AncientOre("ancient_red_rune_ore", Material.ROCK);
     public static final Block NEW_YELLOW_RUNE_ORE = new AncientOre("ancient_yellow_rune_ore", Material.ROCK);
@@ -65,6 +66,7 @@ public class BlocksInit {
     public static final Block ANCIENT_ENERGY_PILLAR = new AncientEnergyPillar("ancient_energy_pillar", Material.ROCK);
 
     //rune lines. There's a lot of em
+    //public static final Block TEST_BLOCK = new TestBlock("test_block", Material.CIRCUITS);
     public static final Block RED_RUNE_LINE_DOT = new RedRuneLine("red_rune_line");
     public static final Block RED_RUNE_LINE_STRAIGHT = new RedRuneLineStraight("red_rune_line_straight");
     public static final Block RED_RUNE_LINE_LEFT_TURN = new RedRuneLineLeftTurn("red_rune_line_left_turn");

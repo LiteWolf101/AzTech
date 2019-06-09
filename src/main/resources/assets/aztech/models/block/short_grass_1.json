@@ -1,0 +1,6 @@
+{
+  "parent": "block/tinted_cross",
+  "textures": {
+    "cross": "aztech:blocks/short_grass1"
+  }
+}

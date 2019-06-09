@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "aztech_plant_type=1": {"model": "aztech:short_grass_1"},
+    "aztech_plant_type=2": {"model": "aztech:short_grass_2"},
+    "aztech_plant_type=3": {"model": "aztech:short_grass_3"},
+    "aztech_plant_type=4": {"model": "aztech:short_grass_4"}
+  }
+}

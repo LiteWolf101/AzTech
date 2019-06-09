@@ -2,6 +2,7 @@ package litewolf101.aztech.world.biome;
 
 import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.objects.mobs.MobAncientSquid;
+import litewolf101.aztech.utils.handlers.EnumAzTechPlantType;
 import litewolf101.aztech.world.worldgen.AztechBiomeDecor;
 import litewolf101.aztech.world.worldgen.feature.*;
 import litewolf101.aztech.world.worldgen.trees.WorldGenAztechOakTree;
@@ -109,7 +110,11 @@ public class BiomeMurkySwamp extends Biome{
         super.decorate(worldIn, rand, pos);
 
         WorldGenAztechOakTree aztechOakTree = new WorldGenAztechOakTree(true);
-        WorldGenTallGrass tallGrass = new WorldGenTallGrass(BlockTallGrass.EnumType.GRASS);
+        //WorldGenTallGrass tallGrass = new WorldGenTallGrass(BlockTallGrass.EnumType.GRASS);
+        WorldGenShortGrass shortgrass1 = new WorldGenShortGrass(EnumAzTechPlantType.EnumType.NORMAL);
+        WorldGenShortGrass shortgrass2 = new WorldGenShortGrass(EnumAzTechPlantType.EnumType.STALKY);
+        WorldGenShortGrass shortgrass3 = new WorldGenShortGrass(EnumAzTechPlantType.EnumType.FLAT);
+        WorldGenShortGrass shortgrass4 = new WorldGenShortGrass(EnumAzTechPlantType.EnumType.THICC);
         WorldGenAztechLiquidBase genLakes = new WorldGenAztechLiquidBase(Blocks.WATER);
         WorldGenAztechLiquidBase genLavaLakes = new WorldGenAztechLiquidBase(Blocks.LAVA);
         WorldGenFlowers genFlowers = new WorldGenFlowers(Blocks.YELLOW_FLOWER, BlockFlower.EnumFlowerType.DANDELION);
@@ -142,7 +147,7 @@ public class BiomeMurkySwamp extends Biome{
             int ry = 5 + rand.nextInt(90) + 4;
             int rz = pos.getZ() + rand.nextInt(16) + 8;
             mutPos.setPos(rx, ry, rz);
-            tallGrass.generate(worldIn, rand, mutPos);
+            //tallGrass.generate(worldIn, rand, mutPos);
             genFlowers.generate(worldIn, rand, mutPos);
             genFlowers2.generate(worldIn, rand, mutPos);
         }
@@ -158,7 +163,9 @@ public class BiomeMurkySwamp extends Biome{
             int ry = 15 + rand.nextInt(60) + 4;
             int rz = pos.getZ() + rand.nextInt(16) + 8;
             mutPos.setPos(rx, ry, rz);
-            genLavaLakes.generate(worldIn, rand, mutPos);
+            if (rand.nextInt(10)==0) {
+                genLavaLakes.generate(worldIn, rand, mutPos);
+            }
             genLakes.generate(worldIn, rand, mutPos);
             cropBlotch.generate(worldIn, rand, mutPos);
         }
@@ -183,6 +190,16 @@ public class BiomeMurkySwamp extends Biome{
             int rz = pos.getZ() + rand.nextInt(16) + 8;
             mutPos.setPos(rx, ry, rz);
             genAztechDirt.generate(worldIn, rand, mutPos);
+        }
+        for (int i = 0; i < 4; i++) {
+            int rx = pos.getX() + rand.nextInt(16) + 8;
+            int ry = 2 + rand.nextInt(124);
+            int rz = pos.getZ() + rand.nextInt(16) + 8;
+            mutPos.setPos(rx, ry, rz);
+            shortgrass1.generate(worldIn, rand, mutPos);
+            shortgrass2.generate(worldIn, rand, mutPos);
+            shortgrass3.generate(worldIn, rand, mutPos);
+            shortgrass4.generate(worldIn, rand, mutPos);
         }
     }
 
