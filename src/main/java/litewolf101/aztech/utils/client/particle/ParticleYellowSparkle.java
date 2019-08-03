@@ -13,23 +13,24 @@ import net.minecraft.world.World;
  */
 public class ParticleYellowSparkle extends Particle {
 
-    public ParticleYellowSparkle(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn) {
-        super(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
-        this.setRBGColorF(1, 1, 0);
-        this.particleTexture = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(new ResourceLocation(Reference.MODID, "particle/sparkle").toString());
-        this.motionX = 0;
-        this.motionY = 0.01d;
-        this.motionZ = 0;
-        this.particleScale = this.rand.nextFloat() * 0.2F + 0.5F;
-        this.particleMaxAge = 50 + this.rand.nextInt(10);
-    }
+	public ParticleYellowSparkle(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn) {
+		super(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
+		this.setRBGColorF(1, 1, 0);
+		this.particleTexture = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(new ResourceLocation(Reference.MODID, "particle/sparkle").toString());
+		this.motionX = 0;
+		this.motionY = 0.01d;
+		this.motionZ = 0;
+		this.particleScale = this.rand.nextFloat() * 0.2F + 0.5F;
+		this.particleMaxAge = 50 + this.rand.nextInt(10);
+	}
 
-    public int getFXLayer(){
-        return 1;
-    }
+	@Override
+	public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
+		super.renderParticle(buffer, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
+	}
 
-    @Override
-    public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
-        super.renderParticle(buffer, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
-    }
+	public int getFXLayer() {
+		return 1;
+	}
+
 }

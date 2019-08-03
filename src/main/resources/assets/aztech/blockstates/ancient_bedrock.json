@@ -1,7 +1,9 @@
 {
   "variants": {
     "normal": [
-      { "model": "aztech:ancient_bedrock" }
+      {
+        "model": "aztech:ancient_bedrock"
+      }
     ]
   }
 }

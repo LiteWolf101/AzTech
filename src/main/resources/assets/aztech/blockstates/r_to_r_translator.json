@@ -1,6 +1,10 @@
 {
   "variants": {
-    "activated=false": {"model": "aztech:r_to_r_translator_inactive"},
-    "activated=true": {"model": "aztech:r_to_r_translator_active"}
+    "activated=false": {
+      "model": "aztech:r_to_r_translator_inactive"
+    },
+    "activated=true": {
+      "model": "aztech:r_to_r_translator_active"
+    }
   }
 }

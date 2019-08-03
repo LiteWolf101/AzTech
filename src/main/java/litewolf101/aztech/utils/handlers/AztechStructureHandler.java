@@ -17,27 +17,29 @@ import java.util.Random;
  * Created by LiteWolf101 on 10/23/2018.
  */
 public class AztechStructureHandler extends WorldGenerator implements IStructure {
-    public String structureName;
 
-    public AztechStructureHandler(String name) {
-        this.structureName = name;
-    }
+	public String structureName;
 
-    @Override
-    public boolean generate(World worldIn, Random rand, BlockPos position) {
-        generateStructure(worldIn, position);
-        return true;
-    }
+	public AztechStructureHandler(String name) {
+		this.structureName = name;
+	}
 
-    public void generateStructure(World world, BlockPos pos){
-        MinecraftServer mcServer = world.getMinecraftServer();
-        TemplateManager manager = worldServer.getStructureTemplateManager();
-        ResourceLocation location = new ResourceLocation(Reference.MODID, structureName);
-        Template template = manager.get(mcServer, location);
-        if (template != null){
-            IBlockState state = world.getBlockState(pos);
-            world.notifyBlockUpdate(pos, state, state, 3);
-            template.addBlocksToWorldChunk(world, pos, settings);
-        }
-    }
+	@Override
+	public boolean generate(World worldIn, Random rand, BlockPos position) {
+		generateStructure(worldIn, position);
+		return true;
+	}
+
+	public void generateStructure(World world, BlockPos pos) {
+		MinecraftServer mcServer = world.getMinecraftServer();
+		TemplateManager manager = worldServer.getStructureTemplateManager();
+		ResourceLocation location = new ResourceLocation(Reference.MODID, structureName);
+		Template template = manager.get(mcServer, location);
+		if(template != null) {
+			IBlockState state = world.getBlockState(pos);
+			world.notifyBlockUpdate(pos, state, state, 3);
+			template.addBlocksToWorldChunk(world, pos, settings);
+		}
+	}
+
 }

@@ -27,294 +27,265 @@ import net.minecraft.world.World;
 import java.util.Random;
 
 /**
- * Created by LiteWolf101 on Feb
- * /12/2019
+ * Created by LiteWolf101 on Feb /12/2019
  */
 public class BlockSorghum extends BlockBush implements IGrowable, IHasModel, IMetaName {
-    public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 7);
-    private static final AxisAlignedBB[] CROPS_AABB = new AxisAlignedBB[] {new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.125D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.25D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.375D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.625D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.75D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.875D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D)};
-    public BlockSorghum(String name) {
-        setUnlocalizedName(name);
-        setRegistryName(name);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, Integer.valueOf(0)));
-        this.setTickRandomly(true);
-        this.setSoundType(SoundType.PLANT);
-        this.disableStats();
-        this.setCreativeTab((CreativeTabs)null);
 
-        BlocksInit.BLOCKS.add(this);
-        ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));
-    }
+	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 7);
+	private static final AxisAlignedBB[] CROPS_AABB = new AxisAlignedBB[] {
+			new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.125D, 1.0D),
+			new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.25D, 1.0D),
+			new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.375D, 1.0D),
+			new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5D, 1.0D),
+			new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.625D, 1.0D),
+			new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.75D, 1.0D),
+			new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.875D, 1.0D),
+			new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D)
+	};
 
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
-    {
-        return CROPS_AABB[((Integer)state.getValue(this.getAgeProperty())).intValue()];
-    }
+	public BlockSorghum(String name) {
+		setTranslationKey(name);
+		setRegistryName(name);
+		this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, Integer.valueOf(0)));
+		this.setTickRandomly(true);
+		this.setSoundType(SoundType.PLANT);
+		this.disableStats();
+		this.setCreativeTab(null);
 
-    protected boolean canSustainBush(IBlockState state)
-    {
-        return state.getBlock() == Blocks.FARMLAND || state.getBlock() == BlocksInit.ANCIENT_FARMLAND;
-    }
+		BlocksInit.BLOCKS.add(this);
+		ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));
+	}
 
-    protected PropertyInteger getAgeProperty()
-    {
-        return AGE;
-    }
+	protected boolean canSustainBush(IBlockState state) {
+		return state.getBlock() == Blocks.FARMLAND || state.getBlock() == BlocksInit.ANCIENT_FARMLAND;
+	}
 
-    public int getMaxAge()
-    {
-        return 7;
-    }
+	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
+		super.updateTick(worldIn, pos, state, rand);
 
-    protected int getAge(IBlockState state)
-    {
-        return ((Integer)state.getValue(this.getAgeProperty())).intValue();
-    }
+		if(!worldIn.isAreaLoaded(pos, 1)) {
+			return; // Forge: prevent loading unloaded chunks when checking neighbor's light
+		}
+		if(worldIn.getLightFromNeighbors(pos.up()) >= 9) {
+			int i = this.getAge(state);
 
-    public IBlockState withAge(int age)
-    {
-        return this.getDefaultState().withProperty(this.getAgeProperty(), Integer.valueOf(age));
-    }
+			if(i < this.getMaxAge()) {
+				float f = getGrowthChance(this, worldIn, pos);
 
-    public boolean isMaxAge(IBlockState state)
-    {
-        return ((Integer)state.getValue(this.getAgeProperty())).intValue() >= this.getMaxAge();
-    }
+				if(net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state, rand.nextInt((int)(25.0F / f) + 1) == 0)) {
+					worldIn.setBlockState(pos, this.withAge(i + 1), 2);
+					net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state, worldIn.getBlockState(pos));
+				}
+			}
+		}
+	}
 
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
-    {
-        super.updateTick(worldIn, pos, state, rand);
+	protected int getAge(IBlockState state) {
+		return state.getValue(this.getAgeProperty()).intValue();
+	}
 
-        if (!worldIn.isAreaLoaded(pos, 1)) return; // Forge: prevent loading unloaded chunks when checking neighbor's light
-        if (worldIn.getLightFromNeighbors(pos.up()) >= 9)
-        {
-            int i = this.getAge(state);
+	public int getMaxAge() {
+		return 7;
+	}
 
-            if (i < this.getMaxAge())
-            {
-                float f = getGrowthChance(this, worldIn, pos);
+	protected static float getGrowthChance(Block blockIn, World worldIn, BlockPos pos) {
+		float f = 1.0F;
+		BlockPos blockpos = pos.down();
 
-                if(net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state, rand.nextInt((int)(25.0F / f) + 1) == 0))
-                {
-                    worldIn.setBlockState(pos, this.withAge(i + 1), 2);
-                    net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state, worldIn.getBlockState(pos));
-                }
-            }
-        }
-    }
+		for(int i = -1; i <= 1; ++i) {
+			for(int j = -1; j <= 1; ++j) {
+				float f1 = 0.0F;
+				IBlockState iblockstate = worldIn.getBlockState(blockpos.add(i, 0, j));
 
-    public void grow(World worldIn, BlockPos pos, IBlockState state)
-    {
-        int i = this.getAge(state) + this.getBonemealAgeIncrease(worldIn);
-        int j = this.getMaxAge();
+				if(iblockstate.getBlock().canSustainPlant(iblockstate, worldIn, blockpos.add(i, 0, j), net.minecraft.util.EnumFacing.UP, (net.minecraftforge.common.IPlantable)blockIn)) {
+					f1 = 1.0F;
 
-        if (i > j)
-        {
-            i = j;
-        }
+					if(iblockstate.getBlock().isFertile(worldIn, blockpos.add(i, 0, j))) {
+						f1 = 3.0F;
+					}
+				}
 
-        worldIn.setBlockState(pos, this.withAge(i), 2);
-    }
+				if(i != 0 || j != 0) {
+					f1 /= 4.0F;
+				}
 
-    protected int getBonemealAgeIncrease(World worldIn)
-    {
-        return MathHelper.getInt(worldIn.rand, 2, 5);
-    }
+				f += f1;
+			}
+		}
 
-    protected static float getGrowthChance(Block blockIn, World worldIn, BlockPos pos)
-    {
-        float f = 1.0F;
-        BlockPos blockpos = pos.down();
+		BlockPos blockpos1 = pos.north();
+		BlockPos blockpos2 = pos.south();
+		BlockPos blockpos3 = pos.west();
+		BlockPos blockpos4 = pos.east();
+		boolean flag = blockIn == worldIn.getBlockState(blockpos3).getBlock() || blockIn == worldIn.getBlockState(blockpos4).getBlock();
+		boolean flag1 = blockIn == worldIn.getBlockState(blockpos1).getBlock() || blockIn == worldIn.getBlockState(blockpos2).getBlock();
 
-        for (int i = -1; i <= 1; ++i)
-        {
-            for (int j = -1; j <= 1; ++j)
-            {
-                float f1 = 0.0F;
-                IBlockState iblockstate = worldIn.getBlockState(blockpos.add(i, 0, j));
+		if(flag && flag1) {
+			f /= 2.0F;
+		}
+		else {
+			boolean flag2 = blockIn == worldIn.getBlockState(blockpos3.north()).getBlock() || blockIn == worldIn.getBlockState(blockpos4.north()).getBlock() || blockIn == worldIn.getBlockState(blockpos4.south()).getBlock() || blockIn == worldIn.getBlockState(blockpos3.south()).getBlock();
 
-                if (iblockstate.getBlock().canSustainPlant(iblockstate, worldIn, blockpos.add(i, 0, j), net.minecraft.util.EnumFacing.UP, (net.minecraftforge.common.IPlantable)blockIn))
-                {
-                    f1 = 1.0F;
+			if(flag2) {
+				f /= 2.0F;
+			}
+		}
 
-                    if (iblockstate.getBlock().isFertile(worldIn, blockpos.add(i, 0, j)))
-                    {
-                        f1 = 3.0F;
-                    }
-                }
+		return f;
+	}
 
-                if (i != 0 || j != 0)
-                {
-                    f1 /= 4.0F;
-                }
+	public IBlockState withAge(int age) {
+		return this.getDefaultState().withProperty(this.getAgeProperty(), Integer.valueOf(age));
+	}
 
-                f += f1;
-            }
-        }
+	public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state) {
+		IBlockState soil = worldIn.getBlockState(pos.down());
+		Block soilBlock = worldIn.getBlockState(pos.down()).getBlock();
+		return (worldIn.getLight(pos) >= 4 || worldIn.canSeeSky(pos)) && soil.getBlock().canSustainPlant(soil, worldIn, pos.down(), net.minecraft.util.EnumFacing.UP, this) && soilBlock == Blocks.FARMLAND || soilBlock == BlocksInit.ANCIENT_FARMLAND;
+	}
 
-        BlockPos blockpos1 = pos.north();
-        BlockPos blockpos2 = pos.south();
-        BlockPos blockpos3 = pos.west();
-        BlockPos blockpos4 = pos.east();
-        boolean flag = blockIn == worldIn.getBlockState(blockpos3).getBlock() || blockIn == worldIn.getBlockState(blockpos4).getBlock();
-        boolean flag1 = blockIn == worldIn.getBlockState(blockpos1).getBlock() || blockIn == worldIn.getBlockState(blockpos2).getBlock();
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+		return CROPS_AABB[state.getValue(this.getAgeProperty()).intValue()];
+	}
 
-        if (flag && flag1)
-        {
-            f /= 2.0F;
-        }
-        else
-        {
-            boolean flag2 = blockIn == worldIn.getBlockState(blockpos3.north()).getBlock() || blockIn == worldIn.getBlockState(blockpos4.north()).getBlock() || blockIn == worldIn.getBlockState(blockpos4.south()).getBlock() || blockIn == worldIn.getBlockState(blockpos3.south()).getBlock();
+	protected PropertyInteger getAgeProperty() {
+		return AGE;
+	}
 
-            if (flag2)
-            {
-                f /= 2.0F;
-            }
-        }
+	public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient) {
+		return !this.isMaxAge(state);
+	}
 
-        return f;
-    }
+	public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) {
+		return true;
+	}
 
-    public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state)
-    {
-        IBlockState soil = worldIn.getBlockState(pos.down());
-        Block soilBlock = worldIn.getBlockState(pos.down()).getBlock();
-        return (worldIn.getLight(pos) >= 4 || worldIn.canSeeSky(pos)) && soil.getBlock().canSustainPlant(soil, worldIn, pos.down(), net.minecraft.util.EnumFacing.UP, this) && soilBlock == Blocks.FARMLAND || soilBlock == BlocksInit.ANCIENT_FARMLAND;
-    }
+	public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
+		this.grow(worldIn, pos, state);
+	}
 
-    protected Item getSeed()
-    {
-        return ItemsInit.SORGHUM;
-    }
+	public void grow(World worldIn, BlockPos pos, IBlockState state) {
+		int i = this.getAge(state) + this.getBonemealAgeIncrease(worldIn);
+		int j = this.getMaxAge();
 
-    protected Item getCrop()
-    {
-        return this.getSeed();
-    }
+		if(i > j) {
+			i = j;
+		}
 
-    @Override
-    public void getDrops(net.minecraft.util.NonNullList<ItemStack> drops, net.minecraft.world.IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
-    {
-        super.getDrops(drops, world, pos, state, 0);
-        int age = getAge(state);
-        Random rand = world instanceof World ? ((World)world).rand : new Random();
+		worldIn.setBlockState(pos, this.withAge(i), 2);
+	}
 
-        if (age >= getMaxAge())
-        {
-            int k = 3 + fortune;
+	protected int getBonemealAgeIncrease(World worldIn) {
+		return MathHelper.getInt(worldIn.rand, 2, 5);
+	}
 
-            for (int i = 0; i < 3 + fortune; ++i)
-            {
-                if (rand.nextInt(2 * getMaxAge()) <= age)
-                {
-                    drops.add(new ItemStack(this.getSeed(), 1, 0));
-                }
-            }
-        }
-    }
+	/**
+	 * Convert the given metadata into a BlockState for this Block
+	 */
+	public IBlockState getStateFromMeta(int meta) {
+		return this.withAge(meta);
+	}
 
-    /**
-     * Spawns this Block's drops into the World as EntityItems.
-     */
-    public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune)
-    {
-        super.dropBlockAsItemWithChance(worldIn, pos, state, chance, fortune);
+	/**
+	 * Convert the BlockState into the correct metadata value
+	 */
+	public int getMetaFromState(IBlockState state) {
+		return this.getAge(state);
+	}
 
-        if (false && !worldIn.isRemote) // Forge: NOP all this.
-        {
-            int i = this.getAge(state);
+	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+		return this.isMaxAge(state) ? this.getCrop() : this.getSeed();
+	}
 
-            if (i >= this.getMaxAge())
-            {
-                int j = 3 + fortune;
+	public boolean isMaxAge(IBlockState state) {
+		return state.getValue(this.getAgeProperty()).intValue() >= this.getMaxAge();
+	}
 
-                for (int k = 0; k < j; ++k)
-                {
-                    if (worldIn.rand.nextInt(2 * this.getMaxAge()) <= i)
-                    {
-                        spawnAsEntity(worldIn, pos, new ItemStack(this.getSeed()));
-                    }
-                }
-            }
-        }
-    }
-    public Item getItemDropped(IBlockState state, Random rand, int fortune)
-    {
-        return this.isMaxAge(state) ? this.getCrop() : this.getSeed();
-    }
+	protected Item getCrop() {
+		return this.getSeed();
+	}
 
-    public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state)
-    {
-        return new ItemStack(this.getSeed());
-    }
+	/**
+	 * Spawns this Block's drops into the World as EntityItems.
+	 */
+	public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
+		super.dropBlockAsItemWithChance(worldIn, pos, state, chance, fortune);
 
-    public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient)
-    {
-        return !this.isMaxAge(state);
-    }
+		if(false && !worldIn.isRemote) // Forge: NOP all this.
+		{
+			int i = this.getAge(state);
 
-    public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state)
-    {
-        return true;
-    }
+			if(i >= this.getMaxAge()) {
+				int j = 3 + fortune;
 
-    public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state)
-    {
-        this.grow(worldIn, pos, state);
-    }
+				for(int k = 0; k < j; ++k) {
+					if(worldIn.rand.nextInt(2 * this.getMaxAge()) <= i) {
+						spawnAsEntity(worldIn, pos, new ItemStack(this.getSeed()));
+					}
+				}
+			}
+		}
+	}
 
-    /**
-     * Convert the given metadata into a BlockState for this Block
-     */
-    public IBlockState getStateFromMeta(int meta)
-    {
-        return this.withAge(meta);
-    }
+	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
+		return new ItemStack(this.getSeed());
+	}
 
-    /**
-     * Convert the BlockState into the correct metadata value
-     */
-    public int getMetaFromState(IBlockState state)
-    {
-        return this.getAge(state);
-    }
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, AGE);
+	}
 
-    protected BlockStateContainer createBlockState()
-    {
-        return new BlockStateContainer(this, new IProperty[] {AGE});
-    }
+	@Override
+	public void getDrops(net.minecraft.util.NonNullList<ItemStack> drops, net.minecraft.world.IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+		super.getDrops(drops, world, pos, state, 0);
+		int age = getAge(state);
+		Random rand = world instanceof World ? ((World)world).rand : new Random();
 
-    @Override
-    public void registerModels() {
-        for(int i = 0; i < 7; i++)
-        {
-            AzTech.proxy.registerVariantRenderer(Item.getItemFromBlock(this), i, "crop_sorghum_" + i, "inventory");
-        }
-    }
+		if(age >= getMaxAge()) {
+			int k = 3 + fortune;
 
-    @Override
-    public String getSpecialName(ItemStack stack) {
-        String name = null;
-        switch (stack.getItemDamage()){
-            case 1:
-                name = "1";
-            case 2:
-                name = "2";
-            case 3:
-                name = "3";
-            case 4:
-                name = "4";
-            case 5:
-                name = "5";
-            case 6:
-                name = "6";
-            case 7:
-                name = "7";
-                break;
-            default:
-                name = "0";
-        }
-        return name;
-    }
+			for(int i = 0; i < 3 + fortune; ++i) {
+				if(rand.nextInt(2 * getMaxAge()) <= age) {
+					drops.add(new ItemStack(this.getSeed(), 1, 0));
+				}
+			}
+		}
+	}
+
+	protected Item getSeed() {
+		return ItemsInit.SORGHUM;
+	}
+
+	@Override
+	public void registerModels() {
+		for(int i = 0; i < 7; i++) {
+			AzTech.proxy.registerVariantRenderer(Item.getItemFromBlock(this), i, "crop_sorghum_" + i, "inventory");
+		}
+	}
+
+	@Override
+	public String getSpecialName(ItemStack stack) {
+		String name = null;
+		switch(stack.getItemDamage()) {
+			case 1:
+				name = "1";
+			case 2:
+				name = "2";
+			case 3:
+				name = "3";
+			case 4:
+				name = "4";
+			case 5:
+				name = "5";
+			case 6:
+				name = "6";
+			case 7:
+				name = "7";
+				break;
+			default:
+				name = "0";
+		}
+		return name;
+	}
+
 }

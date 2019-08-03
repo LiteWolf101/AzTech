@@ -1,12 +1,28 @@
 {
   "variants": {
-    "activated=false,facing=north": {"model": "aztech:red_rl_right_turn_north_inactive"},
-    "activated=false,facing=east": {"model": "aztech:red_rl_right_turn_east_inactive"},
-    "activated=false,facing=south": {"model": "aztech:red_rl_right_turn_south_inactive"},
-    "activated=false,facing=west": {"model": "aztech:red_rl_right_turn_west_inactive"},
-    "activated=true,facing=north": {"model": "aztech:red_rl_right_turn_north_active"},
-    "activated=true,facing=east": {"model": "aztech:red_rl_right_turn_east_active"},
-    "activated=true,facing=south": {"model": "aztech:red_rl_right_turn_south_active"},
-    "activated=true,facing=west": {"model": "aztech:red_rl_right_turn_west_active"}
+    "activated=false,facing=north": {
+      "model": "aztech:red_rl_right_turn_north_inactive"
+    },
+    "activated=false,facing=east": {
+      "model": "aztech:red_rl_right_turn_east_inactive"
+    },
+    "activated=false,facing=south": {
+      "model": "aztech:red_rl_right_turn_south_inactive"
+    },
+    "activated=false,facing=west": {
+      "model": "aztech:red_rl_right_turn_west_inactive"
+    },
+    "activated=true,facing=north": {
+      "model": "aztech:red_rl_right_turn_north_active"
+    },
+    "activated=true,facing=east": {
+      "model": "aztech:red_rl_right_turn_east_active"
+    },
+    "activated=true,facing=south": {
+      "model": "aztech:red_rl_right_turn_south_active"
+    },
+    "activated=true,facing=west": {
+      "model": "aztech:red_rl_right_turn_west_active"
+    }
   }
 }

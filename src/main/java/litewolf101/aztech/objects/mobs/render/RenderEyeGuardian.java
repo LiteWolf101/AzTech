@@ -14,28 +14,30 @@ import javax.annotation.Nullable;
 /**
  * Created by LiteWolf101 on 10/26/2018.
  */
-public class RenderEyeGuardian extends RenderLiving<MobEyeGuardian>{
-    private ResourceLocation mobTexture = new ResourceLocation("aztech:textures/entity/eye_guardian.png");
-    public static final IRenderFactory FACTORY = new Factory();
-    private final ModelEyeGuardian modelEyeGuardian;
+public class RenderEyeGuardian extends RenderLiving<MobEyeGuardian> {
 
-    public RenderEyeGuardian(RenderManager rendermanagerIn, ModelBase modelbaseIn, float shadowsizeIn) {
-        super(rendermanagerIn, new ModelEyeGuardian(), 0.3F);
-        modelEyeGuardian = (ModelEyeGuardian) super.mainModel;
-    }
+	public static final IRenderFactory FACTORY = new Factory();
+	private final ModelEyeGuardian modelEyeGuardian;
+	private ResourceLocation mobTexture = new ResourceLocation("aztech:textures/entity/eye_guardian.png");
 
-    @Nullable
-    @Override
-    protected ResourceLocation getEntityTexture(MobEyeGuardian entity) {
-        return mobTexture;
-    }
+	public RenderEyeGuardian(RenderManager rendermanagerIn, ModelBase modelbaseIn, float shadowsizeIn) {
+		super(rendermanagerIn, new ModelEyeGuardian(), 0.3F);
+		modelEyeGuardian = (ModelEyeGuardian)super.mainModel;
+	}
 
-    public static class Factory implements IRenderFactory<MobEyeGuardian> {
+	@Nullable
+	@Override
+	protected ResourceLocation getEntityTexture(MobEyeGuardian entity) {
+		return mobTexture;
+	}
 
-        @Override
-        public Render<? super MobEyeGuardian> createRenderFor(RenderManager manager) {
-            return new RenderEyeGuardian(manager, new ModelEyeGuardian(), 0.3F);
-        }
-    }
+	public static class Factory implements IRenderFactory<MobEyeGuardian> {
+
+		@Override
+		public Render<? super MobEyeGuardian> createRenderFor(RenderManager manager) {
+			return new RenderEyeGuardian(manager, new ModelEyeGuardian(), 0.3F);
+		}
+
+	}
 
 }

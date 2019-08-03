@@ -7,23 +7,25 @@ import net.minecraft.entity.Entity;
 /**
  * Created by LiteWolf101 on 9/29/2018.
  */
-public class ModelRuneCore extends ModelBase{
-    ModelRenderer base;
+public class ModelRuneCore extends ModelBase {
 
-    public ModelRuneCore(){
-        textureHeight = 16;
-        textureWidth = 16;
+	ModelRenderer base;
 
-        base = new ModelRenderer(this, 0, 0);
-        base.addBox(0, 0, 0,16, 16, 16);
-    }
+	public ModelRuneCore() {
+		textureHeight = 16;
+		textureWidth = 16;
 
-    @Override
-    public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-        base.render(scale);
-    }
+		base = new ModelRenderer(this, 0, 0);
+		base.addBox(0, 0, 0, 16, 16, 16);
+	}
 
-    public void renderModel(float scale){
-        base.render(scale);
-    }
+	@Override
+	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		base.render(scale);
+	}
+
+	public void renderModel(float scale) {
+		base.render(scale);
+	}
+
 }

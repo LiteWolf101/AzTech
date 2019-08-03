@@ -1,7 +1,9 @@
 {
   "variants": {
     "normal": [
-      { "model": "aztech:ancient_red_rune_ore" }
+      {
+        "model": "aztech:ancient_red_rune_ore"
+      }
     ]
   }
 }

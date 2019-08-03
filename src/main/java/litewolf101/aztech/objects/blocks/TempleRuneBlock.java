@@ -34,126 +34,132 @@ import java.util.Random;
 /**
  * Created by LiteWolf101 on 9/29/2018.
  */
-public class TempleRuneBlock extends BlockContainer implements IHasModel, IMetaName{
-    public static final PropertyEnum<EnumRuneColor.EnumType> RUNE_COLOR = PropertyEnum.<EnumRuneColor.EnumType>create("rune_color", EnumRuneColor.EnumType.class);
-    public TempleRuneBlock(String name, Material material) {
-        super(material);
-        setUnlocalizedName(name);
-        setRegistryName(name);
-        setSoundType(SoundType.STONE);
-        setCreativeTab(AzTech.CREATIVE_TAB);
-        setDefaultState(this.blockState.getBaseState().withProperty(RUNE_COLOR, EnumRuneColor.EnumType.RED));
-        setHarvestLevel("pickaxe", 3);
-        setHardness(4f);
-        setLightLevel(0.5f);
-        setResistance(1000f);
+public class TempleRuneBlock extends BlockContainer implements IHasModel, IMetaName {
 
-        BlocksInit.BLOCKS.add(this);
-        ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));
-    }
+	public static final PropertyEnum<EnumRuneColor.EnumType> RUNE_COLOR = PropertyEnum.create("rune_color", EnumRuneColor.EnumType.class);
 
-    @Override
-    public int damageDropped(IBlockState state) {
-        return ((EnumRuneColor.EnumType)state.getValue(RUNE_COLOR)).getMeta();
-    }
+	public TempleRuneBlock(String name, Material material) {
+		super(material);
+		setTranslationKey(name);
+		setRegistryName(name);
+		setSoundType(SoundType.STONE);
+		setCreativeTab(AzTech.CREATIVE_TAB);
+		setDefaultState(this.blockState.getBaseState().withProperty(RUNE_COLOR, EnumRuneColor.EnumType.RED));
+		setHarvestLevel("pickaxe", 3);
+		setHardness(4f);
+		setLightLevel(0.5f);
+		setResistance(1000f);
 
-    @Override
-    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
+		BlocksInit.BLOCKS.add(this);
+		ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));
+	}
 
-        for(EnumRuneColor.EnumType runeColor$enumtype : EnumRuneColor.EnumType.values()) {
+	@Override
+	@SuppressWarnings("deprecation")
+	public IBlockState getStateFromMeta(int meta) {
 
-            items.add(new ItemStack(this, 1, runeColor$enumtype.getMeta()));
-        }
-    }
+		return this.getDefaultState().withProperty(RUNE_COLOR, EnumRuneColor.EnumType.byMetadata(meta));
+	}
 
-    @Override
-    @SuppressWarnings("deprecation")
-    public IBlockState getStateFromMeta(int meta) {
+	@Override
+	public int getMetaFromState(IBlockState state) {
 
-        return this.getDefaultState().withProperty(RUNE_COLOR, EnumRuneColor.EnumType.byMetadata(meta));
-    }
+		return state.getValue(RUNE_COLOR).getMeta();
+	}
 
-    @Override
-    public int getMetaFromState(IBlockState state) {
+	@Override
+	@SuppressWarnings("deprecation")
+	public boolean isFullCube(IBlockState state) {
+		return false;
+	}
 
-        return ((EnumRuneColor.EnumType)state.getValue(RUNE_COLOR)).getMeta();
-    }
+	@Override
+	@SuppressWarnings("deprecation")
+	public boolean isOpaqueCube(IBlockState state) {
+		return false;
+	}
 
-    @Override
-    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+	@Override
+	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
+		double x = pos.getX();
+		double y = pos.getY();
+		double z = pos.getZ();
+		double randx = rand.nextDouble() + x;
+		double randy = rand.nextDouble() + y;
+		double randz = rand.nextDouble() + z;
 
-        return new ItemStack(Item.getItemFromBlock(this), 1, getMetaFromState(world.getBlockState(pos)));
-    }
+		if(worldIn.getBlockState(pos).getValue(RUNE_COLOR) == EnumRuneColor.EnumType.RED) {
+			AzTech.proxy.spawnParticle(worldIn, AzTechParticleTypes.RED_SPARKLE, randx, randy, randz, 0, 0, 0);
+		}
+		else if(worldIn.getBlockState(pos).getValue(RUNE_COLOR) == EnumRuneColor.EnumType.YELLOW) {
+			AzTech.proxy.spawnParticle(worldIn, AzTechParticleTypes.YELLOW_SPARKLE, randx, randy, randz, 0, 0, 0);
+		}
+		else if(worldIn.getBlockState(pos).getValue(RUNE_COLOR) == EnumRuneColor.EnumType.GREEN) {
+			AzTech.proxy.spawnParticle(worldIn, AzTechParticleTypes.GREEN_SPARKLE, randx, randy, randz, 0, 0, 0);
+		}
+		else if(worldIn.getBlockState(pos).getValue(RUNE_COLOR) == EnumRuneColor.EnumType.BLUE) {
+			AzTech.proxy.spawnParticle(worldIn, AzTechParticleTypes.BLUE_SPARKLE, randx, randy, randz, 0, 0, 0);
+		}
+		else if(worldIn.getBlockState(pos).getValue(RUNE_COLOR) == EnumRuneColor.EnumType.WHITE) {
+			AzTech.proxy.spawnParticle(worldIn, AzTechParticleTypes.WHITE_SPARKLE, randx, randy, randz, 0, 0, 0);
+		}
+		else if(worldIn.getBlockState(pos).getValue(RUNE_COLOR) == EnumRuneColor.EnumType.BLACK) {
+			AzTech.proxy.spawnParticle(worldIn, AzTechParticleTypes.BLACK_SPARKLE, randx, randy, randz, 0, 0, 0);
+		}
+	}
 
-    @Override
-    protected BlockStateContainer createBlockState() {
+	@Override
+	public int damageDropped(IBlockState state) {
+		return state.getValue(RUNE_COLOR).getMeta();
+	}
 
-        return new BlockStateContainer(this, new IProperty[] {RUNE_COLOR});
-    }
+	@Override
+	public BlockRenderLayer getRenderLayer() {
+		return BlockRenderLayer.CUTOUT;
+	}
 
-    @Override
-    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-        double x = pos.getX();
-        double y = pos.getY();
-        double z = pos.getZ();
-        double randx = rand.nextDouble() + x;
-        double randy = rand.nextDouble() + y;
-        double randz = rand.nextDouble() + z;
+	@Override
+	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
 
-        if (worldIn.getBlockState(pos).getValue(RUNE_COLOR) == EnumRuneColor.EnumType.RED){
-            AzTech.proxy.spawnParticle(worldIn, AzTechParticleTypes.RED_SPARKLE, randx, randy, randz, 0, 0, 0);
-        } else if (worldIn.getBlockState(pos).getValue(RUNE_COLOR) == EnumRuneColor.EnumType.YELLOW){
-            AzTech.proxy.spawnParticle(worldIn, AzTechParticleTypes.YELLOW_SPARKLE, randx, randy, randz, 0, 0, 0);
-        } else if (worldIn.getBlockState(pos).getValue(RUNE_COLOR) == EnumRuneColor.EnumType.GREEN){
-            AzTech.proxy.spawnParticle(worldIn, AzTechParticleTypes.GREEN_SPARKLE, randx, randy, randz, 0, 0, 0);
-        } else if (worldIn.getBlockState(pos).getValue(RUNE_COLOR) == EnumRuneColor.EnumType.BLUE){
-            AzTech.proxy.spawnParticle(worldIn, AzTechParticleTypes.BLUE_SPARKLE, randx, randy, randz, 0, 0, 0);
-        } else if (worldIn.getBlockState(pos).getValue(RUNE_COLOR) == EnumRuneColor.EnumType.WHITE){
-            AzTech.proxy.spawnParticle(worldIn, AzTechParticleTypes.WHITE_SPARKLE, randx, randy, randz, 0, 0, 0);
-        } else if (worldIn.getBlockState(pos).getValue(RUNE_COLOR) == EnumRuneColor.EnumType.BLACK){
-            AzTech.proxy.spawnParticle(worldIn, AzTechParticleTypes.BLACK_SPARKLE, randx, randy, randz, 0, 0, 0);
-        }
-    }
+		for(EnumRuneColor.EnumType runeColor$enumtype : EnumRuneColor.EnumType.values()) {
 
-    @Override
-    @SuppressWarnings("deprecation")
-    public boolean isOpaqueCube(IBlockState state) {
-        return false;
-    }
+			items.add(new ItemStack(this, 1, runeColor$enumtype.getMeta()));
+		}
+	}
 
-    @Override
-    public BlockRenderLayer getBlockLayer() {
-        return BlockRenderLayer.CUTOUT;
-    }
+	@Override
+	protected BlockStateContainer createBlockState() {
 
-    @Override
-    @SuppressWarnings("deprecation")
-    public boolean isFullCube(IBlockState state) {
-        return false;
-    }
+		return new BlockStateContainer(this, RUNE_COLOR);
+	}
 
-    @Override
-    public void registerModels() {
-        for(int i = 0; i < EnumRuneColor.EnumType.values().length; i++)
-        {
-            AzTech.proxy.registerVariantRenderer(Item.getItemFromBlock(this), i, EnumRuneColor.EnumType.values()[i].getName() + "_temple_rune_block", "inventory");
-        }
-    }
+	@Override
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
 
-    @Override
-    public String getSpecialName(ItemStack stack) {
-        return EnumRuneColor.EnumType.values()[stack.getItemDamage()].getName();
-    }
+		return new ItemStack(Item.getItemFromBlock(this), 1, getMetaFromState(world.getBlockState(pos)));
+	}
 
-    @Override
-    public EnumBlockRenderType getRenderType(IBlockState state)
-    {
-        return EnumBlockRenderType.MODEL;
-    }
+	@Override
+	public void registerModels() {
+		for(int i = 0; i < EnumRuneColor.EnumType.values().length; i++) {
+			AzTech.proxy.registerVariantRenderer(Item.getItemFromBlock(this), i, EnumRuneColor.EnumType.values()[i].getName() + "_temple_rune_block", "inventory");
+		}
+	}
 
-    @Nullable
-    @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return new TETempleRuneBlock();
-    }
+	@Override
+	public String getSpecialName(ItemStack stack) {
+		return EnumRuneColor.EnumType.values()[stack.getItemDamage()].getName();
+	}
+
+	@Override
+	public EnumBlockRenderType getRenderType(IBlockState state) {
+		return EnumBlockRenderType.MODEL;
+	}
+
+	@Nullable
+	@Override
+	public TileEntity createNewTileEntity(World worldIn, int meta) {
+		return new TETempleRuneBlock();
+	}
+
 }

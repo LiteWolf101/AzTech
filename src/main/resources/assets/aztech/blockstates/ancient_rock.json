@@ -1,7 +1,9 @@
 {
   "variants": {
     "normal": [
-      { "model": "aztech:ancient_rock" }
+      {
+        "model": "aztech:ancient_rock"
+      }
     ]
   }
 }

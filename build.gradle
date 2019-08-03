@@ -1,37 +1,44 @@
 buildscript {
+    def properties = new Properties()
+    file('build.properties').withInputStream { properties.load(it) }
+    project.ext.config = properties
+
     repositories {
         jcenter()
         maven { url = "http://files.minecraftforge.net/maven" }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath "net.minecraftforge.gradle:ForgeGradle:${config.forge_gradle_version}"
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'idea'
 
-version = "${project.mc_version}-${getVersion()}"
-group = "litewolf101.aztech"
-archivesBaseName = "Aztech"
-sourceCompatibility = targetCompatibility = '1.8'
-
-def getVersion() {
-    return "${project.build_major}.${build_minor}.${build_patch}"
-}
+version = "${config.mc_version}-${config.project_version}"
+group = "com.litewolf101.aztech"
+archivesBaseName = "AzTech"
+sourceCompatibility = targetCompatibility = config.java_version
 
 compileJava {
-    sourceCompatibility = targetCompatibility = '1.8'
+    sourceCompatibility = targetCompatibility = config.java_version
 }
 
 minecraft {
-    version = "${project.mc_version}-${project.forge_version}"
+    version = "${config.mc_version}-${config.forge_version}"
     runDir = ".minecraft"
-    mappings = project.obf_mappings
+    mappings = config.obf_mappings
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
 }
 
 dependencies {
-
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: config.junit_version
+	testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: config.junit_version
 }
 
 processResources {
@@ -39,11 +46,19 @@ processResources {
     inputs.property "mcversion", project.minecraft.version
 
     from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
+        include '*.info'
         expand 'version':project.version, 'mcversion':project.minecraft.version
     }
         
     from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
+        exclude '*.info'
     }
+}
+
+test {
+	useJUnitPlatform()
+}
+
+wrapper {
+    version '4.10.2'
 }

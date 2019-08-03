@@ -15,29 +15,31 @@ import javax.annotation.Nullable;
 /**
  * Created by LiteWolf101 on 10/26/2018.
  */
-public class RenderUltimateEye <T extends BossUltimateEye>extends RenderLiving<BossUltimateEye>{
-    private ResourceLocation mobTexture = new ResourceLocation("aztech:textures/entity/ultimate_eye.png");
-    public static final IRenderFactory FACTORY = new Factory();
-    private final ModelUltimateEye modelUltimateEye;
+public class RenderUltimateEye<T extends BossUltimateEye> extends RenderLiving<BossUltimateEye> {
 
-    public RenderUltimateEye(RenderManager rendermanagerIn, ModelBase modelbaseIn, float shadowsizeIn) {
-        super(rendermanagerIn, new ModelUltimateEye(), 0.7F);
-        modelUltimateEye = (ModelUltimateEye) super.mainModel;
-        this.addLayer(new LayerShield<>(this));
-    }
+	public static final IRenderFactory FACTORY = new Factory();
+	private final ModelUltimateEye modelUltimateEye;
+	private ResourceLocation mobTexture = new ResourceLocation("aztech:textures/entity/ultimate_eye.png");
 
-    @Nullable
-    @Override
-    protected ResourceLocation getEntityTexture(BossUltimateEye entity) {
-        return mobTexture;
-    }
+	public RenderUltimateEye(RenderManager rendermanagerIn, ModelBase modelbaseIn, float shadowsizeIn) {
+		super(rendermanagerIn, new ModelUltimateEye(), 0.7F);
+		modelUltimateEye = (ModelUltimateEye)super.mainModel;
+		this.addLayer(new LayerShield<>(this));
+	}
 
-    public static class Factory implements IRenderFactory<BossUltimateEye> {
+	@Nullable
+	@Override
+	protected ResourceLocation getEntityTexture(BossUltimateEye entity) {
+		return mobTexture;
+	}
 
-        @Override
-        public Render<? super BossUltimateEye> createRenderFor(RenderManager manager) {
-            return new RenderUltimateEye(manager, new ModelUltimateEye(), 0.7F);
-        }
-    }
+	public static class Factory implements IRenderFactory<BossUltimateEye> {
+
+		@Override
+		public Render<? super BossUltimateEye> createRenderFor(RenderManager manager) {
+			return new RenderUltimateEye(manager, new ModelUltimateEye(), 0.7F);
+		}
+
+	}
 
 }

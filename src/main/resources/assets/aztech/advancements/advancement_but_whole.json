@@ -82,11 +82,23 @@
     }
   },
   "requirements": [
-    ["red_shard_block"],
-    ["yellow_shard_block"],
-    ["green_shard_block"],
-    ["blue_shard_block"],
-    ["white_shard_block"],
-    ["black_shard_block"]
+    [
+      "red_shard_block"
+    ],
+    [
+      "yellow_shard_block"
+    ],
+    [
+      "green_shard_block"
+    ],
+    [
+      "blue_shard_block"
+    ],
+    [
+      "white_shard_block"
+    ],
+    [
+      "black_shard_block"
+    ]
   ]
 }

@@ -1,7 +1,9 @@
 {
   "variants": {
     "normal": [
-      { "model": "aztech:ancient_dirt" }
+      {
+        "model": "aztech:ancient_dirt"
+      }
     ]
   }
 }

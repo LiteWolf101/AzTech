@@ -1,7 +1,9 @@
 {
   "variants": {
     "normal": [
-      { "model": "aztech:ancient_quartz_ore" }
+      {
+        "model": "aztech:ancient_quartz_ore"
+      }
     ]
   }
 }

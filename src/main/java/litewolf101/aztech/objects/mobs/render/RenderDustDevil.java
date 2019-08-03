@@ -2,20 +2,10 @@ package litewolf101.aztech.objects.mobs.render;
 
 import litewolf101.aztech.objects.entitymisc.EntityDustDevil;
 import litewolf101.aztech.objects.mobs.model.ModelDustDevil;
-import litewolf101.aztech.objects.projectiles.model.ModelLaser;
-import litewolf101.aztech.objects.projectiles.render.RenderEyeLaser;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.block.model.IBakedModel;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
@@ -25,40 +15,41 @@ import javax.annotation.Nullable;
 
 @SideOnly(Side.CLIENT)
 public class RenderDustDevil extends Render<EntityDustDevil> {
-    private ResourceLocation texture = new ResourceLocation("aztech:textures/blocks/dust_sand.png");
-    public static final IRenderFactory FACTORY = new RenderDustDevil.Factory();
-    private final ModelDustDevil modelDustDevil= new ModelDustDevil();
 
-    public RenderDustDevil(RenderManager manager, ModelBase modelBase)
-    {
-        super(manager);
-    }
+	public static final IRenderFactory FACTORY = new RenderDustDevil.Factory();
+	private final ModelDustDevil modelDustDevil = new ModelDustDevil();
+	private ResourceLocation texture = new ResourceLocation("aztech:textures/blocks/dust_sand.png");
 
-    @Override
-    public void doRender(EntityDustDevil entity, double x, double y, double z, float entityYaw, float partialTicks) {
-        long angle = (System.currentTimeMillis() / 2) % 360;
-        GlStateManager.pushMatrix();
-        this.bindTexture(texture);
-        GlStateManager.translate((float) x, (float) y + 0.5, (float) z);
-        GlStateManager.rotate(angle, 0f, 2f, 0f);
-        this.modelDustDevil.renderModel(0.01f);
-        GlStateManager.popMatrix();
-        super.doRender(entity, x, y, z, entityYaw, partialTicks);
+	public RenderDustDevil(RenderManager manager, ModelBase modelBase) {
+		super(manager);
+	}
 
-    }
+	@Override
+	public void doRender(EntityDustDevil entity, double x, double y, double z, float entityYaw, float partialTicks) {
+		long angle = (System.currentTimeMillis() / 2) % 360;
+		GlStateManager.pushMatrix();
+		this.bindTexture(texture);
+		GlStateManager.translate((float)x, (float)y + 0.5, (float)z);
+		GlStateManager.rotate(angle, 0f, 2f, 0f);
+		this.modelDustDevil.renderModel(0.01f);
+		GlStateManager.popMatrix();
+		super.doRender(entity, x, y, z, entityYaw, partialTicks);
 
-    @Nullable
-    @Override
-    protected ResourceLocation getEntityTexture(EntityDustDevil entity) {
-        return texture;
-    }
+	}
 
-    public static class Factory implements IRenderFactory<EntityDustDevil> {
+	@Nullable
+	@Override
+	protected ResourceLocation getEntityTexture(EntityDustDevil entity) {
+		return texture;
+	}
 
-        @Override
-        public Render<? super EntityDustDevil> createRenderFor(RenderManager manager) {
-            return new RenderDustDevil(manager, new ModelDustDevil());
-        }
-    }
+	public static class Factory implements IRenderFactory<EntityDustDevil> {
+
+		@Override
+		public Render<? super EntityDustDevil> createRenderFor(RenderManager manager) {
+			return new RenderDustDevil(manager, new ModelDustDevil());
+		}
+
+	}
 
 }

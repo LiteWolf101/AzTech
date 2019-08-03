@@ -17,64 +17,67 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
 public class RedRuneLine extends RuneLine implements IHasModel, IMetaName {
-    public RedRuneLine(String name) {
-        super();
-        setUnlocalizedName(name);
-        setRegistryName(name);
-        setDefaultState(blockState.getBaseState().withProperty(ACTIVATED, false));
-        setCreativeTab(AzTech.CREATIVE_TAB);  //remove after test
-        BlocksInit.BLOCKS.add(this);
-        ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));
-    }
 
-    @Override
-    public int damageDropped(IBlockState state) {
-        return 0;
-    }
+	public RedRuneLine(String name) {
+		super();
+		setTranslationKey(name);
+		setRegistryName(name);
+		setDefaultState(blockState.getBaseState().withProperty(ACTIVATED, false));
+		setCreativeTab(AzTech.CREATIVE_TAB);  //remove after test
+		BlocksInit.BLOCKS.add(this);
+		ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));
+	}
 
-    @Override
-    @SuppressWarnings("deprecation")
-    public IBlockState getStateFromMeta(int meta) {
-        IBlockState state = this.getDefaultState().withProperty(ACTIVATED, false);
-        switch (meta) {
-            case 1:
-                state = this.getDefaultState().withProperty(ACTIVATED, true);
-            default: this.getDefaultState().withProperty(ACTIVATED, false);
-        }
-        return state;
-    }
+	@Override
+	@SuppressWarnings("deprecation")
+	public IBlockState getStateFromMeta(int meta) {
+		IBlockState state = this.getDefaultState().withProperty(ACTIVATED, false);
+		switch(meta) {
+			case 1:
+				state = this.getDefaultState().withProperty(ACTIVATED, true);
+			default:
+				this.getDefaultState().withProperty(ACTIVATED, false);
+		}
+		return state;
+	}
 
-    @Override
-    public int getMetaFromState(IBlockState state) {
-        return this.getDefaultState().getValue(ACTIVATED) ? 1 : 0;
-    }
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return this.getDefaultState().getValue(ACTIVATED) ? 1 : 0;
+	}
 
-    @Override
-    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
-        return new ItemStack(Item.getItemFromBlock(this));
-    }
+	@Override
+	public int damageDropped(IBlockState state) {
+		return 0;
+	}
 
-    @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[] {ACTIVATED});
-    }
+	@Override
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, ACTIVATED);
+	}
 
-    @Override
-    public void registerModels() {
-        AzTech.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
-    }
+	@Override
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+		return new ItemStack(Item.getItemFromBlock(this));
+	}
 
-    @Override
-    public String getSpecialName(ItemStack stack) {
-        String name = null;
-        switch (stack.getItemDamage()){
-            case 1:
-                name = "on";
+	@Override
+	public void registerModels() {
+		AzTech.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
+	}
 
-                break;
-            default:
-                name = "off";
-        }
-        return name;
-    }
+	@Override
+	public String getSpecialName(ItemStack stack) {
+		String name = null;
+		switch(stack.getItemDamage()) {
+			case 1:
+				name = "on";
+
+				break;
+			default:
+				name = "off";
+		}
+		return name;
+	}
+
 }

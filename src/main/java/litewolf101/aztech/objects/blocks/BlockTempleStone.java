@@ -26,74 +26,74 @@ import net.minecraft.world.World;
 /**
  * Created by LiteWolf101 on 9/21/2018.
  */
-public class BlockTempleStone extends Block implements IHasModel, IMetaName{
-    public static final PropertyEnum<EnumTempleStoneType.EnumType> STONE_TYPE = PropertyEnum.<EnumTempleStoneType.EnumType>create("stone_type", EnumTempleStoneType.EnumType.class);
-    public BlockTempleStone(String name, Material material) {
-        super(material);
-        setUnlocalizedName(name);
-        setRegistryName(name);
-        setSoundType(SoundType.STONE);
-        setCreativeTab(AzTech.CREATIVE_TAB);
-        setDefaultState(this.blockState.getBaseState().withProperty(STONE_TYPE, EnumTempleStoneType.EnumType.NORMAL));
-        setHarvestLevel("pickaxe", 1);
-        setHardness(2f);
-        setResistance(250f);
+public class BlockTempleStone extends Block implements IHasModel, IMetaName {
 
-        BlocksInit.BLOCKS.add(this);
-        ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));
-    }
+	public static final PropertyEnum<EnumTempleStoneType.EnumType> STONE_TYPE = PropertyEnum.create("stone_type", EnumTempleStoneType.EnumType.class);
 
-    @Override
-    public int damageDropped(IBlockState state) {
-        return ((EnumTempleStoneType.EnumType)state.getValue(STONE_TYPE)).getMeta();
-    }
+	public BlockTempleStone(String name, Material material) {
+		super(material);
+		setTranslationKey(name);
+		setRegistryName(name);
+		setSoundType(SoundType.STONE);
+		setCreativeTab(AzTech.CREATIVE_TAB);
+		setDefaultState(this.blockState.getBaseState().withProperty(STONE_TYPE, EnumTempleStoneType.EnumType.NORMAL));
+		setHarvestLevel("pickaxe", 1);
+		setHardness(2f);
+		setResistance(250f);
 
-    @Override
-    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
+		BlocksInit.BLOCKS.add(this);
+		ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));
+	}
 
-        for(EnumTempleStoneType.EnumType stoneType$enumtype : EnumTempleStoneType.EnumType.values()) {
+	@Override
+	@SuppressWarnings("deprecation")
+	public IBlockState getStateFromMeta(int meta) {
 
-            items.add(new ItemStack(this, 1, stoneType$enumtype.getMeta()));
-        }
-    }
+		return this.getDefaultState().withProperty(STONE_TYPE, EnumTempleStoneType.EnumType.byMetadata(meta));
+	}
 
-    @Override
-    @SuppressWarnings("deprecation")
-    public IBlockState getStateFromMeta(int meta) {
+	@Override
+	public int getMetaFromState(IBlockState state) {
 
-        return this.getDefaultState().withProperty(STONE_TYPE, EnumTempleStoneType.EnumType.byMetadata(meta));
-    }
+		return state.getValue(STONE_TYPE).getMeta();
+	}
 
-    @Override
-    public int getMetaFromState(IBlockState state) {
+	@Override
+	public int damageDropped(IBlockState state) {
+		return state.getValue(STONE_TYPE).getMeta();
+	}
 
-        return ((EnumTempleStoneType.EnumType)state.getValue(STONE_TYPE)).getMeta();
-    }
+	@Override
+	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
 
-    @Override
-    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+		for(EnumTempleStoneType.EnumType stoneType$enumtype : EnumTempleStoneType.EnumType.values()) {
 
-        return new ItemStack(Item.getItemFromBlock(this), 1, getMetaFromState(world.getBlockState(pos)));
-    }
+			items.add(new ItemStack(this, 1, stoneType$enumtype.getMeta()));
+		}
+	}
 
-    @Override
-    protected BlockStateContainer createBlockState() {
+	@Override
+	protected BlockStateContainer createBlockState() {
 
-        return new BlockStateContainer(this, new IProperty[] {STONE_TYPE});
-    }
+		return new BlockStateContainer(this, STONE_TYPE);
+	}
 
+	@Override
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
 
+		return new ItemStack(Item.getItemFromBlock(this), 1, getMetaFromState(world.getBlockState(pos)));
+	}
 
-    @Override
-    public void registerModels() {
-        for(int i = 0; i < EnumTempleStoneType.EnumType.values().length; i++)
-        {
-            AzTech.proxy.registerVariantRenderer(Item.getItemFromBlock(this), i, "temple_stone_" + EnumTempleStoneType.EnumType.values()[i].getName(), "inventory");
-        }
-    }
+	@Override
+	public void registerModels() {
+		for(int i = 0; i < EnumTempleStoneType.EnumType.values().length; i++) {
+			AzTech.proxy.registerVariantRenderer(Item.getItemFromBlock(this), i, "temple_stone_" + EnumTempleStoneType.EnumType.values()[i].getName(), "inventory");
+		}
+	}
 
-    @Override
-    public String getSpecialName(ItemStack stack) {
-        return EnumTempleStoneType.EnumType.values()[stack.getItemDamage()].getName();
-    }
+	@Override
+	public String getSpecialName(ItemStack stack) {
+		return EnumTempleStoneType.EnumType.values()[stack.getItemDamage()].getName();
+	}
+
 }

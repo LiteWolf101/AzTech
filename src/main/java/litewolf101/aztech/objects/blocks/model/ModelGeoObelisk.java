@@ -7,24 +7,25 @@ import net.minecraft.entity.Entity;
 /**
  * Created by LiteWolf101 on 10/19/2018.
  */
-public class ModelGeoObelisk extends ModelBase{
-    ModelRenderer base;
+public class ModelGeoObelisk extends ModelBase {
 
-    public ModelGeoObelisk(){
-        textureHeight = 48;
-        textureWidth = 48;
+	ModelRenderer base;
 
-        base = new ModelRenderer(this, 0, 0);
-        base.addBox(0, 0, 0,8, 32, 8);
-    }
+	public ModelGeoObelisk() {
+		textureHeight = 48;
+		textureWidth = 48;
 
-    @Override
-    public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-        base.render(scale);
-    }
+		base = new ModelRenderer(this, 0, 0);
+		base.addBox(0, 0, 0, 8, 32, 8);
+	}
 
-    public void renderModel(float scale){
-        base.render(scale);
-    }
+	@Override
+	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		base.render(scale);
+	}
+
+	public void renderModel(float scale) {
+		base.render(scale);
+	}
 
 }

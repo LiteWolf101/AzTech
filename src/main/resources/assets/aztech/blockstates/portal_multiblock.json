@@ -1,8 +1,16 @@
 {
   "variants": {
-    "part=bottom": {"model": "aztech:red_rune_ore"},
-    "part=middle": {"model": "aztech:yellow_rune_ore"},
-    "part=top": {"model": "aztech:green_rune_ore"},
-    "part=brace": {"model": "aztech:blue_rune_ore"}
+    "part=bottom": {
+      "model": "aztech:red_rune_ore"
+    },
+    "part=middle": {
+      "model": "aztech:yellow_rune_ore"
+    },
+    "part=top": {
+      "model": "aztech:green_rune_ore"
+    },
+    "part=brace": {
+      "model": "aztech:blue_rune_ore"
+    }
   }
 }

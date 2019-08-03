@@ -5,10 +5,10 @@ import com.google.common.collect.Sets;
 import litewolf101.aztech.AzTech;
 import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.init.ItemsInit;
+import static litewolf101.aztech.objects.blocks.R2RTranslator.ACTIVATED;
 import litewolf101.aztech.objects.blocks.item.ItemBlockVariants;
 import litewolf101.aztech.utils.IHasModel;
 import litewolf101.aztech.utils.IMetaName;
-import litewolf101.aztech.utils.IRunePowerSource;
 import litewolf101.aztech.utils.handlers.MiscHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -27,146 +27,143 @@ import net.minecraft.world.World;
 import java.util.List;
 import java.util.Set;
 
-import static litewolf101.aztech.objects.blocks.R2RTranslator.ACTIVATED;
-
 public class TestBlock extends Block implements IHasModel, IMetaName {
-    public TestBlock(String name, Material material) {
-        super(material);
-        setUnlocalizedName(name);
-        setRegistryName(name);
-        setDefaultState(blockState.getBaseState().withProperty(ACTIVATED, false));
-        setCreativeTab(AzTech.CREATIVE_TAB);
-        BlocksInit.BLOCKS.add(this);
-        ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));
-    }
-    private final Set<BlockPos> blocksNeedingUpdate = Sets.<BlockPos>newHashSet();
 
-    private IBlockState updateSurroundingRunes(World worldIn, BlockPos pos, IBlockState state) {
-        updateRunes(worldIn, pos, state);
-        List<BlockPos> list = Lists.newArrayList(this.blocksNeedingUpdate);
-        this.blocksNeedingUpdate.clear();
+	private final Set<BlockPos> blocksNeedingUpdate = Sets.newHashSet();
 
-        for (BlockPos blockpos : list) {
-            if (worldIn.getBlockState(blockpos) != state) {
-                worldIn.setBlockState(blockpos, state);
-            }
-        }
+	public TestBlock(String name, Material material) {
+		super(material);
+		setTranslationKey(name);
+		setRegistryName(name);
+		setDefaultState(blockState.getBaseState().withProperty(ACTIVATED, false));
+		setCreativeTab(AzTech.CREATIVE_TAB);
+		BlocksInit.BLOCKS.add(this);
+		ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));
+	}
 
-        return state;
-    }
+	@Override
+	@SuppressWarnings("deprecation")
+	public IBlockState getStateFromMeta(int meta) {
+		boolean activated = meta != 0;
+		return this.getDefaultState().withProperty(ACTIVATED, activated);
+	}
 
-    public void updateRunes(World world, BlockPos pos, IBlockState state) {
-        BlockPos updatePos = pos;
-        EnumFacing[] offset = EnumFacing.values();
-        System.out.println("---");
-        for (EnumFacing facing : offset) {
-            if (MiscHandler.SOURCES.contains(world.getBlockState(pos.offset(facing)))) {
-                this.blocksNeedingUpdate.add(pos);
-                System.out.println("Power source at [" + facing + "]");
-            }
-            if (world.getBlockState(updatePos.offset(facing)).getBlock() == BlocksInit.TEST_BLOCK && !this.blocksNeedingUpdate.contains(updatePos.offset(facing))) {
-                System.out.println("Test block at [" + facing + "]");
-                this.blocksNeedingUpdate.add(updatePos.offset(facing));
-                updatePos = updatePos.offset(facing);
-            }
-        }
-        System.out.println("Blocks that need power:");
-        System.out.println(this.blocksNeedingUpdate);
-        System.out.println("---");
-    }
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return this.getDefaultState().getValue(ACTIVATED) ? 1 : 0;
+	}
 
-    @Override
-    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-        if (!worldIn.isRemote) {
-            updateSurroundingRunes(worldIn, pos, state);
-            //this.updateSurroundingRunes(worldIn, pos, state);
-        }
-    }
+	@Override
+	@SuppressWarnings("deprecation")
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+		if(!worldIn.isRemote) {
+			updateSurroundingRunes(worldIn, pos, state);
+			//this.updateSurroundingRunes(worldIn, pos, state);
+		}
+	}
 
-    @Override
-    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-        super.breakBlock(worldIn, pos, state);
-        if (!worldIn.isRemote) {
-            updateSurroundingRunes(worldIn, pos, state);
-            //this.updateSurroundingRunes(worldIn, pos, state);
-        }
-    }
+	@Override
+	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
+		if(!worldIn.isRemote) {
+			updateSurroundingRunes(worldIn, pos, state);
+			//this.updateSurroundingRunes(worldIn, pos, state);
+		}
+	}
 
-    @Override
-    @SuppressWarnings("deprecation")
-    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-        if (!worldIn.isRemote) {
-            updateSurroundingRunes(worldIn, pos, state);
-            //this.updateSurroundingRunes(worldIn, pos, state);
-        }
-    }
+	private IBlockState updateSurroundingRunes(World worldIn, BlockPos pos, IBlockState state) {
+		updateRunes(worldIn, pos, state);
+		List<BlockPos> list = Lists.newArrayList(this.blocksNeedingUpdate);
+		this.blocksNeedingUpdate.clear();
 
-    @Override
-    public int damageDropped(IBlockState state) {
-        return 0;
-    }
+		for(BlockPos blockpos : list) {
+			if(worldIn.getBlockState(blockpos) != state) {
+				worldIn.setBlockState(blockpos, state);
+			}
+		}
 
-    @Override
-    @SuppressWarnings("deprecation")
-    public IBlockState getStateFromMeta(int meta) {
-        boolean activated = meta != 0;
-        return this.getDefaultState().withProperty(ACTIVATED, activated);
-    }
+		return state;
+	}
 
-    @Override
-    public int getMetaFromState(IBlockState state) {
-        return this.getDefaultState().getValue(ACTIVATED) ? 1 : 0;
-    }
+	public void updateRunes(World world, BlockPos pos, IBlockState state) {
+		BlockPos updatePos = pos;
+		EnumFacing[] offset = EnumFacing.values();
+		System.out.println("---");
+		for(EnumFacing facing : offset) {
+			if(MiscHandler.SOURCES.contains(world.getBlockState(pos.offset(facing)))) {
+				this.blocksNeedingUpdate.add(pos);
+				System.out.println("Power source at [" + facing + "]");
+			}
+			if(world.getBlockState(updatePos.offset(facing)).getBlock() == BlocksInit.TEST_BLOCK && !this.blocksNeedingUpdate.contains(updatePos.offset(facing))) {
+				System.out.println("Test block at [" + facing + "]");
+				this.blocksNeedingUpdate.add(updatePos.offset(facing));
+				updatePos = updatePos.offset(facing);
+			}
+		}
+		System.out.println("Blocks that need power:");
+		System.out.println(this.blocksNeedingUpdate);
+		System.out.println("---");
+	}
 
-    @Override
-    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
-        return new ItemStack(Item.getItemFromBlock(this));
-    }
+	@Override
+	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+		super.breakBlock(worldIn, pos, state);
+		if(!worldIn.isRemote) {
+			updateSurroundingRunes(worldIn, pos, state);
+			//this.updateSurroundingRunes(worldIn, pos, state);
+		}
+	}
 
-    @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[]{ACTIVATED});
-    }
+	@Override
+	public int damageDropped(IBlockState state) {
+		return 0;
+	}
 
-    @Override
-    public void registerModels() {
-        AzTech.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
-    }
+	@Override
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, ACTIVATED);
+	}
 
-    @Override
-    public String getSpecialName(ItemStack stack) {
-        String name = null;
-        switch (stack.getItemDamage()) {
-            case 1:
-                name = "on";
+	@Override
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+		return new ItemStack(Item.getItemFromBlock(this));
+	}
 
-                break;
-            default:
-                name = "off";
-        }
-        return name;
-    }
+	@Override
+	public void registerModels() {
+		AzTech.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
+	}
 
-    static enum EnumAttachPosition implements IStringSerializable
-    {
-        DIRECTION("direction"),
-        NONE("none");
+	@Override
+	public String getSpecialName(ItemStack stack) {
+		String name = null;
+		switch(stack.getItemDamage()) {
+			case 1:
+				name = "on";
 
-        private final String name;
+				break;
+			default:
+				name = "off";
+		}
+		return name;
+	}
 
-        private EnumAttachPosition(String name)
-        {
-            this.name = name;
-        }
+	enum EnumAttachPosition implements IStringSerializable {
+		DIRECTION("direction"),
+		NONE("none");
 
-        public String toString()
-        {
-            return this.getName();
-        }
+		private final String name;
 
-        public String getName()
-        {
-            return this.name;
-        }
-    }
+		EnumAttachPosition(String name) {
+			this.name = name;
+		}
+
+		public String toString() {
+			return this.getName();
+		}
+
+		public String getName() {
+			return this.name;
+		}
+	}
+
 }

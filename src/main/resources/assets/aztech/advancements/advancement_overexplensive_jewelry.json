@@ -83,11 +83,23 @@
     }
   },
   "requirements": [
-    ["red"],
-    ["yellow"],
-    ["green"],
-    ["blue"],
-    ["white"],
-    ["black"]
+    [
+      "red"
+    ],
+    [
+      "yellow"
+    ],
+    [
+      "green"
+    ],
+    [
+      "blue"
+    ],
+    [
+      "white"
+    ],
+    [
+      "black"
+    ]
   ]
 }

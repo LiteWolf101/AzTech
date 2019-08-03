@@ -1,7 +1,9 @@
 {
   "variants": {
     "normal": [
-      { "model": "aztech:ancient_cobblestone" }
+      {
+        "model": "aztech:ancient_cobblestone"
+      }
     ]
   }
 }

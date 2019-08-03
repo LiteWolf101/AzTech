@@ -34,117 +34,116 @@ import java.util.Random;
 /**
  * Created by LiteWolf101 on 10/18/2018.
  */
-public class GeoluminescentObelisk extends Block implements IHasModel, IMetaName, ITileEntityProvider{
-    public static final PropertyEnum<EnumHalf.EnumType> HALF = PropertyEnum.<EnumHalf.EnumType>create("half", EnumHalf.EnumType.class);
-    public GeoluminescentObelisk(String name, Material material) {
-        super(material);
-        setUnlocalizedName(name);
-        setRegistryName(name);
-        setSoundType(SoundType.STONE);
-        setHarvestLevel("pickaxe", 2);
-        setHardness(2f);
-        setLightLevel(0.8f);
-        setDefaultState(this.blockState.getBaseState().withProperty(HALF, EnumHalf.EnumType.BOTTOM));
-        setResistance(25f);
+public class GeoluminescentObelisk extends Block implements IHasModel, IMetaName, ITileEntityProvider {
 
-        BlocksInit.BLOCKS.add(this);
-        ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));
-    }
+	public static final PropertyEnum<EnumHalf.EnumType> HALF = PropertyEnum.create("half", EnumHalf.EnumType.class);
 
-    @Override
-    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        //return state.getValue(HALF) == EnumHalf.EnumType.TOP? Items.AIR:ItemsInit.GEOLUMINESCENT_OBELISK;
-        return ItemsInit.GEOLUMINESCENT_OBELISK;
-    }
+	public GeoluminescentObelisk(String name, Material material) {
+		super(material);
+		setTranslationKey(name);
+		setRegistryName(name);
+		setSoundType(SoundType.STONE);
+		setHarvestLevel("pickaxe", 2);
+		setHardness(2f);
+		setLightLevel(0.8f);
+		setDefaultState(this.blockState.getBaseState().withProperty(HALF, EnumHalf.EnumType.BOTTOM));
+		setResistance(25f);
 
-    public void onBlockHarvested(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
-        BlockPos down = pos.down();
-        BlockPos up = pos.up();
-        if(state.getValue(HALF) == EnumHalf.EnumType.TOP && world.getBlockState(down).getBlock() == this) {
-            world.setBlockToAir(down);
-        }
+		BlocksInit.BLOCKS.add(this);
+		ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));
+	}
 
-        if(state.getValue(HALF) == EnumHalf.EnumType.BOTTOM && world.getBlockState(up).getBlock() == this) {
-            if(player.capabilities.isCreativeMode) {
-                world.setBlockToAir(pos);
-            }
-            world.setBlockToAir(up);
-        }
-    }
+	@Override
+	@SuppressWarnings("deprecation")
+	public IBlockState getStateFromMeta(int meta) {
 
-    @Override
-    @SuppressWarnings("deprecation")
-    public IBlockState getStateFromMeta(int meta) {
+		return this.getDefaultState().withProperty(HALF, EnumHalf.EnumType.byMetadata(meta));
+	}
 
-        return this.getDefaultState().withProperty(HALF, EnumHalf.EnumType.byMetadata(meta));
-    }
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return state.getValue(HALF).getMeta();
+	}
 
-    @Override
-    public int getMetaFromState(IBlockState state) {
-        return ((EnumHalf.EnumType)state.getValue(HALF)).getMeta();
-    }
+	@Override
+	@SuppressWarnings("deprecation")
+	public boolean isFullCube(IBlockState state) {
+		return false;
+	}
 
-    @Override
-    public ItemStack getPickBlock(IBlockState state, RayTraceResult result, World world, BlockPos pos, EntityPlayer player) {
-        return new ItemStack(ItemsInit.GEOLUMINESCENT_OBELISK);
-    }
+	@Override
+	public EnumBlockRenderType getRenderType(IBlockState state) {
+		return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
+	}
 
-    @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[] {HALF});
-    }
+	@Override
+	@SuppressWarnings("deprecation")
+	public boolean isOpaqueCube(IBlockState state) {
+		return false;
+	}
 
-    @Override
-    public void registerModels() {
-        for(int i = 0; i < EnumHalf.EnumType.values().length; i++)
-        {
-            AzTech.proxy.registerVariantRenderer(Item.getItemFromBlock(this), i, "geoluminescent_obelisk_" + EnumHalf.EnumType.values()[i].getName(), "inventory");
-        }
-    }
+	@Override
+	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+		//return state.getValue(HALF) == EnumHalf.EnumType.TOP? Items.AIR:ItemsInit.GEOLUMINESCENT_OBELISK;
+		return ItemsInit.GEOLUMINESCENT_OBELISK;
+	}
 
-    @Override
-    @SuppressWarnings("deprecation")
-    public boolean isOpaqueCube(IBlockState state) {
-        return false;
-    }
+	@Override
+	public BlockRenderLayer getRenderLayer() {
+		return BlockRenderLayer.CUTOUT;
+	}
 
-    @Override
-    public EnumBlockRenderType getRenderType(IBlockState state) {
-        return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
-    }
+	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
+		if(pos.getY() >= worldIn.getHeight() - 1) {
+			return false;
+		}
+		else {
+			IBlockState state = worldIn.getBlockState(pos.down());
+			return (state.isTopSolid() || state.getBlockFaceShape(worldIn, pos.down(), EnumFacing.UP) == BlockFaceShape.SOLID) && super.canPlaceBlockAt(worldIn, pos) && super.canPlaceBlockAt(worldIn, pos.up());
+		}
+	}
 
-    @Override
-    public BlockRenderLayer getBlockLayer() {
-        return BlockRenderLayer.CUTOUT;
-    }
+	public void onBlockHarvested(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
+		BlockPos down = pos.down();
+		BlockPos up = pos.up();
+		if(state.getValue(HALF) == EnumHalf.EnumType.TOP && world.getBlockState(down).getBlock() == this) {
+			world.setBlockToAir(down);
+		}
 
-    @Override
-    @SuppressWarnings("deprecation")
-    public boolean isFullCube(IBlockState state) {
-        return false;
-    }
+		if(state.getValue(HALF) == EnumHalf.EnumType.BOTTOM && world.getBlockState(up).getBlock() == this) {
+			if(player.capabilities.isCreativeMode) {
+				world.setBlockToAir(pos);
+			}
+			world.setBlockToAir(up);
+		}
+	}
 
-    @Override
-    public String getSpecialName(ItemStack stack) {
-        return EnumHalf.EnumType.values()[stack.getItemDamage()].getName();
-    }
+	@Override
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, HALF);
+	}
 
-    public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
-    {
-        if (pos.getY() >= worldIn.getHeight() - 1)
-        {
-            return false;
-        }
-        else
-        {
-            IBlockState state = worldIn.getBlockState(pos.down());
-            return (state.isTopSolid() || state.getBlockFaceShape(worldIn, pos.down(), EnumFacing.UP) == BlockFaceShape.SOLID) && super.canPlaceBlockAt(worldIn, pos) && super.canPlaceBlockAt(worldIn, pos.up());
-        }
-    }
+	@Override
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult result, World world, BlockPos pos, EntityPlayer player) {
+		return new ItemStack(ItemsInit.GEOLUMINESCENT_OBELISK);
+	}
 
-    @Nullable
-    @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return new TEGeoObelisk();
-    }
+	@Override
+	public void registerModels() {
+		for(int i = 0; i < EnumHalf.EnumType.values().length; i++) {
+			AzTech.proxy.registerVariantRenderer(Item.getItemFromBlock(this), i, "geoluminescent_obelisk_" + EnumHalf.EnumType.values()[i].getName(), "inventory");
+		}
+	}
+
+	@Override
+	public String getSpecialName(ItemStack stack) {
+		return EnumHalf.EnumType.values()[stack.getItemDamage()].getName();
+	}
+
+	@Nullable
+	@Override
+	public TileEntity createNewTileEntity(World worldIn, int meta) {
+		return new TEGeoObelisk();
+	}
+
 }

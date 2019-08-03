@@ -1,7 +1,9 @@
 {
   "variants": {
     "normal": [
-      { "model": "aztech:enemy_emitter_rune" }
+      {
+        "model": "aztech:enemy_emitter_rune"
+      }
     ]
   }
 }

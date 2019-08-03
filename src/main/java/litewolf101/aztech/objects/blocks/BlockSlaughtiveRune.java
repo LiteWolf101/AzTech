@@ -37,127 +37,138 @@ import java.util.Random;
  * Created by LiteWolf101 on 9/21/2018.
  */
 public class BlockSlaughtiveRune extends BlockContainer implements IHasModel, IMetaName, IRunePowerSource {
-    public static final PropertyEnum<EnumStage.EnumType> STAGE = PropertyEnum.<EnumStage.EnumType>create("stage", EnumStage.EnumType.class);
-    public BlockSlaughtiveRune(String name, Material material) {
-        super(material);
-        setUnlocalizedName(name);
-        setRegistryName(name);
-        setSoundType(SoundType.STONE);
-        setCreativeTab(AzTech.CREATIVE_TAB);
-        setDefaultState(this.blockState.getBaseState().withProperty(STAGE, EnumStage.EnumType.STAGE_0));
-        setHarvestLevel("pickaxe", 1);
-        setHardness(2f);
-        setTickRandomly(true);
-        setResistance(100f);
 
-        BlocksInit.BLOCKS.add(this);
-        ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));
-        MiscHandler.SOURCES.add(this.getDefaultState().withProperty(STAGE, EnumStage.EnumType.STAGE_6));
-    }
+	public static final PropertyEnum<EnumStage.EnumType> STAGE = PropertyEnum.create("stage", EnumStage.EnumType.class);
 
-    @Override
-    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-        worldIn.scheduleUpdate(pos, this, 20);
-    }
+	public BlockSlaughtiveRune(String name, Material material) {
+		super(material);
+		setTranslationKey(name);
+		setRegistryName(name);
+		setSoundType(SoundType.STONE);
+		setCreativeTab(AzTech.CREATIVE_TAB);
+		setDefaultState(this.blockState.getBaseState().withProperty(STAGE, EnumStage.EnumType.STAGE_0));
+		setHarvestLevel("pickaxe", 1);
+		setHardness(2f);
+		setTickRandomly(true);
+		setResistance(100f);
 
-    @Override
-    public int damageDropped(IBlockState state) {
-        return 0;
-    }
+		BlocksInit.BLOCKS.add(this);
+		ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));
+		MiscHandler.SOURCES.add(this.getDefaultState().withProperty(STAGE, EnumStage.EnumType.STAGE_6));
+	}
 
-    @Override
-    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
-        items.add(new ItemStack(this, 1, 0));
-        //this is done on purpose because only the first stage should show in the creative tab yet all the meta still exists
-    }
+	@Override
+	@SuppressWarnings("deprecation")
+	public IBlockState getStateFromMeta(int meta) {
 
-    @Override
-    @SuppressWarnings("deprecation")
-    public IBlockState getStateFromMeta(int meta) {
+		return this.getDefaultState().withProperty(STAGE, EnumStage.EnumType.byMetadata(meta));
+	}
 
-        return this.getDefaultState().withProperty(STAGE, EnumStage.EnumType.byMetadata(meta));
-    }
+	@Override
+	public int getMetaFromState(IBlockState state) {
 
-    @Override
-    public int getMetaFromState(IBlockState state) {
+		return state.getValue(STAGE).getMeta();
+	}
 
-        return ((EnumStage.EnumType)state.getValue(STAGE)).getMeta();
-    }
+	@Override
+	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
+		double x = pos.getX() + 0.5;
+		double y = pos.getY() + 1.5;
+		double z = pos.getZ() + 0.5;
+		double random = rand.nextDouble();
+		double random1 = rand.nextDouble();
+		worldIn.spawnParticle(EnumParticleTypes.REDSTONE, x + 5, y, z + 5, 0, 0, 0);
+		worldIn.spawnParticle(EnumParticleTypes.REDSTONE, x, y, z + 5, 0, 0, 0);
+		worldIn.spawnParticle(EnumParticleTypes.REDSTONE, x - 5, y, z + 5, 0, 0, 0);
+		worldIn.spawnParticle(EnumParticleTypes.REDSTONE, x - 5, y, z, 0, 0, 0);
+		worldIn.spawnParticle(EnumParticleTypes.REDSTONE, x - 5, y, z - 5, 0, 0, 0);
+		worldIn.spawnParticle(EnumParticleTypes.REDSTONE, x, y, z - 5, 0, 0, 0);
+		worldIn.spawnParticle(EnumParticleTypes.REDSTONE, x + 5, y, z - 5, 0, 0, 0);
+		worldIn.spawnParticle(EnumParticleTypes.REDSTONE, x + 5, y, z, 0, 0, 0);
+		if(worldIn.getBlockState(pos) == stateIn.withProperty(STAGE, EnumStage.EnumType.STAGE_6)) {
+			worldIn.spawnParticle(EnumParticleTypes.REDSTONE, (x - 0.5) + random, y, (z - 0.5) + random1, 0, 0.1D, 0);
+		}
+	}
 
-    @Override
-    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+	@Override
+	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
+		worldIn.scheduleUpdate(pos, this, 20);
+	}
 
-        return new ItemStack(Item.getItemFromBlock(this), 1, getMetaFromState(world.getBlockState(pos)));
-    }
+	@Override
+	public int damageDropped(IBlockState state) {
+		return 0;
+	}
 
-    @Override
-    protected BlockStateContainer createBlockState() {
+	@Override
+	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
+		items.add(new ItemStack(this, 1, 0));
+		//this is done on purpose because only the first stage should show in the creative tab yet all the meta still exists
+	}
 
-        return new BlockStateContainer(this, new IProperty[] {STAGE});
-    }
+	@Override
+	protected BlockStateContainer createBlockState() {
 
-    //TODO make this a tile entity
+		return new BlockStateContainer(this, STAGE);
+	}
 
-    @Override
-    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-        double x = pos.getX() + 0.5;
-        double y = pos.getY() + 1.5;
-        double z = pos.getZ() + 0.5;
-        double random = rand.nextDouble();
-        double random1 = rand.nextDouble();
-        worldIn.spawnParticle(EnumParticleTypes.REDSTONE, x + 5, y, z + 5, 0, 0, 0);
-        worldIn.spawnParticle(EnumParticleTypes.REDSTONE, x, y, z + 5, 0, 0, 0);
-        worldIn.spawnParticle(EnumParticleTypes.REDSTONE, x - 5, y, z + 5, 0, 0, 0);
-        worldIn.spawnParticle(EnumParticleTypes.REDSTONE, x - 5, y, z, 0, 0, 0);
-        worldIn.spawnParticle(EnumParticleTypes.REDSTONE, x - 5, y, z - 5, 0, 0, 0);
-        worldIn.spawnParticle(EnumParticleTypes.REDSTONE, x, y, z - 5, 0, 0, 0);
-        worldIn.spawnParticle(EnumParticleTypes.REDSTONE, x + 5, y, z - 5, 0, 0, 0);
-        worldIn.spawnParticle(EnumParticleTypes.REDSTONE, x + 5, y, z, 0, 0, 0);
-        if(worldIn.getBlockState(pos) == stateIn.withProperty(STAGE, EnumStage.EnumType.STAGE_6)){
-            worldIn.spawnParticle(EnumParticleTypes.REDSTONE, (x - 0.5) + random , y, (z - 0.5) + random1 , 0, 0.1D, 0);
-        }
-    }
+	//TODO make this a tile entity
 
-    @Override
-    public EnumBlockRenderType getRenderType(IBlockState state) {
-        return EnumBlockRenderType.MODEL;
-    }
+	@Override
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
 
-    @Override
-    public void registerModels() {
-        for(int i = 0; i < EnumStage.EnumType.values().length; i++)
-        {
-            AzTech.proxy.registerVariantRenderer(Item.getItemFromBlock(this), i, "slaughtive_rune_" + EnumStage.EnumType.values()[i].getName(), "inventory");
-        }
-    }
+		return new ItemStack(Item.getItemFromBlock(this), 1, getMetaFromState(world.getBlockState(pos)));
+	}
 
-    @Override
-    public String getSpecialName(ItemStack stack) {
-        return EnumStage.EnumType.values()[stack.getItemDamage()].getName();
-    }
+	@Override
+	public EnumBlockRenderType getRenderType(IBlockState state) {
+		return EnumBlockRenderType.MODEL;
+	}
 
-    @Nullable
-    @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta) {
-        if (meta == 0){
-            return new TESlaughtiveRune0();
-        } else if (meta == 1){
-            return new TESlaughtiveRune1();
-        } else if (meta == 2){
-            return new TESlaughtiveRune2();
-        } else if (meta == 3){
-            return new TESlaughtiveRune3();
-        } else if (meta == 4){
-            return new TESlaughtiveRune4();
-        } else if (meta == 5){
-            return new TESlaughtiveRune5();
-        } else if (meta == 6){
-            return new TESlaughtiveRune6();
-        } else return null;
-    }
+	@Override
+	public void registerModels() {
+		for(int i = 0; i < EnumStage.EnumType.values().length; i++) {
+			AzTech.proxy.registerVariantRenderer(Item.getItemFromBlock(this), i, "slaughtive_rune_" + EnumStage.EnumType.values()[i].getName(), "inventory");
+		}
+	}
 
-    @Override
-    public IBlockState isRunePowerSourceAt(World world, IBlockState state, EnumFacing facing, BlockPos pos) {
-        return this.getDefaultState().withProperty(STAGE, EnumStage.EnumType.STAGE_6);
-    }
+	@Override
+	public String getSpecialName(ItemStack stack) {
+		return EnumStage.EnumType.values()[stack.getItemDamage()].getName();
+	}
+
+	@Nullable
+	@Override
+	public TileEntity createNewTileEntity(World worldIn, int meta) {
+		if(meta == 0) {
+			return new TESlaughtiveRune0();
+		}
+		else if(meta == 1) {
+			return new TESlaughtiveRune1();
+		}
+		else if(meta == 2) {
+			return new TESlaughtiveRune2();
+		}
+		else if(meta == 3) {
+			return new TESlaughtiveRune3();
+		}
+		else if(meta == 4) {
+			return new TESlaughtiveRune4();
+		}
+		else if(meta == 5) {
+			return new TESlaughtiveRune5();
+		}
+		else if(meta == 6) {
+			return new TESlaughtiveRune6();
+		}
+		else {
+			return null;
+		}
+	}
+
+	@Override
+	public IBlockState isRunePowerSourceAt(World world, IBlockState state, EnumFacing facing, BlockPos pos) {
+		return this.getDefaultState().withProperty(STAGE, EnumStage.EnumType.STAGE_6);
+	}
+
 }

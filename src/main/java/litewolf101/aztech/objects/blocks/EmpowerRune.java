@@ -35,129 +35,131 @@ import java.util.Random;
 /**
  * Created by LiteWolf101 on 9/24/2018.
  */
-public class EmpowerRune extends Block implements IHasModel, IMetaName{
-    public static final PropertyEnum<EnumEmpowerType.EnumType> EMPOWER_TYPE = PropertyEnum.<EnumEmpowerType.EnumType>create("empower_type", EnumEmpowerType.EnumType.class);
-    public EmpowerRune(String name, Material material) {
-        super(material);
-        setUnlocalizedName(name);
-        setRegistryName(name);
-        setSoundType(SoundType.STONE);
-        setCreativeTab(AzTech.CREATIVE_TAB);
-        setDefaultState(this.blockState.getBaseState().withProperty(EMPOWER_TYPE, EnumEmpowerType.EnumType.HOSTILE));
-        setHarvestLevel("pickaxe", 1);
-        setHardness(2f);
-        setTickRandomly(true);
-        setResistance(100f);
+public class EmpowerRune extends Block implements IHasModel, IMetaName {
 
-        BlocksInit.BLOCKS.add(this);
-        ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));
-    }
+	public static final PropertyEnum<EnumEmpowerType.EnumType> EMPOWER_TYPE = PropertyEnum.create("empower_type", EnumEmpowerType.EnumType.class);
 
-    @Override
-    public int tickRate(World worldIn) {
-        return 20;
-    }
+	public EmpowerRune(String name, Material material) {
+		super(material);
+		setTranslationKey(name);
+		setRegistryName(name);
+		setSoundType(SoundType.STONE);
+		setCreativeTab(AzTech.CREATIVE_TAB);
+		setDefaultState(this.blockState.getBaseState().withProperty(EMPOWER_TYPE, EnumEmpowerType.EnumType.HOSTILE));
+		setHarvestLevel("pickaxe", 1);
+		setHardness(2f);
+		setTickRandomly(true);
+		setResistance(100f);
 
-    @Override
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-        this.randomDisplayTick(state,worldIn, pos, rand);
-        worldIn.scheduleUpdate(pos, this, 20);
-        giveEffect(worldIn, state, pos);
-    }
+		BlocksInit.BLOCKS.add(this);
+		ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));
+	}
 
-    @Override
-    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-        worldIn.scheduleUpdate(pos, this, 20);
-        giveEffect(worldIn, state, pos);
-    }
+	@Override
+	@SuppressWarnings("deprecation")
+	public IBlockState getStateFromMeta(int meta) {
 
-    @Override
-    public int damageDropped(IBlockState state) {
-        return ((EnumEmpowerType.EnumType)state.getValue(EMPOWER_TYPE)).getMeta();
-    }
+		return this.getDefaultState().withProperty(EMPOWER_TYPE, EnumEmpowerType.EnumType.byMetadata(meta));
+	}
 
-    @Override
-    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
+	@Override
+	public int getMetaFromState(IBlockState state) {
 
-        for(EnumEmpowerType.EnumType empowerType$enumtype : EnumEmpowerType.EnumType.values()) {
+		return state.getValue(EMPOWER_TYPE).getMeta();
+	}
 
-            items.add(new ItemStack(this, 1, empowerType$enumtype.getMeta()));
-        }
-    }
+	@Override
+	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
+		this.randomDisplayTick(state, worldIn, pos, rand);
+		worldIn.scheduleUpdate(pos, this, 20);
+		giveEffect(worldIn, state, pos);
+	}
 
-    @Override
-    @SuppressWarnings("deprecation")
-    public IBlockState getStateFromMeta(int meta) {
+	public void giveEffect(World world, IBlockState state, BlockPos pos) {
+		double x = pos.getX();
+		double y = pos.getY();
+		double z = pos.getZ();
 
-        return this.getDefaultState().withProperty(EMPOWER_TYPE, EnumEmpowerType.EnumType.byMetadata(meta));
-    }
+		AxisAlignedBB detectbb = new AxisAlignedBB(pos, pos.add(1, 1, 1)).grow(5D, 1D, 5D);
+		List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, detectbb);
+		for(EntityLivingBase entity : entities) {
+			if(world.getBlockState(pos) == state.withProperty(EMPOWER_TYPE, EnumEmpowerType.EnumType.HOSTILE)) {
+				if(entity instanceof IMob) {
+					entity.addPotionEffect(new PotionEffect(Potion.getPotionById(5), 40, 2));
+				}
+			}
+			if(world.getBlockState(pos) == state.withProperty(EMPOWER_TYPE, EnumEmpowerType.EnumType.FRIENDLY)) {
+				if(entity instanceof EntityPlayer) {
+					entity.addPotionEffect(new PotionEffect(Potion.getPotionById(5), 40, 2));
+				}
+			}
+		}
+	}
 
-    @Override
-    public int getMetaFromState(IBlockState state) {
+	@Override
+	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
+		double x = pos.getX() + 0.5;
+		double y = pos.getY() + 1.5;
+		double z = pos.getZ() + 0.5;
+		double random = rand.nextDouble();
+		double random1 = rand.nextDouble();
+		worldIn.spawnParticle(EnumParticleTypes.REDSTONE, x + 5, y, z + 5, 0, 0, 0);
+		worldIn.spawnParticle(EnumParticleTypes.REDSTONE, x, y, z + 5, 0, 0, 0);
+		worldIn.spawnParticle(EnumParticleTypes.REDSTONE, x - 5, y, z + 5, 0, 0, 0);
+		worldIn.spawnParticle(EnumParticleTypes.REDSTONE, x - 5, y, z, 0, 0, 0);
+		worldIn.spawnParticle(EnumParticleTypes.REDSTONE, x - 5, y, z - 5, 0, 0, 0);
+		worldIn.spawnParticle(EnumParticleTypes.REDSTONE, x, y, z - 5, 0, 0, 0);
+		worldIn.spawnParticle(EnumParticleTypes.REDSTONE, x + 5, y, z - 5, 0, 0, 0);
+		worldIn.spawnParticle(EnumParticleTypes.REDSTONE, x + 5, y, z, 0, 0, 0);
+	}
 
-        return ((EnumEmpowerType.EnumType)state.getValue(EMPOWER_TYPE)).getMeta();
-    }
+	@Override
+	public int tickRate(World worldIn) {
+		return 20;
+	}
 
-    @Override
-    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+	@Override
+	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
+		worldIn.scheduleUpdate(pos, this, 20);
+		giveEffect(worldIn, state, pos);
+	}
 
-        return new ItemStack(Item.getItemFromBlock(this), 1, getMetaFromState(world.getBlockState(pos)));
-    }
+	@Override
+	public int damageDropped(IBlockState state) {
+		return state.getValue(EMPOWER_TYPE).getMeta();
+	}
 
-    @Override
-    protected BlockStateContainer createBlockState() {
+	@Override
+	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
 
-        return new BlockStateContainer(this, new IProperty[] {EMPOWER_TYPE});
-    }
+		for(EnumEmpowerType.EnumType empowerType$enumtype : EnumEmpowerType.EnumType.values()) {
 
-    @Override
-    public void registerModels() {
-        for(int i = 0; i < EnumEmpowerType.EnumType.values().length; i++)
-        {
-            AzTech.proxy.registerVariantRenderer(Item.getItemFromBlock(this), i, EnumEmpowerType.EnumType.values()[i].getName() + "_empower_rune", "inventory");
-        }
-    }
+			items.add(new ItemStack(this, 1, empowerType$enumtype.getMeta()));
+		}
+	}
 
-    @Override
-    public String getSpecialName(ItemStack stack) {
-        return EnumEmpowerType.EnumType.values()[stack.getItemDamage()].getName();
-    }
+	@Override
+	protected BlockStateContainer createBlockState() {
 
-    public void giveEffect(World world, IBlockState state, BlockPos pos){
-        double x = pos.getX();
-        double y = pos.getY();
-        double z = pos.getZ();
+		return new BlockStateContainer(this, EMPOWER_TYPE);
+	}
 
-        AxisAlignedBB detectbb = new AxisAlignedBB(pos, pos.add(1, 1, 1)).grow(5D, 1D, 5D);
-        List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, detectbb);
-        for (EntityLivingBase entity : entities) {
-            if (world.getBlockState(pos) == state.withProperty(EMPOWER_TYPE, EnumEmpowerType.EnumType.HOSTILE)){
-                if (entity instanceof IMob) {
-                    entity.addPotionEffect(new PotionEffect(Potion.getPotionById(5), 40, 2));
-                }
-            }
-            if (world.getBlockState(pos) == state.withProperty(EMPOWER_TYPE, EnumEmpowerType.EnumType.FRIENDLY)){
-                if (entity instanceof EntityPlayer) {
-                    entity.addPotionEffect(new PotionEffect(Potion.getPotionById(5), 40, 2));
-                }
-            }
-        }
-    }
+	@Override
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
 
-    @Override
-    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-        double x = pos.getX() + 0.5;
-        double y = pos.getY() + 1.5;
-        double z = pos.getZ() + 0.5;
-        double random = rand.nextDouble();
-        double random1 = rand.nextDouble();
-        worldIn.spawnParticle(EnumParticleTypes.REDSTONE, x + 5, y, z + 5, 0, 0, 0);
-        worldIn.spawnParticle(EnumParticleTypes.REDSTONE, x, y, z + 5, 0, 0, 0);
-        worldIn.spawnParticle(EnumParticleTypes.REDSTONE, x - 5, y, z + 5, 0, 0, 0);
-        worldIn.spawnParticle(EnumParticleTypes.REDSTONE, x - 5, y, z, 0, 0, 0);
-        worldIn.spawnParticle(EnumParticleTypes.REDSTONE, x - 5, y, z - 5, 0, 0, 0);
-        worldIn.spawnParticle(EnumParticleTypes.REDSTONE, x, y, z - 5, 0, 0, 0);
-        worldIn.spawnParticle(EnumParticleTypes.REDSTONE, x + 5, y, z - 5, 0, 0, 0);
-        worldIn.spawnParticle(EnumParticleTypes.REDSTONE, x + 5, y, z, 0, 0, 0);
-    }
+		return new ItemStack(Item.getItemFromBlock(this), 1, getMetaFromState(world.getBlockState(pos)));
+	}
+
+	@Override
+	public void registerModels() {
+		for(int i = 0; i < EnumEmpowerType.EnumType.values().length; i++) {
+			AzTech.proxy.registerVariantRenderer(Item.getItemFromBlock(this), i, EnumEmpowerType.EnumType.values()[i].getName() + "_empower_rune", "inventory");
+		}
+	}
+
+	@Override
+	public String getSpecialName(ItemStack stack) {
+		return EnumEmpowerType.EnumType.values()[stack.getItemDamage()].getName();
+	}
+
 }

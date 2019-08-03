@@ -27,105 +27,107 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
  * Created by LiteWolf101 on 9/20/2018.
  */
 public class ClientProxy extends CommonProxy {
-    @Override
-    public void preInit(FMLPreInitializationEvent event) {
-        super.preInit(event);
-        ModEntities.initModels();
-    }
 
-    @Override
-    public void init(FMLInitializationEvent event) {
-        super.init(event);
-        AzTechSoundHandler.init();
-        ColorHandler.init();
-        ColorHandler.registerExtraBlockColors();
-        NetworkRegistry.INSTANCE.registerGuiHandler(AzTech.instance, new GUIHandler());
-    }
+	@Override
+	public void preInit(FMLPreInitializationEvent event) {
+		super.preInit(event);
+		ModEntities.initModels();
+	}
 
-    @Override
-    public void postInit(FMLPostInitializationEvent event) {
-        super.postInit(event);
-    }
+	@Override
+	public void init(FMLInitializationEvent event) {
+		super.init(event);
+		AzTechSoundHandler.init();
+		ColorHandler.init();
+		ColorHandler.registerExtraBlockColors();
+		NetworkRegistry.INSTANCE.registerGuiHandler(AzTech.instance, new GUIHandler());
+	}
 
-    @Override
-    public void registerItemRenderer(Item item, int meta, String id) {
-        ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(item.getRegistryName(), id));
-    }
+	@Override
+	public void postInit(FMLPostInitializationEvent event) {
+		super.postInit(event);
+	}
 
-    @Override
-    public void registerVariantRenderer(Item item, int meta, String filename, String id) {
-        ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(new ResourceLocation(Reference.MODID, filename), id));
-    }
+	@Override
+	public void registerItemRenderer(Item item, int meta, String id) {
+		ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(item.getRegistryName(), id));
+	}
 
-    @Override
-    public void RegisterTileEntityRender() {
-        ClientRegistry.bindTileEntitySpecialRenderer(TETempleRuneBlock.class, new RenderTempleRuneCore());
-        ClientRegistry.bindTileEntitySpecialRenderer(TEGeoObelisk.class, new RenderTileGeoObelisk());
-        ClientRegistry.bindTileEntitySpecialRenderer(masterPortalConstruct.class, new RenderPortalConstruct());
-        ClientRegistry.bindTileEntitySpecialRenderer(TETempleMirror.class, new RenderMirror());
-        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityInsertiveRune.class, new RenderInsertiveRune());
-    }
+	@Override
+	public void registerVariantRenderer(Item item, int meta, String filename, String id) {
+		ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(new ResourceLocation(Reference.MODID, filename), id));
+	}
 
-    @Override
-    public void spawnParticle(World world, AzTechParticleTypes particletype, double x, double y, double z, double velX, double velY, double velZ) {
-        Minecraft mc = Minecraft.getMinecraft();
-        Entity entity = mc.getRenderViewEntity();
+	@Override
+	public void RegisterTileEntityRender() {
+		ClientRegistry.bindTileEntitySpecialRenderer(TETempleRuneBlock.class, new RenderTempleRuneCore());
+		ClientRegistry.bindTileEntitySpecialRenderer(TEGeoObelisk.class, new RenderTileGeoObelisk());
+		ClientRegistry.bindTileEntitySpecialRenderer(masterPortalConstruct.class, new RenderPortalConstruct());
+		ClientRegistry.bindTileEntitySpecialRenderer(TETempleMirror.class, new RenderMirror());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityInsertiveRune.class, new RenderInsertiveRune());
+	}
 
-        if (entity != null && mc.effectRenderer != null) {
-            int i = mc.gameSettings.particleSetting;
+	@Override
+	public void spawnParticle(World world, AzTechParticleTypes particletype, double x, double y, double z, double velX, double velY, double velZ) {
+		Minecraft mc = Minecraft.getMinecraft();
+		Entity entity = mc.getRenderViewEntity();
 
-            if (i == 1 && world.rand.nextInt(3) == 0) {
-                i = 2;
-            }
+		if(entity != null && mc.effectRenderer != null) {
+			int i = mc.gameSettings.particleSetting;
 
-            double d0 = entity.posX - x;
-            double d1 = entity.posY - y;
-            double d2 = entity.posZ - z;
+			if(i == 1 && world.rand.nextInt(3) == 0) {
+				i = 2;
+			}
 
-            if (d0 * d0 + d1 * d1 + d2 * d2 <= 1024D && i <= 1) {
-                Particle particle = null;
+			double d0 = entity.posX - x;
+			double d1 = entity.posY - y;
+			double d2 = entity.posZ - z;
 
-                switch (particletype) {
-                    case EYE_MASTER:
-                        particle = new ParticleEyeMaster(world, x, y, z, velX, velY, velZ);
-                        break;
-                    case EYE_GUARDIAN:
-                        particle = new ParticleEyeGuardian(world, x, y, z, velX, velY, velZ);
-                        break;
-                    case ENEMY_LINK:
-                        particle = new ParticleEnemyLink(world, x, y, z, velX, velY, velZ);
-                        break;
-                    case PYRONANT:
-                        particle = new ParticlePyronant(world, x, y, z, (float)velX, (float)velY, (float)velZ);
-                        break;
-                    case RED_SPARKLE:
-                        particle = new ParticleRedSparkle(world, x, y, z, velX, velY, velZ);
-                        break;
-                    case YELLOW_SPARKLE:
-                        particle = new ParticleYellowSparkle(world, x, y, z, velX, velY, velZ);
-                        break;
-                    case GREEN_SPARKLE:
-                        particle = new ParticleGreenSparkle(world, x, y, z, velX, velY, velZ);
-                        break;
-                    case BLUE_SPARKLE:
-                        particle = new ParticleBlueSparkle(world, x, y, z, velX, velY, velZ);
-                        break;
-                    case WHITE_SPARKLE:
-                        particle = new ParticleWhiteSparkle(world, x, y, z, velX, velY, velZ);
-                        break;
-                    case BLACK_SPARKLE:
-                        particle = new ParticleBlackSparkle(world, x, y, z, velX, velY, velZ);
-                        break;
-                    case SAND_DUST:
-                        particle = new ParticleDust(world, x, y, z, velX, velY, velZ);
-                        break;
-                }
+			if(d0 * d0 + d1 * d1 + d2 * d2 <= 1024D && i <= 1) {
+				Particle particle = null;
 
-                if (particle != null) {
-                    mc.effectRenderer.addEffect(particle);
-                }
-            }
-        }
-    }
+				switch(particletype) {
+					case EYE_MASTER:
+						particle = new ParticleEyeMaster(world, x, y, z, velX, velY, velZ);
+						break;
+					case EYE_GUARDIAN:
+						particle = new ParticleEyeGuardian(world, x, y, z, velX, velY, velZ);
+						break;
+					case ENEMY_LINK:
+						particle = new ParticleEnemyLink(world, x, y, z, velX, velY, velZ);
+						break;
+					case PYRONANT:
+						particle = new ParticlePyronant(world, x, y, z, (float)velX, (float)velY, (float)velZ);
+						break;
+					case RED_SPARKLE:
+						particle = new ParticleRedSparkle(world, x, y, z, velX, velY, velZ);
+						break;
+					case YELLOW_SPARKLE:
+						particle = new ParticleYellowSparkle(world, x, y, z, velX, velY, velZ);
+						break;
+					case GREEN_SPARKLE:
+						particle = new ParticleGreenSparkle(world, x, y, z, velX, velY, velZ);
+						break;
+					case BLUE_SPARKLE:
+						particle = new ParticleBlueSparkle(world, x, y, z, velX, velY, velZ);
+						break;
+					case WHITE_SPARKLE:
+						particle = new ParticleWhiteSparkle(world, x, y, z, velX, velY, velZ);
+						break;
+					case BLACK_SPARKLE:
+						particle = new ParticleBlackSparkle(world, x, y, z, velX, velY, velZ);
+						break;
+					case SAND_DUST:
+						particle = new ParticleDust(world, x, y, z, velX, velY, velZ);
+						break;
+				}
+
+				if(particle != null) {
+					mc.effectRenderer.addEffect(particle);
+				}
+			}
+		}
+	}
+
 }
 

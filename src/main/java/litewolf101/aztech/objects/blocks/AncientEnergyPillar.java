@@ -22,74 +22,76 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 public class AncientEnergyPillar extends Block implements IHasModel, IMetaName {
-    public static final PropertyDirection FACING = PropertyDirection.create("facing");
-    public AncientEnergyPillar(String name, Material material) {
-        super(material);
-        setRegistryName(name);
-        setUnlocalizedName(name);
-        setSoundType(SoundType.STONE);
-        setCreativeTab(AzTech.CREATIVE_TAB);
-        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.UP));
-        setLightLevel(1F);
-        setHarvestLevel("pickaxe", 1);
-        setHardness(0.5f);
-        setResistance(100f);
 
-        BlocksInit.BLOCKS.add(this);
-        ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));
-    }
+	public static final PropertyDirection FACING = PropertyDirection.create("facing");
 
-    @Override
-    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-        worldIn.setBlockState(pos, state.withProperty(FACING, getFacingFromEntity(pos, placer)));
-    }
+	public AncientEnergyPillar(String name, Material material) {
+		super(material);
+		setRegistryName(name);
+		setTranslationKey(name);
+		setSoundType(SoundType.STONE);
+		setCreativeTab(AzTech.CREATIVE_TAB);
+		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.UP));
+		setLightLevel(1F);
+		setHarvestLevel("pickaxe", 1);
+		setHardness(0.5f);
+		setResistance(100f);
 
-    public static EnumFacing getFacingFromEntity(BlockPos pos, EntityLivingBase entity) {
-        if (MathHelper.abs((float) entity.posX - (float) pos.getX()) < 2.0F && MathHelper.abs((float) entity.posZ - (float) pos.getZ()) < 2.0F) {
-            double d0 = entity.posY + (double) entity.getEyeHeight();
-            if (d0 - (double) pos.getY() > 2.0D) {
-                return EnumFacing.UP;
-            }
+		BlocksInit.BLOCKS.add(this);
+		ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));
+	}
 
-            if ((double) pos.getY() - d0 > 0.0D) {
-                return EnumFacing.DOWN;
-            }
-        }
-        return entity.getHorizontalFacing().getOpposite();
-    }
+	@Override
+	@SuppressWarnings("deprecation")
+	public IBlockState getStateFromMeta(int meta) {
+		EnumFacing direction = EnumFacing.VALUES[meta > 5 ? meta - 5 : meta];
+		return getDefaultState().withProperty(FACING, direction);
+	}
 
-    @Override
-    public int damageDropped(IBlockState state) {
-        return 0;
-    }
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		EnumFacing direction = state.getValue(FACING);
+		return direction.getIndex();
+	}
 
-    @Override
-    @SuppressWarnings("deprecation")
-    public IBlockState getStateFromMeta(int meta) {
-        EnumFacing direction = EnumFacing.VALUES[meta > 5 ? meta - 5 : meta];
-        return getDefaultState().withProperty(FACING, direction);
-    }
+	@Override
+	public int damageDropped(IBlockState state) {
+		return 0;
+	}
 
-    @Override
-    public int getMetaFromState(IBlockState state) {
-        EnumFacing direction = state.getValue(FACING);
-        return direction.getIndex();
-    }
+	@Override
+	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+		worldIn.setBlockState(pos, state.withProperty(FACING, getFacingFromEntity(pos, placer)));
+	}
 
-    @Override
-    protected BlockStateContainer createBlockState() {
+	public static EnumFacing getFacingFromEntity(BlockPos pos, EntityLivingBase entity) {
+		if(MathHelper.abs((float)entity.posX - (float)pos.getX()) < 2.0F && MathHelper.abs((float)entity.posZ - (float)pos.getZ()) < 2.0F) {
+			double d0 = entity.posY + (double)entity.getEyeHeight();
+			if(d0 - (double)pos.getY() > 2.0D) {
+				return EnumFacing.UP;
+			}
 
-        return new BlockStateContainer(this, new IProperty[] {FACING});
-    }
+			if((double)pos.getY() - d0 > 0.0D) {
+				return EnumFacing.DOWN;
+			}
+		}
+		return entity.getHorizontalFacing().getOpposite();
+	}
 
-    @Override
-    public void registerModels() {
-        AzTech.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
-    }
+	@Override
+	protected BlockStateContainer createBlockState() {
 
+		return new BlockStateContainer(this, FACING);
+	}
 
-    @Override
-    public String getSpecialName(ItemStack stack) {
-        return EnumFacing.values()[stack.getItemDamage()].getName();
-    }
+	@Override
+	public void registerModels() {
+		AzTech.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
+	}
+
+	@Override
+	public String getSpecialName(ItemStack stack) {
+		return EnumFacing.values()[stack.getItemDamage()].getName();
+	}
+
 }

@@ -28,120 +28,112 @@ import java.util.Random;
 /**
  * Created by LiteWolf101 on 9/25/2018.
  */
-public class AncientGrass extends Block implements IHasModel, IGrowable{
-    public AncientGrass(String name, Material material) {
-        super(material);
-        setUnlocalizedName(name);
-        setRegistryName(name);
-        setCreativeTab(AzTech.CREATIVE_TAB);
-        setHarvestLevel("shovel", 0);
-        setHardness(0.5f);
-        setSoundType(SoundType.PLANT);
-        setTickRandomly(true);
+public class AncientGrass extends Block implements IHasModel, IGrowable {
 
-        BlocksInit.BLOCKS.add(this);
-        ItemsInit.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
-    }
-    @SideOnly(Side.CLIENT)
-    public BlockRenderLayer getBlockLayer()
-    {
-        return BlockRenderLayer.CUTOUT_MIPPED;
-    }
+	public AncientGrass(String name, Material material) {
+		super(material);
+		setTranslationKey(name);
+		setRegistryName(name);
+		setCreativeTab(AzTech.CREATIVE_TAB);
+		setHarvestLevel("shovel", 0);
+		setHardness(0.5f);
+		setSoundType(SoundType.PLANT);
+		setTickRandomly(true);
 
-    @Override
-    public void registerModels() {
-        AzTech.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
-    }
+		BlocksInit.BLOCKS.add(this);
+		ItemsInit.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
+	}
 
-    @Override
-    public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
-        if (!world.isRemote) {
-            if (world.getLightFromNeighbors(pos.up()) < 4 && world.getBlockState(pos.up()).getLightOpacity(world, pos.up()) > 2) {
-                world.setBlockState(pos, BlocksInit.ANCIENT_DIRT.getDefaultState());
-            } else {
-                if (world.getLightFromNeighbors(pos.up()) >= 5) {
-                    for (int i = 0; i < 4; ++i) {
-                        BlockPos blockpos = pos.add(rand.nextInt(3) - 1, rand.nextInt(5) - 3, rand.nextInt(3) - 1);
-                        if (blockpos.getY() >= 0 && blockpos.getY() < 256 && !world.isBlockLoaded(blockpos)) {
-                            return;
-                        }
-                        IBlockState iblockstate = world.getBlockState(blockpos.up());
-                        IBlockState iblockstate1 = world.getBlockState(blockpos);
+	@SideOnly(Side.CLIENT)
+	public BlockRenderLayer getBlockLayer() {
+		return BlockRenderLayer.CUTOUT_MIPPED;
+	}
 
-                        if (iblockstate1.getBlock() == BlocksInit.ANCIENT_DIRT && world.getLightFromNeighbors(blockpos.up()) >= 4 && iblockstate.getLightOpacity(world, pos.up()) <= 2) {
-                            world.setBlockState(blockpos, BlocksInit.ANCIENT_GRASS.getDefaultState());
-                        }
-                    }
-                }
-            }
-        }
-    }
+	@Override
+	public void registerModels() {
+		AzTech.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
+	}
 
-    @Override
-    public Item getItemDropped(IBlockState state, Random rand, int fortune){
-        return BlocksInit.ANCIENT_DIRT.getItemDropped(BlocksInit.ANCIENT_DIRT.getDefaultState(), rand, fortune);
-    }
+	@Override
+	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
+		if(!world.isRemote) {
+			if(world.getLightFromNeighbors(pos.up()) < 4 && world.getBlockState(pos.up()).getLightOpacity(world, pos.up()) > 2) {
+				world.setBlockState(pos, BlocksInit.ANCIENT_DIRT.getDefaultState());
+			}
+			else {
+				if(world.getLightFromNeighbors(pos.up()) >= 5) {
+					for(int i = 0; i < 4; ++i) {
+						BlockPos blockpos = pos.add(rand.nextInt(3) - 1, rand.nextInt(5) - 3, rand.nextInt(3) - 1);
+						if(blockpos.getY() >= 0 && blockpos.getY() < 256 && !world.isBlockLoaded(blockpos)) {
+							return;
+						}
+						IBlockState iblockstate = world.getBlockState(blockpos.up());
+						IBlockState iblockstate1 = world.getBlockState(blockpos);
 
-    @Override
-    public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient) {
-        return true;
-    }
+						if(iblockstate1.getBlock() == BlocksInit.ANCIENT_DIRT && world.getLightFromNeighbors(blockpos.up()) >= 4 && iblockstate.getLightOpacity(world, pos.up()) <= 2) {
+							world.setBlockState(blockpos, BlocksInit.ANCIENT_GRASS.getDefaultState());
+						}
+					}
+				}
+			}
+		}
+	}
 
-    @Override
-    public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) {
-        return true;
-    }
+	@Override
+	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+		return BlocksInit.ANCIENT_DIRT.getItemDropped(BlocksInit.ANCIENT_DIRT.getDefaultState(), rand, fortune);
+	}
 
-    public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state)
-    {
-        BlockPos blockpos = pos.up();
+	@Override
+	public boolean canSustainPlant(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plantable) {
+		net.minecraftforge.common.EnumPlantType plantType = plantable.getPlantType(world, pos.offset(direction));
+		return plantType == EnumPlantType.Plains;
+	}
 
-        for (int i = 0; i < 128; ++i)
-        {
-            BlockPos blockpos1 = blockpos;
-            int j = 0;
+	@Override
+	public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient) {
+		return true;
+	}
 
-            while (true)
-            {
-                if (j >= i / 16)
-                {
-                    if (worldIn.isAirBlock(blockpos1))
-                    {
-                        if (rand.nextInt(8) == 0)
-                        {
-                            worldIn.getBiome(blockpos1).plantFlower(worldIn, rand, blockpos1);
-                        }
-                        else
-                        {
-                            IBlockState iblockstate1 = Blocks.TALLGRASS.getDefaultState().withProperty(BlockTallGrass.TYPE, BlockTallGrass.EnumType.GRASS);
+	@Override
+	public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) {
+		return true;
+	}
 
-                            if (Blocks.TALLGRASS.canBlockStay(worldIn, blockpos1, iblockstate1))
-                            {
-                                worldIn.setBlockState(blockpos1, iblockstate1, 3);
-                            }
-                        }
-                    }
+	public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
+		BlockPos blockpos = pos.up();
 
-                    break;
-                }
+		for(int i = 0; i < 128; ++i) {
+			BlockPos blockpos1 = blockpos;
+			int j = 0;
 
-                blockpos1 = blockpos1.add(rand.nextInt(3) - 1, (rand.nextInt(3) - 1) * rand.nextInt(3) / 2, rand.nextInt(3) - 1);
+			while(true) {
+				if(j >= i / 16) {
+					if(worldIn.isAirBlock(blockpos1)) {
+						if(rand.nextInt(8) == 0) {
+							worldIn.getBiome(blockpos1).plantFlower(worldIn, rand, blockpos1);
+						}
+						else {
+							IBlockState iblockstate1 = Blocks.TALLGRASS.getDefaultState().withProperty(BlockTallGrass.TYPE, BlockTallGrass.EnumType.GRASS);
 
-                if (worldIn.getBlockState(blockpos1.down()).getBlock() != Blocks.GRASS || worldIn.getBlockState(blockpos1).isNormalCube())
-                {
-                    break;
-                }
+							if(Blocks.TALLGRASS.canBlockStay(worldIn, blockpos1, iblockstate1)) {
+								worldIn.setBlockState(blockpos1, iblockstate1, 3);
+							}
+						}
+					}
 
-                ++j;
-            }
-        }
-    }
-    @Override
-    public boolean canSustainPlant(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plantable) {
-        net.minecraftforge.common.EnumPlantType plantType = plantable.getPlantType(world, pos.offset(direction));
-        if (plantType == EnumPlantType.Plains){
-            return true;
-        }
-        return false;
-    }
+					break;
+				}
+
+				blockpos1 = blockpos1.add(rand.nextInt(3) - 1, (rand.nextInt(3) - 1) * rand.nextInt(3) / 2, rand.nextInt(3) - 1);
+
+				if(worldIn.getBlockState(blockpos1.down()).getBlock() != Blocks.GRASS || worldIn.getBlockState(blockpos1).isNormalCube()) {
+					break;
+				}
+
+				++j;
+			}
+		}
+	}
+
 }

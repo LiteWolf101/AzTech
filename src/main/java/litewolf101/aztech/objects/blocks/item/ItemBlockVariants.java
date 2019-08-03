@@ -9,21 +9,21 @@ import net.minecraft.item.ItemStack;
  * Created by LiteWolf101 on 9/21/2018.
  */
 public class ItemBlockVariants extends ItemBlock {
-    public ItemBlockVariants(Block block) {
-        super(block);
-        setHasSubtypes(true);
-        setMaxDamage(0);
-    }
 
-    @Override
-    public int getMetadata(int damage)
-    {
-        return damage;
-    }
+	public ItemBlockVariants(Block block) {
+		super(block);
+		setHasSubtypes(true);
+		setMaxDamage(0);
+	}
 
-    @Override
-    public String getUnlocalizedName(ItemStack stack)
-    {
-        return super.getUnlocalizedName() + "_" + ((IMetaName)this.block).getSpecialName(stack);
-    }
+	@Override
+	public int getMetadata(int damage) {
+		return damage;
+	}
+
+	@Override
+	public String getTranslationKey(ItemStack stack) {
+		return super.getTranslationKey() + "_" + ((IMetaName)this.block).getSpecialName(stack);
+	}
+
 }

@@ -30,94 +30,96 @@ import java.util.Random;
  * Created by LiteWolf101 on 9/21/2018.
  */
 public class BlockRuneOre extends Block implements IHasModel, IMetaName {
-    public static final PropertyEnum<EnumRuneColor.EnumType> RUNE_COLOR = PropertyEnum.<EnumRuneColor.EnumType>create("rune_color", EnumRuneColor.EnumType.class);
-    public BlockRuneOre(String name, Material material) {
-        super(material);
-        setUnlocalizedName(name);
-        setRegistryName(name);
-        setSoundType(SoundType.STONE);
-        setCreativeTab(AzTech.CREATIVE_TAB);
-        setDefaultState(this.blockState.getBaseState().withProperty(RUNE_COLOR, EnumRuneColor.EnumType.RED));
-        setHarvestLevel("pickaxe", 2);
-        setHardness(2f);
-        setResistance(5.8f);
 
-        BlocksInit.BLOCKS.add(this);
-        ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));
-    }
+	public static final PropertyEnum<EnumRuneColor.EnumType> RUNE_COLOR = PropertyEnum.create("rune_color", EnumRuneColor.EnumType.class);
 
-    @Override
-    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        Item item = null;
-        switch ((EnumRuneColor.EnumType)state.getValue(RUNE_COLOR)){
-            case YELLOW:
-                item = ItemsInit.YELLOW_RUNE_SHARD;
-                break;
-            case GREEN:
-                item = ItemsInit.GREEN_RUNE_SHARD;
-                break;
-            case BLUE:
-                item = ItemsInit.BLUE_RUNE_SHARD;
-                break;
-            case WHITE:
-                item = ItemsInit.WHITE_RUNE_SHARD;
-                break;
-            case BLACK:
-                item = ItemsInit.BLACK_RUNE_SHARD;
-                break;
-            default:
-                item = ItemsInit.RED_RUNE_SHARD;
-        }
-        return item;
-    }
+	public BlockRuneOre(String name, Material material) {
+		super(material);
+		setTranslationKey(name);
+		setRegistryName(name);
+		setSoundType(SoundType.STONE);
+		setCreativeTab(AzTech.CREATIVE_TAB);
+		setDefaultState(this.blockState.getBaseState().withProperty(RUNE_COLOR, EnumRuneColor.EnumType.RED));
+		setHarvestLevel("pickaxe", 2);
+		setHardness(2f);
+		setResistance(5.8f);
 
-    @Override
-    public int getExpDrop(IBlockState state, IBlockAccess world, BlockPos pos, int fortune) {
-        return 9;
-    }
+		BlocksInit.BLOCKS.add(this);
+		ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));
+	}
 
-    @Override
-    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
+	@Override
+	@SuppressWarnings("deprecation")
+	public IBlockState getStateFromMeta(int meta) {
+		return this.getDefaultState().withProperty(RUNE_COLOR, EnumRuneColor.EnumType.byMetadata(meta));
+	}
 
-        for(EnumRuneColor.EnumType runeColor$enumtype : EnumRuneColor.EnumType.values()) {
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return state.getValue(RUNE_COLOR).getMeta();
+	}
 
-            items.add(new ItemStack(this, 1, runeColor$enumtype.getMeta()));
-        }
-    }
+	@Override
+	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+		Item item = null;
+		switch(state.getValue(RUNE_COLOR)) {
+			case YELLOW:
+				item = ItemsInit.YELLOW_RUNE_SHARD;
+				break;
+			case GREEN:
+				item = ItemsInit.GREEN_RUNE_SHARD;
+				break;
+			case BLUE:
+				item = ItemsInit.BLUE_RUNE_SHARD;
+				break;
+			case WHITE:
+				item = ItemsInit.WHITE_RUNE_SHARD;
+				break;
+			case BLACK:
+				item = ItemsInit.BLACK_RUNE_SHARD;
+				break;
+			default:
+				item = ItemsInit.RED_RUNE_SHARD;
+		}
+		return item;
+	}
 
-    @Override
-    @SuppressWarnings("deprecation")
-    public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(RUNE_COLOR, EnumRuneColor.EnumType.byMetadata(meta));
-    }
+	@Override
+	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
 
-    @Override
-    public int getMetaFromState(IBlockState state) {
-        return ((EnumRuneColor.EnumType)state.getValue(RUNE_COLOR)).getMeta();
-    }
+		for(EnumRuneColor.EnumType runeColor$enumtype : EnumRuneColor.EnumType.values()) {
 
-    @Override
-    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+			items.add(new ItemStack(this, 1, runeColor$enumtype.getMeta()));
+		}
+	}
 
-        return new ItemStack(Item.getItemFromBlock(this), 1, getMetaFromState(world.getBlockState(pos)));
-    }
+	@Override
+	protected BlockStateContainer createBlockState() {
 
-    @Override
-    protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, RUNE_COLOR);
+	}
 
-        return new BlockStateContainer(this, new IProperty[] {RUNE_COLOR});
-    }
+	@Override
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
 
-    @Override
-    public void registerModels() {
-        for(int i = 0; i < EnumRuneColor.EnumType.values().length; i++)
-        {
-            AzTech.proxy.registerVariantRenderer(Item.getItemFromBlock(this), i, EnumRuneColor.EnumType.values()[i].getName() + "_rune_ore", "inventory");
-        }
-    }
+		return new ItemStack(Item.getItemFromBlock(this), 1, getMetaFromState(world.getBlockState(pos)));
+	}
 
-    @Override
-    public String getSpecialName(ItemStack stack) {
-        return EnumRuneColor.EnumType.values()[stack.getItemDamage()].getName();
-    }
+	@Override
+	public int getExpDrop(IBlockState state, IBlockAccess world, BlockPos pos, int fortune) {
+		return 9;
+	}
+
+	@Override
+	public void registerModels() {
+		for(int i = 0; i < EnumRuneColor.EnumType.values().length; i++) {
+			AzTech.proxy.registerVariantRenderer(Item.getItemFromBlock(this), i, EnumRuneColor.EnumType.values()[i].getName() + "_rune_ore", "inventory");
+		}
+	}
+
+	@Override
+	public String getSpecialName(ItemStack stack) {
+		return EnumRuneColor.EnumType.values()[stack.getItemDamage()].getName();
+	}
+
 }

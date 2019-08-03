@@ -8,17 +8,19 @@ import net.minecraft.item.Item;
 /**
  * Created by LiteWolf101 on 9/20/2018.
  */
-public class ItemBase extends Item implements IHasModel{
-    public ItemBase(String name) {
-        setUnlocalizedName(name);
-        setRegistryName(name);
-        setCreativeTab(AzTech.CREATIVE_TAB);
+public class ItemBase extends Item implements IHasModel {
 
-        ItemsInit.ITEMS.add(this);
-    }
+	public ItemBase(String name) {
+		setTranslationKey(name);
+		setRegistryName(name);
+		setCreativeTab(AzTech.CREATIVE_TAB);
 
-    @Override
-    public void registerModels() {
-        AzTech.proxy.registerItemRenderer(this, 0, "inventory");
-    }
+		ItemsInit.ITEMS.add(this);
+	}
+
+	@Override
+	public void registerModels() {
+		AzTech.proxy.registerItemRenderer(this, 0, "inventory");
+	}
+
 }

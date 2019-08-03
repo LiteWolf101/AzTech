@@ -1,7 +1,9 @@
 {
   "variants": {
     "normal": [
-      { "model": "aztech:ancient_lapis_ore" }
+      {
+        "model": "aztech:ancient_lapis_ore"
+      }
     ]
   }
 }

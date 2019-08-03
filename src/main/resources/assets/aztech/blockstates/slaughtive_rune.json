@@ -1,11 +1,25 @@
 {
   "variants": {
-    "stage=stage_0": {"model": "aztech:slaughtive_rune_stage_0"},
-    "stage=stage_1": {"model": "aztech:slaughtive_rune_stage_1"},
-    "stage=stage_2": {"model": "aztech:slaughtive_rune_stage_2"},
-    "stage=stage_3": {"model": "aztech:slaughtive_rune_stage_3"},
-    "stage=stage_4": {"model": "aztech:slaughtive_rune_stage_4"},
-    "stage=stage_5": {"model": "aztech:slaughtive_rune_stage_5"},
-    "stage=stage_6": {"model": "aztech:slaughtive_rune_stage_6"}
+    "stage=stage_0": {
+      "model": "aztech:slaughtive_rune_stage_0"
+    },
+    "stage=stage_1": {
+      "model": "aztech:slaughtive_rune_stage_1"
+    },
+    "stage=stage_2": {
+      "model": "aztech:slaughtive_rune_stage_2"
+    },
+    "stage=stage_3": {
+      "model": "aztech:slaughtive_rune_stage_3"
+    },
+    "stage=stage_4": {
+      "model": "aztech:slaughtive_rune_stage_4"
+    },
+    "stage=stage_5": {
+      "model": "aztech:slaughtive_rune_stage_5"
+    },
+    "stage=stage_6": {
+      "model": "aztech:slaughtive_rune_stage_6"
+    }
   }
 }

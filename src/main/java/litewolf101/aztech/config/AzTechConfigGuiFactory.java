@@ -15,66 +15,71 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Created by LiteWolf101 on Feb
- * /26/2019
+ * Created by LiteWolf101 on Feb /26/2019
  */
 public class AzTechConfigGuiFactory implements IModGuiFactory {
 
-    public static class AztechConfigGuiScreen extends GuiConfig {
+	@Override
+	public void initialize(Minecraft minecraftInstance) {
 
-        public AztechConfigGuiScreen(GuiScreen parent) {
-            super(parent, getConfigElements(), Reference.MODID, true, true, "AzTech Configuration");
-        }
+	}
 
-        private static List<IConfigElement> getConfigElements()
-        {
-            List<IConfigElement> list = new ArrayList<IConfigElement>();
+	@Override
+	public boolean hasConfigGui() {
+		return true;
+	}
 
-            //list.add(new DummyConfigElement.DummyCategoryElement("general", "aztech.category.general.name", GeneralClass.class));
-            //list.add(new DummyConfigElement.DummyCategoryElement("dimension", "aztech.category.dimension.name", DimensionClass.class));
+	@Override
+	public GuiScreen createConfigGui(GuiScreen parentScreen) {
+		return new AztechConfigGuiScreen(parentScreen);
+	}
 
-            return list;
-        }
+	@Override
+	public Set<RuntimeOptionCategoryElement> runtimeGuiCategories() {
+		return null;
+	}
 
-        public static class GeneralClass extends GuiConfigEntries.CategoryEntry{
-            public GeneralClass(GuiConfig owningScreen, GuiConfigEntries owningEntryList, IConfigElement configElement) {
-                super(owningScreen, owningEntryList, configElement);
-            }
+	public static class AztechConfigGuiScreen extends GuiConfig {
 
-            @Override
-            protected GuiScreen buildChildScreen() {
-                return new GuiConfig(this.owningScreen, (new ConfigElement(CommonProxy.getConfig().getCategory(AzTechConfig.CATEGORY_GENERAL))).getChildElements(), Reference.MODID, AzTechConfig.CATEGORY_GENERAL, true, true, "AzTech General Configuration");
-            }
-        }
+		public AztechConfigGuiScreen(GuiScreen parent) {
+			super(parent, getConfigElements(), Reference.MODID, true, true, "AzTech Configuration");
+		}
 
-        public static class DimensionClass extends GuiConfigEntries.CategoryEntry{
-            public DimensionClass(GuiConfig owningScreen, GuiConfigEntries owningEntryList, IConfigElement configElement) {
-                super(owningScreen, owningEntryList, configElement);
-            }
+		private static List<IConfigElement> getConfigElements() {
+			List<IConfigElement> list = new ArrayList<IConfigElement>();
 
-            @Override
-            protected GuiScreen buildChildScreen() {
-                return new GuiConfig(this.owningScreen, (new ConfigElement(CommonProxy.getConfig().getCategory(AzTechConfig.CATEGORY_DIMENSION))).getChildElements(), Reference.MODID, AzTechConfig.CATEGORY_DIMENSION, true, true, "AzTech Dimension Configuration");
-            }
-        }
-    }
-    @Override
-    public void initialize(Minecraft minecraftInstance) {
+			//list.add(new DummyConfigElement.DummyCategoryElement("general", "aztech.category.general.name", GeneralClass.class));
+			//list.add(new DummyConfigElement.DummyCategoryElement("dimension", "aztech.category.dimension.name", DimensionClass.class));
 
-    }
+			return list;
+		}
 
-    @Override
-    public boolean hasConfigGui() {
-        return true;
-    }
+		public static class GeneralClass extends GuiConfigEntries.CategoryEntry {
 
-    @Override
-    public GuiScreen createConfigGui(GuiScreen parentScreen) {
-        return new AztechConfigGuiScreen(parentScreen);
-    }
+			public GeneralClass(GuiConfig owningScreen, GuiConfigEntries owningEntryList, IConfigElement configElement) {
+				super(owningScreen, owningEntryList, configElement);
+			}
 
-    @Override
-    public Set<RuntimeOptionCategoryElement> runtimeGuiCategories() {
-        return null;
-    }
+			@Override
+			protected GuiScreen buildChildScreen() {
+				return new GuiConfig(this.owningScreen, (new ConfigElement(CommonProxy.getConfig().getCategory(AzTechConfig.CATEGORY_GENERAL))).getChildElements(), Reference.MODID, AzTechConfig.CATEGORY_GENERAL, true, true, "AzTech General Configuration");
+			}
+
+		}
+
+		public static class DimensionClass extends GuiConfigEntries.CategoryEntry {
+
+			public DimensionClass(GuiConfig owningScreen, GuiConfigEntries owningEntryList, IConfigElement configElement) {
+				super(owningScreen, owningEntryList, configElement);
+			}
+
+			@Override
+			protected GuiScreen buildChildScreen() {
+				return new GuiConfig(this.owningScreen, (new ConfigElement(CommonProxy.getConfig().getCategory(AzTechConfig.CATEGORY_DIMENSION))).getChildElements(), Reference.MODID, AzTechConfig.CATEGORY_DIMENSION, true, true, "AzTech Dimension Configuration");
+			}
+
+		}
+
+	}
+
 }

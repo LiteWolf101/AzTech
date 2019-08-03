@@ -15,12 +15,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 @Mod.EventBusSubscriber(modid = Reference.MODID, value = Side.CLIENT)
 public class TextureStitchHandler {
-    @SubscribeEvent
-    public static void pre (TextureStitchEvent.Pre event){
-        TextureMap map = event.getMap();
-        map.registerSprite(new ResourceLocation(Reference.MODID, "particle/eye_master_particle"));
-        map.registerSprite(new ResourceLocation(Reference.MODID, "particle/enemy_link_particle"));
-        map.registerSprite(new ResourceLocation(Reference.MODID, "particle/sparkle"));
-        map.registerSprite(new ResourceLocation(Reference.MODID, "particle/dust"));
-    }
+
+	@SubscribeEvent
+	public static void pre(TextureStitchEvent.Pre event) {
+		TextureMap map = event.getMap();
+		map.registerSprite(new ResourceLocation(Reference.MODID, "particle/eye_master_particle"));
+		map.registerSprite(new ResourceLocation(Reference.MODID, "particle/enemy_link_particle"));
+		map.registerSprite(new ResourceLocation(Reference.MODID, "particle/sparkle"));
+		map.registerSprite(new ResourceLocation(Reference.MODID, "particle/dust"));
+	}
+
 }

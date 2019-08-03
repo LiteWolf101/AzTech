@@ -1,6 +1,10 @@
 {
   "variants": {
-    "activated=false": {"model": "aztech:test_block_off"},
-    "activated=true": {"model": "aztech:test_block_on"}
+    "activated=false": {
+      "model": "aztech:test_block_off"
+    },
+    "activated=true": {
+      "model": "aztech:test_block_on"
+    }
   }
 }

@@ -27,180 +27,188 @@ import javax.annotation.Nullable;
  * Created by LiteWolf101 on 11/1/2018.
  */
 public class MobPyronant extends EntityMob implements IMob {
-    public MobPyronant(World worldIn) {
-        super(worldIn);
-        setSize(0.7f, 2.45f);
-        this.isImmuneToFire = true;
-    }
 
-    public MobPyronant(World world, double x, double y, double z, float rotationYaw) {
-        this(world);
-        this.rotationYaw = rotationYaw;
-        this.setPosition(x, y, z);
-    }
+	public MobPyronant(World world, double x, double y, double z, float rotationYaw) {
+		this(world);
+		this.rotationYaw = rotationYaw;
+		this.setPosition(x, y, z);
+	}
 
-    @Override
-    protected void applyEntityAttributes() {
-        super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4D);
-        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(32.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(25.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(3.0D);
-    }
+	public MobPyronant(World worldIn) {
+		super(worldIn);
+		setSize(0.7f, 2.45f);
+		this.isImmuneToFire = true;
+	}
 
-    @Override
-    public void onLivingUpdate() {
-        if (this.world.isRemote) {
-            for (int i = 0; i < 2; ++i) {
-                AzTech.proxy.spawnParticle(world, AzTechParticleTypes.PYRONANT, this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY + this.rand.nextDouble() * (double)this.height, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, 0.0D, 0.0D, 0.0D);
-            }
-        }
-        super.onLivingUpdate();
-    }
+	@Override
+	public void onLivingUpdate() {
+		if(this.world.isRemote) {
+			for(int i = 0; i < 2; ++i) {
+				AzTech.proxy.spawnParticle(world, AzTechParticleTypes.PYRONANT, this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY + this.rand.nextDouble() * (double)this.height, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, 0.0D, 0.0D, 0.0D);
+			}
+		}
+		super.onLivingUpdate();
+	}
 
-    @Override
-    protected void initEntityAI() {
-        super.initEntityAI();
-        this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
-        this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityZombie.class, true));
-        this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 32.0F, 1.0F));
-        this.tasks.addTask(3, new EntityAIWanderAvoidWater(this, 0.7, 0.1f));
-        this.tasks.addTask(1, new FireBallAttackAI(this));
-        this.tasks.addTask(2, new HealFromFire(this));
-    }
+	@Override
+	protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
+		return null;
+	}
 
-    @Override
-    protected void entityInit() {
-        super.entityInit();
-    }
+	@Override
+	protected SoundEvent getDeathSound() {
+		return null;
+	}
 
-    @Nullable
-    @Override
-    protected SoundEvent getAmbientSound() {
-        return null;
-    }
+	@Override
+	protected void applyEntityAttributes() {
+		super.applyEntityAttributes();
+		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4D);
+		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(32.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(25.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(3.0D);
+	}
 
-    @Override
-    protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
-        return null;
-    }
+	@Override
+	protected void initEntityAI() {
+		super.initEntityAI();
+		this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
+		this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityZombie.class, true));
+		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 32.0F, 1.0F));
+		this.tasks.addTask(3, new EntityAIWanderAvoidWater(this, 0.7, 0.1f));
+		this.tasks.addTask(1, new FireBallAttackAI(this));
+		this.tasks.addTask(2, new HealFromFire(this));
+	}
 
-    @Override
-    protected SoundEvent getDeathSound() {
-        return null;
-    }
+	@Override
+	protected void entityInit() {
+		super.entityInit();
+	}
 
-    @Override
-    protected float getSoundVolume() {
-        return 2F;
-    }
+	@Nullable
+	@Override
+	protected SoundEvent getAmbientSound() {
+		return null;
+	}
 
-    @Override
-    protected float getSoundPitch() {
-        return super.getSoundPitch() * 0.95F;
-    }
+	@Override
+	protected float getSoundVolume() {
+		return 2F;
+	}
 
-    private class FireBallAttackAI extends EntityAIBase {
-        private final MobPyronant pyronant;
-        private int attackTime;
-        private int attackStep;
-        public FireBallAttackAI(MobPyronant mobPyronant) {
-            this.pyronant = mobPyronant;
-        }
+	@Override
+	protected float getSoundPitch() {
+		return super.getSoundPitch() * 0.95F;
+	}
 
-        @Override
-        public boolean shouldExecute() {
-            EntityLivingBase entitylivingbase = this.pyronant.getAttackTarget();
-            return entitylivingbase != null && entitylivingbase.isEntityAlive();
-        }
+	private class FireBallAttackAI extends EntityAIBase {
 
-        public void updateTask() {
-            --this.attackTime;
-            EntityLivingBase entitylivingbase = this.pyronant.getAttackTarget();
-            double d0 = this.pyronant.getDistanceSq(entitylivingbase);
+		private final MobPyronant pyronant;
+		private int attackTime;
+		private int attackStep;
 
-            if (d0 < 4.0D) {
-                if (this.attackTime <= 0) {
-                    this.attackTime = 20;
-                    this.pyronant.attackEntityAsMob(entitylivingbase);
-                }
+		public FireBallAttackAI(MobPyronant mobPyronant) {
+			this.pyronant = mobPyronant;
+		}
 
-                this.pyronant.getMoveHelper().setMoveTo(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ, 1.0D);
-            }
-            else if (d0 < this.getFollowDistance() * this.getFollowDistance()) {
-                double d1 = entitylivingbase.posX - this.pyronant.posX;
-                double d2 = entitylivingbase.getEntityBoundingBox().minY + (double)(entitylivingbase.height / 2.0F) - (this.pyronant.posY + (double)(this.pyronant.height / 2.0F));
-                double d3 = entitylivingbase.posZ - this.pyronant.posZ;
+		@Override
+		public boolean shouldExecute() {
+			EntityLivingBase entitylivingbase = this.pyronant.getAttackTarget();
+			return entitylivingbase != null && entitylivingbase.isEntityAlive();
+		}
 
-                if (this.attackTime <= 0) {
-                    ++this.attackStep;
+		public void updateTask() {
+			--this.attackTime;
+			EntityLivingBase entitylivingbase = this.pyronant.getAttackTarget();
+			double d0 = this.pyronant.getDistanceSq(entitylivingbase);
 
-                    if (this.attackStep == 1) {
-                        this.attackTime = 60;
-                    }
-                    else if (this.attackStep <= 4) {
-                        this.attackTime = 6;
-                    }
-                    else {
-                        this.attackTime = 100;
-                        this.attackStep = 0;
-                    }
+			if(d0 < 4.0D) {
+				if(this.attackTime <= 0) {
+					this.attackTime = 20;
+					this.pyronant.attackEntityAsMob(entitylivingbase);
+				}
 
-                    if (this.attackStep > 1) {
-                        float f = MathHelper.sqrt(MathHelper.sqrt(d0)) * 0.5F;
-                        this.pyronant.world.playEvent((EntityPlayer)null, 1018, new BlockPos((int)this.pyronant.posX, (int)this.pyronant.posY, (int)this.pyronant.posZ), 0);
+				this.pyronant.getMoveHelper().setMoveTo(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ, 1.0D);
+			}
+			else if(d0 < this.getFollowDistance() * this.getFollowDistance()) {
+				double d1 = entitylivingbase.posX - this.pyronant.posX;
+				double d2 = entitylivingbase.getEntityBoundingBox().minY + (double)(entitylivingbase.height / 2.0F) - (this.pyronant.posY + (double)(this.pyronant.height / 2.0F));
+				double d3 = entitylivingbase.posZ - this.pyronant.posZ;
 
-                        for (int i = 0; i < 3; ++i) {
-                            EntitySmallFireball entitysmallfireball = new EntitySmallFireball(this.pyronant.world, this.pyronant, d1 + this.pyronant.getRNG().nextGaussian() * (double)f, d2, d3 + this.pyronant.getRNG().nextGaussian() * (double)f);
-                            entitysmallfireball.posY = this.pyronant.posY + (double)(this.pyronant.height / 2.0F) + 0.5D;
-                            this.pyronant.world.spawnEntity(entitysmallfireball);
-                        }
-                    }
-                }
-                this.pyronant.getLookHelper().setLookPositionWithEntity(entitylivingbase, 10.0F, 10.0F);
-            }
-            else {
-                this.pyronant.getNavigator().clearPath();
-                this.pyronant.getMoveHelper().setMoveTo(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ, 1.0D);
-            }
-            super.updateTask();
-        }
+				if(this.attackTime <= 0) {
+					++this.attackStep;
 
-        private double getFollowDistance() {
-            IAttributeInstance iattributeinstance = this.pyronant.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE);
-            return iattributeinstance == null ? 16.0D : iattributeinstance.getAttributeValue();
-        }
-    }
+					if(this.attackStep == 1) {
+						this.attackTime = 60;
+					}
+					else if(this.attackStep <= 4) {
+						this.attackTime = 6;
+					}
+					else {
+						this.attackTime = 100;
+						this.attackStep = 0;
+					}
 
-    private class HealFromFire extends EntityAIBase {
-        private MobPyronant pyronant;
-        private int delay;
-        public HealFromFire(MobPyronant mobPyronant) {
-            this.pyronant = mobPyronant;
-        }
+					if(this.attackStep > 1) {
+						float f = MathHelper.sqrt(MathHelper.sqrt(d0)) * 0.5F;
+						this.pyronant.world.playEvent(null, 1018, new BlockPos((int)this.pyronant.posX, (int)this.pyronant.posY, (int)this.pyronant.posZ), 0);
 
-        @Override
-        public boolean shouldExecute() {
-            return true;
-        }
+						for(int i = 0; i < 3; ++i) {
+							EntitySmallFireball entitysmallfireball = new EntitySmallFireball(this.pyronant.world, this.pyronant, d1 + this.pyronant.getRNG().nextGaussian() * (double)f, d2, d3 + this.pyronant.getRNG().nextGaussian() * (double)f);
+							entitysmallfireball.posY = this.pyronant.posY + (double)(this.pyronant.height / 2.0F) + 0.5D;
+							this.pyronant.world.spawnEntity(entitysmallfireball);
+						}
+					}
+				}
+				this.pyronant.getLookHelper().setLookPositionWithEntity(entitylivingbase, 10.0F, 10.0F);
+			}
+			else {
+				this.pyronant.getNavigator().clearPath();
+				this.pyronant.getMoveHelper().setMoveTo(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ, 1.0D);
+			}
+			super.updateTask();
+		}
 
-        @Override
-        public void updateTask() {
-            delay++;
-            int check = 0;
-            for (int x = -2; x <= 2; x++){
-                for (int y = -2; y <= 2; y++){
-                    for (int z = -2; z <= 2; z++){
-                        BlockPos checkingpos = new BlockPos(this.pyronant.posX + x, this.pyronant.posY + y, this.pyronant.posZ + z);
-                        if (world.getBlockState(checkingpos).getBlock() == Blocks.FIRE) {
-                            check++;
-                        }
-                    }
-                }
-            }
-            if (delay % 20 == 0) {
-                this.pyronant.heal(0.2f * check);
-            }
-        }
-    }
+		private double getFollowDistance() {
+			IAttributeInstance iattributeinstance = this.pyronant.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE);
+			return iattributeinstance == null ? 16.0D : iattributeinstance.getAttributeValue();
+		}
+
+	}
+
+	private class HealFromFire extends EntityAIBase {
+
+		private MobPyronant pyronant;
+		private int delay;
+
+		public HealFromFire(MobPyronant mobPyronant) {
+			this.pyronant = mobPyronant;
+		}
+
+		@Override
+		public boolean shouldExecute() {
+			return true;
+		}
+
+		@Override
+		public void updateTask() {
+			delay++;
+			int check = 0;
+			for(int x = -2; x <= 2; x++) {
+				for(int y = -2; y <= 2; y++) {
+					for(int z = -2; z <= 2; z++) {
+						BlockPos checkingpos = new BlockPos(this.pyronant.posX + x, this.pyronant.posY + y, this.pyronant.posZ + z);
+						if(world.getBlockState(checkingpos).getBlock() == Blocks.FIRE) {
+							check++;
+						}
+					}
+				}
+			}
+			if(delay % 20 == 0) {
+				this.pyronant.heal(0.2f * check);
+			}
+		}
+
+	}
+
 }

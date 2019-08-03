@@ -1,7 +1,9 @@
 {
   "variants": {
     "normal": [
-      { "model": "aztech:door_rune" }
+      {
+        "model": "aztech:door_rune"
+      }
     ]
   }
 }

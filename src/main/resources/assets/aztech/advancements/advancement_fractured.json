@@ -75,11 +75,23 @@
     }
   },
   "requirements": [
-    ["mine_red_shard"],
-    ["mine_yellow_shard"],
-    ["mine_green_shard"],
-    ["mine_blue_shard"],
-    ["mine_white_shard"],
-    ["mine_black_shard"]
+    [
+      "mine_red_shard"
+    ],
+    [
+      "mine_yellow_shard"
+    ],
+    [
+      "mine_green_shard"
+    ],
+    [
+      "mine_blue_shard"
+    ],
+    [
+      "mine_white_shard"
+    ],
+    [
+      "mine_black_shard"
+    ]
   ]
 }

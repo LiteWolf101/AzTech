@@ -23,46 +23,46 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 @Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION, acceptedMinecraftVersions = Reference.ACCEPTED_MINECRAFT_VERSIONS, guiFactory = Reference.GUI_FACTORY)
 public class AzTech {
 
-    @Mod.Instance
-    public static AzTech instance;
+	@Mod.Instance
+	public static AzTech instance;
 
-    @SidedProxy(clientSide = "litewolf101.aztech.proxy.ClientProxy", serverSide = "litewolf101.aztech.proxy.CommonProxy")
-    public static CommonProxy proxy;
+	@SidedProxy(clientSide = "litewolf101.aztech.proxy.ClientProxy", serverSide = "litewolf101.aztech.proxy.CommonProxy")
+	public static CommonProxy proxy;
 
-    public static CreativeTabs CREATIVE_TAB = new CreativeTabs(Reference.MODID) {
+	public static CreativeTabs CREATIVE_TAB = new CreativeTabs(Reference.MODID) {
+		@Override
+		public ItemStack createIcon() {
+			return new ItemStack(ItemsInit.AZTECH_BADGE);
+		}
+	};
 
-        @Override
-        public ItemStack getTabIconItem() {
-            return new ItemStack(ItemsInit.AZTECH_BADGE);
-        }
-    };
+	@Mod.EventHandler
+	public static void preInit(FMLPreInitializationEvent event) {
+		System.out.println(Reference.MODID + ":preInit");
+		proxy.preInit(event);
+		proxy.registerTileEntities();
+		proxy.RegisterTileEntityRender();
+		GameRegistry.registerWorldGenerator(new WorldGenAzTechOres(), 3);
+		//AzTechConfig.preInit();
+	}
 
-    @Mod.EventHandler
-    public static void preInit(FMLPreInitializationEvent event) {
-        System.out.println(Reference.MODID + ":preInit");
-        proxy.preInit(event);
-        proxy.registerTileEntities();
-        proxy.RegisterTileEntityRender();
-        GameRegistry.registerWorldGenerator(new WorldGenAzTechOres(), 3);
-        //AzTechConfig.preInit();
-    }
+	@Mod.EventHandler
+	public static void init(FMLInitializationEvent event) {
+		System.out.println(Reference.MODID + ":init");
+		proxy.init(event);
+		FurnaceRecipes.registerFurnaceRecipes();
+		RegistryHandler.otherRegistries();
+	}
 
-    @Mod.EventHandler
-    public static void init(FMLInitializationEvent event) {
-        System.out.println(Reference.MODID + ":init");
-        proxy.init(event);
-        FurnaceRecipes.registerFurnaceRecipes();
-        RegistryHandler.otherRegistries();
-    }
+	@Mod.EventHandler
+	public static void postInit(FMLPostInitializationEvent event) {
+		System.out.println(Reference.MODID + ":postInit");
+		proxy.postInit(event);
+	}
 
-    @Mod.EventHandler
-    public static void postInit(FMLPostInitializationEvent event) {
-        System.out.println(Reference.MODID + ":postInit");
-        proxy.postInit(event);
-    }
+	@Mod.EventHandler
+	public void serverLoad(FMLServerStartingEvent event) {
+		event.registerServerCommand(new CommandAzTech());
+	}
 
-    @Mod.EventHandler
-    public void serverLoad(FMLServerStartingEvent event) {
-        event.registerServerCommand(new CommandAzTech());
-    }
 }

@@ -6,5 +6,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public interface IRunePowerSource {
-    IBlockState isRunePowerSourceAt(World world, IBlockState state, EnumFacing facing, BlockPos pos);
+
+	IBlockState isRunePowerSourceAt(World world, IBlockState state, EnumFacing facing, BlockPos pos);
+
 }

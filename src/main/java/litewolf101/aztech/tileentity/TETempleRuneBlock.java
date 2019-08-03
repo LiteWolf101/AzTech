@@ -9,10 +9,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  * Created by LiteWolf101 on 9/29/2018.
  */
 public class TETempleRuneBlock extends TileEntity {
-    @Override
-    @SideOnly(Side.CLIENT)
-    public AxisAlignedBB getRenderBoundingBox()
-    {
-        return INFINITE_EXTENT_AABB;
-    }
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public AxisAlignedBB getRenderBoundingBox() {
+		return INFINITE_EXTENT_AABB;
+	}
+
 }

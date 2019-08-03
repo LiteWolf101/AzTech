@@ -6,20 +6,21 @@ import litewolf101.aztech.utils.IHasModel;
 import net.minecraft.item.ItemSoup;
 
 /**
- * Created by LiteWolf101 on Feb
- * /13/2019
+ * Created by LiteWolf101 on Feb /13/2019
  */
 public class ItemSorghumSoup extends ItemSoup implements IHasModel {
-    public ItemSorghumSoup(String name) {
-        super(5);
-        setUnlocalizedName(name);
-        setRegistryName(name);
-        setCreativeTab(AzTech.CREATIVE_TAB);
-        ItemsInit.ITEMS.add(this);
-    }
 
-    @Override
-    public void registerModels() {
-        AzTech.proxy.registerItemRenderer(this, 0, "inventory");
-    }
+	public ItemSorghumSoup(String name) {
+		super(5);
+		setTranslationKey(name);
+		setRegistryName(name);
+		setCreativeTab(AzTech.CREATIVE_TAB);
+		ItemsInit.ITEMS.add(this);
+	}
+
+	@Override
+	public void registerModels() {
+		AzTech.proxy.registerItemRenderer(this, 0, "inventory");
+	}
+
 }

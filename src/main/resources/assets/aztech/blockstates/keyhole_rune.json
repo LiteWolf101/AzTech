@@ -1,6 +1,10 @@
 {
   "variants": {
-    "activated=false": {"model": "aztech:keyhole_rune_inactive"},
-    "activated=true": {"model": "aztech:keyhole_rune_active"}
+    "activated=false": {
+      "model": "aztech:keyhole_rune_inactive"
+    },
+    "activated=true": {
+      "model": "aztech:keyhole_rune_active"
+    }
   }
 }

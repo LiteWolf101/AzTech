@@ -6,5 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MiscHandler {
-    public static final List<IBlockState> SOURCES = new ArrayList<IBlockState>();
+
+	public static final List<IBlockState> SOURCES = new ArrayList<IBlockState>();
+
 }

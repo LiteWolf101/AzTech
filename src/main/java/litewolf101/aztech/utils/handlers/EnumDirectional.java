@@ -6,64 +6,57 @@ import net.minecraft.util.IStringSerializable;
  * Created by LiteWolf101 on 9/21/2018.
  */
 public class EnumDirectional {
-    public static enum EnumFacing implements IStringSerializable
-    {
-        NORTH(0, "north"),
-        EAST(1, "east"),
-        SOUTH(2, "south"),
-        WEST(3, "west"),
-        UP(4, "up"),
-        DOWN(5, "down");
 
-        private static final EnumFacing[] META_LOOKUP = new EnumFacing[values().length];
-        private final int meta;
-        private final String name, unlocializedName;
+	public enum EnumFacing implements IStringSerializable {
+		NORTH(0, "north"),
+		EAST(1, "east"),
+		SOUTH(2, "south"),
+		WEST(3, "west"),
+		UP(4, "up"),
+		DOWN(5, "down");
 
-        private EnumFacing(int meta, String name)
-        {
-            this(meta, name, name);
-        }
+		private static final EnumFacing[] META_LOOKUP = new EnumFacing[values().length];
 
-        private EnumFacing(int meta, String name, String unlocializedName)
-        {
-            this.meta = meta;
-            this.name = name;
-            this.unlocializedName = unlocializedName;
-        }
+		static {
+			for(EnumFacing enumFacing : values()) {
+				META_LOOKUP[enumFacing.getMeta()] = enumFacing;
+			}
+		}
 
-        @Override
-        public String getName()
-        {
-            return this.name;
-        }
+		private final int meta;
+		private final String name, unlocializedName;
 
-        public int getMeta()
-        {
-            return this.meta;
-        }
+		EnumFacing(int meta, String name) {
+			this(meta, name, name);
+		}
 
-        public String getUnlocializedName()
-        {
-            return this.unlocializedName;
-        }
+		EnumFacing(int meta, String name, String unlocializedName) {
+			this.meta = meta;
+			this.name = name;
+			this.unlocializedName = unlocializedName;
+		}
 
-        @Override
-        public String toString()
-        {
-            return this.name;
-        }
+		public static EnumFacing byMetadata(int meta) {
+			return META_LOOKUP[meta];
+		}
 
-        public static EnumFacing byMetadata(int meta)
-        {
-            return META_LOOKUP[meta];
-        }
+		@Override
+		public String getName() {
+			return this.name;
+		}
 
-        static
-        {
-            for(EnumFacing enumFacing : values())
-            {
-                META_LOOKUP[enumFacing.getMeta()] = enumFacing;
-            }
-        }
-    }
+		public int getMeta() {
+			return this.meta;
+		}
+
+		public String getUnlocializedName() {
+			return this.unlocializedName;
+		}
+
+		@Override
+		public String toString() {
+			return this.name;
+		}
+	}
+
 }

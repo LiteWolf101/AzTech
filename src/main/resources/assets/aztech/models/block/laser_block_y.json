@@ -1,22 +1,89 @@
 ﻿{
-	"credit": "Made with Blockbench, a free, modern block model editor by JannisX11",
-	"textures": {
-		"0": "aztech:blocks/laser",
-		"particle": "aztech:blocks/laser"
-	},
-	"elements": [
-		{
-			"from": [4, 0, 4],
-			"to": [12, 16, 12],
-			"rotation": {"angle": 0, "axis": "x", "origin": [8, 8, 8]},
-			"faces": {
-				"north": {"uv": [0, 0, 16, 16], "texture": "#0", "rotation": 180},
-				"east": {"uv": [0, 0, 16, 16], "texture": "#0"},
-				"south": {"uv": [0, 0, 16, 16], "texture": "#0"},
-				"west": {"uv": [0, 0, 16, 16], "texture": "#0", "rotation": 180},
-				"up": {"uv": [0, 0, 2, 2], "texture": "#0", "rotation": 180},
-				"down": {"uv": [0, 0, 2, 2], "texture": "#0"}
-			}
-		}
-	]
+  "credit": "Made with Blockbench, a free, modern block model editor by JannisX11",
+  "textures": {
+    "0": "aztech:blocks/laser",
+    "particle": "aztech:blocks/laser"
+  },
+  "elements": [
+    {
+      "from": [
+        4,
+        0,
+        4
+      ],
+      "to": [
+        12,
+        16,
+        12
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "x",
+        "origin": [
+          8,
+          8,
+          8
+        ]
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#0",
+          "rotation": 180
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#0"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#0"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#0",
+          "rotation": 180
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            2,
+            2
+          ],
+          "texture": "#0",
+          "rotation": 180
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            2,
+            2
+          ],
+          "texture": "#0"
+        }
+      }
+    }
+  ]
 }

@@ -7,21 +7,23 @@ import net.minecraft.entity.Entity;
 /**
  * Created by LiteWolf101 on 11/2/2018.
  */
-public class ModelLaser extends ModelBase{
-    public final ModelRenderer laser;
+public class ModelLaser extends ModelBase {
 
-    public ModelLaser() {
-        textureWidth = 32;
-        textureHeight = 32;
+	public final ModelRenderer laser;
 
-        laser = new ModelRenderer(this, 0, 0);
-        laser.addBox(-1f, -1f, -6f, 1, 1, 12);
-    }
+	public ModelLaser() {
+		textureWidth = 32;
+		textureHeight = 32;
 
-    @Override
-    public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-        super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-        //Add GL methods
-        laser.render(scale);
-    }
+		laser = new ModelRenderer(this, 0, 0);
+		laser.addBox(-1f, -1f, -6f, 1, 1, 12);
+	}
+
+	@Override
+	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+		//Add GL methods
+		laser.render(scale);
+	}
+
 }

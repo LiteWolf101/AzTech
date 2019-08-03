@@ -12,23 +12,24 @@ import net.minecraft.util.EnumFacing;
 
 public class RedRuneLineRightTurn extends RightTurnRuneLine implements IHasModel, IMetaName {
 
-    public RedRuneLineRightTurn(String name) {
-        super(name);
-        setUnlocalizedName(name);
-        setRegistryName(name);
-        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(ACTIVATED, false));
-        setCreativeTab(AzTech.CREATIVE_TAB);  //remove after test
-        BlocksInit.BLOCKS.add(this);
-        ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));
-    }
+	public RedRuneLineRightTurn(String name) {
+		super(name);
+		setTranslationKey(name);
+		setRegistryName(name);
+		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(ACTIVATED, false));
+		setCreativeTab(AzTech.CREATIVE_TAB);  //remove after test
+		BlocksInit.BLOCKS.add(this);
+		ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));
+	}
 
-    @Override
-    public void registerModels() {
-        AzTech.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
-    }
+	@Override
+	public void registerModels() {
+		AzTech.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
+	}
 
-    @Override
-    public String getSpecialName(ItemStack stack) {
-        return EnumFacing.values()[stack.getItemDamage()].getName();
-    }
+	@Override
+	public String getSpecialName(ItemStack stack) {
+		return EnumFacing.values()[stack.getItemDamage()].getName();
+	}
+
 }

@@ -11,7 +11,8 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
  * Created by LiteWolf101 on 10/23/2018.
  */
 public interface IStructure {
-    public static final WorldServer worldServer = FMLCommonHandler.instance().getMinecraftServerInstance().getWorld(AzTechConfig.dimension_ID);
-    public static final PlacementSettings settings = (new PlacementSettings()).setChunk(null).setIgnoreEntities(false).setIgnoreStructureBlock(false).setMirror(Mirror.NONE).setRotation(Rotation.NONE);
+
+	WorldServer worldServer = FMLCommonHandler.instance().getMinecraftServerInstance().getWorld(AzTechConfig.dimension_ID);
+	PlacementSettings settings = (new PlacementSettings()).setChunk(null).setIgnoreEntities(false).setIgnoreStructureBlock(false).setMirror(Mirror.NONE).setRotation(Rotation.NONE);
 
 }

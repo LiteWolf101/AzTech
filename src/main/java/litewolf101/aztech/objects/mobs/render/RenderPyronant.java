@@ -15,28 +15,31 @@ import javax.annotation.Nullable;
 /**
  * Created by LiteWolf101 on 10/26/2018.
  */
-public class RenderPyronant<T extends MobPyronant> extends RenderLiving<MobPyronant>{
-    private ResourceLocation mobTexture = new ResourceLocation("aztech:textures/entity/pyronant.png");
-    public static final IRenderFactory FACTORY = new Factory();
-    private final ModelPyronant modelPyronant;
+public class RenderPyronant<T extends MobPyronant> extends RenderLiving<MobPyronant> {
 
-    public RenderPyronant(RenderManager rendermanagerIn, ModelBase modelbaseIn, float shadowsizeIn) {
-        super(rendermanagerIn, new ModelPyronant(), 0.3F);
-        modelPyronant = (ModelPyronant) super.mainModel;
-        this.addLayer(new LayerPyronantThingies(this));
-    }
+	public static final IRenderFactory FACTORY = new Factory();
+	private final ModelPyronant modelPyronant;
+	private ResourceLocation mobTexture = new ResourceLocation("aztech:textures/entity/pyronant.png");
 
-    @Nullable
-    @Override
-    protected ResourceLocation getEntityTexture(MobPyronant entity) {
-        return mobTexture;
-    }
+	public RenderPyronant(RenderManager rendermanagerIn, ModelBase modelbaseIn, float shadowsizeIn) {
+		super(rendermanagerIn, new ModelPyronant(), 0.3F);
+		modelPyronant = (ModelPyronant)super.mainModel;
+		this.addLayer(new LayerPyronantThingies(this));
+	}
 
-    public static class Factory implements IRenderFactory<MobPyronant> {
+	@Nullable
+	@Override
+	protected ResourceLocation getEntityTexture(MobPyronant entity) {
+		return mobTexture;
+	}
 
-        @Override
-        public Render<? super MobPyronant> createRenderFor(RenderManager manager) {
-            return new RenderPyronant(manager, new ModelPyronant(), 0.3F);
-        }
-    }
+	public static class Factory implements IRenderFactory<MobPyronant> {
+
+		@Override
+		public Render<? super MobPyronant> createRenderFor(RenderManager manager) {
+			return new RenderPyronant(manager, new ModelPyronant(), 0.3F);
+		}
+
+	}
+
 }

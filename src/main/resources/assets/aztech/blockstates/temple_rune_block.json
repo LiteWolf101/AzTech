@@ -1,10 +1,22 @@
 {
   "variants": {
-    "rune_color=red": {"model": "aztech:red_temple_rune_block"},
-    "rune_color=yellow": {"model": "aztech:yellow_temple_rune_block"},
-    "rune_color=green": {"model": "aztech:green_temple_rune_block"},
-    "rune_color=blue": {"model": "aztech:blue_temple_rune_block"},
-    "rune_color=white": {"model": "aztech:white_temple_rune_block"},
-    "rune_color=black": {"model": "aztech:black_temple_rune_block"}
+    "rune_color=red": {
+      "model": "aztech:red_temple_rune_block"
+    },
+    "rune_color=yellow": {
+      "model": "aztech:yellow_temple_rune_block"
+    },
+    "rune_color=green": {
+      "model": "aztech:green_temple_rune_block"
+    },
+    "rune_color=blue": {
+      "model": "aztech:blue_temple_rune_block"
+    },
+    "rune_color=white": {
+      "model": "aztech:white_temple_rune_block"
+    },
+    "rune_color=black": {
+      "model": "aztech:black_temple_rune_block"
+    }
   }
 }

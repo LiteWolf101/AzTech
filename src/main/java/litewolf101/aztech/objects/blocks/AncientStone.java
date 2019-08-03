@@ -16,28 +16,30 @@ import java.util.Random;
 /**
  * Created by LiteWolf101 on 10/21/2018.
  */
-public class AncientStone extends Block implements IHasModel{
-    public AncientStone(String name, Material material) {
-        super(material);
-        setUnlocalizedName(name);
-        setRegistryName(name);
-        setCreativeTab(AzTech.CREATIVE_TAB);
-        setSoundType(SoundType.STONE);
-        setHarvestLevel("pickaxe", 0);
-        setHardness(2f);
-        setResistance(10f);
+public class AncientStone extends Block implements IHasModel {
 
-        BlocksInit.BLOCKS.add(this);
-        ItemsInit.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
-    }
+	public AncientStone(String name, Material material) {
+		super(material);
+		setTranslationKey(name);
+		setRegistryName(name);
+		setCreativeTab(AzTech.CREATIVE_TAB);
+		setSoundType(SoundType.STONE);
+		setHarvestLevel("pickaxe", 0);
+		setHardness(2f);
+		setResistance(10f);
 
-    @Override
-    public void registerModels() {
-        AzTech.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
-    }
+		BlocksInit.BLOCKS.add(this);
+		ItemsInit.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
+	}
 
-    @Override
-    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return Item.getItemFromBlock(BlocksInit.ANCIENT_COBBLESTONE);
-    }
+	@Override
+	public void registerModels() {
+		AzTech.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
+	}
+
+	@Override
+	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+		return Item.getItemFromBlock(BlocksInit.ANCIENT_COBBLESTONE);
+	}
+
 }
