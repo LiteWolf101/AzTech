@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack;
  * Created by LiteWolf101 on Feb
  * /15/2019
  */
-public class ContainerInsertiveRune extends Container{
+public class ContainerInsertiveRune extends Container {
     private final TileEntityInsertiveRune tileEntity;
     public ContainerInsertiveRune(InventoryPlayer player, TileEntityInsertiveRune tileEntity, EntityPlayer entityPlayer) {
         this.tileEntity = tileEntity;

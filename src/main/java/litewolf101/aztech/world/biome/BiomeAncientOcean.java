@@ -76,10 +76,8 @@ public class BiomeAncientOcean extends Biome {
             int ry = 2 + rand.nextInt(124);
             int rz = pos.getZ() + rand.nextInt(16) + 8;
             mutPos.setPos(rx, ry, rz);
-            if (rand.nextInt(3) == 0) {
-                shortgrass1.generate(worldIn, rand, mutPos);
-                shortgrass4.generate(worldIn, rand, mutPos);
-            }
+            shortgrass1.generate(worldIn, rand, mutPos);
+            shortgrass4.generate(worldIn, rand, mutPos);
         }
     }
 

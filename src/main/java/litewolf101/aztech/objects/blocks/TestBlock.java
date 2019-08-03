@@ -9,6 +9,7 @@ import litewolf101.aztech.objects.blocks.item.ItemBlockVariants;
 import litewolf101.aztech.utils.IHasModel;
 import litewolf101.aztech.utils.IMetaName;
 import litewolf101.aztech.utils.IRunePowerSource;
+import litewolf101.aztech.utils.handlers.MiscHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -18,6 +19,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
@@ -39,52 +41,53 @@ public class TestBlock extends Block implements IHasModel, IMetaName {
     }
     private final Set<BlockPos> blocksNeedingUpdate = Sets.<BlockPos>newHashSet();
 
-    /*private IBlockState updateSurroundingRunes(World worldIn, BlockPos pos, IBlockState state)
-    {
-        state = this.calculateCurrentChanges(worldIn, pos, pos, state);
+    private IBlockState updateSurroundingRunes(World worldIn, BlockPos pos, IBlockState state) {
+        updateRunes(worldIn, pos, state);
         List<BlockPos> list = Lists.newArrayList(this.blocksNeedingUpdate);
         this.blocksNeedingUpdate.clear();
 
-        for (BlockPos blockpos : list)
-        {
-            //worldIn.notifyNeighborsOfStateChange(blockpos, this, false);
+        for (BlockPos blockpos : list) {
+            if (worldIn.getBlockState(blockpos) != state) {
+                worldIn.setBlockState(blockpos, state);
+            }
         }
 
         return state;
     }
 
-    private IBlockState calculateCurrentChanges(World worldIn, BlockPos pos1, BlockPos pos2, IBlockState state)
-    {
-        //if (worldIn.getBlockState(pos1.north()) instanceof IRunePowerSource) {
-        //    worldIn.setBlockState(pos1, state.withProperty(ACTIVATED, true));
-        //    System.out.println("GAH");
-        //}
-        for (EnumFacing enumfacing1 : EnumFacing.values())
-        {
-
-            if (worldIn.getBlockState(pos1.offset(enumfacing1)) == state) {
-                this.blocksNeedingUpdate.add(pos1.offset(enumfacing1));
-                System.out.println(enumfacing1);
+    public void updateRunes(World world, BlockPos pos, IBlockState state) {
+        BlockPos updatePos = pos;
+        EnumFacing[] offset = EnumFacing.values();
+        System.out.println("---");
+        for (EnumFacing facing : offset) {
+            if (MiscHandler.SOURCES.contains(world.getBlockState(pos.offset(facing)))) {
+                this.blocksNeedingUpdate.add(pos);
+                System.out.println("Power source at [" + facing + "]");
+            }
+            if (world.getBlockState(updatePos.offset(facing)).getBlock() == BlocksInit.TEST_BLOCK && !this.blocksNeedingUpdate.contains(updatePos.offset(facing))) {
+                System.out.println("Test block at [" + facing + "]");
+                this.blocksNeedingUpdate.add(updatePos.offset(facing));
+                updatePos = updatePos.offset(facing);
             }
         }
-
-        return state;
-    }*/
-
-    public void updateRunes (World world, BlockPos pos, IBlockState state) {
-
+        System.out.println("Blocks that need power:");
+        System.out.println(this.blocksNeedingUpdate);
+        System.out.println("---");
     }
 
     @Override
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
         if (!worldIn.isRemote) {
+            updateSurroundingRunes(worldIn, pos, state);
             //this.updateSurroundingRunes(worldIn, pos, state);
         }
     }
 
     @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+        super.breakBlock(worldIn, pos, state);
         if (!worldIn.isRemote) {
+            updateSurroundingRunes(worldIn, pos, state);
             //this.updateSurroundingRunes(worldIn, pos, state);
         }
     }
@@ -93,6 +96,7 @@ public class TestBlock extends Block implements IHasModel, IMetaName {
     @SuppressWarnings("deprecation")
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
         if (!worldIn.isRemote) {
+            updateSurroundingRunes(worldIn, pos, state);
             //this.updateSurroundingRunes(worldIn, pos, state);
         }
     }
@@ -121,7 +125,7 @@ public class TestBlock extends Block implements IHasModel, IMetaName {
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[] {ACTIVATED});
+        return new BlockStateContainer(this, new IProperty[]{ACTIVATED});
     }
 
     @Override
@@ -132,7 +136,7 @@ public class TestBlock extends Block implements IHasModel, IMetaName {
     @Override
     public String getSpecialName(ItemStack stack) {
         String name = null;
-        switch (stack.getItemDamage()){
+        switch (stack.getItemDamage()) {
             case 1:
                 name = "on";
 
@@ -141,5 +145,28 @@ public class TestBlock extends Block implements IHasModel, IMetaName {
                 name = "off";
         }
         return name;
+    }
+
+    static enum EnumAttachPosition implements IStringSerializable
+    {
+        DIRECTION("direction"),
+        NONE("none");
+
+        private final String name;
+
+        private EnumAttachPosition(String name)
+        {
+            this.name = name;
+        }
+
+        public String toString()
+        {
+            return this.getName();
+        }
+
+        public String getName()
+        {
+            return this.name;
+        }
     }
 }
