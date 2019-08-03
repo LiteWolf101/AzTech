@@ -44,8 +44,8 @@ public class AncientGrass extends Block implements IHasModel, IGrowable {
 		ItemsInit.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
 	}
 
-	@SideOnly(Side.CLIENT)
-	public BlockRenderLayer getBlockLayer() {
+	@Override
+	public BlockRenderLayer getRenderLayer() {
 		return BlockRenderLayer.CUTOUT_MIPPED;
 	}
 

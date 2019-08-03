@@ -263,6 +263,8 @@ public class BlockSorghum extends BlockBush implements IGrowable, IHasModel, IMe
 		}
 	}
 
+
+	//TODO Fix
 	@Override
 	public String getSpecialName(ItemStack stack) {
 		String name = null;

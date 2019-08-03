@@ -51,7 +51,7 @@ public class CommandAzTech extends CommandBase {
 		}
 		EntityPlayerMP player = (EntityPlayerMP)sender;
 		WorldServer world = player.getServerWorld();
-		if(strings.length != 1) {
+		if(strings.length < 1) {
 			throw new WrongUsageException(getUsage(sender));
 		}
 		if(strings[0].equals("data")) {
@@ -59,7 +59,8 @@ public class CommandAzTech extends CommandBase {
 		}
 		if(strings[0].equals("dim_teleport")) {
 			if(sender instanceof EntityPlayer) {
-				CustomTeleporter.teleportToDimension((EntityPlayer)sender, AzTechConfig.dimension_ID, 0, 35, 0, false);
+                BlockPos blockpos = parseBlockPos(sender, strings, 1, false);
+				CustomTeleporter.teleportToDimension((EntityPlayer)sender, AzTechConfig.dimension_ID, blockpos.getX(), blockpos.getY(), blockpos.getZ(), false);
 			}
 		}
 
@@ -73,7 +74,11 @@ public class CommandAzTech extends CommandBase {
 	@Override
 	@Nonnull
 	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos targetPos) {
+	    if (args[0].equals("dim_teleport")) {
+            if (args.length > 1 && args.length <= 4) {
+                return getTabCompletionCoordinate(args, 0, targetPos);
+            }
+        }
 		return args.length == 1 ? commands : Collections.emptyList();
 	}
-
 }
