@@ -65,6 +65,7 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(masterPortalConstruct.class, new RenderPortalConstruct());
 		ClientRegistry.bindTileEntitySpecialRenderer(TETempleMirror.class, new RenderMirror());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityInsertiveRune.class, new RenderInsertiveRune());
+		//ClientRegistry.bindTileEntitySpecialRenderer(TEEnemyEmitterRune.class, new RenderEnemyEmitterRune());
 	}
 
 	@Override

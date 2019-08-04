@@ -3,8 +3,10 @@ package litewolf101.aztech.objects.blocks;
 import litewolf101.aztech.AzTech;
 import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.init.ItemsInit;
+import litewolf101.aztech.tileentity.TEEnemyEmitterRune;
 import litewolf101.aztech.utils.IHasModel;
 import net.minecraft.block.Block;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -14,19 +16,21 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
 /**
  * Created by LiteWolf101 on 9/27/2018.
  */
-public class EnemyEmitterRune extends Block implements IHasModel {
+public class EnemyEmitterRune extends Block implements IHasModel, ITileEntityProvider {
 
 	public EnemyEmitterRune(String name, Material material) {
 		super(material);
@@ -36,7 +40,7 @@ public class EnemyEmitterRune extends Block implements IHasModel {
 		setCreativeTab(AzTech.CREATIVE_TAB);
 		setHarvestLevel("pickaxe", 1);
 		setHardness(2f);
-		setTickRandomly(true);
+		//setTickRandomly(true);
 		setResistance(100f);
 
 		BlocksInit.BLOCKS.add(this);
@@ -48,7 +52,7 @@ public class EnemyEmitterRune extends Block implements IHasModel {
 		AzTech.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
 	}
 
-	@Override
+	/*&@Override
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
 		worldIn.scheduleUpdate(pos, this, 400);
 		spawnEntity(worldIn, pos);
@@ -72,7 +76,7 @@ public class EnemyEmitterRune extends Block implements IHasModel {
 			}
 
 		}
-	}
+	}*/
 
 	@Override
 	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
@@ -84,7 +88,13 @@ public class EnemyEmitterRune extends Block implements IHasModel {
 		worldIn.spawnParticle(EnumParticleTypes.REDSTONE, x + random, y, z + random1, 0, 0.1D, 0);
 	}
 
+	@Nullable
 	@Override
+	public TileEntity createNewTileEntity(World worldIn, int meta) {
+		return new TEEnemyEmitterRune();
+	}
+
+	/*@Override
 	public int tickRate(World worldIn) {
 		return 400;
 	}
@@ -94,6 +104,6 @@ public class EnemyEmitterRune extends Block implements IHasModel {
 
 		worldIn.scheduleUpdate(pos, this, 400);
 		spawnEntity(worldIn, pos);
-	}
+	}*/
 
 }

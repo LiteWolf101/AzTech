@@ -69,6 +69,7 @@ public class AzTechPortal extends Block implements IHasModel, IMetaName, ITileEn
 	}
 
 	@Override
+	@SuppressWarnings("deprecation")
 	public EnumBlockRenderType getRenderType(IBlockState state) {
 		return EnumBlockRenderType.MODEL;
 	}
@@ -84,6 +85,7 @@ public class AzTechPortal extends Block implements IHasModel, IMetaName, ITileEn
 		return BlockRenderLayer.TRANSLUCENT;
 	}
 
+	@SuppressWarnings("deprecation")
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
 		if(pos.getY() >= worldIn.getHeight() - 1) {
 			return false;

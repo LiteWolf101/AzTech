@@ -152,6 +152,7 @@ public class TempleRuneBlock extends BlockContainer implements IHasModel, IMetaN
 	}
 
 	@Override
+	@SuppressWarnings("deprecation")
 	public EnumBlockRenderType getRenderType(IBlockState state) {
 		return EnumBlockRenderType.MODEL;
 	}
