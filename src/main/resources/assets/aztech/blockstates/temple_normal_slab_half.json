@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=bottom,variant=default": {
+      "model": "aztech:temple_half_bottom_normal"
+    },
+    "half=top,variant=default": {
+      "model": "aztech:temple_half_top_normal"
+    }
+  }
+}

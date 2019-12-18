@@ -1,0 +1,8 @@
+# Blender MTL File: 'aztech_plate.blend'
+# Material Count: 1
+
+newmtl Material.001
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.428043 0.132425
+d 1.000000
+map_Kd aztech:blocks/aztech_plate

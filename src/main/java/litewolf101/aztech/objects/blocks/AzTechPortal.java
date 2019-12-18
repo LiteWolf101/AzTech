@@ -12,7 +12,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
@@ -35,108 +34,107 @@ import javax.annotation.Nullable;
  */
 public class AzTechPortal extends Block implements IHasModel, IMetaName, ITileEntityProvider {
 
-	public static final PropertyEnum<EnumHalf.EnumType> HALF = PropertyEnum.create("half", EnumHalf.EnumType.class);
+    public static final PropertyEnum<EnumHalf.EnumType> HALF = PropertyEnum.create("half", EnumHalf.EnumType.class);
 
-	public AzTechPortal(String name, Material material) {
-		super(material);
-		setTranslationKey(name);
-		setRegistryName(name);
-		setSoundType(SoundType.STONE);
-		setHarvestLevel("pickaxe", 2);
-		setBlockUnbreakable();
-		setDefaultState(this.blockState.getBaseState().withProperty(HALF, EnumHalf.EnumType.BOTTOM));
+    public AzTechPortal(String name, Material material) {
+        super(material);
+        setTranslationKey(name);
+        setRegistryName(name);
+        setSoundType(SoundType.STONE);
+        setHarvestLevel("pickaxe", 2);
+        setBlockUnbreakable();
+        setDefaultState(this.blockState.getBaseState().withProperty(HALF, EnumHalf.EnumType.BOTTOM));
 
-		BlocksInit.BLOCKS.add(this);
-		ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));
-	}
+        BlocksInit.BLOCKS.add(this);
+        ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));
+    }
 
-	@Override
-	@SuppressWarnings("deprecation")
-	public IBlockState getStateFromMeta(int meta) {
+    @Override
+    @SuppressWarnings("deprecation")
+    public IBlockState getStateFromMeta(int meta) {
 
-		return this.getDefaultState().withProperty(HALF, EnumHalf.EnumType.byMetadata(meta));
-	}
+        return this.getDefaultState().withProperty(HALF, EnumHalf.EnumType.byMetadata(meta));
+    }
 
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		return state.getValue(HALF).getMeta();
-	}
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        return state.getValue(HALF).getMeta();
+    }
 
-	@Override
-	@SuppressWarnings("deprecation")
-	public boolean isFullCube(IBlockState state) {
-		return false;
-	}
+    @Override
+    @SuppressWarnings("deprecation")
+    public boolean isFullCube(IBlockState state) {
+        return false;
+    }
 
-	@Override
-	@SuppressWarnings("deprecation")
-	public EnumBlockRenderType getRenderType(IBlockState state) {
-		return EnumBlockRenderType.MODEL;
-	}
+    @Override
+    @SuppressWarnings("deprecation")
+    public EnumBlockRenderType getRenderType(IBlockState state) {
+        return EnumBlockRenderType.MODEL;
+    }
 
-	@Override
-	@SuppressWarnings("deprecation")
-	public boolean isOpaqueCube(IBlockState state) {
-		return false;
-	}
+    @Override
+    @SuppressWarnings("deprecation")
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
 
-	@Override
-	public BlockRenderLayer getRenderLayer() {
-		return BlockRenderLayer.TRANSLUCENT;
-	}
+    @Override
+    public BlockRenderLayer getRenderLayer() {
+        return BlockRenderLayer.TRANSLUCENT;
+    }
 
-	@SuppressWarnings("deprecation")
-	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-		if(pos.getY() >= worldIn.getHeight() - 1) {
-			return false;
-		}
-		else {
-			IBlockState state = worldIn.getBlockState(pos.down());
-			return (state.isTopSolid() || state.getBlockFaceShape(worldIn, pos.down(), EnumFacing.UP) == BlockFaceShape.SOLID) && super.canPlaceBlockAt(worldIn, pos) && super.canPlaceBlockAt(worldIn, pos.up());
-		}
-	}
+    @SuppressWarnings("deprecation")
+    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
+        if (pos.getY() >= worldIn.getHeight() - 1) {
+            return false;
+        } else {
+            IBlockState state = worldIn.getBlockState(pos.down());
+            return (state.isTopSolid() || state.getBlockFaceShape(worldIn, pos.down(), EnumFacing.UP) == BlockFaceShape.SOLID) && super.canPlaceBlockAt(worldIn, pos) && super.canPlaceBlockAt(worldIn, pos.up());
+        }
+    }
 
-	public void onBlockHarvested(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
-		BlockPos down = pos.down();
-		BlockPos up = pos.up();
-		if(state.getValue(HALF) == EnumHalf.EnumType.TOP && world.getBlockState(down).getBlock() == this) {
-			world.setBlockToAir(down);
-		}
+    public void onBlockHarvested(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
+        BlockPos down = pos.down();
+        BlockPos up = pos.up();
+        if (state.getValue(HALF) == EnumHalf.EnumType.TOP && world.getBlockState(down).getBlock() == this) {
+            world.setBlockToAir(down);
+        }
 
-		if(state.getValue(HALF) == EnumHalf.EnumType.BOTTOM && world.getBlockState(up).getBlock() == this) {
-			if(player.capabilities.isCreativeMode) {
-				world.setBlockToAir(pos);
-			}
-			world.setBlockToAir(up);
-		}
-	}
+        if (state.getValue(HALF) == EnumHalf.EnumType.BOTTOM && world.getBlockState(up).getBlock() == this) {
+            if (player.capabilities.isCreativeMode) {
+                world.setBlockToAir(pos);
+            }
+            world.setBlockToAir(up);
+        }
+    }
 
-	@Override
-	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, HALF);
-	}
+    @Override
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, HALF);
+    }
 
-	@Override
-	public ItemStack getPickBlock(IBlockState state, RayTraceResult result, World world, BlockPos pos, EntityPlayer player) {
-		return new ItemStack(ItemsInit.AZTECH_PORTAL);
-	}
+    @Override
+    public ItemStack getPickBlock(IBlockState state, RayTraceResult result, World world, BlockPos pos, EntityPlayer player) {
+        return new ItemStack(ItemsInit.AZTECH_PORTAL);
+    }
 
-	@Override
-	public void registerModels() {
-		for(int i = 0; i < EnumHalf.EnumType.values().length; i++) {
-			AzTech.proxy.registerVariantRenderer(Item.getItemFromBlock(this), i, "aztech_portal_" + EnumHalf.EnumType.values()[i].getName(), "inventory");
-		}
-	}
+    @Override
+    public void registerModels() {
+        for (int i = 0; i < EnumHalf.EnumType.values().length; i++) {
+            AzTech.proxy.registerVariantRenderer(Item.getItemFromBlock(this), i, "aztech_portal_" + EnumHalf.EnumType.values()[i].getName(), "inventory");
+        }
+    }
 
-	@Override
-	public String getSpecialName(ItemStack stack) {
-		return EnumHalf.EnumType.values()[stack.getItemDamage()].getName();
-	}
+    @Override
+    public String getSpecialName(ItemStack stack) {
+        return EnumHalf.EnumType.values()[stack.getItemDamage()].getName();
+    }
 
-	@Nullable
-	@Override
-	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new TEPortalConstruct();
-	}
+    @Nullable
+    @Override
+    public TileEntity createNewTileEntity(World worldIn, int meta) {
+        return new TEPortalConstruct();
+    }
 
 }

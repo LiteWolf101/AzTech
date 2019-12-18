@@ -1,6 +1,8 @@
 package litewolf101.aztech.proxy;
 
 import litewolf101.aztech.AzTech;
+import litewolf101.aztech.init.BlocksInit;
+import litewolf101.aztech.init.ItemsInit;
 import litewolf101.aztech.init.ModEntities;
 import litewolf101.aztech.objects.blocks.render.*;
 import litewolf101.aztech.tileentity.*;
@@ -17,6 +19,7 @@ import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -31,6 +34,9 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		super.preInit(event);
+		OBJLoader.INSTANCE.addDomain(Reference.MODID);
+		registerCustom3DModels(Item.getItemFromBlock(BlocksInit.AZTECH_PLATE), "inventory");
+
 		ModEntities.initModels();
 	}
 
@@ -46,6 +52,10 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
 		super.postInit(event);
+	}
+
+	public void registerCustom3DModels(Item item, String id){
+		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), id));
 	}
 
 	@Override
@@ -65,6 +75,7 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(masterPortalConstruct.class, new RenderPortalConstruct());
 		ClientRegistry.bindTileEntitySpecialRenderer(TETempleMirror.class, new RenderMirror());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityInsertiveRune.class, new RenderInsertiveRune());
+		ClientRegistry.bindTileEntitySpecialRenderer(TEPlantVase.class, new RenderPlantVaseTop());
 		//ClientRegistry.bindTileEntitySpecialRenderer(TEEnemyEmitterRune.class, new RenderEnemyEmitterRune());
 	}
 

@@ -10,17 +10,17 @@ import net.minecraft.item.ItemSoup;
  */
 public class ItemSorghumSoup extends ItemSoup implements IHasModel {
 
-	public ItemSorghumSoup(String name) {
-		super(5);
-		setTranslationKey(name);
-		setRegistryName(name);
-		setCreativeTab(AzTech.CREATIVE_TAB);
-		ItemsInit.ITEMS.add(this);
-	}
+    public ItemSorghumSoup(String name) {
+        super(5);
+        setTranslationKey(name);
+        setRegistryName(name);
+        setCreativeTab(AzTech.CREATIVE_TAB);
+        ItemsInit.ITEMS.add(this);
+    }
 
-	@Override
-	public void registerModels() {
-		AzTech.proxy.registerItemRenderer(this, 0, "inventory");
-	}
+    @Override
+    public void registerModels() {
+        AzTech.proxy.registerItemRenderer(this, 0, "inventory");
+    }
 
 }

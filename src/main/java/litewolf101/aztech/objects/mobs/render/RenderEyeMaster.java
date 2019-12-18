@@ -16,28 +16,28 @@ import javax.annotation.Nullable;
  */
 public class RenderEyeMaster extends RenderLiving<MobEyeMaster> {
 
-	public static final IRenderFactory FACTORY = new Factory();
-	private final ModelEyeMaster modelEyeMaster;
-	private ResourceLocation mobTexture = new ResourceLocation("aztech:textures/entity/eye_master.png");
+    public static final IRenderFactory FACTORY = new Factory();
+    private final ModelEyeMaster modelEyeMaster;
+    private ResourceLocation mobTexture = new ResourceLocation("aztech:textures/entity/eye_master.png");
 
-	public RenderEyeMaster(RenderManager rendermanagerIn, ModelBase modelbaseIn, float shadowsizeIn) {
-		super(rendermanagerIn, new ModelEyeMaster(), 0.3F);
-		modelEyeMaster = (ModelEyeMaster)super.mainModel;
-	}
+    public RenderEyeMaster(RenderManager rendermanagerIn, ModelBase modelbaseIn, float shadowsizeIn) {
+        super(rendermanagerIn, new ModelEyeMaster(), 0.3F);
+        modelEyeMaster = (ModelEyeMaster) super.mainModel;
+    }
 
-	@Nullable
-	@Override
-	protected ResourceLocation getEntityTexture(MobEyeMaster entity) {
-		return mobTexture;
-	}
+    @Nullable
+    @Override
+    protected ResourceLocation getEntityTexture(MobEyeMaster entity) {
+        return mobTexture;
+    }
 
-	public static class Factory implements IRenderFactory<MobEyeMaster> {
+    public static class Factory implements IRenderFactory<MobEyeMaster> {
 
-		@Override
-		public Render<? super MobEyeMaster> createRenderFor(RenderManager manager) {
-			return new RenderEyeMaster(manager, new ModelEyeMaster(), 0.7F);
-		}
+        @Override
+        public Render<? super MobEyeMaster> createRenderFor(RenderManager manager) {
+            return new RenderEyeMaster(manager, new ModelEyeMaster(), 0.7F);
+        }
 
-	}
+    }
 
 }

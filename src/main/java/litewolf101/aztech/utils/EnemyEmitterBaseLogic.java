@@ -13,6 +13,8 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.storage.AnvilChunkLoader;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -47,7 +49,6 @@ public abstract class EnemyEmitterBaseLogic extends MobSpawnerBaseLogic {
         return StringUtils.isNullOrEmpty(s) ? null : new ResourceLocation(s);
     }
 
-    @Override
     public void setEntityId(@Nullable ResourceLocation id)
     {
         if (id != null)
@@ -65,7 +66,6 @@ public abstract class EnemyEmitterBaseLogic extends MobSpawnerBaseLogic {
         return this.getSpawnerWorld().isAnyPlayerWithinRangeAt((double)blockpos.getX() + 0.5D, (double)blockpos.getY() + 0.5D, (double)blockpos.getZ() + 0.5D, (double)this.activatingRangeFromPlayer);
     }
 
-    @Override
     public void updateSpawner()
     {
         if (!this.isActivated())
@@ -81,7 +81,10 @@ public abstract class EnemyEmitterBaseLogic extends MobSpawnerBaseLogic {
                 double d3 = (double)((float)blockpos.getX() + this.getSpawnerWorld().rand.nextFloat());
                 double d4 = (double)((float)blockpos.getY() + this.getSpawnerWorld().rand.nextFloat());
                 double d5 = (double)((float)blockpos.getZ() + this.getSpawnerWorld().rand.nextFloat());
+                //this.getSpawnerWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d3, d4, d5, 0.0D, 0.0D, 0.0D);
+                //this.getSpawnerWorld().spawnParticle(EnumParticleTypes.FLAME, d3, d4, d5, 0.0D, 0.0D, 0.0D);
                 proxy.spawnParticle(this.getSpawnerWorld(), AzTechParticleTypes.RED_SPARKLE, d3, d4, d5, 0, 0, 0);
+
                 if (this.spawnDelay > 0)
                 {
                     --this.spawnDelay;
@@ -141,7 +144,8 @@ public abstract class EnemyEmitterBaseLogic extends MobSpawnerBaseLogic {
                         }
 
                         AnvilChunkLoader.spawnEntity(entity, world);
-                        world.playEvent(2004, blockpos, 0);
+                        //world.playEvent(2004, blockpos, 0);
+                        proxy.spawnParticle(world, AzTechParticleTypes.WHITE_SPARKLE, blockpos.getX(), blockpos.getY(), blockpos.getZ(), 0 ,0 ,0);
 
                         if (entityliving != null)
                         {
@@ -174,9 +178,152 @@ public abstract class EnemyEmitterBaseLogic extends MobSpawnerBaseLogic {
 
         if (!this.potentialSpawns.isEmpty())
         {
-            this.setNextSpawnData((WeightedSpawnerEntity) WeightedRandom.getRandomItem(this.getSpawnerWorld().rand, this.potentialSpawns));
+            this.setNextSpawnData((WeightedSpawnerEntity)WeightedRandom.getRandomItem(this.getSpawnerWorld().rand, this.potentialSpawns));
         }
 
         this.broadcastEvent(1);
     }
+
+    public void readFromNBT(NBTTagCompound nbt)
+    {
+        this.spawnDelay = nbt.getShort("Delay");
+        this.potentialSpawns.clear();
+
+        if (nbt.hasKey("SpawnPotentials", 9))
+        {
+            NBTTagList nbttaglist = nbt.getTagList("SpawnPotentials", 10);
+
+            for (int i = 0; i < nbttaglist.tagCount(); ++i)
+            {
+                this.potentialSpawns.add(new WeightedSpawnerEntity(nbttaglist.getCompoundTagAt(i)));
+            }
+        }
+
+        if (nbt.hasKey("SpawnData", 10))
+        {
+            this.setNextSpawnData(new WeightedSpawnerEntity(1, nbt.getCompoundTag("SpawnData")));
+        }
+        else if (!this.potentialSpawns.isEmpty())
+        {
+            this.setNextSpawnData((WeightedSpawnerEntity)WeightedRandom.getRandomItem(this.getSpawnerWorld().rand, this.potentialSpawns));
+        }
+
+        if (nbt.hasKey("MinSpawnDelay", 99))
+        {
+            this.minSpawnDelay = nbt.getShort("MinSpawnDelay");
+            this.maxSpawnDelay = nbt.getShort("MaxSpawnDelay");
+            this.spawnCount = nbt.getShort("SpawnCount");
+        }
+
+        if (nbt.hasKey("MaxNearbyEntities", 99))
+        {
+            this.maxNearbyEntities = nbt.getShort("MaxNearbyEntities");
+            this.activatingRangeFromPlayer = nbt.getShort("RequiredPlayerRange");
+        }
+
+        if (nbt.hasKey("SpawnRange", 99))
+        {
+            this.spawnRange = nbt.getShort("SpawnRange");
+        }
+
+        if (this.getSpawnerWorld() != null)
+        {
+            this.cachedEntity = null;
+        }
+    }
+
+    public NBTTagCompound writeToNBT(NBTTagCompound p_189530_1_)
+    {
+        ResourceLocation resourcelocation = this.getEntityId();
+
+        if (resourcelocation == null)
+        {
+            return p_189530_1_;
+        }
+        else
+        {
+            p_189530_1_.setShort("Delay", (short)this.spawnDelay);
+            p_189530_1_.setShort("MinSpawnDelay", (short)this.minSpawnDelay);
+            p_189530_1_.setShort("MaxSpawnDelay", (short)this.maxSpawnDelay);
+            p_189530_1_.setShort("SpawnCount", (short)this.spawnCount);
+            p_189530_1_.setShort("MaxNearbyEntities", (short)this.maxNearbyEntities);
+            p_189530_1_.setShort("RequiredPlayerRange", (short)this.activatingRangeFromPlayer);
+            p_189530_1_.setShort("SpawnRange", (short)this.spawnRange);
+            p_189530_1_.setTag("SpawnData", this.spawnData.getNbt().copy());
+            NBTTagList nbttaglist = new NBTTagList();
+
+            if (this.potentialSpawns.isEmpty())
+            {
+                nbttaglist.appendTag(this.spawnData.toCompoundTag());
+            }
+            else
+            {
+                for (WeightedSpawnerEntity weightedspawnerentity : this.potentialSpawns)
+                {
+                    nbttaglist.appendTag(weightedspawnerentity.toCompoundTag());
+                }
+            }
+
+            p_189530_1_.setTag("SpawnPotentials", nbttaglist);
+            return p_189530_1_;
+        }
+    }
+
+    /**
+     * Sets the delay to minDelay if parameter given is 1, else return false.
+     */
+    public boolean setDelayToMin(int delay)
+    {
+        if (delay == 1 && this.getSpawnerWorld().isRemote)
+        {
+            this.spawnDelay = this.minSpawnDelay;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    @SideOnly(Side.CLIENT)
+    public Entity getCachedEntity()
+    {
+        if (this.cachedEntity == null)
+        {
+            this.cachedEntity = AnvilChunkLoader.readWorldEntity(this.spawnData.getNbt(), this.getSpawnerWorld(), false);
+
+            if (this.spawnData.getNbt().getSize() == 1 && this.spawnData.getNbt().hasKey("id", 8) && this.cachedEntity instanceof EntityLiving)
+            {
+                ((EntityLiving)this.cachedEntity).onInitialSpawn(this.getSpawnerWorld().getDifficultyForLocation(new BlockPos(this.cachedEntity)), (IEntityLivingData)null);
+            }
+        }
+
+        return this.cachedEntity;
+    }
+
+    public void setNextSpawnData(WeightedSpawnerEntity p_184993_1_)
+    {
+        this.spawnData = p_184993_1_;
+    }
+
+    public abstract void broadcastEvent(int id);
+
+    public abstract World getSpawnerWorld();
+
+    public abstract BlockPos getSpawnerPosition();
+
+    @SideOnly(Side.CLIENT)
+    public double getMobRotation()
+    {
+        return this.mobRotation;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public double getPrevMobRotation()
+    {
+        return this.prevMobRotation;
+    }
+
+    /* ======================================== FORGE START =====================================*/
+    @Nullable public Entity getSpawnerEntity() { return null; }
 }

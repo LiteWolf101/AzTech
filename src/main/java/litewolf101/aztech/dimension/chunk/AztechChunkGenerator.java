@@ -3,12 +3,14 @@ package litewolf101.aztech.dimension.chunk;
 import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.world.mapgen.MapGenAztechCaves;
 import litewolf101.aztech.world.mapgen.MapGenAztechRavine;
+import litewolf101.aztech.world.mapgen.MapGenEyeDungeon;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
@@ -20,6 +22,7 @@ import net.minecraft.world.gen.NoiseGeneratorOctaves;
 import net.minecraft.world.gen.NoiseGeneratorPerlin;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.ChunkGeneratorEvent;
+import net.minecraftforge.event.terraingen.InitMapGenEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
 import java.util.List;
@@ -51,6 +54,7 @@ public class AztechChunkGenerator implements IChunkGenerator, IChunkProvider {
 	private NoiseGeneratorPerlin perlinAdditional1;
 	private NoiseGeneratorPerlin perlinAdditional2;
 	private Biome[] biomesForGeneration;
+	private MapGenEyeDungeon eyeDungeon = new MapGenEyeDungeon();
 
 	public AztechChunkGenerator(World world, long seed) {
 		worldObj = world;
@@ -69,6 +73,7 @@ public class AztechChunkGenerator implements IChunkGenerator, IChunkProvider {
 
 		caveGenerator = new MapGenAztechCaves();
 		ravineGenerator = new MapGenAztechRavine();
+		eyeDungeon = (MapGenEyeDungeon) net.minecraftforge.event.terraingen.TerrainGen.getModdedMapGen(eyeDungeon, InitMapGenEvent.EventType.CUSTOM);
 	}
 
 	@Override
@@ -82,6 +87,7 @@ public class AztechChunkGenerator implements IChunkGenerator, IChunkProvider {
 
 		caveGenerator.generate(worldObj, x, z, chunkprimer);
 		ravineGenerator.generate(worldObj, x, z, chunkprimer);
+		eyeDungeon.generate(this.worldObj, x, z, chunkprimer);
 
 		Chunk chunk = new Chunk(worldObj, chunkprimer, x, z);
 		byte[] biomeArrayReference = chunk.getBiomeArray();
@@ -203,7 +209,9 @@ public class AztechChunkGenerator implements IChunkGenerator, IChunkProvider {
 									fillerBlock = BlocksInit.ANCIENT_STONE.getDefaultState();
 								}
 								else if(yInChunk >= var5 + 4 && yInChunk <= var5 + 120) {
-									if(yInChunk < worldObj.getSeaLevel() - 2) {
+									if(yInChunk == worldObj.getSeaLevel() - 3) {
+										topBlock = biome.fillerBlock;
+									} else if(yInChunk < worldObj.getSeaLevel() - 3) {
 										topBlock = Blocks.GRAVEL.getDefaultState();
 									}
 									else {
@@ -359,6 +367,7 @@ public class AztechChunkGenerator implements IChunkGenerator, IChunkProvider {
 		BlockFalling.fallInstantly = true;
 		int i = x * 16;
 		int j = z * 16;
+		ChunkPos chunkpos = new ChunkPos(x, z);
 		BlockPos blockCoord = new BlockPos(i, 0, j);
 		Biome biomeBase = this.worldObj.getBiome(blockCoord.add(16, 0, 16));
 		BlockPos blockpos = new BlockPos(i, 0, j);
@@ -367,6 +376,7 @@ public class AztechChunkGenerator implements IChunkGenerator, IChunkProvider {
 			rand.setSeed(worldObj.getSeed());
 			rand.setSeed(x * (rand.nextLong() / 2L * 2L + 1L) + z * (rand.nextLong() / 2L * 2L + 1L) ^ worldObj.getSeed());
 			biome.decorate(this.worldObj, this.rand, blockCoord);
+			eyeDungeon.generateStructure(this.worldObj, this.rand, chunkpos);
 		}
 		BlockFalling.fallInstantly = false;
 	}
@@ -383,18 +393,18 @@ public class AztechChunkGenerator implements IChunkGenerator, IChunkProvider {
 	}
 
 	@Override
+	public boolean isInsideStructure(World worldIn, String structureName, BlockPos pos) {
+		return "AzTech_EyeDungeon".equals(structureName) && this.eyeDungeon != null ? this.eyeDungeon.isInsideStructure(pos) : false;
+	}
+
+	@Override
 	public BlockPos getNearestStructurePos(World worldIn, String structureName, BlockPos position, boolean findUnexplored) {
-		return null;
+		return "AzTech_EyeDungeon".equals(structureName) && this.eyeDungeon != null ? this.eyeDungeon.getNearestStructurePos(worldIn, position, findUnexplored) : null;
 	}
 
 	@Override
 	public void recreateStructures(Chunk chunkIn, int x, int z) {
-
-	}
-
-	@Override
-	public boolean isInsideStructure(World worldIn, String structureName, BlockPos pos) {
-		return false;
+		eyeDungeon.generate(this.worldObj, x, z, (ChunkPrimer)null);
 	}
 
 	private int getLowestAirBlock(ChunkPrimer primer, int xInChunk, int zInChunk, int preHeightIndex, int minH, int maxH) {

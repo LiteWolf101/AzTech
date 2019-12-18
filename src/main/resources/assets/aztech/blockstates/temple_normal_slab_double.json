@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "variant=default": {
+      "model": "aztech:temple_stone_normal"
+    }
+  }
+}

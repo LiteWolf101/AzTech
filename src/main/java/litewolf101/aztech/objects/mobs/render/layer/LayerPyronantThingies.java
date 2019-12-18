@@ -17,48 +17,47 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class LayerPyronantThingies<T extends MobPyronant> implements LayerRenderer<T> {
 
-	private final RenderPyronant<T> renderPyronant;
-	private final ModelPyronantRing modelPyronantRing;
-	private ResourceLocation pyronantTexture = new ResourceLocation("aztech:textures/entity/pyronant.png");
+    private final RenderPyronant<T> renderPyronant;
+    private final ModelPyronantRing modelPyronantRing;
+    private ResourceLocation pyronantTexture = new ResourceLocation("aztech:textures/entity/pyronant.png");
 
-	public LayerPyronantThingies(RenderPyronant<T> renderPyronant) {
-		this.renderPyronant = renderPyronant;
-		modelPyronantRing = new ModelPyronantRing();
-	}
+    public LayerPyronantThingies(RenderPyronant<T> renderPyronant) {
+        this.renderPyronant = renderPyronant;
+        modelPyronantRing = new ModelPyronantRing();
+    }
 
-	@Override
-	public void doRenderLayer(T entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		this.renderPyronant.bindTexture(pyronantTexture);
+    @Override
+    public void doRenderLayer(T entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+        this.renderPyronant.bindTexture(pyronantTexture);
 
-		GlStateManager.disableAlpha();
-		GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE);
+        GlStateManager.disableAlpha();
+        GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE);
 
-		if(entitylivingbaseIn.isInvisible()) {
-			GlStateManager.depthMask(false);
-		}
-		else {
-			GlStateManager.depthMask(true);
-		}
+        if (entitylivingbaseIn.isInvisible()) {
+            GlStateManager.depthMask(false);
+        } else {
+            GlStateManager.depthMask(true);
+        }
 
-		int i = 61680;
-		int j = i % 65536;
-		int k = i / 65536;
-		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)j, (float)k);
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
-		modelPyronantRing.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-		Minecraft.getMinecraft().entityRenderer.setupFogColor(false);
-		i = entitylivingbaseIn.getBrightnessForRender();
-		j = i % 65536;
-		k = i / 65536;
-		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)j, (float)k);
-		this.renderPyronant.setLightmap(entitylivingbaseIn);
-		GlStateManager.enableAlpha();
-	}
+        int i = 61680;
+        int j = i % 65536;
+        int k = i / 65536;
+        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
+        modelPyronantRing.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+        Minecraft.getMinecraft().entityRenderer.setupFogColor(false);
+        i = entitylivingbaseIn.getBrightnessForRender();
+        j = i % 65536;
+        k = i / 65536;
+        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
+        this.renderPyronant.setLightmap(entitylivingbaseIn);
+        GlStateManager.enableAlpha();
+    }
 
-	@Override
-	public boolean shouldCombineTextures() {
-		return false;
-	}
+    @Override
+    public boolean shouldCombineTextures() {
+        return false;
+    }
 
 }

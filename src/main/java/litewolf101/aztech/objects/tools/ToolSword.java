@@ -10,18 +10,18 @@ import net.minecraft.item.ItemSword;
  */
 public class ToolSword extends ItemSword implements IHasModel {
 
-	public ToolSword(String name, ToolMaterial material) {
-		super(material);
-		setTranslationKey(name);
-		setRegistryName(name);
-		setCreativeTab(AzTech.CREATIVE_TAB);
+    public ToolSword(String name, ToolMaterial material) {
+        super(material);
+        setTranslationKey(name);
+        setRegistryName(name);
+        setCreativeTab(AzTech.CREATIVE_TAB);
 
-		ItemsInit.ITEMS.add(this);
-	}
+        ItemsInit.ITEMS.add(this);
+    }
 
-	@Override
-	public void registerModels() {
-		AzTech.proxy.registerItemRenderer(this, 0, "inventory");
-	}
+    @Override
+    public void registerModels() {
+        AzTech.proxy.registerItemRenderer(this, 0, "inventory");
+    }
 
 }

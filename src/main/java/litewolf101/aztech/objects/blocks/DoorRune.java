@@ -15,21 +15,21 @@ import net.minecraft.item.ItemBlock;
  */
 public class DoorRune extends Block implements IHasModel {
 
-	public DoorRune(String name, Material material) {
-		super(material);
-		setTranslationKey(name);
-		setRegistryName(name);
-		setCreativeTab(AzTech.CREATIVE_TAB);
-		setBlockUnbreakable();
-		setSoundType(SoundType.STONE);
+    public DoorRune(String name, Material material) {
+        super(material);
+        setTranslationKey(name);
+        setRegistryName(name);
+        setCreativeTab(AzTech.CREATIVE_TAB);
+        setBlockUnbreakable();
+        setSoundType(SoundType.STONE);
 
-		BlocksInit.BLOCKS.add(this);
-		ItemsInit.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
-	}
+        BlocksInit.BLOCKS.add(this);
+        ItemsInit.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
+    }
 
-	@Override
-	public void registerModels() {
-		AzTech.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
-	}
+    @Override
+    public void registerModels() {
+        AzTech.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
+    }
 
 }

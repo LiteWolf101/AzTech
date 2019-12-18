@@ -10,17 +10,17 @@ import net.minecraft.item.Item;
  */
 public class ItemBase extends Item implements IHasModel {
 
-	public ItemBase(String name) {
-		setTranslationKey(name);
-		setRegistryName(name);
-		setCreativeTab(AzTech.CREATIVE_TAB);
+    public ItemBase(String name) {
+        setTranslationKey(name);
+        setRegistryName(name);
+        setCreativeTab(AzTech.CREATIVE_TAB);
 
-		ItemsInit.ITEMS.add(this);
-	}
+        ItemsInit.ITEMS.add(this);
+    }
 
-	@Override
-	public void registerModels() {
-		AzTech.proxy.registerItemRenderer(this, 0, "inventory");
-	}
+    @Override
+    public void registerModels() {
+        AzTech.proxy.registerItemRenderer(this, 0, "inventory");
+    }
 
 }

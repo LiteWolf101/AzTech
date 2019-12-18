@@ -16,40 +16,40 @@ import javax.annotation.Nullable;
 @SideOnly(Side.CLIENT)
 public class RenderDustDevil extends Render<EntityDustDevil> {
 
-	public static final IRenderFactory FACTORY = new RenderDustDevil.Factory();
-	private final ModelDustDevil modelDustDevil = new ModelDustDevil();
-	private ResourceLocation texture = new ResourceLocation("aztech:textures/blocks/dust_sand.png");
+    public static final IRenderFactory FACTORY = new RenderDustDevil.Factory();
+    private final ModelDustDevil modelDustDevil = new ModelDustDevil();
+    private ResourceLocation texture = new ResourceLocation("aztech:textures/blocks/dust_sand.png");
 
-	public RenderDustDevil(RenderManager manager, ModelBase modelBase) {
-		super(manager);
-	}
+    public RenderDustDevil(RenderManager manager, ModelBase modelBase) {
+        super(manager);
+    }
 
-	@Override
-	public void doRender(EntityDustDevil entity, double x, double y, double z, float entityYaw, float partialTicks) {
-		long angle = (System.currentTimeMillis() / 2) % 360;
-		GlStateManager.pushMatrix();
-		this.bindTexture(texture);
-		GlStateManager.translate((float)x, (float)y + 0.5, (float)z);
-		GlStateManager.rotate(angle, 0f, 2f, 0f);
-		this.modelDustDevil.renderModel(0.01f);
-		GlStateManager.popMatrix();
-		super.doRender(entity, x, y, z, entityYaw, partialTicks);
+    /*@Override
+    public void doRender(EntityDustDevil entity, double x, double y, double z, float entityYaw, float partialTicks) {
+        long angle = (System.currentTimeMillis() / 2) % 360;
+        GlStateManager.pushMatrix();
+        this.bindTexture(texture);
+        GlStateManager.translate((float) x, (float) y + 0.5, (float) z);
+        GlStateManager.rotate(angle, 0f, 2f, 0f);
+        this.modelDustDevil.renderModel(0.01f);
+        GlStateManager.popMatrix();
+        super.doRender(entity, x, y, z, entityYaw, partialTicks);
 
-	}
+    }*/
 
-	@Nullable
-	@Override
-	protected ResourceLocation getEntityTexture(EntityDustDevil entity) {
-		return texture;
-	}
+    @Nullable
+    @Override
+    protected ResourceLocation getEntityTexture(EntityDustDevil entity) {
+        return texture;
+    }
 
-	public static class Factory implements IRenderFactory<EntityDustDevil> {
+    public static class Factory implements IRenderFactory<EntityDustDevil> {
 
-		@Override
-		public Render<? super EntityDustDevil> createRenderFor(RenderManager manager) {
-			return new RenderDustDevil(manager, new ModelDustDevil());
-		}
+        @Override
+        public Render<? super EntityDustDevil> createRenderFor(RenderManager manager) {
+            return new RenderDustDevil(manager, new ModelDustDevil());
+        }
 
-	}
+    }
 
 }

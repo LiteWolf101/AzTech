@@ -27,7 +27,8 @@ public class ModEntities {
 		//Normal
 		EntityRegistry.registerModEntity(new ResourceLocation(Reference.MODID, "eye_guardian"), MobEyeGuardian.class, "eye_guardian", id++, AzTech.instance, 64, 3, true, 16765727, 11011584);
 		EntityRegistry.registerModEntity(new ResourceLocation(Reference.MODID, "eye_master"), MobEyeMaster.class, "eye_master", id++, AzTech.instance, 64, 3, true, 16765727, 5212623);
-		EntityRegistry.registerModEntity(new ResourceLocation(Reference.MODID, "pyronant"), MobPyronant.class, "pyronant", id++, AzTech.instance, 64, 3, true, 4930138, 10455985);
+		//TODO Pyronant doesn't fit with the theme of this mod. Will be moved to a misc mod or something, I don't know.
+		//EntityRegistry.registerModEntity(new ResourceLocation(Reference.MODID, "pyronant"), MobPyronant.class, "pyronant", id++, AzTech.instance, 64, 3, true, 4930138, 10455985);
 		EntityRegistry.registerModEntity(new ResourceLocation(Reference.MODID, "spark"), MobSpark.class, "spark", id++, AzTech.instance, 64, 3, true);
 		EntityRegistry.registerModEntity(new ResourceLocation(Reference.MODID, "ancient_squid"), MobAncientSquid.class, "ancient_squid", id++, AzTech.instance, 64, 3, true, 0, 455);
 
@@ -50,7 +51,7 @@ public class ModEntities {
 	public static void initModels() {
 		RenderingRegistry.registerEntityRenderingHandler(MobEyeGuardian.class, RenderEyeGuardian.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(MobEyeMaster.class, RenderEyeMaster.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(MobPyronant.class, RenderPyronant.FACTORY);
+		//RenderingRegistry.registerEntityRenderingHandler(MobPyronant.class, RenderPyronant.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(ProjectileEyeLaser.class, RenderEyeLaser.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(BossUltimateEye.class, RenderUltimateEye.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(MobSpark.class, RenderSpark.FACTORY);

@@ -5,6 +5,7 @@ import litewolf101.aztech.init.FurnaceRecipes;
 import litewolf101.aztech.init.ItemsInit;
 import litewolf101.aztech.proxy.CommonProxy;
 import litewolf101.aztech.utils.Reference;
+import litewolf101.aztech.utils.handlers.NetworkHandler;
 import litewolf101.aztech.utils.handlers.RegistryHandler;
 import litewolf101.aztech.world.worldgen.ores.WorldGenAzTechOres;
 import net.minecraft.creativetab.CreativeTabs;

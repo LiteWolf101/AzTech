@@ -2,8 +2,8 @@ package litewolf101.aztech.objects.blocks;
 
 public abstract class StraightRuneLine extends RuneLineDirectional {
 
-	public StraightRuneLine(String name) {
+    public StraightRuneLine(String name) {
 
-	}
-	//TODO create IO methods and add IO interface
+    }
+    //TODO create IO methods and add IO interface
 }

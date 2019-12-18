@@ -10,21 +10,14 @@ import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.monster.EntityZombie;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -32,25 +25,25 @@ import java.util.Random;
  */
 public class EnemyEmitterRune extends Block implements IHasModel, ITileEntityProvider {
 
-	public EnemyEmitterRune(String name, Material material) {
-		super(material);
-		setTranslationKey(name);
-		setRegistryName(name);
-		setSoundType(SoundType.STONE);
-		setCreativeTab(AzTech.CREATIVE_TAB);
-		setHarvestLevel("pickaxe", 1);
-		setHardness(2f);
-		//setTickRandomly(true);
-		setResistance(100f);
+    public EnemyEmitterRune(String name, Material material) {
+        super(material);
+        setTranslationKey(name);
+        setRegistryName(name);
+        setSoundType(SoundType.STONE);
+        setCreativeTab(AzTech.CREATIVE_TAB);
+        setHarvestLevel("pickaxe", 1);
+        setHardness(2f);
+        //setTickRandomly(true);
+        setResistance(100f);
 
-		BlocksInit.BLOCKS.add(this);
-		ItemsInit.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
-	}
+        BlocksInit.BLOCKS.add(this);
+        ItemsInit.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
+    }
 
-	@Override
-	public void registerModels() {
-		AzTech.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
-	}
+    @Override
+    public void registerModels() {
+        AzTech.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
+    }
 
 	/*&@Override
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
@@ -78,21 +71,21 @@ public class EnemyEmitterRune extends Block implements IHasModel, ITileEntityPro
 		}
 	}*/
 
-	@Override
-	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-		double x = pos.getX() + 0.5;
-		double y = pos.getY() + 1.5;
-		double z = pos.getZ() + 0.5;
-		double random = rand.nextDouble() / 4;
-		double random1 = rand.nextDouble() / 4;
-		worldIn.spawnParticle(EnumParticleTypes.REDSTONE, x + random, y, z + random1, 0, 0.1D, 0);
-	}
+    @Override
+    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
+        double x = pos.getX() + 0.5;
+        double y = pos.getY() + 1.5;
+        double z = pos.getZ() + 0.5;
+        double random = rand.nextDouble() / 4;
+        double random1 = rand.nextDouble() / 4;
+        worldIn.spawnParticle(EnumParticleTypes.REDSTONE, x + random, y, z + random1, 0, 0.1D, 0);
+    }
 
-	@Nullable
-	@Override
-	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new TEEnemyEmitterRune();
-	}
+    @Nullable
+    @Override
+    public TileEntity createNewTileEntity(World worldIn, int meta) {
+        return new TEEnemyEmitterRune();
+    }
 
 	/*@Override
 	public int tickRate(World worldIn) {

@@ -17,7 +17,9 @@ import java.util.Random;
 //This is a very stupid method. Don't do this.
 public class EventDustDevilSpawningWorkAround {
 
-	@SubscribeEvent
+	//TODO Entity Dust Devil crashes the game when fog is enabled
+
+	/*@SubscribeEvent
 	public static void annoyThePlayer(PlayerEvent event) {
 		EntityPlayer player = event.getEntityPlayer();
 		if(player != null) {
@@ -39,7 +41,7 @@ public class EventDustDevilSpawningWorkAround {
 				}
 			}
 		}
-	}
+	}*/
 
 	static boolean checkValidLocation(BlockPos pos, World world) {
 		int check = 0;

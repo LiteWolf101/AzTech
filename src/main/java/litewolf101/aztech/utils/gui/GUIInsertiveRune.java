@@ -5,6 +5,8 @@ import litewolf101.aztech.utils.Reference;
 import litewolf101.aztech.utils.container.ContainerInsertiveRune;
 import litewolf101.aztech.utils.gui.button.ButtonLock;
 import litewolf101.aztech.utils.gui.button.ButtonUnLock;
+import litewolf101.aztech.utils.handlers.PacketHandler;
+import litewolf101.aztech.utils.network.PacketSendLockedState;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -38,13 +40,13 @@ public class GUIInsertiveRune extends GuiContainer {
 
 	@Override
 	public void initGui() {
-		if(locked) {
+		/*if(locked) {
 			this.buttonList.add(new ButtonUnLock(0, 265, 68));
 		}
 		else if(!locked) {
 			this.buttonList.add(new ButtonLock(0, 265, 68));
 		}
-		System.out.println("GUI State:" + locked);
+		System.out.println("GUI State:" + locked);*/
 		super.initGui();
 	}
 
@@ -53,9 +55,9 @@ public class GUIInsertiveRune extends GuiContainer {
 		this.drawDefaultBackground();
 		super.drawScreen(mouseX, mouseY, partialTicks);
 		this.renderHoveredToolTip(mouseX, mouseY);
-		if(mouseX >= buttonList.get(0).x && mouseX <= buttonList.get(0).x + buttonList.get(0).width && mouseY >= buttonList.get(0).y && mouseY <= buttonList.get(0).y + buttonList.get(0).height) {
+		/*if(mouseX >= buttonList.get(0).x && mouseX <= buttonList.get(0).x + buttonList.get(0).width && mouseY >= buttonList.get(0).y && mouseY <= buttonList.get(0).y + buttonList.get(0).height) {
 			drawHoveringText("Lock/Unlock", buttonList.get(0).x, buttonList.get(0).y);
-		}
+		}*/
 	}
 
 	@Override
@@ -66,7 +68,7 @@ public class GUIInsertiveRune extends GuiContainer {
 		sync++;
 
 		if(sync % 10 == 0) {
-			//PacketHandler.INSTANCE.sendToServer(new PacketSendLockedState(te.getPos(), te.isLocked(), "litewolf101.aztech.utils.gui.GUIInsertiveRune", "locked"));
+			PacketHandler.INSTANCE.sendToServer(new PacketSendLockedState(te.getPos(), te.isLocked(), "litewolf101.aztech.utils.gui.GUIInsertiveRune", "locked"));
 		}
 	}
 
@@ -79,26 +81,26 @@ public class GUIInsertiveRune extends GuiContainer {
 
 	@Override
 	protected void actionPerformed(GuiButton button) throws IOException {
-		if(playerInventory.player.isCreative()) {
+		/*if(playerInventory.player.isCreative()) {
 			this.buttonList.clear();
 			if(button.id == 0) {
 				this.buttonList.add(new ButtonLock(1, 265, 68));
 				playerInventory.player.sendMessage(new TextComponentString("Locked"));
-				//PacketSendLockedState packet = new PacketSendLockedState(te.getPos(), true);
-				//PacketHandler.INSTANCE.sendToServer(packet);
+				PacketSendLockedState packet = new PacketSendLockedState(te.getPos(), true, "litewolf101.aztech.utils.gui.GUIInsertiveRune", "locked");
+				PacketHandler.INSTANCE.sendToServer(packet);
 			}
 			if(button.id == 1) {
 				this.buttonList.add(new ButtonUnLock(0, 265, 68));
 				playerInventory.player.sendMessage(new TextComponentString("Unlocked"));
-				//PacketSendLockedState packet = new PacketSendLockedState(te.getPos(), false);
-				//PacketHandler.INSTANCE.sendToServer(packet);
+				PacketSendLockedState packet = new PacketSendLockedState(te.getPos(), false, "litewolf101.aztech.utils.gui.GUIInsertiveRune", "locked");
+				PacketHandler.INSTANCE.sendToServer(packet);
 			}
 		}
 		else if(!playerInventory.player.isSpectator()) {
 			if(button.id == 0 || button.id == 1) {
 				playerInventory.player.sendMessage(new TextComponentString(TextFormatting.RED + "Cannot lock or unlock in survival mode"));
 			}
-		}
+		}*/
 	}
 
 }

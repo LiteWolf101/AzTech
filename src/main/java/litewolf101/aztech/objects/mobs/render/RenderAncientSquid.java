@@ -15,46 +15,46 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
  */
 public class RenderAncientSquid extends RenderLiving<MobAncientSquid> {
 
-	public static final IRenderFactory FACTORY = new RenderAncientSquid.Factory();
-	private static final ResourceLocation SQUID_TEXTURES = new ResourceLocation("aztech:textures/entity/ancient_squid.png");
-	private final ModelSquid modelSquid;
+    public static final IRenderFactory FACTORY = new RenderAncientSquid.Factory();
+    private static final ResourceLocation SQUID_TEXTURES = new ResourceLocation("aztech:textures/entity/ancient_squid.png");
+    private final ModelSquid modelSquid;
 
-	public RenderAncientSquid(RenderManager rendermanagerIn, ModelBase modelbaseIn, float shadowsizeIn) {
-		super(rendermanagerIn, new ModelSquid(), 0.7F);
-		modelSquid = (ModelSquid)super.mainModel;
-	}
+    public RenderAncientSquid(RenderManager rendermanagerIn, ModelBase modelbaseIn, float shadowsizeIn) {
+        super(rendermanagerIn, new ModelSquid(), 0.7F);
+        modelSquid = (ModelSquid) super.mainModel;
+    }
 
-	/**
-	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
-	 */
-	protected ResourceLocation getEntityTexture(MobAncientSquid entity) {
-		return SQUID_TEXTURES;
-	}
+    /**
+     * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
+     */
+    protected ResourceLocation getEntityTexture(MobAncientSquid entity) {
+        return SQUID_TEXTURES;
+    }
 
-	protected void applyRotations(MobAncientSquid entityLiving, float p_77043_2_, float rotationYaw, float partialTicks) {
-		float f = entityLiving.prevSquidPitch + (entityLiving.squidPitch - entityLiving.prevSquidPitch) * partialTicks;
-		float f1 = entityLiving.prevSquidYaw + (entityLiving.squidYaw - entityLiving.prevSquidYaw) * partialTicks;
-		GlStateManager.translate(0.0F, 0.5F, 0.0F);
-		GlStateManager.rotate(180.0F - rotationYaw, 0.0F, 1.0F, 0.0F);
-		GlStateManager.rotate(f, 1.0F, 0.0F, 0.0F);
-		GlStateManager.rotate(f1, 0.0F, 1.0F, 0.0F);
-		GlStateManager.translate(0.0F, -1.2F, 0.0F);
-	}
+    protected void applyRotations(MobAncientSquid entityLiving, float p_77043_2_, float rotationYaw, float partialTicks) {
+        float f = entityLiving.prevSquidPitch + (entityLiving.squidPitch - entityLiving.prevSquidPitch) * partialTicks;
+        float f1 = entityLiving.prevSquidYaw + (entityLiving.squidYaw - entityLiving.prevSquidYaw) * partialTicks;
+        GlStateManager.translate(0.0F, 0.5F, 0.0F);
+        GlStateManager.rotate(180.0F - rotationYaw, 0.0F, 1.0F, 0.0F);
+        GlStateManager.rotate(f, 1.0F, 0.0F, 0.0F);
+        GlStateManager.rotate(f1, 0.0F, 1.0F, 0.0F);
+        GlStateManager.translate(0.0F, -1.2F, 0.0F);
+    }
 
-	/**
-	 * Defines what float the third param in setRotationAngles of ModelBase is
-	 */
-	protected float handleRotationFloat(MobAncientSquid livingBase, float partialTicks) {
-		return livingBase.lastTentacleAngle + (livingBase.tentacleAngle - livingBase.lastTentacleAngle) * partialTicks;
-	}
+    /**
+     * Defines what float the third param in setRotationAngles of ModelBase is
+     */
+    protected float handleRotationFloat(MobAncientSquid livingBase, float partialTicks) {
+        return livingBase.lastTentacleAngle + (livingBase.tentacleAngle - livingBase.lastTentacleAngle) * partialTicks;
+    }
 
-	public static class Factory implements IRenderFactory<MobAncientSquid> {
+    public static class Factory implements IRenderFactory<MobAncientSquid> {
 
-		@Override
-		public Render<? super MobAncientSquid> createRenderFor(RenderManager manager) {
-			return new RenderAncientSquid(manager, new ModelSquid(), 0.7F);
-		}
+        @Override
+        public Render<? super MobAncientSquid> createRenderFor(RenderManager manager) {
+            return new RenderAncientSquid(manager, new ModelSquid(), 0.7F);
+        }
 
-	}
+    }
 
 }

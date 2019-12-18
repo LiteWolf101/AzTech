@@ -10,18 +10,18 @@ import net.minecraft.item.ItemPickaxe;
  */
 public class ToolPickaxe extends ItemPickaxe implements IHasModel {
 
-	public ToolPickaxe(String name, ToolMaterial material) {
-		super(material);
-		setTranslationKey(name);
-		setRegistryName(name);
-		setCreativeTab(AzTech.CREATIVE_TAB);
+    public ToolPickaxe(String name, ToolMaterial material) {
+        super(material);
+        setTranslationKey(name);
+        setRegistryName(name);
+        setCreativeTab(AzTech.CREATIVE_TAB);
 
-		ItemsInit.ITEMS.add(this);
-	}
+        ItemsInit.ITEMS.add(this);
+    }
 
-	@Override
-	public void registerModels() {
-		AzTech.proxy.registerItemRenderer(this, 0, "inventory");
-	}
+    @Override
+    public void registerModels() {
+        AzTech.proxy.registerItemRenderer(this, 0, "inventory");
+    }
 
 }

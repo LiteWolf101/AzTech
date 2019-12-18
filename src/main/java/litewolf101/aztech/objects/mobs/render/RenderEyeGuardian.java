@@ -16,28 +16,28 @@ import javax.annotation.Nullable;
  */
 public class RenderEyeGuardian extends RenderLiving<MobEyeGuardian> {
 
-	public static final IRenderFactory FACTORY = new Factory();
-	private final ModelEyeGuardian modelEyeGuardian;
-	private ResourceLocation mobTexture = new ResourceLocation("aztech:textures/entity/eye_guardian.png");
+    public static final IRenderFactory FACTORY = new Factory();
+    private final ModelEyeGuardian modelEyeGuardian;
+    private ResourceLocation mobTexture = new ResourceLocation("aztech:textures/entity/eye_guardian.png");
 
-	public RenderEyeGuardian(RenderManager rendermanagerIn, ModelBase modelbaseIn, float shadowsizeIn) {
-		super(rendermanagerIn, new ModelEyeGuardian(), 0.3F);
-		modelEyeGuardian = (ModelEyeGuardian)super.mainModel;
-	}
+    public RenderEyeGuardian(RenderManager rendermanagerIn, ModelBase modelbaseIn, float shadowsizeIn) {
+        super(rendermanagerIn, new ModelEyeGuardian(), 0.3F);
+        modelEyeGuardian = (ModelEyeGuardian) super.mainModel;
+    }
 
-	@Nullable
-	@Override
-	protected ResourceLocation getEntityTexture(MobEyeGuardian entity) {
-		return mobTexture;
-	}
+    @Nullable
+    @Override
+    protected ResourceLocation getEntityTexture(MobEyeGuardian entity) {
+        return mobTexture;
+    }
 
-	public static class Factory implements IRenderFactory<MobEyeGuardian> {
+    public static class Factory implements IRenderFactory<MobEyeGuardian> {
 
-		@Override
-		public Render<? super MobEyeGuardian> createRenderFor(RenderManager manager) {
-			return new RenderEyeGuardian(manager, new ModelEyeGuardian(), 0.3F);
-		}
+        @Override
+        public Render<? super MobEyeGuardian> createRenderFor(RenderManager manager) {
+            return new RenderEyeGuardian(manager, new ModelEyeGuardian(), 0.3F);
+        }
 
-	}
+    }
 
 }

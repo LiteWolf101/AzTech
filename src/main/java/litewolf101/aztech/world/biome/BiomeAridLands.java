@@ -41,7 +41,7 @@ public class BiomeAridLands extends Biome {
 		spawnableMonsterList.add(new SpawnListEntry(EntityHusk.class, 7, 1, 1));
 		spawnableMonsterList.add(new SpawnListEntry(EntitySkeleton.class, 7, 1, 1));
 		spawnableMonsterList.add(new SpawnListEntry(EntityWitherSkeleton.class, 7, 1, 1));
-		spawnableMonsterList.add(new SpawnListEntry(MobPyronant.class, 4, 1, 1));
+		//spawnableMonsterList.add(new SpawnListEntry(MobPyronant.class, 4, 1, 1));
 
 		spawnableCreatureList.clear();
 

@@ -9,21 +9,21 @@ import net.minecraft.entity.Entity;
  */
 public class ModelShield extends ModelBase {
 
-	public final ModelRenderer main;
+    public final ModelRenderer main;
 
-	public ModelShield() {
-		textureWidth = 128;
-		textureHeight = 64;
+    public ModelShield() {
+        textureWidth = 128;
+        textureHeight = 64;
 
-		main = new ModelRenderer(this, 0, 0);
-		main.addBox(-16, -8, -16, 32, 32, 32);
-	}
+        main = new ModelRenderer(this, 0, 0);
+        main.addBox(-16, -8, -16, 32, 32, 32);
+    }
 
-	@Override
-	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-		main.render(scale);
+    @Override
+    public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+        super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+        main.render(scale);
 
-	}
+    }
 
 }

@@ -10,7 +10,6 @@ import litewolf101.aztech.utils.handlers.EnumRuneColor;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -28,66 +27,66 @@ import net.minecraft.world.World;
  */
 public class RuneBlock extends Block implements IHasModel, IMetaName {
 
-	public static final PropertyEnum<EnumRuneColor.EnumType> RUNE_COLOR = PropertyEnum.create("rune_color", EnumRuneColor.EnumType.class);
+    public static final PropertyEnum<EnumRuneColor.EnumType> RUNE_COLOR = PropertyEnum.create("rune_color", EnumRuneColor.EnumType.class);
 
-	public RuneBlock(String name, Material material) {
-		super(material);
-		setTranslationKey(name);
-		setRegistryName(name);
-		setSoundType(SoundType.STONE);
-		setCreativeTab(AzTech.CREATIVE_TAB);
-		setDefaultState(this.blockState.getBaseState().withProperty(RUNE_COLOR, EnumRuneColor.EnumType.RED));
-		setHarvestLevel("pickaxe", 2);
-		setHardness(2f);
-		setResistance(10f);
+    public RuneBlock(String name, Material material) {
+        super(material);
+        setTranslationKey(name);
+        setRegistryName(name);
+        setSoundType(SoundType.STONE);
+        setCreativeTab(AzTech.CREATIVE_TAB);
+        setDefaultState(this.blockState.getBaseState().withProperty(RUNE_COLOR, EnumRuneColor.EnumType.RED));
+        setHarvestLevel("pickaxe", 2);
+        setHardness(2f);
+        setResistance(10f);
 
-		BlocksInit.BLOCKS.add(this);
-		ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));
-	}
+        BlocksInit.BLOCKS.add(this);
+        ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));
+    }
 
-	@Override
-	@SuppressWarnings("deprecation")
-	public IBlockState getStateFromMeta(int meta) {
-		return this.getDefaultState().withProperty(RUNE_COLOR, EnumRuneColor.EnumType.byMetadata(meta));
-	}
+    @Override
+    @SuppressWarnings("deprecation")
+    public IBlockState getStateFromMeta(int meta) {
+        return this.getDefaultState().withProperty(RUNE_COLOR, EnumRuneColor.EnumType.byMetadata(meta));
+    }
 
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		return state.getValue(RUNE_COLOR).getMeta();
-	}
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        return state.getValue(RUNE_COLOR).getMeta();
+    }
 
-	@Override
-	public int damageDropped(IBlockState state) {
-		return state.getValue(RUNE_COLOR).getMeta();
-	}
+    @Override
+    public int damageDropped(IBlockState state) {
+        return state.getValue(RUNE_COLOR).getMeta();
+    }
 
-	@Override
-	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
-		for(EnumRuneColor.EnumType runeColor$enumtype : EnumRuneColor.EnumType.values()) {
-			items.add(new ItemStack(this, 1, runeColor$enumtype.getMeta()));
-		}
-	}
+    @Override
+    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
+        for (EnumRuneColor.EnumType runeColor$enumtype : EnumRuneColor.EnumType.values()) {
+            items.add(new ItemStack(this, 1, runeColor$enumtype.getMeta()));
+        }
+    }
 
-	@Override
-	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, RUNE_COLOR);
-	}
+    @Override
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, RUNE_COLOR);
+    }
 
-	@Override
-	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
-		return new ItemStack(Item.getItemFromBlock(this), 1, getMetaFromState(world.getBlockState(pos)));
-	}
+    @Override
+    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+        return new ItemStack(Item.getItemFromBlock(this), 1, getMetaFromState(world.getBlockState(pos)));
+    }
 
-	@Override
-	public void registerModels() {
-		for(int i = 0; i < EnumRuneColor.EnumType.values().length; i++) {
-			AzTech.proxy.registerVariantRenderer(Item.getItemFromBlock(this), i, EnumRuneColor.EnumType.values()[i].getName() + "_rune_block", "inventory");
-		}
-	}
+    @Override
+    public void registerModels() {
+        for (int i = 0; i < EnumRuneColor.EnumType.values().length; i++) {
+            AzTech.proxy.registerVariantRenderer(Item.getItemFromBlock(this), i, EnumRuneColor.EnumType.values()[i].getName() + "_rune_block", "inventory");
+        }
+    }
 
-	@Override
-	public String getSpecialName(ItemStack stack) {
-		return EnumRuneColor.EnumType.values()[stack.getItemDamage()].getName();
-	}
+    @Override
+    public String getSpecialName(ItemStack stack) {
+        return EnumRuneColor.EnumType.values()[stack.getItemDamage()].getName();
+    }
 
 }

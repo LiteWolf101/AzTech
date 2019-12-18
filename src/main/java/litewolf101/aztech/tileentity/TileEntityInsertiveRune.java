@@ -3,6 +3,8 @@ package litewolf101.aztech.tileentity;
 import litewolf101.aztech.init.BlocksInit;
 import litewolf101.aztech.objects.blocks.InsertiveRune;
 import static litewolf101.aztech.objects.blocks.InsertiveRune.ACTIVATED;
+import static litewolf101.aztech.objects.blocks.InsertiveRune.LOCKED;
+
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -41,19 +43,31 @@ public class TileEntityInsertiveRune extends TileEntity implements IInventory, I
 		if(this.getStackInSlot(0) != ItemStack.EMPTY) {
 			if(item0 != Items.AIR && item0 == item1) {
 				flag1 = true;
-				if(iblockstate == BlocksInit.INSERTIVE_RUNE.getDefaultState().withProperty(BlockHorizontal.FACING, iblockstate.getValue(BlockHorizontal.FACING)).withProperty(ACTIVATED, false)) {
-					InsertiveRune.setState(true, this.world, this.pos);
+				if(iblockstate == BlocksInit.INSERTIVE_RUNE.getDefaultState().withProperty(BlockHorizontal.FACING, iblockstate.getValue(BlockHorizontal.FACING)).withProperty(ACTIVATED, false).withProperty(LOCKED, false)) {
+					InsertiveRune.setState(true, false, this.world, this.pos);
+				} else if (iblockstate == BlocksInit.INSERTIVE_RUNE.getDefaultState().withProperty(BlockHorizontal.FACING, iblockstate.getValue(BlockHorizontal.FACING)).withProperty(ACTIVATED, false).withProperty(LOCKED, true)) {
+					InsertiveRune.setState(true, true, this.world, this.pos);
 				}
 			}
 			else {
-				if(iblockstate == BlocksInit.INSERTIVE_RUNE.getDefaultState().withProperty(BlockHorizontal.FACING, iblockstate.getValue(BlockHorizontal.FACING)).withProperty(ACTIVATED, true)) {
-					InsertiveRune.setState(false, this.world, this.pos);
+				if(iblockstate == BlocksInit.INSERTIVE_RUNE.getDefaultState().withProperty(BlockHorizontal.FACING, iblockstate.getValue(BlockHorizontal.FACING)).withProperty(ACTIVATED, true).withProperty(LOCKED, false)) {
+					InsertiveRune.setState(false, false, this.world, this.pos);
+				} else if(iblockstate == BlocksInit.INSERTIVE_RUNE.getDefaultState().withProperty(BlockHorizontal.FACING, iblockstate.getValue(BlockHorizontal.FACING)).withProperty(ACTIVATED, true).withProperty(LOCKED, true)) {
+					InsertiveRune.setState(false, true, this.world, this.pos);
 				}
 			}
 			if(flag1) {
 				this.markDirty();
 			}
 		}
+	}
+
+	@Override
+	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+		super.writeToNBT(compound);
+		ItemStackHelper.saveAllItems(compound, inventory);
+		compound.setBoolean("Locked", this.locked);
+		return compound;
 	}
 
 	@Override
@@ -130,7 +144,7 @@ public class TileEntityInsertiveRune extends TileEntity implements IInventory, I
 
 	@Override
 	public boolean isItemValidForSlot(int index, ItemStack stack) {
-		if(locked) {
+		if(this.isLocked()) {
 			return index != 1;
 		}
 		return true;
@@ -154,14 +168,6 @@ public class TileEntityInsertiveRune extends TileEntity implements IInventory, I
 	@Override
 	public void clear() {
 		this.inventory.clear();
-	}
-
-	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-		super.writeToNBT(compound);
-		ItemStackHelper.saveAllItems(compound, inventory);
-		compound.setBoolean("Locked", isLocked());
-		return compound;
 	}
 
 	@Nullable

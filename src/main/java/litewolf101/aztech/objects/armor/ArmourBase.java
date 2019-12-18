@@ -11,18 +11,18 @@ import net.minecraft.item.ItemArmor;
  */
 public class ArmourBase extends ItemArmor implements IHasModel {
 
-	public ArmourBase(String name, ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn) {
-		super(materialIn, renderIndexIn, equipmentSlotIn);
-		setTranslationKey(name);
-		setRegistryName(name);
-		setCreativeTab(AzTech.CREATIVE_TAB);
+    public ArmourBase(String name, ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn) {
+        super(materialIn, renderIndexIn, equipmentSlotIn);
+        setTranslationKey(name);
+        setRegistryName(name);
+        setCreativeTab(AzTech.CREATIVE_TAB);
 
-		ItemsInit.ITEMS.add(this);
-	}
+        ItemsInit.ITEMS.add(this);
+    }
 
-	@Override
-	public void registerModels() {
-		AzTech.proxy.registerItemRenderer(this, 0, "inventory");
-	}
+    @Override
+    public void registerModels() {
+        AzTech.proxy.registerItemRenderer(this, 0, "inventory");
+    }
 
 }

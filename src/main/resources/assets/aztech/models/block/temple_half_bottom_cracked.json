@@ -1,0 +1,8 @@
+{
+  "parent": "block/half_slab",
+  "textures": {
+    "bottom": "aztech:blocks/temple_stone_bricks_cracked",
+    "top": "aztech:blocks/temple_stone_bricks_cracked",
+    "side": "aztech:blocks/temple_stone_bricks_cracked"
+  }
+}

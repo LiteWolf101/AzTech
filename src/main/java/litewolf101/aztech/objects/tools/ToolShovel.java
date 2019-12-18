@@ -10,18 +10,18 @@ import net.minecraft.item.ItemSpade;
  */
 public class ToolShovel extends ItemSpade implements IHasModel {
 
-	public ToolShovel(String name, ToolMaterial material) {
-		super(material);
-		setTranslationKey(name);
-		setRegistryName(name);
-		setCreativeTab(AzTech.CREATIVE_TAB);
+    public ToolShovel(String name, ToolMaterial material) {
+        super(material);
+        setTranslationKey(name);
+        setRegistryName(name);
+        setCreativeTab(AzTech.CREATIVE_TAB);
 
-		ItemsInit.ITEMS.add(this);
-	}
+        ItemsInit.ITEMS.add(this);
+    }
 
-	@Override
-	public void registerModels() {
-		AzTech.proxy.registerItemRenderer(this, 0, "inventory");
-	}
+    @Override
+    public void registerModels() {
+        AzTech.proxy.registerItemRenderer(this, 0, "inventory");
+    }
 
 }

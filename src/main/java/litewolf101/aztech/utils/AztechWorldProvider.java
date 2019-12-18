@@ -4,6 +4,8 @@ import litewolf101.aztech.config.AzTechConfig;
 import litewolf101.aztech.dimension.AztechDimension;
 import litewolf101.aztech.dimension.chunk.AztechChunkGenerator;
 import litewolf101.aztech.world.biome.AztechBiomeProvider;
+import litewolf101.aztech.world.biome.AztechBiomes;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.WorldProvider;
@@ -76,11 +78,17 @@ public class AztechWorldProvider extends WorldProvider {
 
 	@Override
 	public int getAverageGroundLevel() {
-		return world.getSeaLevel();
+		return 32;
 	}
 
 	@SideOnly(Side.CLIENT)
 	public boolean doesXZShowFog(int x, int z) {
+		//TODO Make fog biome specific
+		/*if (AzTechConfig.toogle_dimension_fog){
+			if (world.getBiome(new BlockPos(x * 16, world.getSeaLevel(), z * 16)) == AztechBiomes.biomeAridLands){
+				return true;
+			}
+		}*/
 		return AzTechConfig.toogle_dimension_fog;
 	}
 
@@ -102,7 +110,7 @@ public class AztechWorldProvider extends WorldProvider {
 
 	@Override
 	public double getHorizon() {
-		return world.getSeaLevel();
+		return 32;
 	}
 
 	@Override
@@ -114,5 +122,4 @@ public class AztechWorldProvider extends WorldProvider {
 	public DimensionType getDimensionType() {
 		return AztechDimension.aztech;
 	}
-
 }

@@ -2,6 +2,7 @@ package litewolf101.aztech.init;
 
 import litewolf101.aztech.objects.blocks.*;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockSlab;
 import net.minecraft.block.material.Material;
 
 import java.util.ArrayList;
@@ -66,10 +67,19 @@ public class BlocksInit {
 	public static final Block PORTAL_CONSTRUCT = new PortalMultiblock("portal_multiblock", Material.PORTAL);
 	public static final Block ANCIENT_ENERGY_PILLAR = new AncientEnergyPillar("ancient_energy_pillar", Material.ROCK);
 
-	//rune lines. There's a lot of em
+	public static final Block ULTIMATE_EYE_BLOCK = new UltimateEyeBossSpawner("ultimate_eye_spawn_block", Material.ROCK);
+
+	//TODO Fix Rune Line
 	public static final Block TEST_BLOCK = new TestBlock("test_block", Material.CIRCUITS);
     /*public static final Block RED_RUNE_LINE_DOT = new RedRuneLine("red_rune_line");
     public static final Block RED_RUNE_LINE_STRAIGHT = new RedRuneLineStraight("red_rune_line_straight");
     public static final Block RED_RUNE_LINE_LEFT_TURN = new RedRuneLineLeftTurn("red_rune_line_left_turn");
     public static final Block RED_RUNE_LINE_RIGHT_TURN = new RedRuneLineRightTurn("red_rune_line_right_turn");*/
+
+    //Ooo look! Decor blocks!
+    public static final BlockSlab TEMPLE_NORMAL_SLAB_DOUBLE = new BlockTempleNormalDoubleSlab("temple_normal_slab_double", Material.ROCK, BlocksInit.TEMPLE_NORMAL_SLAB_HALF, 2, 1, 250f);
+    public static final BlockSlab TEMPLE_NORMAL_SLAB_HALF = new BlockTempleNormalHalfSlab("temple_normal_slab_half", Material.ROCK, BlocksInit.TEMPLE_NORMAL_SLAB_HALF, BlocksInit.TEMPLE_NORMAL_SLAB_DOUBLE, 2, 1, 250f);
+
+    public static final Block OLD_PLANT_VASE = new BlockPlantVase("plant_vase", Material.ROCK);
+    public static final Block AZTECH_PLATE = new BlockKitchenDecor("aztech_plate", Material.ROCK);
 }

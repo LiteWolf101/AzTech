@@ -11,7 +11,6 @@ import litewolf101.aztech.utils.handlers.EnumPortalPart;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -35,126 +34,125 @@ import java.util.Random;
  */
 public class PortalMultiblock extends Block implements IHasModel, IMetaName, ITileEntityProvider {
 
-	public static final PropertyEnum<EnumPortalPart.EnumType> PART = PropertyEnum.create("part", EnumPortalPart.EnumType.class);
+    public static final PropertyEnum<EnumPortalPart.EnumType> PART = PropertyEnum.create("part", EnumPortalPart.EnumType.class);
 
-	public PortalMultiblock(String name, Material material) {
-		super(material);
-		setTranslationKey(name);
-		setRegistryName(name);
-		setDefaultState(this.blockState.getBaseState().withProperty(PART, EnumPortalPart.EnumType.BOTTOM));
+    public PortalMultiblock(String name, Material material) {
+        super(material);
+        setTranslationKey(name);
+        setRegistryName(name);
+        setDefaultState(this.blockState.getBaseState().withProperty(PART, EnumPortalPart.EnumType.BOTTOM));
 
-		BlocksInit.BLOCKS.add(this);
-		ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));
-	}
+        BlocksInit.BLOCKS.add(this);
+        ItemsInit.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));
+    }
 
-	@Override
-	@SuppressWarnings("deprecation")
-	public IBlockState getStateFromMeta(int meta) {
+    @Override
+    @SuppressWarnings("deprecation")
+    public IBlockState getStateFromMeta(int meta) {
 
-		return this.getDefaultState().withProperty(PART, EnumPortalPart.EnumType.byMetadata(meta));
-	}
+        return this.getDefaultState().withProperty(PART, EnumPortalPart.EnumType.byMetadata(meta));
+    }
 
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		return state.getValue(PART).getMeta();
-	}
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        return state.getValue(PART).getMeta();
+    }
 
-	@Override
-	@SuppressWarnings("deprecation")
-	public boolean isFullCube(IBlockState state) {
-		return state != state.withProperty(PART, EnumPortalPart.EnumType.BOTTOM) && state != state.withProperty(PART, EnumPortalPart.EnumType.MIDDLE);
-	}
+    @Override
+    @SuppressWarnings("deprecation")
+    public boolean isFullCube(IBlockState state) {
+        return state != state.withProperty(PART, EnumPortalPart.EnumType.BOTTOM) && state != state.withProperty(PART, EnumPortalPart.EnumType.MIDDLE);
+    }
 
-	@Override
-	public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
-		return true;
-	}
+    @Override
+    public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
+        return true;
+    }
 
-	@Override
-	public EnumBlockRenderType getRenderType(IBlockState state) {
-		return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
-	}
+    @Override
+    public EnumBlockRenderType getRenderType(IBlockState state) {
+        return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
+    }
 
-	@Nullable
-	@Override
-	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-		if(blockState == blockState.withProperty(PART, EnumPortalPart.EnumType.BOTTOM) || blockState == blockState.withProperty(PART, EnumPortalPart.EnumType.MIDDLE)) {
-			return NULL_AABB;
-		}
-		else {
-			return FULL_BLOCK_AABB;
-		}
-	}
+    @Nullable
+    @Override
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+        if (blockState == blockState.withProperty(PART, EnumPortalPart.EnumType.BOTTOM) || blockState == blockState.withProperty(PART, EnumPortalPart.EnumType.MIDDLE)) {
+            return NULL_AABB;
+        } else {
+            return FULL_BLOCK_AABB;
+        }
+    }
 
-	@Override
-	@SuppressWarnings("deprecation")
-	public boolean isOpaqueCube(IBlockState state) {
-		return false;
-	}
+    @Override
+    @SuppressWarnings("deprecation")
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
 
-	@Override
-	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		return null;
-	}
+    @Override
+    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+        return null;
+    }
 
-	@Override
-	public BlockRenderLayer getRenderLayer() {
-		return BlockRenderLayer.SOLID;
-	}
+    @Override
+    public BlockRenderLayer getRenderLayer() {
+        return BlockRenderLayer.SOLID;
+    }
 
-	public void onBlockHarvested(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
-		if(state.getValue(PART) == EnumPortalPart.EnumType.BOTTOM && world.getBlockState(pos).getBlock() == this) {
-			for(int i = 0; i <= 3; i++) {
-				world.setBlockToAir(pos.up(i));
-				world.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), 7f, true);
-			}
-		}
-		if(state.getValue(PART) == EnumPortalPart.EnumType.MIDDLE && world.getBlockState(pos).getBlock() == this) {
-			for(int i = -1; i <= 2; i++) {
-				world.setBlockToAir(pos.up(i));
-				world.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), 7f, true);
-			}
-		}
-		if(state.getValue(PART) == EnumPortalPart.EnumType.TOP && world.getBlockState(pos).getBlock() == this) {
-			for(int i = -2; i <= 1; i++) {
-				world.setBlockToAir(pos.up(i));
-				world.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), 7f, true);
-			}
-		}
-		if(state.getValue(PART) == EnumPortalPart.EnumType.BRACE && world.getBlockState(pos).getBlock() == this) {
-			for(int i = -3; i <= 0; i++) {
-				world.setBlockToAir(pos.up(i));
-				world.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), 0.5f, true);
-			}
-		}
-	}
+    public void onBlockHarvested(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
+        if (state.getValue(PART) == EnumPortalPart.EnumType.BOTTOM && world.getBlockState(pos).getBlock() == this) {
+            for (int i = 0; i <= 3; i++) {
+                world.setBlockToAir(pos.up(i));
+                world.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), 7f, true);
+            }
+        }
+        if (state.getValue(PART) == EnumPortalPart.EnumType.MIDDLE && world.getBlockState(pos).getBlock() == this) {
+            for (int i = -1; i <= 2; i++) {
+                world.setBlockToAir(pos.up(i));
+                world.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), 7f, true);
+            }
+        }
+        if (state.getValue(PART) == EnumPortalPart.EnumType.TOP && world.getBlockState(pos).getBlock() == this) {
+            for (int i = -2; i <= 1; i++) {
+                world.setBlockToAir(pos.up(i));
+                world.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), 7f, true);
+            }
+        }
+        if (state.getValue(PART) == EnumPortalPart.EnumType.BRACE && world.getBlockState(pos).getBlock() == this) {
+            for (int i = -3; i <= 0; i++) {
+                world.setBlockToAir(pos.up(i));
+                world.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), 0.5f, true);
+            }
+        }
+    }
 
-	@Override
-	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, PART);
-	}
+    @Override
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, PART);
+    }
 
-	@Override
-	public ItemStack getPickBlock(IBlockState state, RayTraceResult result, World world, BlockPos pos, EntityPlayer player) {
-		return new ItemStack(ItemsInit.AZTECH_PORTAL);
-	}
+    @Override
+    public ItemStack getPickBlock(IBlockState state, RayTraceResult result, World world, BlockPos pos, EntityPlayer player) {
+        return new ItemStack(ItemsInit.AZTECH_PORTAL);
+    }
 
-	@Override
-	public void registerModels() {
-		for(int i = 0; i < EnumPortalPart.EnumType.values().length; i++) {
-			AzTech.proxy.registerVariantRenderer(Item.getItemFromBlock(this), i, "aztech_portal_construct_" + EnumPortalPart.EnumType.values()[i].getName(), "inventory");
-		}
-	}
+    @Override
+    public void registerModels() {
+        for (int i = 0; i < EnumPortalPart.EnumType.values().length; i++) {
+            AzTech.proxy.registerVariantRenderer(Item.getItemFromBlock(this), i, "aztech_portal_construct_" + EnumPortalPart.EnumType.values()[i].getName(), "inventory");
+        }
+    }
 
-	@Nullable
-	@Override
-	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new masterPortalConstruct();
-	}
+    @Nullable
+    @Override
+    public TileEntity createNewTileEntity(World worldIn, int meta) {
+        return new masterPortalConstruct();
+    }
 
-	@Override
-	public String getSpecialName(ItemStack stack) {
-		return EnumPortalPart.EnumType.values()[stack.getItemDamage()].getName();
-	}
+    @Override
+    public String getSpecialName(ItemStack stack) {
+        return EnumPortalPart.EnumType.values()[stack.getItemDamage()].getName();
+    }
 
 }
