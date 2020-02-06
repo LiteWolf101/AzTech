@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "aztech:ancient_cobblestone"
+  },
+  "result": "aztech:ancient_stone",
+  "experience": 0.1,
+  "cookingtime": 50
+}

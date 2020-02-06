@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SM",
+    "MS"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:clay_ball"
+    },
+    "M": {
+      "item": "aztech:mud_ball"
+    }
+  },
+  "result": {
+    "item": "aztech:ancient_clay",
+    "count": 2
+  }
+}

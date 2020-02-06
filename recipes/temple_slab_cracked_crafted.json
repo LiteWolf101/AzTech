@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "aztech:temple_stone_cracked"
+    }
+  },
+  "result": {
+    "item": "aztech:temple_slab_cracked",
+    "count": 6
+  }
+}

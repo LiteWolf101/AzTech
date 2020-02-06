@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "aztech:temple_stone_bricks"
+  },
+  "result": "aztech:temple_slab_bricks",
+  "count": 2
+}
