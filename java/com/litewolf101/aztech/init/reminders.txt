@@ -1,0 +1,10 @@
+fix loot table for mud block
+make recipe for wet mud
+
+possibly remove yellow rune stuff?
+
+make custom recipes for special machines
+
+lantern needs block loot
+
+mud bricks need recipe
