@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "aztech:block/ancient_iron_ore"
+  }
+}

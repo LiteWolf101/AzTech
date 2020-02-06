@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "tag": "aztech:ore_blue_rune"
+  },
+  "result": "aztech:blue_rune",
+  "experience": 0.3,
+  "cookingtime": 50
+}

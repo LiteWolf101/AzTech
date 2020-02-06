@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SMS",
+    "MSM",
+    "SMS"
+  ],
+  "key": {
+    "S": {
+      "item": "aztech:ancient_stone"
+    },
+    "M": {
+      "item": "aztech:dry_mud"
+    }
+  },
+  "result": {
+    "item": "aztech:temple_stone_normal",
+    "count": 4
+  }
+}

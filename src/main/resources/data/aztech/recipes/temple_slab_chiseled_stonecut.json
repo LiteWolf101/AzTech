@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "aztech:temple_stone_chiseled"
+  },
+  "result": "aztech:temple_slab_chiseled",
+  "count": 2
+}

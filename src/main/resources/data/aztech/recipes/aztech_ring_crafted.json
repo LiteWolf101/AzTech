@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "R Y",
+    "GSB",
+    "W b"
+  ],
+  "key": {
+    "R": {
+      "item": "aztech:red_rune"
+    },
+    "Y": {
+      "item": "aztech:yellow_rune"
+    },
+    "G": {
+      "item": "aztech:green_rune"
+    },
+    "B": {
+      "item": "aztech:blue_rune"
+    },
+    "W": {
+      "item": "aztech:white_rune"
+    },
+    "b": {
+      "item": "aztech:black_rune"
+    },
+    "S": {
+      "item": "minecraft:sandstone"
+    }
+  },
+  "result": {
+    "item": "aztech:aztech_ring",
+    "count": 1
+  }
+}

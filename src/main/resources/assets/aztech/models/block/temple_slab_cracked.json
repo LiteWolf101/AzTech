@@ -1,0 +1,8 @@
+{
+  "parent": "block/slab",
+  "textures": {
+    "bottom": "aztech:block/temple_stone_cracked",
+    "top": "aztech:block/temple_stone_cracked",
+    "side": "aztech:block/temple_stone_cracked"
+  }
+}

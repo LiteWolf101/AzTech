@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "NCN",
+    "NSN",
+    "NCN"
+  ],
+  "key": {
+    "S": {
+      "item": "aztech:ancient_stone"
+    },
+    "N": {
+      "item": "aztech:temple_stone_normal"
+    },
+    "C": {
+      "item": "aztech:temple_stone_chiseled"
+    }
+  },
+  "result": {
+    "item": "aztech:temple_stone_pillar_basic",
+    "count": 8
+  }
+}

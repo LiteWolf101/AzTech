@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "tag": "aztech:ore_red_rune"
+  },
+  "result": "aztech:red_rune",
+  "experience": 0.3,
+  "cookingtime": 200
+}

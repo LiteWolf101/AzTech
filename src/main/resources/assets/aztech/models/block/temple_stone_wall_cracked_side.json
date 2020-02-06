@@ -1,0 +1,6 @@
+{
+  "parent": "block/template_wall_side",
+  "textures": {
+    "wall": "aztech:block/temple_stone_cracked"
+  }
+}

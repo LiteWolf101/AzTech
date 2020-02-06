@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "end": "aztech:block/temple_stone_normal",
+    "side": "aztech:block/temple_stone_pillar_side"
+  }
+}

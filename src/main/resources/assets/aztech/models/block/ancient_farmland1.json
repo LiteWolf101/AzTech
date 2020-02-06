@@ -1,0 +1,8 @@
+{
+  "parent": "block/template_farmland",
+  "textures": {
+    "particle": "aztech:block/ancient_dirt",
+    "dirt": "aztech:block/ancient_dirt",
+    "top": "aztech:block/ancient_farmland_1"
+  }
+}

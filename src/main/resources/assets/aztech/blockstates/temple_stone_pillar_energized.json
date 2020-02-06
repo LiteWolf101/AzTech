@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "axis=y":  { "model": "aztech:block/temple_stone_pillar_energized" },
+    "axis=z":   { "model": "aztech:block/temple_stone_pillar_energized", "x": 90 },
+    "axis=x":   { "model": "aztech:block/temple_stone_pillar_energized", "x": 90, "y": 90 }
+  }
+}

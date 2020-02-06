@@ -1,0 +1,8 @@
+{
+  "parent": "block/outer_stairs",
+  "textures": {
+    "bottom": "aztech:block/temple_stone_normal",
+    "top": "aztech:block/temple_stone_normal",
+    "side": "aztech:block/temple_stone_normal"
+  }
+}

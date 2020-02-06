@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "P",
+    "#"
+  ],
+  "key": {
+    "P": {
+      "item": "aztech:temple_stone_pillar_basic"
+    },
+    "#": {
+      "item": "aztech:entropy_rune"
+    }
+  },
+  "result": {
+    "item": "aztech:temple_stone_pillar_energized",
+    "count": 1
+  }
+}

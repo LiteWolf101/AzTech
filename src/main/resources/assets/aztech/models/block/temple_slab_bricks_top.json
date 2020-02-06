@@ -1,0 +1,8 @@
+{
+  "parent": "block/slab_top",
+  "textures": {
+    "bottom": "aztech:block/temple_stone_bricks",
+    "top": "aztech:block/temple_stone_bricks",
+    "side": "aztech:block/temple_stone_bricks"
+  }
+}

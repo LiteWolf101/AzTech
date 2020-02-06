@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "aztech:temple_stone_wall_normal",
+    "aztech:temple_stone_wall_bricks",
+    "aztech:temple_stone_wall_chiseled",
+    "aztech:temple_stone_wall_cracked"
+  ]
+}

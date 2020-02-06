@@ -1,0 +1,47 @@
+aztech/root
+    In AzTech (Visit AzTech Dimension)
+        Fractured (Gather All Runes)
+        But Whole (Gather All Rune Blocks)
+        Over-expensive Jewelry (Gather All Temple Rune Blocks)
+
+    I Would Walk 500 Chunks (Get the Dungeon Locator)
+
+    There's No Place Like Home! (Place a bed in AzTech)
+
+    Ancient Knowledge (Craft the Azotome)
+
+    Eye See You! (Discover an Eye Dungeon)
+        Eyesore (Defeat The Ultimate Eye)
+        No More Eye Puns! (Defeat one of every eye mob)
+
+    Financial Discovery (Trade with an Ancient Villager)
+
+    Puzzle Solver (Solve a Temple Puzzle)
+
+    Fine Dining (Place food in an AzTech plate)
+
+    An Astute Observation (Oh look, you found a silly config thingy, I guess.)
+
+    This Isn't Kansas! (Get caught in a dust devil)
+
+    Nature's Worst Crime (Slay a moon bunny)
+        Killer Bunnies (Defeat the Eclipse Bunny)
+
+    Diggy Diggy Hole (Discover A Ruggerus Dungeon)
+        A Cheesed Fight! (Defeat Ruggerus)
+
+    Shocking Discovery! (Discover an Electric Dungeon)
+        Static initializer (Get hit with the static effect)
+        At Least It Isn't AE (Bounce an Electric Ball)
+        Who Let the Dog Out? (Defeat Ao Ao)
+
+    Skyward Swords! (Discover Quetzalcoatl's Tower)
+        Dragon Slayer? (Defeat Quetzalcoatl)
+        Who Needs Stairs? (Fall while wearing mud boots)
+
+    Dire Dire Docks (Discover and Underwater Base)
+
+    Direwire (Place A Rune Line)
+
+    The End...Right? (Discover the Final Dungeon)
+        I...Think It's The End (Defeat Him)

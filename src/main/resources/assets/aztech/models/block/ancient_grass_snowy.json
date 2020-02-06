@@ -1,0 +1,9 @@
+{
+  "parent": "block/cube_bottom_top",
+  "textures": {
+    "particle": "aztech:block/ancient_dirt",
+    "bottom": "aztech:block/ancient_dirt",
+    "top": "aztech:block/ancient_grass_top",
+    "side": "aztech:block/ancient_grass_snow"
+  }
+}

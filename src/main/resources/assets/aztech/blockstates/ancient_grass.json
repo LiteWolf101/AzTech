@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "snowy=false": [
+      { "model": "aztech:block/ancient_grass" },
+      { "model": "aztech:block/ancient_grass", "y": 90 },
+      { "model": "aztech:block/ancient_grass", "y": 180 },
+      { "model": "aztech:block/ancient_grass", "y": 270 }
+    ],
+    "snowy=true":  { "model": "aztech:block/ancient_grass_snowy" }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " C ",
+    "MMM",
+    " S "
+  ],
+  "key": {
+    "M": {
+      "item": "aztech:wet_mud"
+    },
+    "C": {
+      "item": "minecraft:clay"
+    },
+    "S": {
+      "item": "minecraft:sand"
+    }
+  },
+  "result": {
+    "item": "aztech:mud_brick",
+    "count": 2
+  }
+}

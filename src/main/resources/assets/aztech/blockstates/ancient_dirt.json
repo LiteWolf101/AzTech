@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "": [
+      { "model": "aztech:block/ancient_dirt" },
+      { "model": "aztech:block/ancient_dirt", "y": 90 },
+      { "model": "aztech:block/ancient_dirt", "y": 180 },
+      { "model": "aztech:block/ancient_dirt", "y": 270 }
+    ]
+  }
+}

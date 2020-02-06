@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "P",
+    "#",
+    "G"
+  ],
+  "key": {
+    "P": {
+      "item": "aztech:temple_stone_pillar_basic"
+    },
+    "#": {
+      "item": "aztech:white_rune"
+    },
+    "G": {
+      "item": "minecraft:glass"
+    }
+  },
+  "result": {
+    "item": "aztech:temple_stone_pillar_lighting",
+    "count": 1
+  }
+}

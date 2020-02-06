@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "facing=down": { "model": "aztech:block/temple_lantern_ceiling" },
+    "facing=up": { "model": "aztech:block/temple_lantern_floor" },
+    "facing=north": { "model": "aztech:block/temple_lantern_wall", "y": 180},
+    "facing=south": { "model": "aztech:block/temple_lantern_wall" },
+    "facing=west": { "model": "aztech:block/temple_lantern_wall", "y": 90 },
+    "facing=east": { "model": "aztech:block/temple_lantern_wall", "y": 270 }
+  }
+}

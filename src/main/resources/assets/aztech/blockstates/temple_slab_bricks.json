@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bottom": { "model": "aztech:block/temple_slab_bricks" },
+    "type=top": { "model": "aztech:block/temple_slab_bricks_top" },
+    "type=double": { "model": "aztech:block/temple_stone_bricks" }
+  }
+}

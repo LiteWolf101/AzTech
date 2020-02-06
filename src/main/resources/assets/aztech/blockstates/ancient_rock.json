@@ -1,0 +1,14 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "#material.001": "aztech:block/ancient_rock"
+    },
+    "model": "aztech:block/ancient_rock.obj"
+  },
+  "variants": {
+    "": [{
+      "transform": "forge:default-block"
+    }]
+  }
+}
