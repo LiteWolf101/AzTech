@@ -35,14 +35,15 @@ public class CustomSpreadableDirtBlock extends SnowyDirtBlock {
     @SuppressWarnings("deprecation")
     public void tick(BlockState state, World worldIn, BlockPos pos, Random random) {
         if (!worldIn.isRemote) {
-            if (!worldIn.isAreaLoaded(pos, 3)) return; // Forge: prevent loading unloaded chunks when checking neighbor's light and spreading
+            if (!worldIn.isAreaLoaded(pos, 3))
+                return; // Forge: prevent loading unloaded chunks when checking neighbor's light and spreading
             if (!isSnowAbove(state, worldIn, pos)) {
                 worldIn.setBlockState(pos, ModBlocks.ANCIENT_DIRT.getDefaultState());
             } else {
                 if (worldIn.getLight(pos.up()) >= 9) {
                     BlockState blockstate = this.getDefaultState();
 
-                    for(int i = 0; i < 4; ++i) {
+                    for (int i = 0; i < 4; ++i) {
                         BlockPos blockpos = pos.add(random.nextInt(3) - 1, random.nextInt(5) - 3, random.nextInt(3) - 1);
                         if (worldIn.getBlockState(blockpos).getBlock() == ModBlocks.ANCIENT_DIRT && func_220256_c(blockstate, worldIn, blockpos)) {
                             worldIn.setBlockState(blockpos, blockstate.with(SNOWY, Boolean.valueOf(worldIn.getBlockState(blockpos.up()).getBlock() == Blocks.SNOW)));

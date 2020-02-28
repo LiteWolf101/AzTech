@@ -38,18 +38,18 @@ public class ModBlocks {
     public static final Block ANCIENT_EMERALD_ORE = ModUtils._null();
     public static final Block ANCIENT_QUARTZ_ORE = ModUtils._null();
     //Insert Compat ores here
-    public static Block TEMPLE_STONE_NORMAL;
-    public static Block TEMPLE_STONE_BRICKS;
-    public static Block TEMPLE_STONE_CHISELED;
-    public static Block TEMPLE_STONE_CRACKED;
+    public static final Block TEMPLE_STONE_NORMAL = ModUtils._null();
+    public static final Block TEMPLE_STONE_BRICKS = ModUtils._null();
+    public static final Block TEMPLE_STONE_CHISELED = ModUtils._null();
+    public static final Block TEMPLE_STONE_CRACKED = ModUtils._null();
     public static final Block TEMPLE_SLAB_NORMAL = ModUtils._null();
     public static final Block TEMPLE_SLAB_BRICKS = ModUtils._null();
     public static final Block TEMPLE_SLAB_CHISELED = ModUtils._null();
     public static final Block TEMPLE_SLAB_CRACKED = ModUtils._null();
-    public static final Block TEMPLE_STAIR_NORMAL = ModUtils._null();
-    public static final Block TEMPLE_STAIR_BRICKS = ModUtils._null();
-    public static final Block TEMPLE_STAIR_CHISELED = ModUtils._null();
-    public static final Block TEMPLE_STAIR_CRACKED = ModUtils._null();
+    public static final Block TEMPLE_STAIRS_NORMAL = ModUtils._null();
+    public static final Block TEMPLE_STAIRS_BRICKS = ModUtils._null();
+    public static final Block TEMPLE_STAIRS_CHISELED = ModUtils._null();
+    public static final Block TEMPLE_STAIRS_CRACKED = ModUtils._null();
     public static final Block TEMPLE_STONE_PILLAR_BASIC = ModUtils._null();
     public static final Block TEMPLE_STONE_PILLAR_ENERGIZED = ModUtils._null();
     public static final Block TEMPLE_STONE_PILLAR_LIGHTING = ModUtils._null();
@@ -66,4 +66,43 @@ public class ModBlocks {
     public static final Block TEMPLE_WHITE_RUNE_BLOCK = ModUtils._null();
     public static final Block TEMPLE_BLACK_RUNE_BLOCK = ModUtils._null();
     public static final Block TEMPLE_LANTERN = ModUtils._null();
+
+    public static final Block RED_RUNE_BLOCK = ModUtils._null();
+    public static final Block YELLOW_RUNE_BLOCK = ModUtils._null();
+    public static final Block GREEN_RUNE_BLOCK = ModUtils._null();
+    public static final Block BLUE_RUNE_BLOCK = ModUtils._null();
+    public static final Block WHITE_RUNE_BLOCK = ModUtils._null();
+    public static final Block BLACK_RUNE_BLOCK = ModUtils._null();
+    public static final Block ENTROPY_RUNE_BLOCK = ModUtils._null();
+
+    public static final Block SHORT_GRASS = ModUtils._null();
+    public static final Block FLOWERED_SHORT_GRASS = ModUtils._null();
+    public static final Block STALK_GRASS = ModUtils._null();
+    public static final Block DEAD_GRASS = ModUtils._null();
+    public static final Block LEAF_PILE = ModUtils._null();
+
+    public static final Block SWORD_LILY = ModUtils._null();
+    public static final Block CHOCOLATE_COSMOS = ModUtils._null();
+    public static final Block POINSETTIA = ModUtils._null();
+    public static final Block HONEYSUCKLE = ModUtils._null();
+    public static final Block MARIGOLD = ModUtils._null();
+    public static final Block ASTER = ModUtils._null();
+    public static final Block YUCCA = ModUtils._null();
+
+    public static final Block AHUEHUETE_LEAVES = ModUtils._null();
+    public static final Block AHUEHUETE_LOG = ModUtils._null();
+    public static final Block STRIPPED_AHUEHUETE_LOG = ModUtils._null();
+    public static final Block AHUEHUETE_WOOD = ModUtils._null();
+    public static final Block STRIPPED_AHUEHUETE_WOOD = ModUtils._null();
+    public static final Block AHUEHUETE_PLANKS = ModUtils._null();
+
+    public static final Block SORGHUM_CROP = ModUtils._null();
+    public static final Block RICE_CROP = ModUtils._null();
+    public static final Block TOMATO_CROP = ModUtils._null();
+    public static final Block CHILI_PEPPER_CROP = ModUtils._null();
+    public static final Block ONION_CROP = ModUtils._null();
+
+    public static final Block OBJECTIVE_BLOCK = ModUtils._null();
+    public static final Block SLAUGHTERHOUSE_DETECTOR = ModUtils._null();
+
 }

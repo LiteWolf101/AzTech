@@ -3,16 +3,18 @@ package com.litewolf101.aztech.init;
 import com.google.common.base.Preconditions;
 import com.litewolf101.aztech.AzTech;
 import com.litewolf101.aztech.blocks.*;
-import com.litewolf101.aztech.items.AzTechRing;
-import com.litewolf101.aztech.items.Azotome;
+import com.litewolf101.aztech.blocks.tileEntity.TEObjectiveBlock;
+import com.litewolf101.aztech.blocks.tileEntity.TESlaughterhouseBlock;
+import com.litewolf101.aztech.items.*;
 import com.litewolf101.aztech.utils.ItemTierAzTech;
+import com.litewolf101.aztech.utils.NoAutomaticBlockItem;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.DyeColor;
-import net.minecraft.item.Item;
-import net.minecraft.item.SwordItem;
+import net.minecraft.item.*;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.RegistryEvent;
@@ -26,6 +28,8 @@ import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nonnull;
 
+import java.util.function.Supplier;
+
 import static com.litewolf101.aztech.init.ModBlocks.*;
 
 @Mod.EventBusSubscriber(modid = com.litewolf101.aztech.AzTech.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -35,7 +39,7 @@ public class ModEventSubscriber {
     @SubscribeEvent
     public static void registerBlocks(final RegistryEvent.Register<Block> event) {
         event.getRegistry().registerAll(
-                //Basic Earth
+                    //Basic Earth
                 setup(new BedrockBlock(Block.Properties.create(Material.ROCK, MaterialColor.BLACK_TERRACOTTA).noDrops().hardnessAndResistance(-1.0F, 3600000.0F).sound(SoundType.STONE)), "ancient_bedrock"),
                 setup(new Block(Block.Properties.create(Material.ROCK, MaterialColor.SAND).hardnessAndResistance(2F, 10.0F).sound(SoundType.STONE)), "ancient_stone"),
                 setup(new Block(Block.Properties.create(Material.ROCK, MaterialColor.SAND).hardnessAndResistance(2F, 10.0F).sound(SoundType.STONE)), "ancient_cobblestone"),
@@ -91,21 +95,20 @@ public class ModEventSubscriber {
                 //Ancient Tungsten Ore
 
                     //Temple Building Blocks
-
-                TEMPLE_STONE_NORMAL = setup(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(2F, 15.5F).sound(SoundType.STONE).harvestLevel(1).harvestTool(ToolType.PICKAXE)), "temple_stone_normal"),
-                TEMPLE_STONE_BRICKS = setup(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(2F, 15.5F).sound(SoundType.STONE).harvestLevel(1).harvestTool(ToolType.PICKAXE)), "temple_stone_bricks"),
-                TEMPLE_STONE_CHISELED = setup(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(2F, 15.5F).sound(SoundType.STONE).harvestLevel(1).harvestTool(ToolType.PICKAXE)), "temple_stone_chiseled"),
-                TEMPLE_STONE_CRACKED = setup(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(2F, 15.5F).sound(SoundType.STONE).harvestLevel(1).harvestTool(ToolType.PICKAXE)), "temple_stone_cracked"),
+                setup(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(2F, 15.5F).sound(SoundType.STONE).harvestLevel(1).harvestTool(ToolType.PICKAXE)), "temple_stone_normal"),
+                setup(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(2F, 15.5F).sound(SoundType.STONE).harvestLevel(1).harvestTool(ToolType.PICKAXE)), "temple_stone_bricks"),
+                setup(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(2F, 15.5F).sound(SoundType.STONE).harvestLevel(1).harvestTool(ToolType.PICKAXE)), "temple_stone_chiseled"),
+                setup(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(2F, 15.5F).sound(SoundType.STONE).harvestLevel(1).harvestTool(ToolType.PICKAXE)), "temple_stone_cracked"),
 
                 setup(new SlabBlock(Block.Properties.create(Material.ROCK).hardnessAndResistance(2F, 15.5F).sound(SoundType.STONE).harvestLevel(1).harvestTool(ToolType.PICKAXE)), "temple_slab_normal"),
                 setup(new SlabBlock(Block.Properties.create(Material.ROCK).hardnessAndResistance(2F, 15.5F).sound(SoundType.STONE).harvestLevel(1).harvestTool(ToolType.PICKAXE)), "temple_slab_bricks"),
                 setup(new SlabBlock(Block.Properties.create(Material.ROCK).hardnessAndResistance(2F, 15.5F).sound(SoundType.STONE).harvestLevel(1).harvestTool(ToolType.PICKAXE)), "temple_slab_chiseled"),
                 setup(new SlabBlock(Block.Properties.create(Material.ROCK).hardnessAndResistance(2F, 15.5F).sound(SoundType.STONE).harvestLevel(1).harvestTool(ToolType.PICKAXE)), "temple_slab_cracked"),
 
-                setup(new ModStairs(TEMPLE_STONE_NORMAL.getDefaultState()), "temple_stairs_normal"),
-                setup(new ModStairs(TEMPLE_STONE_BRICKS.getDefaultState()), "temple_stairs_bricks"),
-                setup(new ModStairs(TEMPLE_STONE_CHISELED.getDefaultState()), "temple_stairs_chiseled"),
-                setup(new ModStairs(TEMPLE_STONE_CRACKED.getDefaultState()), "temple_stairs_cracked"),
+                setup(new StairsBlock(() -> TEMPLE_STONE_NORMAL.getDefaultState(), Block.Properties.create(Material.ROCK).hardnessAndResistance(2F, 15.5F).sound(SoundType.STONE).harvestLevel(1).harvestTool(ToolType.PICKAXE)), "temple_stairs_normal"),
+                setup(new StairsBlock(() -> TEMPLE_STONE_BRICKS.getDefaultState(), Block.Properties.create(Material.ROCK).hardnessAndResistance(2F, 15.5F).sound(SoundType.STONE).harvestLevel(1).harvestTool(ToolType.PICKAXE)), "temple_stairs_bricks"),
+                setup(new StairsBlock(() -> TEMPLE_STONE_CHISELED.getDefaultState(), Block.Properties.create(Material.ROCK).hardnessAndResistance(2F, 15.5F).sound(SoundType.STONE).harvestLevel(1).harvestTool(ToolType.PICKAXE)), "temple_stairs_chiseled"),
+                setup(new StairsBlock(() -> TEMPLE_STONE_CRACKED.getDefaultState(), Block.Properties.create(Material.ROCK).hardnessAndResistance(2F, 15.5F).sound(SoundType.STONE).harvestLevel(1).harvestTool(ToolType.PICKAXE)), "temple_stairs_cracked"),
 
                 setup(new RotatedPillarBlock(Block.Properties.create(Material.ROCK).hardnessAndResistance(2F, 15.5F).sound(SoundType.STONE).harvestLevel(1).harvestTool(ToolType.PICKAXE)), "temple_stone_pillar_basic"),
                 setup(new RotatedPillarBlock(Block.Properties.create(Material.ROCK).hardnessAndResistance(2F, 15.5F).sound(SoundType.STONE).harvestLevel(1).harvestTool(ToolType.PICKAXE).lightValue(4)), "temple_stone_pillar_energized"),
@@ -114,10 +117,10 @@ public class ModEventSubscriber {
                 setup(new StainedGlassBlock(DyeColor.BROWN, Block.Properties.create(Material.GLASS).hardnessAndResistance(0.5F, 3.7F).sound(SoundType.GLASS).harvestTool(ToolType.PICKAXE)), "temple_glass"),
                 setup(new StainedGlassPaneBlock(DyeColor.BROWN, Block.Properties.create(Material.GLASS).hardnessAndResistance(0.5F, 3.7F).sound(SoundType.GLASS).harvestTool(ToolType.PICKAXE)), "temple_glass_pane"),
 
-                setup(new WallBlock(Block.Properties.from(TEMPLE_STONE_NORMAL)), "temple_stone_wall_normal"),
-                setup(new WallBlock(Block.Properties.from(TEMPLE_STONE_BRICKS)), "temple_stone_wall_bricks"),
-                setup(new WallBlock(Block.Properties.from(TEMPLE_STONE_CHISELED)), "temple_stone_wall_chiseled"),
-                setup(new WallBlock(Block.Properties.from(TEMPLE_STONE_CRACKED)), "temple_stone_wall_cracked"),
+                setup(new WallBlock(Block.Properties.create(Material.ROCK).hardnessAndResistance(2F, 15.5F).sound(SoundType.STONE).harvestLevel(1).harvestTool(ToolType.PICKAXE)), "temple_stone_wall_normal"),
+                setup(new WallBlock(Block.Properties.create(Material.ROCK).hardnessAndResistance(2F, 15.5F).sound(SoundType.STONE).harvestLevel(1).harvestTool(ToolType.PICKAXE)), "temple_stone_wall_bricks"),
+                setup(new WallBlock(Block.Properties.create(Material.ROCK).hardnessAndResistance(2F, 15.5F).sound(SoundType.STONE).harvestLevel(1).harvestTool(ToolType.PICKAXE)), "temple_stone_wall_chiseled"),
+                setup(new WallBlock(Block.Properties.create(Material.ROCK).hardnessAndResistance(2F, 15.5F).sound(SoundType.STONE).harvestLevel(1).harvestTool(ToolType.PICKAXE)), "temple_stone_wall_cracked"),
 
                 setup(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(2F, 15.5F).sound(SoundType.STONE).harvestLevel(1).harvestTool(ToolType.PICKAXE)), "temple_red_rune_block"),
                 setup(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(2F, 15.5F).sound(SoundType.STONE).harvestLevel(1).harvestTool(ToolType.PICKAXE)), "temple_yellow_rune_block"),
@@ -126,17 +129,17 @@ public class ModEventSubscriber {
                 setup(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(2F, 15.5F).sound(SoundType.STONE).harvestLevel(1).harvestTool(ToolType.PICKAXE)), "temple_white_rune_block"),
                 setup(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(2F, 15.5F).sound(SoundType.STONE).harvestLevel(1).harvestTool(ToolType.PICKAXE)), "temple_black_rune_block"),
 
-                setup(new TempleLantern(Block.Properties.create(Material.ROCK).hardnessAndResistance(1F, 3F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE).lightValue(15).doesNotBlockMovement()), "temple_lantern")
+                setup(new TempleLantern(Block.Properties.create(Material.ROCK).hardnessAndResistance(1F, 3F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE).lightValue(15).doesNotBlockMovement()), "temple_lantern"),
                 //setup(new ObeliskBlock(Block.Properties.create(Material.ROCK).hardnessAndResistance(1F, 3F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE).lightValue(15)), "geoluminescent_obelisk")
 
                     //Misc
-                //Block of Red Rune
-                //Block of Yellow Rune
-                //Block of Green Rune
-                //Block of Blue Rune
-                //Block of White Rune
-                //Block of Black Rune
-                //Block of Runic Entropy
+                setup(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(5, 6).sound(SoundType.METAL).harvestLevel(2).harvestTool(ToolType.PICKAXE)), "red_rune_block"),
+                setup(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(5, 6).sound(SoundType.METAL).harvestLevel(2).harvestTool(ToolType.PICKAXE)), "yellow_rune_block"),
+                setup(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(5, 6).sound(SoundType.METAL).harvestLevel(2).harvestTool(ToolType.PICKAXE)), "green_rune_block"),
+                setup(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(5, 6).sound(SoundType.METAL).harvestLevel(2).harvestTool(ToolType.PICKAXE)), "blue_rune_block"),
+                setup(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(5, 6).sound(SoundType.METAL).harvestLevel(2).harvestTool(ToolType.PICKAXE)), "white_rune_block"),
+                setup(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(5, 6).sound(SoundType.METAL).harvestLevel(2).harvestTool(ToolType.PICKAXE)), "black_rune_block"),
+                setup(new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(5, 6).sound(SoundType.METAL).harvestLevel(2).harvestTool(ToolType.PICKAXE)), "entropy_rune_block"),
 
                     //Runes
                 //Red Rune Stone
@@ -149,44 +152,53 @@ public class ModEventSubscriber {
                 //Entropy Rune Stone
 
                     //Foliage
-                //Short Grass
-                //Leaf Pile
-                //Flowered Short Grass
-                //Stalk Short Grass
+                setup(new AncientFoliage(Block.Properties.create(Material.TALL_PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT)), "short_grass"),
+                setup(new AncientFoliage(Block.Properties.create(Material.TALL_PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT)), "flowered_short_grass"),
+                setup(new AncientFoliage(Block.Properties.create(Material.TALL_PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT)), "stalk_grass"),
+                setup(new AncientFoliage(Block.Properties.create(Material.TALL_PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT)), "dead_grass"),
+                setup(new LeafPile(Block.Properties.create(Material.TALL_PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT)), "leaf_pile"),
                 //Tight Vines
                 //Ancient Moss
                 //Ancient Dry Moss
-                //Ancient Dead Grass
 
-                //Sword Lily (Pink)
-                //Chocolate Cosmos (Magenta)
-                //Poinsettia (Red)
-                //Mexican Honeysuckle (Orange)
-                //Mexican Marigold (Yellow)
-                //Mexican Aster (Purple)
-                //Yucca Flower (White)
+                setup(new FlowerBlock(Effects.REGENERATION, 12, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT)),"sword_lily"),
+                setup(new FlowerBlock(Effects.STRENGTH, 14, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT)),"chocolate_cosmos"),
+                setup(new FlowerBlock(Effects.INSTANT_HEALTH, 16, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT)),"poinsettia"),
+                setup(new FlowerBlock(Effects.FIRE_RESISTANCE, 13, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT)),"honeysuckle"),
+                setup(new FlowerBlock(Effects.ABSORPTION, 17, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT)),"marigold"),
+                setup(new FlowerBlock(Effects.NIGHT_VISION, 18, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT)),"aster"),
+                setup(new FlowerBlock(Effects.GLOWING, 25, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT)),"yucca"),
 
-                //Ahuehuete Leaves
-                //Ahuehuete Wood
+                setup(new LeavesBlock(Block.Properties.create(Material.LEAVES).hardnessAndResistance(0.2F).tickRandomly().sound(SoundType.PLANT)), "ahuehuete_leaves"),
+                setup(new ModLogBlock(() -> STRIPPED_AHUEHUETE_LOG, MaterialColor.WOOD, Block.Properties.create(Material.WOOD, MaterialColor.OBSIDIAN).hardnessAndResistance(2.0F).sound(SoundType.WOOD)),"ahuehuete_log"),
+                setup(new LogBlock(MaterialColor.WOOD, Block.Properties.create(Material.WOOD, MaterialColor.WOOD).hardnessAndResistance(2.0F).sound(SoundType.WOOD)),"stripped_ahuehuete_log"),
+                setup(new ModLogBlock(() -> STRIPPED_AHUEHUETE_WOOD, MaterialColor.WOOD ,Block.Properties.create(Material.WOOD, MaterialColor.WOOD).hardnessAndResistance(2.0F).sound(SoundType.WOOD)),"ahuehuete_wood"),
+                setup(new RotatedPillarBlock(Block.Properties.create(Material.WOOD, MaterialColor.WOOD).hardnessAndResistance(2.0F).sound(SoundType.WOOD)),"stripped_ahuehuete_wood"),
+                setup(new Block(Block.Properties.create(Material.WOOD, MaterialColor.WOOD).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)), "ahuehuete_planks"),
+                setup(new StairsBlock(() -> AHUEHUETE_PLANKS.getDefaultState(), Block.Properties.create(Material.WOOD, MaterialColor.WOOD).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)), "ahuehuete_stairs"),
+                setup(new SlabBlock(Block.Properties.create(Material.WOOD, MaterialColor.WOOD).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)), "ahuehuete_slab"),
+                setup(new FenceBlock(Block.Properties.create(Material.WOOD, MaterialColor.WOOD).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)), "ahuehuete_fence"),
+                setup(new FenceGateBlock(Block.Properties.create(Material.WOOD, MaterialColor.WOOD).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)), "ahuehuete_fence_gate"),
+                setup(new ModdedWoddenButton(Block.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement().hardnessAndResistance(0.5F).sound(SoundType.WOOD)), "ahuehuete_button"),
+                setup(new ModdedPressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, Block.Properties.create(Material.WOOD, MaterialColor.WOOD).doesNotBlockMovement().hardnessAndResistance(0.5F).sound(SoundType.WOOD)), "ahuehuete_pressure_plate"),
+                //Ahuehuete Sapling
+
                 //Dead Leaves
                 //Dead Wood
-                //Tule Leaves
-                //Tule Wood (El Árbol del Tule)
 
                     //Crops
-                //Sorghum
-                //Rice
-                //Tomatoes
-                //Chillies
-                //Maguey Cactus
-                //Onions
+                setup(new ModCropBlock(() -> ModItems.SORGHUM, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0).sound(SoundType.CROP)), "sorghum_crop"),
+                setup(new ModCropBlock(() -> ModItems.RICE, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0).sound(SoundType.CROP)), "rice_crop"),
+                setup(new ModCropBlock(() -> ModItems.TOMATO, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0).sound(SoundType.CROP)), "tomato_crop"),
+                setup(new ModCropBlock(() -> ModItems.CHILI_PEPPER, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0).sound(SoundType.CROP)), "chili_pepper_crop"),
+                setup(new ModCropBlock(() -> ModItems.ONION, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0).sound(SoundType.CROP)), "onion_crop"),
 
                     //Puzzle Blocks
+                setup(new ObjectiveBlock(Block.Properties.create(Material.ROCK).hardnessAndResistance(2F, 200F).sound(SoundType.STONE).harvestLevel(1).harvestTool(ToolType.PICKAXE)), "objective_block"),
                 //Temple Door
                 //Temple Laser
-                //Temple Material Comparator
-                //Temple Objective Block (Maybe???)
-                //Laser Receiver
+                //Temple Material Comparator*
+                //Laser Receiver*
                 //Laser Passthrough
                 //Temple Mirror
                 //Rune Line
@@ -196,10 +208,11 @@ public class ModEventSubscriber {
                 //Temple Fire Trap
                 //Temple Dart Trap
                 //Temple Gas Trap
-                //Slaughterhouse Detector
+                setup(new SlaughterhouseBlock(Block.Properties.create(Material.ROCK).hardnessAndResistance(2F, 200F).sound(SoundType.STONE).harvestLevel(1).harvestTool(ToolType.PICKAXE)), "slaughterhouse_detector")
                 //Enemy Emitter
                 //Enemy Healer
 
+                    //Really Cool Guns n Shit
                 //Temple Turret Base
                 //Temple Flamethrower Turret
                 //Temple Laser Turret
@@ -262,7 +275,7 @@ public class ModEventSubscriber {
     public static void registerItems(final RegistryEvent.Register<Item> event) {
         final IForgeRegistry<Item> registry = event.getRegistry();
         registry.registerAll(
-                    //Basic
+                //Basic
                 setup(new Item(new Item.Properties().group(AzTech.AT_ITEMGROUP)), "red_rune"),
                 setup(new Item(new Item.Properties().group(AzTech.AT_ITEMGROUP)), "yellow_rune"),
                 setup(new Item(new Item.Properties().group(AzTech.AT_ITEMGROUP)), "green_rune"),
@@ -274,7 +287,7 @@ public class ModEventSubscriber {
                 setup(new Item(new Item.Properties().group(AzTech.AT_ITEMGROUP)), "mud_brick"),
                 setup(new AzTechRing(new Item.Properties().group(AzTech.AT_ITEMGROUP).maxStackSize(1).maxDamage(32)), "aztech_ring"),
 
-                    //Weapons
+                //Weapons
                 setup(new SwordItem(ItemTierAzTech.RED_RUNE, 3, -2.4F, new Item.Properties().group(AzTech.AT_ITEMGROUP)), "red_rune_sword"),
                 setup(new SwordItem(ItemTierAzTech.YELLOW_RUNE, 3, -2.4F, new Item.Properties().group(AzTech.AT_ITEMGROUP)), "yellow_rune_sword"),
                 setup(new SwordItem(ItemTierAzTech.GREEN_RUNE, 3, -2.4F, new Item.Properties().group(AzTech.AT_ITEMGROUP)), "green_rune_sword"),
@@ -284,7 +297,7 @@ public class ModEventSubscriber {
                 setup(new SwordItem(ItemTierAzTech.GREAT_AZTECH, 3, -2.4F, new Item.Properties().group(AzTech.AT_ITEMGROUP)), "great_aztech_sword"),
                 setup(new SwordItem(ItemTierAzTech.ULTIMATE_AZTECH, 3, -2.4F, new Item.Properties().group(AzTech.AT_ITEMGROUP)), "ultimate_aztech_sword"),
 
-                    //Tools
+                //Tools
                 //Red Rune Pickaxe
                 //Yellow Rune Pickaxe
                 //Green Rune Pickaxe
@@ -323,9 +336,22 @@ public class ModEventSubscriber {
                 //Ultimate Axe
                 //Ultimate Hoe
 
+                    //Food
+                setup(new CustomBlockNamedItem(() -> ModBlocks.SORGHUM_CROP, new Item.Properties().group(AzTech.AT_ITEMGROUP).food(new Food.Builder().hunger(1).saturation(1).fastToEat().build())), "sorghum"),
+                setup(new Item(new Item.Properties().group(AzTech.AT_ITEMGROUP).food(new Food.Builder().hunger(5).saturation(7).build())), "sorghum_soup"),
+                setup(new Item(new Item.Properties().group(AzTech.AT_ITEMGROUP).food(new Food.Builder().hunger(3).saturation(4).fastToEat().effect(new EffectInstance(Effects.SPEED, 600, 2), 1).build())), "aztech_popcorn"),
+                setup(new CustomBlockNamedItem(() -> ModBlocks.RICE_CROP, new Item.Properties().group(AzTech.AT_ITEMGROUP).food(new Food.Builder().hunger(3).saturation(4).build())), "rice"),
+                setup(new CustomBlockNamedItem(() -> ModBlocks.TOMATO_CROP, new Item.Properties().group(AzTech.AT_ITEMGROUP).food(new Food.Builder().hunger(4).saturation(4).build())), "tomato"),
+                setup(new CustomBlockNamedItem(() -> ModBlocks.CHILI_PEPPER_CROP, new Item.Properties().group(AzTech.AT_ITEMGROUP).food(new Food.Builder().hunger(6).saturation(3).fastToEat().effect(new EffectInstance(Effects.FIRE_RESISTANCE, 100, 1), 0.5f).build())), "chili_pepper"),
+                setup(new CustomBlockNamedItem(() -> ModBlocks.ONION_CROP, new Item.Properties().group(AzTech.AT_ITEMGROUP).food(new Food.Builder().hunger(3).saturation(3).build())), "onion"),
+                setup(new Item(new Item.Properties().group(AzTech.AT_ITEMGROUP).food(new Food.Builder().hunger(15).saturation(10).effect(new EffectInstance(Effects.ABSORPTION, 900, 1), 1).build())), "aztech_burger"),
+
                     //Special
                 //Dungeon Locator
-                setup(new Azotome(new Item.Properties().group(AzTech.AT_ITEMGROUP)), "azotome")
+                setup(new Azotome(new Item.Properties().group(AzTech.AT_ITEMGROUP)), "azotome"),
+                setup(new PuzzleLinkingTool(new Item.Properties().group(AzTech.AT_ITEMGROUP)), "puzzle_linking_tool_link"),
+                setup(new PuzzleUnlinkingTool(new Item.Properties()), "puzzle_linking_tool_unlink"),
+                setup(new PuzzleDebugTool(new Item.Properties()), "puzzle_linking_tool_debug")
         );
 
         for (final Block block : ForgeRegistries.BLOCKS.getValues()) {
@@ -337,9 +363,9 @@ public class ModEventSubscriber {
             }
 
             //In case of blocks with no auto itemblock creation
-//			if (block instanceof NoAutomaticBlockItem) {
-//				continue;
-//			}
+			if (block instanceof NoAutomaticBlockItem) {
+				continue;
+			}
 
             final Item.Properties properties = new Item.Properties().group(com.litewolf101.aztech.AzTech.AT_ITEMGROUP);
             final BlockItem blockItem = new BlockItem(block, properties);
@@ -348,14 +374,14 @@ public class ModEventSubscriber {
         LOGGER.debug("Registered Items");
     }
 
-    /*@SubscribeEvent
+    @SubscribeEvent
     public static void registerTileEntityTypes(@Nonnull final RegistryEvent.Register<TileEntityType<?>> event) {
         event.getRegistry().registerAll(
-                // We don't have a datafixer for our TileEntity, so we pass null into build
-                //setup(TileEntityType.Builder.create(ModFurnaceTileEntity::new, ModBlocks.MOD_FURNACE).build(null), "mod_furnace")
+                setup(TileEntityType.Builder.create(TEObjectiveBlock::new, OBJECTIVE_BLOCK).build(null), "objective_block"),
+                setup(TileEntityType.Builder.create(TESlaughterhouseBlock::new, SLAUGHTERHOUSE_DETECTOR).build(null), "slaughterhouse_detector")
         );
         LOGGER.debug("Registered TileEntityTypes");
-    }*/
+    }
 
     /*@SubscribeEvent
     public static void registerContainerTypes(@Nonnull final RegistryEvent.Register<ContainerType<?>> event) {
@@ -366,6 +392,10 @@ public class ModEventSubscriber {
         LOGGER.debug("Registered ContainerTypes");
     }*/
 
+
+    /**
+     * Credits to Cadiboo for these two methods
+     */
     @Nonnull
     private static <T extends IForgeRegistryEntry<T>> T setup(@Nonnull final T entry, @Nonnull final String name) {
         Preconditions.checkNotNull(name, "Name to assign to entry cannot be null!");

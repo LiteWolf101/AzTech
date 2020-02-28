@@ -42,6 +42,6 @@ public class ButtonTabAzTechInfo extends Button {
     }
 
     public void drawCenteredString(FontRenderer renderer, String string, int xPos, int zPos, int color) {
-        renderer.drawString(string, (float)(xPos - renderer.getStringWidth(string) / 2), (float)zPos, color);
+        renderer.drawString(string, (float) (xPos - renderer.getStringWidth(string) / 2), (float) zPos, color);
     }
 }

@@ -31,8 +31,7 @@ public enum ItemTierAzTech implements IItemTier {
     }),
     ULTIMATE_AZTECH(3, 2165, 11.0F, 4.3F, 8, () -> {
         return null;
-    })
-    ;
+    });
     //Can harvest levels go over 4?
 
     private final int harvestLevel;

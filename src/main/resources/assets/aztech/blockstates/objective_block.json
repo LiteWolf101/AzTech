@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "powered=false": { "model": "aztech:block/objective_block_off" },
+    "powered=true": { "model": "aztech:block/objective_block_on" }
+  }
+}

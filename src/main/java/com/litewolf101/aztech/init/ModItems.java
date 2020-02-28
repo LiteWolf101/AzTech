@@ -25,4 +25,15 @@ public class ModItems {
     public static final Item GREAT_AZTECH_SWORD = ModUtils._null();
     public static final Item ULTIMATE_AZTECH_SWORD = ModUtils._null();
     public static final Item AZOTOME = ModUtils._null();
+    public static final Item SORGHUM = ModUtils._null();
+    public static final Item SORGHUM_SOUP = ModUtils._null();
+    public static final Item AZTECH_POPCORN = ModUtils._null();
+    public static final Item RICE = ModUtils._null();
+    public static final Item TOMATO = ModUtils._null();
+    public static final Item CHILI_PEPPER = ModUtils._null();
+    public static final Item ONION = ModUtils._null();
+    public static final Item AZTECH_BURGER = ModUtils._null();
+    public static final Item PUZZLE_LINKING_TOOL_LINK = ModUtils._null();
+    public static final Item PUZZLE_LINKING_TOOL_UNLINK = ModUtils._null();
+    public static final Item PUZZLE_LINKING_TOOL_DEBUG = ModUtils._null();
 }

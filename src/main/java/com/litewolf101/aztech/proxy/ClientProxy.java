@@ -22,14 +22,15 @@ public class ClientProxy implements com.litewolf101.aztech.proxy.IProxy {
 
         //Blocks
         blockColors.register((state, world, pos, tintIndex) -> world != null && pos != null ? BiomeColors.getGrassColor(world, pos) : GrassColors.get(0.5D, 1.0D),
-                ModBlocks.ANCIENT_GRASS);
+                ModBlocks.ANCIENT_GRASS, ModBlocks.SHORT_GRASS, ModBlocks.FLOWERED_SHORT_GRASS, ModBlocks.STALK_GRASS, ModBlocks.LEAF_PILE, ModBlocks.AHUEHUETE_LEAVES);
 
         //Items
 
         //Item Blocks
         itemColors.register((stack, tintIndex) -> {
-                    BlockState BlockState = ((BlockItem)stack.getItem()).getBlock().getDefaultState();
-                    return blockColors.getColor(BlockState, null, null, tintIndex); },
-                ModBlocks.ANCIENT_GRASS);
+                    BlockState BlockState = ((BlockItem) stack.getItem()).getBlock().getDefaultState();
+                    return blockColors.getColor(BlockState, null, null, tintIndex);
+                },
+                ModBlocks.ANCIENT_GRASS, ModBlocks.SHORT_GRASS, ModBlocks.FLOWERED_SHORT_GRASS, ModBlocks.STALK_GRASS, ModBlocks.LEAF_PILE, ModBlocks.AHUEHUETE_LEAVES);
     }
 }

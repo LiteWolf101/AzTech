@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bottom": { "model": "aztech:block/ahuehuete_slab" },
+    "type=top": { "model": "aztech:block/ahuehuete_slab_top" },
+    "type=double": { "model": "aztech:block/ahuehuete_planks" }
+  }
+}

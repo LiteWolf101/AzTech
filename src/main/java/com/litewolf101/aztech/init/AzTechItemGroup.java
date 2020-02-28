@@ -14,7 +14,7 @@ public class AzTechItemGroup extends ItemGroup {
 
     @Override
     public ItemStack createIcon() {
-        return new ItemStack(ModBlocks.ANCIENT_BEDROCK);
+        return new ItemStack(ModItems.AZTECH_RING);
     }
 
     @Override

@@ -75,6 +75,52 @@
   "block.aztech.temple_white_rune_block": "§dTemple White Rune Block",
   "block.aztech.temple_black_rune_block": "§dTemple Black Rune Block",
 
+  "block.aztech.temple_lantern": "Temple Lantern",
+
+  "block.aztech.red_rune_block": "Block of Red Rune",
+  "block.aztech.yellow_rune_block": "Block of Yellow Rune",
+  "block.aztech.green_rune_block": "Block of Green Rune",
+  "block.aztech.blue_rune_block": "Block of Blue Rune",
+  "block.aztech.white_rune_block": "Block of White Rune",
+  "block.aztech.black_rune_block": "Block of Black Rune",
+  "block.aztech.entropy_rune_block": "Block of Runic Entropy",
+
+  "block.aztech.short_grass": "Short Grass",
+  "block.aztech.flowered_short_grass": "Flowered Short Grass",
+  "block.aztech.stalk_grass": "Stalk Grass",
+  "block.aztech.dead_grass": "Dead Grass",
+  "block.aztech.leaf_pile": "Leaf Pile",
+
+  "block.aztech.sword_lily": "Sword Lily",
+  "block.aztech.chocolate_cosmos": "Chocolate Cosmos",
+  "block.aztech.poinsettia": "Poinsettia",
+  "block.aztech.honeysuckle": "Honeysuckle",
+  "block.aztech.marigold": "Marigold",
+  "block.aztech.aster": "Aster",
+  "block.aztech.yucca": "Yucca Flower",
+
+  "block.aztech.ahuehuete_log": "Ahuehuete Log",
+  "block.aztech.stripped_ahuehuete_log": "Stripped Ahuehuete Log",
+  "block.aztech.ahuehuete_wood": "Ahuehuete Wood",
+  "block.aztech.stripped_ahuehuete_wood": "Stripped Ahuehuete Wood",
+  "block.aztech.ahuehuete_leaves": "Ahuehuete Leaves",
+  "block.aztech.ahuehuete_planks": "Ahuehuete Planks",
+  "block.aztech.ahuehuete_stairs": "Ahuehuete Stairs",
+  "block.aztech.ahuehuete_slab": "Ahuehuete Slab",
+  "block.aztech.ahuehuete_button": "Ahuehuete Button",
+  "block.aztech.ahuehuete_pressure_plate": "Ahuehuete Pressure Plate",
+  "block.aztech.ahuehuete_fence": "Ahuehuete Fence",
+  "block.aztech.ahuehuete_fence_gate": "Ahuehuete Fence Gate",
+
+  "block.aztech.sorghum_crop": "Sorghum",
+  "block.aztech.tomato_crop": "Tomato",
+  "block.aztech.rice_crop": "Rice",
+  "block.aztech.chili_pepper_crop": "Chili Pepper",
+  "block.aztech.onion_crop": "Onion",
+
+  "block.aztech.objective_block": "§6Objective Block",
+  "block.aztech.slaughterhouse_detector": "§6Slaughterhouse Detector",
+
   "_comment": "Items",
   "item.aztech.red_rune": "Red Rune",
   "item.aztech.yellow_rune": "Yellow Rune",
@@ -88,6 +134,16 @@
   "item.aztech.aztech_ring": "§dAzTech Ring",
   "item.aztech.azotome": "§6Azotome",
 
+  "_comment": "Food/Seeds",
+  "item.aztech.sorghum": "Sorghum",
+  "item.aztech.sorghum_soup": "Sorghum Soup",
+  "item.aztech.aztech_popcorn": "§6AzTech Popcorn",
+  "item.aztech.tomato": "Tomato",
+  "item.aztech.rice": "Rice",
+  "item.aztech.chili_pepper": "Chili Pepper",
+  "item.aztech.onion": "Onion",
+  "item.aztech.aztech_burger": "§6AzTech Burger",
+
   "_comment": "Tools/Weapons",
   "item.aztech.red_rune_sword": "Red Rune Sword",
   "item.aztech.yellow_rune_sword": "Yellow Rune Sword",
@@ -97,10 +153,15 @@
   "item.aztech.black_rune_sword": "Black Rune Sword",
   "item.aztech.great_aztech_sword": "§dGreat AzTech Sword",
   "item.aztech.ultimate_aztech_sword": "§dUltimate AzTech Sword",
+  "item.aztech.puzzle_linking_tool_link": "§bPuzzle Linking Tool §f(Linking Mode)",
+  "item.aztech.puzzle_linking_tool_unlink": "§bPuzzle Linking Tool §f(Unlinking Mode)",
+  "item.aztech.puzzle_linking_tool_debug": "§bPuzzle Linking Tool §f(Debug Mode)",
 
   "_comment": "Misc",
   "aztech.description.aztech_ring": "§5§oThis mystical ancient item sends pulses of power throughout your body.",
+  "aztech.description.azotome": "§5§oThis book contains all of the info you need to know about AzTech.",
 
   "_comment": "Azotome",
-  "aztech.azotome.bookmarks": "Bookmarks"
+  "aztech.azotome.bookmarks": "Bookmarks",
+  "azotome.page.test": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\nCurabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam. Maecenas fermentum consequat mi. Donec fermentum. Pellentesque malesuada nulla a mi. Duis sapien sem, aliquet nec, commodo eget, consequat quis, neque. Aliquam faucibus, elit ut dictum aliquet, felis nisl adipiscing sapien, sed malesuada diam lacus eget erat. Cras mollis scelerisque nunc. Nullam arcu. Aliquam consequat. Curabitur augue lorem, dapibus quis, laoreet et, pretium ac, nisi. Aenean magna nisl, mollis quis, molestie eu, feugiat in, orci. In hac habitasse platea dictumst."
 }

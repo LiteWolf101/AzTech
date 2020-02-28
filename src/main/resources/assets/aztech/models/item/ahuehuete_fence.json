@@ -1,0 +1,6 @@
+{
+  "parent": "block/fence_inventory",
+  "textures": {
+    "texture": "aztech:block/ahuehuete_planks"
+  }
+}

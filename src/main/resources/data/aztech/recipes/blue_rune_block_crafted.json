@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "aztech:blue_rune"
+    }
+  },
+  "result": {
+    "item": "aztech:blue_rune_block",
+    "count": 1
+  }
+}

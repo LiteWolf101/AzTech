@@ -1,0 +1,6 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "aztech:item/puzzle_linking_tool_unlink"
+  }
+}

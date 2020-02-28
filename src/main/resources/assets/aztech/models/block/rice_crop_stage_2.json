@@ -1,0 +1,6 @@
+{
+  "parent": "block/crop",
+  "textures": {
+    "crop": "aztech:block/rice_crop_stage_2"
+  }
+}

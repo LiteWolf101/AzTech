@@ -1,0 +1,12 @@
+{
+	"parent": "block/cube",
+	"textures": {
+		"down": "aztech:block/puzzle_block_bottom",
+		"up": "aztech:block/slaughterhouse_0",
+		"north": "aztech:block/puzzle_block_side",
+		"south": "aztech:block/puzzle_block_side",
+		"east": "aztech:block/puzzle_block_side",
+		"west": "aztech:block/puzzle_block_side",
+		"particle": "aztech:block/puzzle_block_side"
+	}
+}

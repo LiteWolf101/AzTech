@@ -8,5 +8,6 @@ public class ServerProxy implements IProxy {
         throw new IllegalStateException("Only run this code on the Client!");
     }
 
-    public void initBlockColors () {}
+    public void initBlockColors() {
+    }
 }

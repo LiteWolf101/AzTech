@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "axis=y":    { "model": "aztech:block/stripped_ahuehuete_wood" },
+    "axis=z":     { "model": "aztech:block/stripped_ahuehuete_wood", "x": 90 },
+    "axis=x":     { "model": "aztech:block/stripped_ahuehuete_wood", "x": 90, "y": 90 }
+  }
+}

@@ -23,7 +23,7 @@ public class WetMud extends Block {
     }
 
     private static boolean hasWater(IWorldReader worldIn, BlockPos pos) {
-        for(BlockPos blockpos : BlockPos.getAllInBoxMutable(pos.add(-2, 0, -2), pos.add(2, 1, 2))) {
+        for (BlockPos blockpos : BlockPos.getAllInBoxMutable(pos.add(-2, 0, -2), pos.add(2, 1, 2))) {
             if (worldIn.getFluidState(blockpos).isTagged(FluidTags.WATER)) {
                 return true;
             }

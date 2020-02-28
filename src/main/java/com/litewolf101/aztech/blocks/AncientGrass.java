@@ -34,15 +34,15 @@ public class AncientGrass extends CustomSpreadableDirtBlock implements IGrowable
         BlockPos blockpos = pos.up();
         BlockState blockstate = ModBlocks.ANCIENT_GRASS.getDefaultState();
 
-        for(int i = 0; i < 128; ++i) {
+        for (int i = 0; i < 128; ++i) {
             BlockPos blockpos1 = blockpos;
             int j = 0;
 
-            while(true) {
+            while (true) {
                 if (j >= i / 16) {
                     BlockState blockstate2 = worldIn.getBlockState(blockpos1);
                     if (blockstate2.getBlock() == blockstate.getBlock() && rand.nextInt(10) == 0) {
-                        ((IGrowable)blockstate.getBlock()).grow(worldIn, rand, blockpos1, blockstate2);
+                        ((IGrowable) blockstate.getBlock()).grow(worldIn, rand, blockpos1, blockstate2);
                     }
 
                     if (!blockstate2.isAir()) {
@@ -56,7 +56,7 @@ public class AncientGrass extends CustomSpreadableDirtBlock implements IGrowable
                             break;
                         }
 
-                        blockstate1 = ((FlowersFeature)((DecoratedFeatureConfig)(list.get(0)).config).feature.feature).getRandomFlower(rand, blockpos1);
+                        blockstate1 = ((FlowersFeature) ((DecoratedFeatureConfig) (list.get(0)).config).feature.feature).getRandomFlower(rand, blockpos1);
                     } else {
                         blockstate1 = blockstate;
                     }

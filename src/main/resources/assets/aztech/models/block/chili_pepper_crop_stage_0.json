@@ -1,0 +1,6 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "aztech:block/chili_pepper_crop_stage_0"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "axis=y":    { "model": "aztech:block/stripped_ahuehuete_log" },
+    "axis=z":     { "model": "aztech:block/stripped_ahuehuete_log", "x": 90 },
+    "axis=x":     { "model": "aztech:block/stripped_ahuehuete_log", "x": 90, "y": 90 }
+  }
+}

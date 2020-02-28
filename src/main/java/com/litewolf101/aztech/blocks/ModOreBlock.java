@@ -18,19 +18,19 @@ public class ModOreBlock extends Block {
     protected int getExpFromOre(Random random) {
         if (
                 this == ModBlocks.RED_RUNE_ORE
-                || this == ModBlocks.YELLOW_RUNE_ORE
-                || this == ModBlocks.GREEN_RUNE_ORE
-                || this == ModBlocks.BLUE_RUNE_ORE
-                || this == ModBlocks.WHITE_RUNE_ORE
-                || this == ModBlocks.BLACK_RUNE_ORE
-                || this == ModBlocks.ANCIENT_RED_RUNE_ORE
-                || this == ModBlocks.ANCIENT_YELLOW_RUNE_ORE
-                || this == ModBlocks.ANCIENT_GREEN_RUNE_ORE
-                || this == ModBlocks.ANCIENT_BLUE_RUNE_ORE
-                || this == ModBlocks.ANCIENT_WHITE_RUNE_ORE
-                || this == ModBlocks.ANCIENT_BLACK_RUNE_ORE
+                        || this == ModBlocks.YELLOW_RUNE_ORE
+                        || this == ModBlocks.GREEN_RUNE_ORE
+                        || this == ModBlocks.BLUE_RUNE_ORE
+                        || this == ModBlocks.WHITE_RUNE_ORE
+                        || this == ModBlocks.BLACK_RUNE_ORE
+                        || this == ModBlocks.ANCIENT_RED_RUNE_ORE
+                        || this == ModBlocks.ANCIENT_YELLOW_RUNE_ORE
+                        || this == ModBlocks.ANCIENT_GREEN_RUNE_ORE
+                        || this == ModBlocks.ANCIENT_BLUE_RUNE_ORE
+                        || this == ModBlocks.ANCIENT_WHITE_RUNE_ORE
+                        || this == ModBlocks.ANCIENT_BLACK_RUNE_ORE
         ) {
-            return  MathHelper.nextInt(random, 1, 4);
+            return MathHelper.nextInt(random, 1, 4);
         } else if (this == ModBlocks.ANCIENT_COAL_ORE) {
             return MathHelper.nextInt(random, 0, 2);
         } else if (this == ModBlocks.ANCIENT_DIAMOND_ORE) {

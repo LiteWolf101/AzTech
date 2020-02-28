@@ -4,11 +4,11 @@ aztech/root
         But Whole (Gather All Rune Blocks)
         Over-expensive Jewelry (Gather All Temple Rune Blocks)
 
+    Ancient Knowledge (Craft the Azotome)
+
     I Would Walk 500 Chunks (Get the Dungeon Locator)
 
     There's No Place Like Home! (Place a bed in AzTech)
-
-    Ancient Knowledge (Craft the Azotome)
 
     Eye See You! (Discover an Eye Dungeon)
         Eyesore (Defeat The Ultimate Eye)
@@ -31,7 +31,7 @@ aztech/root
         A Cheesed Fight! (Defeat Ruggerus)
 
     Shocking Discovery! (Discover an Electric Dungeon)
-        Static initializer (Get hit with the static effect)
+        Static Initializer (Get hit with the static effect)
         At Least It Isn't AE (Bounce an Electric Ball)
         Who Let the Dog Out? (Defeat Ao Ao)
 

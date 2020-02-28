@@ -1,0 +1,6 @@
+{
+  "parent": "block/fence_post",
+  "textures": {
+    "texture": "aztech:block/ahuehuete_planks"
+  }
+}

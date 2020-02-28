@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "planks",
+  "ingredients": [
+    {
+      "tag": "aztech:ahuehuete_logs"
+    }
+  ],
+  "result": {
+    "item": "aztech:ahuehuete_planks",
+    "count": 4
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "end": "aztech:block/stripped_ahuehuete_log_top",
+    "side": "aztech:block/stripped_ahuehuete_log"
+  }
+}

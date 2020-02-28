@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "powered=false": { "model": "aztech:block/ahuehuete_pressure_plate" },
+    "powered=true": { "model": "aztech:block/ahuehuete_pressure_plate_down" }
+  }
+}

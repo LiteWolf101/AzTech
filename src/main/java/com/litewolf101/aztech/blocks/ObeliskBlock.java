@@ -22,6 +22,7 @@ import javax.annotation.Nullable;
 
 public class ObeliskBlock extends Block {
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
+
     public ObeliskBlock(Block.Properties properties) {
         super(properties);
         this.setDefaultState(this.stateContainer.getBaseState().with(HALF, DoubleBlockHalf.LOWER));
@@ -41,8 +42,8 @@ public class ObeliskBlock extends Block {
             worldIn.playEvent(player, 2001, blockpos, Block.getStateId(blockstate));
             ItemStack itemstack = player.getHeldItemMainhand();
             if (!worldIn.isRemote && !player.isCreative()) {
-                Block.spawnDrops(state, worldIn, pos, (TileEntity)null, player, itemstack);
-                Block.spawnDrops(blockstate, worldIn, blockpos, (TileEntity)null, player, itemstack);
+                Block.spawnDrops(state, worldIn, pos, (TileEntity) null, player, itemstack);
+                Block.spawnDrops(blockstate, worldIn, blockpos, (TileEntity) null, player, itemstack);
             }
         }
 

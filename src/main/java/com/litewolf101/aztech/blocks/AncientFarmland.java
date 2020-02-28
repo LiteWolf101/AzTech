@@ -20,6 +20,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+import net.minecraftforge.common.IPlantable;
 
 import java.util.Random;
 
@@ -30,6 +31,11 @@ public class AncientFarmland extends Block {
     public AncientFarmland(final Block.Properties properties) {
         super(properties);
         this.setDefaultState(this.stateContainer.getBaseState().with(MOISTURE, Integer.valueOf(0)));
+    }
+
+    @Override
+    public boolean canSustainPlant(BlockState p_canSustainPlant_1_, IBlockReader p_canSustainPlant_2_, BlockPos p_canSustainPlant_3_, Direction p_canSustainPlant_4_, IPlantable p_canSustainPlant_5_) {
+        return true;
     }
 
     @Override
@@ -104,11 +110,11 @@ public class AncientFarmland extends Block {
 
     private boolean hasCrops(IBlockReader worldIn, BlockPos pos) {
         BlockState state = worldIn.getBlockState(pos.up());
-        return state.getBlock() instanceof net.minecraftforge.common.IPlantable && canSustainPlant(state, worldIn, pos, Direction.UP, (net.minecraftforge.common.IPlantable)state.getBlock());
+        return state.getBlock() instanceof net.minecraftforge.common.IPlantable && canSustainPlant(state, worldIn, pos, Direction.UP, (net.minecraftforge.common.IPlantable) state.getBlock());
     }
 
     private static boolean hasWater(IWorldReader worldIn, BlockPos pos) {
-        for(BlockPos blockpos : BlockPos.getAllInBoxMutable(pos.add(-4, 0, -4), pos.add(4, 1, 4))) {
+        for (BlockPos blockpos : BlockPos.getAllInBoxMutable(pos.add(-4, 0, -4), pos.add(4, 1, 4))) {
             if (worldIn.getFluidState(blockpos).isTagged(FluidTags.WATER)) {
                 return true;
             }
