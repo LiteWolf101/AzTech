@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "aztech:block/gas_trap_block"
+    }
+  }
+}

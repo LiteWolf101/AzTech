@@ -3,6 +3,7 @@ package com.litewolf101.aztech.init;
 import com.google.common.base.Preconditions;
 import com.litewolf101.aztech.AzTech;
 import com.litewolf101.aztech.blocks.*;
+import com.litewolf101.aztech.blocks.tileEntity.TEGasTrapBlock;
 import com.litewolf101.aztech.blocks.tileEntity.TEObjectiveBlock;
 import com.litewolf101.aztech.blocks.tileEntity.TESlaughterhouseBlock;
 import com.litewolf101.aztech.items.*;
@@ -27,8 +28,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nonnull;
-
-import java.util.function.Supplier;
 
 import static com.litewolf101.aztech.init.ModBlocks.*;
 
@@ -186,6 +185,8 @@ public class ModEventSubscriber {
                 //Dead Leaves
                 //Dead Wood
 
+                //Kopok Tree
+
                     //Crops
                 setup(new ModCropBlock(() -> ModItems.SORGHUM, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0).sound(SoundType.CROP)), "sorghum_crop"),
                 setup(new ModCropBlock(() -> ModItems.RICE, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0).sound(SoundType.CROP)), "rice_crop"),
@@ -196,21 +197,23 @@ public class ModEventSubscriber {
                     //Puzzle Blocks
                 setup(new ObjectiveBlock(Block.Properties.create(Material.ROCK).hardnessAndResistance(2F, 200F).sound(SoundType.STONE).harvestLevel(1).harvestTool(ToolType.PICKAXE)), "objective_block"),
                 //Temple Door
-                //Temple Laser
+                setup(new TempleLaser(Block.Properties.create(Material.ROCK).hardnessAndResistance(0.2f, 200f).sound(SoundType.GLASS).harvestLevel(1).harvestTool(ToolType.PICKAXE).tickRandomly()), "temple_laser"),
+                setup(new BeamBlock(Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(2000f, 2000f).sound(SoundType.CLOTH).noDrops().tickRandomly().doesNotBlockMovement()), "beam_block"),
                 //Temple Material Comparator*
                 //Laser Receiver*
                 //Laser Passthrough
                 //Temple Mirror
                 //Rune Line
-                //Redstone to Rune Translator
+                setup(new RedstoneToRuneTranslator(Block.Properties.create(Material.ROCK).hardnessAndResistance(0.2f, 200f).sound(SoundType.METAL).harvestLevel(1).harvestTool(ToolType.PICKAXE)),"redstone_to_rune_translator"),
                 //Rune to Redstone Translator
-                //Temple Spike Trap
+                setup(new SpikeTrapBlock(Block.Properties.create(Material.ROCK).hardnessAndResistance(2F, 200F).sound(SoundType.STONE).harvestLevel(1).harvestTool(ToolType.PICKAXE).tickRandomly()), "spike_trap_block"),
+                setup(new SpikeBlock(Block.Properties.create(Material.ANVIL).hardnessAndResistance(2F, 200F).sound(SoundType.METAL).doesNotBlockMovement()), "spike_block"),
                 //Temple Fire Trap
                 //Temple Dart Trap
-                //Temple Gas Trap
+                setup(new GasTrapBlock(Block.Properties.create(Material.ROCK).hardnessAndResistance(2F, 200F).sound(SoundType.STONE).harvestLevel(1).harvestTool(ToolType.PICKAXE).tickRandomly()), "gas_trap_block"),
                 setup(new SlaughterhouseBlock(Block.Properties.create(Material.ROCK).hardnessAndResistance(2F, 200F).sound(SoundType.STONE).harvestLevel(1).harvestTool(ToolType.PICKAXE)), "slaughterhouse_detector")
                 //Enemy Emitter
-                //Enemy Healer
+                //Temple Heal Block
 
                     //Really Cool Guns n Shit
                 //Temple Turret Base
@@ -378,7 +381,8 @@ public class ModEventSubscriber {
     public static void registerTileEntityTypes(@Nonnull final RegistryEvent.Register<TileEntityType<?>> event) {
         event.getRegistry().registerAll(
                 setup(TileEntityType.Builder.create(TEObjectiveBlock::new, OBJECTIVE_BLOCK).build(null), "objective_block"),
-                setup(TileEntityType.Builder.create(TESlaughterhouseBlock::new, SLAUGHTERHOUSE_DETECTOR).build(null), "slaughterhouse_detector")
+                setup(TileEntityType.Builder.create(TESlaughterhouseBlock::new, SLAUGHTERHOUSE_DETECTOR).build(null), "slaughterhouse_detector"),
+                setup(TileEntityType.Builder.create(TEGasTrapBlock::new, GAS_TRAP_BLOCK).build(null), "gas_trap_block")
         );
         LOGGER.debug("Registered TileEntityTypes");
     }

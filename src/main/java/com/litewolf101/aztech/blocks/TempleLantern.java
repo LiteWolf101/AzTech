@@ -48,7 +48,9 @@ public class TempleLantern extends Block {
     }
 
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        return this.getDefaultState().with(CONNECTED_WALL_FACE, context.getNearestLookingDirection().getOpposite());
+        Direction direction = context.getFace();
+        BlockState blockstate = context.getWorld().getBlockState(context.getPos().offset(direction.getOpposite()));
+        return blockstate.getBlock() == this && blockstate.get(CONNECTED_WALL_FACE) == direction ? this.getDefaultState().with(CONNECTED_WALL_FACE, direction.getOpposite()) : this.getDefaultState().with(CONNECTED_WALL_FACE, direction);
     }
 
     /**

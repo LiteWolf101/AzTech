@@ -1,19 +1,9 @@
 package com.litewolf101.aztech.client.gui.info;
 
 import com.litewolf101.aztech.client.gui.AzotomeScreen;
-import com.litewolf101.aztech.client.gui.buttons.ButtonAzotomeIcon;
-import com.litewolf101.aztech.client.gui.buttons.ButtonTabAzTechInfo;
-import com.litewolf101.aztech.client.gui.info.pages.InfoPage;
-import com.litewolf101.aztech.utils.ModUtils;
-import com.mojang.blaze3d.platform.GlStateManager;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 

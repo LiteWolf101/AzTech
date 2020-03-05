@@ -43,7 +43,6 @@ public class AzTechRing extends Item {
         } else {
             return ActionResultType.PASS;
         }
-
     }
 
     @Override

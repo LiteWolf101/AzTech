@@ -103,6 +103,12 @@ public class ModBlocks {
     public static final Block ONION_CROP = ModUtils._null();
 
     public static final Block OBJECTIVE_BLOCK = ModUtils._null();
+    public static final Block TEMPLE_LASER = ModUtils._null();
+    public static final Block BEAM_BLOCK = ModUtils._null();
+    public static final Block REDSTONE_TO_RUNE_TRANSLATOR = ModUtils._null();
+    public static final Block SPIKE_TRAP_BLOCK = ModUtils._null();
+    public static final Block SPIKE_BLOCK = ModUtils._null();
+    public static final Block GAS_TRAP_BLOCK = ModUtils._null();
     public static final Block SLAUGHTERHOUSE_DETECTOR = ModUtils._null();
 
 }

@@ -3,7 +3,6 @@ package com.litewolf101.aztech.client.gui;
 import com.google.common.collect.Lists;
 import com.litewolf101.aztech.client.gui.buttons.ButtonAzotomeIcon;
 import com.litewolf101.aztech.client.gui.buttons.ButtonTabAzTechInfo;
-import com.litewolf101.aztech.client.gui.info.pages.InfoPage;
 import com.litewolf101.aztech.utils.AzotomeRegistry;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.Minecraft;
@@ -13,12 +12,10 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @OnlyIn(Dist.CLIENT)

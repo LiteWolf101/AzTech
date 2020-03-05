@@ -119,7 +119,12 @@
   "block.aztech.onion_crop": "Onion",
 
   "block.aztech.objective_block": "§6Objective Block",
+  "block.aztech.spike_trap_block": "§6Spike Trap Block",
+  "block.aztech.spike_block": "Spike Block",
+  "block.aztech.redstone_to_rune_translator": "§6Redstone -> Rune Translator",
+  "block.aztech.temple_laser": "§6Temple Laser",
   "block.aztech.slaughterhouse_detector": "§6Slaughterhouse Detector",
+  "block.aztech.gas_trap_block": "§6Gas Trap Block",
 
   "_comment": "Items",
   "item.aztech.red_rune": "Red Rune",

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "facing=up": { "model": "aztech:block/beam_block","y": 90, "x": 270  },
+    "facing=down": { "model": "aztech:block/beam_block", "y": 90, "x": 90 },
+    "facing=east": { "model": "aztech:block/beam_block", "y": 90},
+    "facing=south": { "model": "aztech:block/beam_block", "y": 180},
+    "facing=west": { "model": "aztech:block/beam_block", "y": 270},
+    "facing=north": { "model": "aztech:block/beam_block"}
+  }
+}

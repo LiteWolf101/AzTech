@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "powered=false": { "model": "aztech:block/redstone_to_rune_translator_off" },
+    "powered=true": { "model": "aztech:block/redstone_to_rune_translator_on" }
+  }
+}

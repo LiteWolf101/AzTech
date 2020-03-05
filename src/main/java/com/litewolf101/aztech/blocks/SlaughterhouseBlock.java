@@ -2,6 +2,7 @@ package com.litewolf101.aztech.blocks;
 
 import com.litewolf101.aztech.blocks.tileEntity.TESlaughterhouseBlock;
 import com.litewolf101.aztech.init.ModTileEntityTypes;
+import com.litewolf101.aztech.utils.RunePowerSource;
 import com.litewolf101.aztech.utils.TemplePuzzleBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -28,7 +29,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class SlaughterhouseBlock extends Block implements TemplePuzzleBlock {
+public class SlaughterhouseBlock extends Block implements TemplePuzzleBlock, RunePowerSource {
     public static final IntegerProperty LEVEL = BlockStateProperties.LEVEL_0_8;
     public SlaughterhouseBlock(Block.Properties properties) {
         super(properties);
@@ -87,7 +88,7 @@ public class SlaughterhouseBlock extends Block implements TemplePuzzleBlock {
             if (te != null) {
                 if (te instanceof TESlaughterhouseBlock) {
                     if (!world.isRemote){
-                        player.sendMessage(new StringTextComponent(TextFormatting.RED + "Target: " + TextFormatting.RESET + ((TESlaughterhouseBlock) te).getTargetEntity().getType().getRegistryName()));
+                        player.sendMessage(new StringTextComponent(TextFormatting.RED + "Target: " + TextFormatting.RESET + ((TESlaughterhouseBlock) te).getTargetEntity().getRegistryName()));
                         player.sendMessage(new StringTextComponent(TextFormatting.RED + "Count: " + TextFormatting.AQUA + ((TESlaughterhouseBlock) te).getCurrentKillCount() + "/" + ((TESlaughterhouseBlock) te).getMaxKillCount()));
                     }
                 }
@@ -108,5 +109,10 @@ public class SlaughterhouseBlock extends Block implements TemplePuzzleBlock {
             }
         }
         return true;
+    }
+
+    @Override
+    public boolean getPoweredState(BlockState state) {
+        return state.get(LEVEL) == 8;
     }
 }

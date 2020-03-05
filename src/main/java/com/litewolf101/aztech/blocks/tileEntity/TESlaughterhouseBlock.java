@@ -4,21 +4,14 @@ import com.litewolf101.aztech.init.ModTileEntityTypes;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.passive.PigEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.registry.Registry;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.litewolf101.aztech.blocks.SlaughterhouseBlock.LEVEL;
@@ -26,7 +19,7 @@ import static com.litewolf101.aztech.blocks.SlaughterhouseBlock.LEVEL;
 public class TESlaughterhouseBlock extends TileEntity implements ITickableTileEntity {
     private int maxKillCount;
     private int currentKillCount;
-    private LivingEntity targetEntity;
+    private EntityType targetEntity;
 
     public TESlaughterhouseBlock(TileEntityType<?> type) {
         super(type);
@@ -38,19 +31,18 @@ public class TESlaughterhouseBlock extends TileEntity implements ITickableTileEn
 
     @Override
     public void tick() {
-        if (!world.isRemote) {
+        if (!this.world.isRemote) {
             if (this.maxKillCount == 0) {
                 this.maxKillCount = 1;
             }
             if (this.targetEntity != null) {
                 AxisAlignedBB bb = new AxisAlignedBB(this.pos.add(-4, 0, -4), this.pos.add(5, 5, 5));
-                List<Entity> nearbyEntities = world.getEntitiesWithinAABB(Entity.class, bb);
-                //List<PlayerEntity> nearbyPlayers = world.getEntitiesWithinAABB(PlayerEntity.class, bb);
+                List<Entity> nearbyEntities = this.world.getEntitiesWithinAABB(Entity.class, bb);
 
                 for (Entity entities : nearbyEntities) {
-                    if (entities.getClass() == this.targetEntity.getClass()) {
+                    if (entities.getType() == this.targetEntity) {
                         if (((LivingEntity)entities).getAttackingEntity() instanceof PlayerEntity){
-                            if (((LivingEntity) entities).getHealth() == 0) {
+                            if (((LivingEntity) entities).deathTime > 18) {
                                 if (this.currentKillCount != this.maxKillCount) {
                                     ++this.currentKillCount;
                                 }
@@ -58,8 +50,6 @@ public class TESlaughterhouseBlock extends TileEntity implements ITickableTileEn
                         }
                     }
                 }
-            } else {
-                this.setTargetEntity(EntityType.PIG.create(world));
             }
             float percLevel = (float)(this.currentKillCount / (float)this.maxKillCount);
             int blockLevel = MathHelper.floor(8 * percLevel);
@@ -70,13 +60,15 @@ public class TESlaughterhouseBlock extends TileEntity implements ITickableTileEn
     @Override
     public void read(CompoundNBT nbt) {
         super.read(nbt);
+        System.out.println("READ");
+        System.out.println(nbt.get("target_entity"));
+        System.out.println(this.targetEntity);
         if (nbt.contains("target_entity")) {
             CompoundNBT entity = nbt.getCompound("target_entity");
-            EntityType type = EntityType.byKey(entity.getString("id")).get();
-            Entity entity1 = type.create(world);
-            this.targetEntity = (LivingEntity) entity1;
-        } else {
-            this.targetEntity = new PigEntity(EntityType.PIG, this.world);
+            if (EntityType.byKey(entity.getString("id")).isPresent()) {
+                EntityType type = EntityType.byKey(entity.getString("id")).get();
+                this.targetEntity = type;
+            }
         }
         this.maxKillCount = nbt.getInt("max_kill_count");
         this.currentKillCount = nbt.getInt("current_kill_count");
@@ -85,11 +77,10 @@ public class TESlaughterhouseBlock extends TileEntity implements ITickableTileEn
     @Override
     public CompoundNBT write(CompoundNBT nbt) {
         super.write(nbt);
+        System.out.println("WRITE");
         CompoundNBT target = new CompoundNBT();
         if (this.targetEntity != null) {
-            target.putString("id", ForgeRegistries.ENTITIES.getKey(this.targetEntity.getType()).toString());
-        } else {
-            target.putString("id", ForgeRegistries.ENTITIES.getKey(EntityType.PIG).toString());
+            target.putString("id", this.targetEntity.getRegistryName().toString());
         }
         nbt.put("target_entity", target);
         if (this.maxKillCount != 0) {
@@ -98,15 +89,17 @@ public class TESlaughterhouseBlock extends TileEntity implements ITickableTileEn
             nbt.putInt("max_kill_count", 1);
         }
         nbt.putInt("current_kill_count", this.currentKillCount);
+        System.out.println(nbt.get("target_entity"));
+        System.out.println(this.targetEntity);
         return nbt;
     }
 
     public void setTargetEntity (LivingEntity entity) {
-        this.targetEntity = entity;
+        this.targetEntity = entity.getType();
     }
 
-    public Entity getTargetEntity () {
-        return this.targetEntity == null ? EntityType.PIG.create(world) : this.targetEntity;
+    public EntityType getTargetEntity () {
+        return this.targetEntity;
     }
 
     public int getCurrentKillCount() {
@@ -115,5 +108,9 @@ public class TESlaughterhouseBlock extends TileEntity implements ITickableTileEn
 
     public int getMaxKillCount() {
         return this.maxKillCount;
+    }
+
+    public void setMaxKillCount(int count) {
+        this.maxKillCount = count;
     }
 }

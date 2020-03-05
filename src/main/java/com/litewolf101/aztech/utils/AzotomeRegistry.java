@@ -2,12 +2,10 @@ package com.litewolf101.aztech.utils;
 
 import com.litewolf101.aztech.client.gui.AzotomeScreen;
 import com.litewolf101.aztech.client.gui.buttons.ButtonAzotomeIcon;
-import com.litewolf101.aztech.client.gui.info.AzotomeIcon;
 import com.litewolf101.aztech.client.gui.info.pages.InfoPage;
 import com.litewolf101.aztech.init.ModBlocks;
 import com.litewolf101.aztech.init.ModItems;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;

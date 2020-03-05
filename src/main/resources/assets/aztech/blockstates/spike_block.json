@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "facing=up": { "model": "aztech:block/spike_block" },
+    "facing=down": { "model": "aztech:block/spike_block", "x": 180 },
+    "facing=east": { "model": "aztech:block/spike_block", "y": 90, "x": 90 },
+    "facing=south": { "model": "aztech:block/spike_block", "y": 180, "x": 90 },
+    "facing=west": { "model": "aztech:block/spike_block", "y": 270, "x": 90 },
+    "facing=north": { "model": "aztech:block/spike_block", "y": 0, "x": 90 }
+  }
+}

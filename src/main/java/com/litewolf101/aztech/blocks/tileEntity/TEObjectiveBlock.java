@@ -1,10 +1,7 @@
 package com.litewolf101.aztech.blocks.tileEntity;
 
-import com.litewolf101.aztech.blocks.ObjectiveBlock;
 import com.litewolf101.aztech.init.ModTileEntityTypes;
 import com.litewolf101.aztech.utils.TemplePuzzleBlock;
-import net.minecraft.block.FurnaceBlock;
-import net.minecraft.block.GrassPathBlock;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
@@ -19,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.litewolf101.aztech.blocks.ObjectiveBlock.ACTIVATED;
-import static net.minecraft.state.properties.BlockStateProperties.LIT;
 
 public class TEObjectiveBlock extends TileEntity implements ITickableTileEntity {
     private final List<BlockPos> linkedPos = new ArrayList<BlockPos>();
@@ -35,14 +31,14 @@ public class TEObjectiveBlock extends TileEntity implements ITickableTileEntity 
 
     @Override
     public void tick() {
-        if (!world.isRemote) {
+        if (this.world!= null && !this.world.isRemote) {
             if (this.linkedPos.isEmpty() && getBlockState() == getBlockState().with(ACTIVATED, true)) {
                 this.world.setBlockState(this.pos, this.getBlockState().with(ACTIVATED, false), 3);
 
             } else if (!this.linkedPos.isEmpty()) {
                 for (int i = 0; i < this.linkedPos.size(); ++i) {
-                    if (world.getBlockState(this.linkedPos.get(i)).getBlock() instanceof TemplePuzzleBlock) {
-                        if (((TemplePuzzleBlock) world.getBlockState(this.linkedPos.get(i)).getBlock()).getCompletionState(world.getBlockState(this.linkedPos.get(i)))) {
+                    if (this.world.getBlockState(this.linkedPos.get(i)).getBlock() instanceof TemplePuzzleBlock) {
+                        if (((TemplePuzzleBlock) this.world.getBlockState(this.linkedPos.get(i)).getBlock()).getCompletionState(this.world.getBlockState(this.linkedPos.get(i)))) {
                             ++this.completedTiles;
                         }
                     } else {
@@ -110,8 +106,8 @@ public class TEObjectiveBlock extends TileEntity implements ITickableTileEntity 
             context.getPlayer().sendMessage(new StringTextComponent("None"));
         } else {
             for (int i = 0; i < this.linkedPos.size(); ++i) {
-                if (world.getBlockState(this.linkedPos.get(i)).getBlock() instanceof TemplePuzzleBlock) {
-                    if (((TemplePuzzleBlock) world.getBlockState(this.linkedPos.get(i)).getBlock()).getCompletionState(world.getBlockState(this.linkedPos.get(i)))) {
+                if (this.world.getBlockState(this.linkedPos.get(i)).getBlock() instanceof TemplePuzzleBlock) {
+                    if (((TemplePuzzleBlock) this.world.getBlockState(this.linkedPos.get(i)).getBlock()).getCompletionState(this.world.getBlockState(this.linkedPos.get(i)))) {
                         context.getPlayer().sendMessage(new StringTextComponent(TextFormatting.AQUA + this.linkedPos.get(i).toString()));
                     } else {
                         context.getPlayer().sendMessage(new StringTextComponent(this.linkedPos.get(i).toString()));
